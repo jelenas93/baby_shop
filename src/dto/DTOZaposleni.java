@@ -70,6 +70,17 @@ public class DTOZaposleni {
     public void setIdTipZaposlenog(int idTipZaposlenog) {
         this.idTipZaposlenog = idTipZaposlenog;
     }
+
+    @Override
+    public String toString() {
+        return "DTOZaposleni{" + "idZaposlenog=" + idZaposlenog  
+                + ",Ime=" + ime 
+                + ", Prezime=" + prezime 
+                + ", JMBG=" + JMBG 
+                + ", Iznos Plate=" + iznosPlate 
+                + ", Postanski broj=" + postanskiBroj 
+                + ", idTipZaposlenog=" + idTipZaposlenog + '}';
+    }
      
     
 }

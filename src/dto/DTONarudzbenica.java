@@ -4,13 +4,13 @@ import java.util.Date;
 
 public class DTONarudzbenica {
     private int idNarudzbenice, idZaposlenog;
-    private Date darumNarudzbenice;
+    private Date datumNarudzbenice;
     private boolean isporucena;
 
-    public DTONarudzbenica(int idNarudzbenice, int idZaposlenog, Date darumNarudzbenice, boolean isporucena) {
+    public DTONarudzbenica(int idNarudzbenice, int idZaposlenog, Date datumNarudzbenice, boolean isporucena) {
         this.idNarudzbenice = idNarudzbenice;
         this.idZaposlenog = idZaposlenog;
-        this.darumNarudzbenice = darumNarudzbenice;
+        this.datumNarudzbenice = datumNarudzbenice;
         this.isporucena = isporucena;
     }
 
@@ -22,8 +22,8 @@ public class DTONarudzbenica {
         this.idZaposlenog = idZaposlenog;
     }
 
-    public void setDarumNarudzbenice(Date darumNarudzbenice) {
-        this.darumNarudzbenice = darumNarudzbenice;
+    public void setDatumNarudzbenice(Date datumNarudzbenice) {
+        this.datumNarudzbenice = datumNarudzbenice;
     }
 
     public void setIsporucena(boolean isporucena) {
@@ -38,12 +38,20 @@ public class DTONarudzbenica {
         return idZaposlenog;
     }
 
-    public Date getDarumNarudzbenice() {
-        return darumNarudzbenice;
+    public Date getDatumNarudzbenice() {
+        return datumNarudzbenice;
     }
 
     public boolean isIsporucena() {
         return isporucena;
+    }
+
+    @Override
+    public String toString() {
+        return "DTONarudzbenica{" + "idNarudzbenice=" + idNarudzbenice 
+                + ", idZaposlenog=" + idZaposlenog 
+                + ", datumNarudzbenice=" + datumNarudzbenice 
+                + ", isporucena=" + isporucena + '}';
     }
     
 }

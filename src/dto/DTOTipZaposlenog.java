@@ -24,6 +24,11 @@ public class DTOTipZaposlenog {
     public void setNazivTipa(String nazivTipa) {
         this.nazivTipa = nazivTipa;
     }
+
+    @Override
+    public String toString() {
+        return "DTOTipZaposlenog{" + "idTipaZaposlenog=" + idTipaZaposlenog + ", nazivTipa=" + nazivTipa + '}';
+    }
     
     
     

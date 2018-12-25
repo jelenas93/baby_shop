@@ -62,6 +62,16 @@ public class DTOStavka {
     public void setCijena(double cijena) {
         this.cijena = cijena;
     }
+
+    @Override
+    public String toString() {
+        return "DTOStavka{" + "idRacuna=" + idRacuna 
+                + ", idStavke=" + idStavke 
+                + ", idProizvoda=" + idProizvoda 
+                + ", kolicina=" + kolicina 
+                + ", jedinicaMjere=" + jedinicaMjere 
+                + ", cijena=" + cijena + '}';
+    }
     
     
 }
