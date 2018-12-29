@@ -1,16 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
-import com.sun.corba.se.spi.activation._ActivatorImplBase;
 import connectionpool.ConnectionPool;
 import dto.DTOKorisnickiNalog;
-import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,15 +12,11 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-/**
- *
- * @author Tijana Lakic
- */
 public class DAOKorisnickiNalog {
-        private static final String SQL_GET_KORISNICKI_NALOZI = "select * "
+     private static final String SQL_GET_KORISNICKI_NALOZI = "select * "
             + "from baby_shop.korisnicki_nalog";
 
-    public static ObservableList<DTOKorisnickiNalog> getKorisnickiNalozi() {
+    public ObservableList<DTOKorisnickiNalog> getKorisnickiNalozi() {
         Connection con = null;
         PreparedStatement ps = null;
 
@@ -84,27 +72,27 @@ public class DAOKorisnickiNalog {
             myStatement.setString(1, korisnik.getJmb());
             myStatement.execute();
         } catch (SQLException ex) {
-            Logger.getLogger(KorisnikDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOKorisnickiNalog.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         } finally {
             if (con != null) {
                 try {
                     con.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(KorisnikDAO.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(DAOKorisnickiNalog.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if (myStatement != null) {
                 try {
                     myStatement.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(KorisnikDAO.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(DAOKorisnickiNalog.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
         return true;
     }*/
-    public static boolean dodajKorisnickiNalog(String korisnickoIme, String lozinka, String tipKorisnika, 
+    public boolean dodajKorisnickiNalog(String korisnickoIme, String lozinka, String tipKorisnika, 
             int idZaposlenog, int idNaloga, boolean aktivan){
         Connection con = null;
         PreparedStatement myStatement = null;

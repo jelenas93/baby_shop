@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="777.0" prefWidth="746.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.DodavanjeProizvodaController">
+   <children>
+      <Label layoutX="54.0" layoutY="101.0" prefHeight="36.0" prefWidth="136.0" text="Izbor materijala:">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+      <JFXComboBox fx:id="materijaliComboBox" layoutX="236.0" layoutY="104.0" prefHeight="31.0" prefWidth="180.0" />
+   </children>
+</AnchorPane>

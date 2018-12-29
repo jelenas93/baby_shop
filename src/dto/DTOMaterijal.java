@@ -4,7 +4,7 @@ public class DTOMaterijal {
     private String naziv;
     private int idMaterijala;
 
-    public DTOMaterijal(String naziv, int idMaterijala) {
+    public DTOMaterijal(int idMaterijala, String naziv) {
         this.naziv = naziv;
         this.idMaterijala = idMaterijala;
     }
