@@ -19,7 +19,7 @@
          <font>
             <Font size="18.0" />
          </font></Label>
-      <JFXComboBox layoutX="200.0" layoutY="57.0" prefHeight="31.0" prefWidth="169.0" />
+      <JFXComboBox fx:id="tipProizvodaComboBox" layoutX="200.0" layoutY="57.0" prefHeight="31.0" prefWidth="169.0" />
       <JFXButton layoutX="376.0" layoutY="53.0" prefHeight="40.0" prefWidth="21.0" text=" ">
          <graphic>
             <FontAwesomeIconView glyphName="PLUS" size="30" />

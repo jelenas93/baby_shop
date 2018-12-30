@@ -1,13 +1,12 @@
 package dto;
 
 public class DTOTipProizvoda {
-    private int idTipa, idGrupe;
+    private int idTipa;
     private String nazivTipaProizvoda;
 
-    public DTOTipProizvoda(int idTipa, String nazivTipaProizvoda, int idGrupe) {
+    public DTOTipProizvoda(int idTipa, String nazivTipaProizvoda) {
         this.idTipa = idTipa;
         this.nazivTipaProizvoda = nazivTipaProizvoda;
-        this.idGrupe=idGrupe;
     }
 
     public int getIdTipa() {
@@ -16,14 +15,6 @@ public class DTOTipProizvoda {
 
     public void setIdTipa(int idTipa) {
         this.idTipa = idTipa;
-    }
-
-    public int getIdGrupe() {
-        return idGrupe;
-    }
-
-    public void setIdGrupe(int idGrupe) {
-        this.idGrupe = idGrupe;
     }
 
     public String getNazivTipaProizvoda() {

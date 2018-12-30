@@ -30,8 +30,7 @@ public class DAOTipProizvoda {
             while (rs.next()) {
                 int idTpaPorizvoda=rs.getInt(1);
                 String nazivTipaProizvoda=rs.getString(2);
-                int idGrupe=rs.getInt(3);
-                tipoviProizvoda.add(new DTOTipProizvoda(idTpaPorizvoda, nazivTipaProizvoda, idGrupe));
+                tipoviProizvoda.add(new DTOTipProizvoda(idTpaPorizvoda, nazivTipaProizvoda));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAOTipProizvoda.class.getName()).log(Level.SEVERE, null, ex);
