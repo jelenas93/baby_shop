@@ -2,8 +2,8 @@ package dto;
 
 public class DTOProizvod {
     
-    private int idProizvoda, kolicina, idKalkulacije, idSkladista, idGrupe;
-    private String barkod, sifra, naziv, opis, proizvodjac, JIBProizvodjaca, tipProizvoda;
+    private int idProizvoda, idTipProizvoda, kolicina, idGrupe;
+    private String barkod, sifra, naziv, JIBProizvodjaca, godisnjeDoba;
     private double cijena;
     //osobine
     private char pol;
@@ -11,19 +11,15 @@ public class DTOProizvod {
     private String boja;
     private double duzina, sirina, visina;
 
-    public DTOProizvod(int idProizvoda, int kolicina, int idKalkulacije, int idSkladista, int idGrupe, String barkod, String sifra, String naziv, String opis, String proizvodjac, String JIBProizvodjaca, String tipProizvoda, double cijena, char pol, int uzrast, int velicina, String boja, double duzina, double sirina, double visina) {
+    public DTOProizvod(int idProizvoda, String barkod, String sifra, String naziv, int kolicina, double cijena, String JIBProizvodjaca, int idTipProizvoda, int idGrupe, char pol, int uzrast, String boja, int velicina, double duzina, double sirina, double visina, String godisnjeDoba) {
         this.idProizvoda = idProizvoda;
         this.kolicina = kolicina;
-        this.idKalkulacije = idKalkulacije;
-        this.idSkladista = idSkladista;
         this.idGrupe = idGrupe;
         this.barkod = barkod;
         this.sifra = sifra;
         this.naziv = naziv;
-        this.opis = opis;
-        this.proizvodjac = proizvodjac;
+        this.idTipProizvoda=idTipProizvoda;
         this.JIBProizvodjaca = JIBProizvodjaca;
-        this.tipProizvoda = tipProizvoda;
         this.cijena = cijena;
         this.pol = pol;
         this.uzrast = uzrast;
@@ -32,14 +28,7 @@ public class DTOProizvod {
         this.duzina = duzina;
         this.sirina = sirina;
         this.visina = visina;
-    }
-
-    public String getTipProizvoda() {
-        return tipProizvoda;
-    }
-
-    public void setTipProizvoda(String tipProizvoda) {
-        this.tipProizvoda = tipProizvoda;
+        this.godisnjeDoba=godisnjeDoba;
     }
 
     public void setIdProizvoda(int idProizvoda) {
@@ -48,14 +37,6 @@ public class DTOProizvod {
 
     public void setKolicina(int kolicina) {
         this.kolicina = kolicina;
-    }
-
-    public void setIdKalkulacije(int idKalkulacije) {
-        this.idKalkulacije = idKalkulacije;
-    }
-
-    public void setIdSkladista(int idSkladista) {
-        this.idSkladista = idSkladista;
     }
 
     public void setIdGrupe(int idGrupe) {
@@ -72,14 +53,6 @@ public class DTOProizvod {
 
     public void setNaziv(String naziv) {
         this.naziv = naziv;
-    }
-
-    public void setOpis(String opis) {
-        this.opis = opis;
-    }
-
-    public void setProizvodjac(String proizvodjac) {
-        this.proizvodjac = proizvodjac;
     }
 
     public void setJIBProizvodjaca(String JIBProizvodjaca) {
@@ -125,15 +98,7 @@ public class DTOProizvod {
     public int getKolicina() {
         return kolicina;
     }
-
-    public int getIdKalkulacije() {
-        return idKalkulacije;
-    }
-
-    public int getIdSkladista() {
-        return idSkladista;
-    }
-
+    
     public int getIdGrupe() {
         return idGrupe;
     }
@@ -148,14 +113,6 @@ public class DTOProizvod {
 
     public String getNaziv() {
         return naziv;
-    }
-
-    public String getOpis() {
-        return opis;
-    }
-
-    public String getProizvodjac() {
-        return proizvodjac;
     }
 
     public String getJIBProizvodjaca() {
@@ -193,8 +150,20 @@ public class DTOProizvod {
     public double getVisina() {
         return visina;
     }
-    
-    
-    
-    
+
+    public int getIdTipProizvoda() {
+        return idTipProizvoda;
+    }
+
+    public void setIdTipProizvoda(int idTipProizvoda) {
+        this.idTipProizvoda = idTipProizvoda;
+    }
+
+    public String getGodisnjeDoba() {
+        return godisnjeDoba;
+    }
+
+    public void setGodisnjeDoba(String godisnjeDoba) {
+        this.godisnjeDoba = godisnjeDoba;
+    }
 }
