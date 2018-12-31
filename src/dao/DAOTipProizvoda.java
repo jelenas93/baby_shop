@@ -15,9 +15,7 @@ import javafx.collections.ObservableList;
 public class DAOTipProizvoda {
    
     public static String SQL_GET_TIP_PROIZVODA="select * from baby_shop.tip_proizvoda";
-    
-   // public static String SQL_SET_TIP_PROIZVODA="insert into baby_shop.tio_proizvoda"
-   
+      
     public ObservableList<DTOTipProizvoda> getTipoveProizvoda() {
         Connection con = null;
         PreparedStatement ps = null;
@@ -57,7 +55,7 @@ public class DAOTipProizvoda {
         return FXCollections.observableArrayList(tipoviProizvoda);
     }
     
-    public boolean upisUBazu(/*DTOTipProizvoda*/ String proizvod){
+    public boolean upisUBazu(String proizvod){
        
         Connection con = null;
         PreparedStatement myStatement = null;
@@ -67,7 +65,6 @@ public class DAOTipProizvoda {
             myStatement.setString(1, proizvod);
             myStatement.execute();
         } catch (SQLException ex) {
-            System.out.println(ex);
             Logger.getLogger(DAOKorisnickiNalog.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         } finally {
