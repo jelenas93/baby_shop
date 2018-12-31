@@ -5,11 +5,18 @@ import dao.DAOMaterijal;
 import dao.DAOTipProizvoda;
 import dto.DTOMaterijal;
 import dto.DTOTipProizvoda;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 public class DodavanjeProizvodaController implements Initializable {
 
@@ -45,4 +52,13 @@ public class DodavanjeProizvodaController implements Initializable {
 
     }
 
+    public void dodajTipStisak(ActionEvent event) throws IOException {
+        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosNovogTipa.fxml"));
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene korisnikScena = new Scene(korisnikView);
+        window.resizableProperty().setValue(Boolean.FALSE);
+        window.setScene(korisnikScena);
+        window.centerOnScreen();
+        window.show();
+    }
 }
