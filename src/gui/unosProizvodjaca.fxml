@@ -6,18 +6,20 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.UnosProizvodjacaController">
    <children>
       <GridPane layoutX="80.0" layoutY="60.0" prefHeight="267.0" prefWidth="438.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -26,17 +28,65 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="JIBProizvođača:" />
-            <Label text="Naziv:" GridPane.rowIndex="1" />
-            <Label text="Mjesto:" GridPane.rowIndex="2" />
-            <JFXTextField fx:id="JIBProizvodjacaTextField" GridPane.columnIndex="1" />
-            <JFXTextField fx:id="nazivTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="JIBProizvođača:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="20.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding></Label>
+            <Label text="Naziv:" GridPane.rowIndex="1">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="20.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding></Label>
+            <Label text="Mjesto:" GridPane.rowIndex="2">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="20.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding></Label>
+            <JFXTextField fx:id="JIBProizvodjacaTextField" alignment="CENTER" GridPane.columnIndex="1">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+               <font>
+                  <Font size="18.0" />
+               </font></JFXTextField>
+            <JFXTextField fx:id="nazivTextField" alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+               <font>
+                  <Font size="18.0" />
+               </font></JFXTextField>
             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
                   <JFXComboBox fx:id="mjestoComboBox" prefHeight="39.0" prefWidth="180.0">
                      <HBox.margin>
-                        <Insets bottom="10.0" right="10.0" top="10.0" />
+                        <Insets bottom="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
                   </JFXComboBox>
                   <JFXButton fx:id="dodajMjestoButton" alignment="CENTER" contentDisplay="CENTER" onAction="#dodajMjesto" prefHeight="40.0" prefWidth="0.0" text=" ">
                      <graphic>
@@ -45,11 +95,35 @@
                      <HBox.margin>
                         <Insets bottom="10.0" left="10.0" top="10.0" />
                      </HBox.margin>
+                     <tooltip>
+                        <Tooltip text="Dodajte novo mjesto" />
+                     </tooltip>
                   </JFXButton>
                </children>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
             </HBox>
-            <JFXButton fx:id="sacuvajButton" onAction="#sacuvajStisak" text="Sačuvaj" GridPane.rowIndex="3" />
-            <JFXButton fx:id="otkaziButton" onAction="#otkaziStisak" text="Otkaži" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <JFXButton fx:id="sacuvajButton" onAction="#sacuvajStisak" text="Sačuvaj" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <font>
+                  <Font size="22.0" />
+               </font></JFXButton>
+            <JFXButton fx:id="otkaziButton" onAction="#otkaziStisak" text="Otkaži" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <font>
+                  <Font size="22.0" />
+               </font></JFXButton>
          </children>
       </GridPane>
    </children>

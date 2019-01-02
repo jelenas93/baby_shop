@@ -59,7 +59,7 @@ public class UnosGrupaProizvodController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+     
     }
 
     public void otkaziStisak(ActionEvent event) throws IOException {

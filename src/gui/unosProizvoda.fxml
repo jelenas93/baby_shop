@@ -6,6 +6,7 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
@@ -141,13 +142,16 @@
                                  <HBox.margin>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </HBox.margin>
+                                 <tooltip>
+                                    <Tooltip text="Dodajte novi tip proizvoda" />
+                                 </tooltip>
                               </JFXButton>
                            </children>
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
                         </HBox>
-                        <JFXTextField fx:id="nazivProizvodaTextField" focusColor="BLACK">
+                        <JFXTextField fx:id="nazivProizvodaTextField" alignment="CENTER" focusColor="BLACK">
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
@@ -158,7 +162,7 @@
                               <Font size="18.0" />
                            </font>
                         </JFXTextField>
-                        <JFXTextField fx:id="barkodTextField" focusColor="BLACK">
+                        <JFXTextField fx:id="barkodTextField" alignment="CENTER" focusColor="BLACK">
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
@@ -169,7 +173,7 @@
                               <Font size="18.0" />
                            </font>
                         </JFXTextField>
-                        <JFXTextField fx:id="sifraTextField" focusColor="BLACK">
+                        <JFXTextField fx:id="sifraTextField" alignment="CENTER" focusColor="BLACK">
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
@@ -180,7 +184,7 @@
                               <Font size="18.0" />
                            </font>
                         </JFXTextField>
-                        <JFXTextField fx:id="kolicinaTextField" focusColor="BLACK">
+                        <JFXTextField fx:id="kolicinaTextField" alignment="CENTER" focusColor="BLACK">
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
@@ -191,7 +195,7 @@
                               <Font size="18.0" />
                            </font>
                         </JFXTextField>
-                        <JFXTextField fx:id="cijena" focusColor="BLACK">
+                        <JFXTextField fx:id="cijena" alignment="CENTER" focusColor="BLACK">
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
@@ -208,11 +212,17 @@
                                  <padding>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </HBox.margin>
                               </JFXComboBox>
                               <JFXButton onAction="#dodajProizvodjaca" text=" ">
                                  <graphic>
                                     <FontAwesomeIconView glyphName="PLUS" size="30" />
                                  </graphic>
+                                 <tooltip>
+                                    <Tooltip text="Dodajte novog proizvodjača" />
+                                 </tooltip>
                               </JFXButton>
                            </children>
                         </HBox>
@@ -243,5 +253,7 @@
             </HBox>
          </children>
       </VBox>
+      <JFXButton layoutX="425.0" layoutY="791.0" text="Sačuvaj" />
+      <JFXButton layoutX="629.0" layoutY="791.0" text="Otkaži" />
    </children>
 </AnchorPane>

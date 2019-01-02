@@ -13,9 +13,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class DAOProizvodjac {
-    
-    public final String SQL_GET_PROIZVODJAC="select * from baby_shop.proizvodjac";
-   
+
+    public final String SQL_GET_PROIZVODJAC = "select * from baby_shop.proizvodjac";
+
     public ObservableList<DTOProizvodjac> getProizvodjace() {
         Connection con = null;
         PreparedStatement ps = null;
@@ -29,9 +29,9 @@ public class DAOProizvodjac {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                String JIBProizvodjaca=rs.getString(1);
-                String nazivProizvodjaca=rs.getString(2);
-                int postanskiBroj=rs.getInt(3);
+                String JIBProizvodjaca = rs.getString(1);
+                String nazivProizvodjaca = rs.getString(2);
+                int postanskiBroj = rs.getInt(3);
                 proizvodjaci.add(new DTOProizvodjac(JIBProizvodjaca, nazivProizvodjaca, postanskiBroj));
             }
         } catch (SQLException ex) {
@@ -58,9 +58,9 @@ public class DAOProizvodjac {
 
         return FXCollections.observableArrayList(proizvodjaci);
     }
-    
-    public boolean upisUBazuProizvodjaca(String JIBProizvodjaca, String naziv, int postanskiBroj){
-       
+
+    public boolean upisUBazuProizvodjaca(String JIBProizvodjaca, String naziv, int postanskiBroj) {
+
         Connection con = null;
         PreparedStatement myStatement = null;
         try {

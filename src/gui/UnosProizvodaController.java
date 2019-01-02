@@ -3,8 +3,10 @@ package gui;
 import com.jfoenix.controls.JFXComboBox;
 import dao.DAOMaterijal;
 import dao.DAOGrupaProizvod;
+import dao.DAOProizvodjac;
 import dto.DTOMaterijal;
 import dto.DTOProizvodGrupa;
+import dto.DTOProizvodjac;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -22,9 +24,12 @@ public class UnosProizvodaController implements Initializable {
 
     @FXML
     private JFXComboBox<String> materijaliComboBox;
-    
+
     @FXML
     private JFXComboBox<String> tipProizvodaComboBox;
+
+    @FXML
+    private JFXComboBox<String> JIBProizvodjacaComboBox;
 
     private void popuniMaterijale() {
         DAOMaterijal daoMaterijal = new DAOMaterijal();
@@ -34,12 +39,20 @@ public class UnosProizvodaController implements Initializable {
             materijaliComboBox.getItems().add(listaMaterijala.get(i).getNaziv());
         }
     }
-    
+
+    private void popuniProizvodjace() {
+        DAOProizvodjac dAOProizvodjac = new DAOProizvodjac();
+        ObservableList<DTOProizvodjac> listaProizvodjaca;
+        listaProizvodjaca = dAOProizvodjac.getProizvodjace();
+        for (int i = 0; i < listaProizvodjaca.size(); i++) {
+            JIBProizvodjacaComboBox.getItems().add(listaProizvodjaca.get(i).getNaziv() + ", " + listaProizvodjaca.get(i).getJIBProizvodjaca());
+        }
+    }
+
     private void popuniProizvode() {
-        DAOGrupaProizvod daoTip=new DAOGrupaProizvod();
+        DAOGrupaProizvod daoTip = new DAOGrupaProizvod();
         ObservableList<DTOProizvodGrupa> listaProizvoda;
         listaProizvoda = daoTip.getGrupeProizvoda();
-        System.out.println(listaProizvoda.size());
         for (int i = 0; i < listaProizvoda.size(); i++) {
             tipProizvodaComboBox.getItems().add(listaProizvoda.get(i).getNazivTipaProizvoda());
         }
@@ -49,10 +62,11 @@ public class UnosProizvodaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         popuniMaterijale();
         popuniProizvode();
+        popuniProizvodjace();
 
     }
-    
-     public void dodajProizvodjaca(ActionEvent event) throws IOException{
+
+    public void dodajProizvodjaca(ActionEvent event) throws IOException {
         Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosProizvodjaca.fxml"));
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene korisnikScena = new Scene(korisnikView);
@@ -63,7 +77,7 @@ public class UnosProizvodaController implements Initializable {
     }
 
     public void dodajTipStisak(ActionEvent event) throws IOException {
-        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosNovogTipa.fxml"));
+        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosGrupaProizvod.fxml"));
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene korisnikScena = new Scene(korisnikView);
         window.resizableProperty().setValue(Boolean.FALSE);

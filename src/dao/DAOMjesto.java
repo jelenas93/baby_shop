@@ -13,15 +13,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class DAOMjesto {
-    
-    private final String SQL_GET_MJESTO="select * from baby_shop.mjesto";
-    
+
+    private final String SQL_GET_MJESTO = "select * from baby_shop.mjesto";
+
     public ObservableList<DTOMjesto> getMjesto() {
         Connection con = null;
-         PreparedStatement ps = null;
+        PreparedStatement ps = null;
 
-         ResultSet rs = null;
-         ArrayList<DTOMjesto> mjesta = new ArrayList<>();
+        ResultSet rs = null;
+        ArrayList<DTOMjesto> mjesta = new ArrayList<>();
 
         try {
             con = ConnectionPool.getInstance().checkOut();
@@ -29,10 +29,10 @@ public class DAOMjesto {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                int postanskiBroj=rs.getInt(1);
-                String naziv=rs.getString(2);
-                String opstina=rs.getString(3);
-                String drzava=rs.getString(4);
+                int postanskiBroj = rs.getInt(1);
+                String naziv = rs.getString(2);
+                String opstina = rs.getString(3);
+                String drzava = rs.getString(4);
                 mjesta.add(new DTOMjesto(postanskiBroj, naziv, opstina, drzava));
             }
         } catch (SQLException ex) {
@@ -59,9 +59,9 @@ public class DAOMjesto {
 
         return FXCollections.observableArrayList(mjesta);
     }
-     
-    public boolean upisUBazuMjesta(int postanskiBroj, String naziv, String opstina, String drzava){
-       
+
+    public boolean upisUBazuMjesta(int postanskiBroj, String naziv, String opstina, String drzava) {
+
         Connection con = null;
         PreparedStatement myStatement = null;
         try {
@@ -95,5 +95,5 @@ public class DAOMjesto {
         }
         return true;
     }
-    
+
 }
