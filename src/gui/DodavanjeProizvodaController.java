@@ -2,7 +2,7 @@ package gui;
 
 import com.jfoenix.controls.JFXComboBox;
 import dao.DAOMaterijal;
-import dao.DAOProizvodGrupa;
+import dao.DAOGrupaProizvod;
 import dto.DTOMaterijal;
 import dto.DTOProizvodGrupa;
 import java.io.IOException;
@@ -36,7 +36,7 @@ public class DodavanjeProizvodaController implements Initializable {
     }
     
     private void popuniProizvode() {
-        DAOProizvodGrupa daoTip=new DAOProizvodGrupa();
+        DAOGrupaProizvod daoTip=new DAOGrupaProizvod();
         ObservableList<DTOProizvodGrupa> listaProizvoda;
         listaProizvoda = daoTip.getGrupeProizvoda();
         System.out.println(listaProizvoda.size());

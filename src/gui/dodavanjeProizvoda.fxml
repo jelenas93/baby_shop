@@ -147,17 +147,6 @@
                               <Insets />
                            </VBox.margin>
                         </HBox>
-                        <JFXTextField fx:id="JIBProizvodjacaTextField" focusColor="BLACK">
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </VBox.margin>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </JFXTextField>
                         <JFXTextField fx:id="nazivProizvodaTextField" focusColor="BLACK">
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -213,6 +202,20 @@
                               <Font size="18.0" />
                            </font>
                         </JFXTextField>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <JFXComboBox fx:id="JIBProizvodjacaComboBox" prefHeight="41.0" prefWidth="250.0">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </JFXComboBox>
+                              <JFXButton text=" ">
+                                 <graphic>
+                                    <FontAwesomeIconView glyphName="PLUS" size="30" />
+                                 </graphic>
+                              </JFXButton>
+                           </children>
+                        </HBox>
                         <JFXComboBox fx:id="materijaliComboBox" prefHeight="41.0" prefWidth="288.0">
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

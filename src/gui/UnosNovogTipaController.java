@@ -4,7 +4,7 @@ import babyshop.AlertHelper;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
-import dao.DAOProizvodGrupa;
+import dao.DAOGrupaProizvod;
 import dto.DTOProizvodGrupa;
 import java.io.IOException;
 import java.net.URL;
@@ -80,11 +80,7 @@ public class UnosNovogTipaController implements Initializable {
             if (provjeraTipaDaLiPostoji(tipProizvodaTextField.getText())) {
                 AlertHelper.showAlert(Alert.AlertType.INFORMATION, "", "Izabrani tip proizvoda vec postoji !");
             } else {
-            /*    
-                System.out.println("Boja"+bojaCheckBox.isSelected());
-                 System.out.println("Doba"+godisnjeDobaCheckBox.isSelected());
-               */ 
-                DAOProizvodGrupa daogrupa = new DAOProizvodGrupa();
+                DAOGrupaProizvod daogrupa = new DAOGrupaProizvod();
                 if (!daogrupa.upisUBazuGrupu(tipProizvodaTextField.getText().toUpperCase(),
                         duzinaCheckBox.isSelected(), sirinaCheckBox.isSelected(),
                         visinaCheckBox.isIndeterminate(), velicinaCheckBox.isSelected(),
@@ -106,7 +102,7 @@ public class UnosNovogTipaController implements Initializable {
 
     private boolean provjeraTipaDaLiPostoji(String ime) {
 
-        DAOProizvodGrupa daoTip = new DAOProizvodGrupa();
+        DAOGrupaProizvod daoTip = new DAOGrupaProizvod();
         ObservableList<DTOProizvodGrupa> listaProizvoda;
         listaProizvoda = daoTip.getGrupeProizvoda();
         List<String> tipovi = new ArrayList<>();

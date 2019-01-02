@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 
-public class DAOProizvodGrupa {
+public class DAOGrupaProizvod {
 
     public final String SQL_GET_PROIZVOD_GRUPA="select * from baby_shop.proizvod_grupa";
     
@@ -40,7 +40,7 @@ public class DAOProizvodGrupa {
                 duzina,sirina,visina, velicina, uzrast,pol,boja,godisnjeDoba));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(DAOProizvodGrupa.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOGrupaProizvod.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (con != null) {
                 ConnectionPool.getInstance().checkIn(con);
@@ -49,14 +49,14 @@ public class DAOProizvodGrupa {
                 try {
                     ps.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(DAOProizvodGrupa.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(DAOGrupaProizvod.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if (rs != null) {
                 try {
                     rs.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(DAOProizvodGrupa.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(DAOGrupaProizvod.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -75,7 +75,7 @@ public class DAOProizvodGrupa {
             rs = ps.executeQuery();
             idGrupe=rs.getInt(1);
         } catch (SQLException ex) {
-            Logger.getLogger(DAOProizvodGrupa.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOGrupaProizvod.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (con != null) {
                 ConnectionPool.getInstance().checkIn(con);
@@ -84,14 +84,14 @@ public class DAOProizvodGrupa {
                 try {
                     ps.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(DAOProizvodGrupa.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(DAOGrupaProizvod.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if (rs != null) {
                 try {
                     rs.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(DAOProizvodGrupa.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(DAOGrupaProizvod.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -122,21 +122,21 @@ public class DAOProizvodGrupa {
             myStatement.setBoolean(9,godisnjeDoba);
             myStatement.execute();
         } catch (SQLException ex) {
-            Logger.getLogger(DAOProizvodGrupa.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOGrupaProizvod.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         } finally {
             if (con != null) {
                 try {
                     con.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(DAOProizvodGrupa.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(DAOGrupaProizvod.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if (myStatement != null) {
                 try {
                     myStatement.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(DAOProizvodGrupa.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(DAOGrupaProizvod.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
