@@ -8,251 +8,232 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="852.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.UnosProizvodaController">
    <children>
-      <VBox layoutX="72.0" layoutY="123.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
+      <GridPane layoutX="325.0" layoutY="546.0" prefHeight="385.0" prefWidth="790.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
+        <columnConstraints>
+          <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" minWidth="10.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="0.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <HBox prefHeight="329.0" prefWidth="551.0">
-               <children>
-                  <Region HBox.hgrow="ALWAYS" />
-                  <VBox prefHeight="349.0" prefWidth="306.0">
-                     <children>
-                        <Label text="Tip proizvoda:">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="15.0" />
-                           </VBox.margin>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </Label>
-                        <Label text="Naziv proizvoda:">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </VBox.margin>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </Label>
-                        <Label text="Barkod:">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </VBox.margin>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </Label>
-                        <Label text="Sifra:">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </VBox.margin>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </Label>
-                        <Label text="Kolicina:">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </VBox.margin>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </Label>
-                        <Label text="Cijena:">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </VBox.margin>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </Label>
-                        <Label text="JIB Proizvodjaca:">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </VBox.margin>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </Label>
-                        <Label prefHeight="37.0" prefWidth="173.0" text="Izbor materijala:">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </VBox.margin>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </Label>
-                     </children>
-                     <HBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </HBox.margin>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </VBox>
-                  <Region prefHeight="426.0" prefWidth="88.0" HBox.hgrow="ALWAYS" />
-                  <VBox prefHeight="349.0" prefWidth="320.0">
-                     <children>
-                        <HBox>
-                           <children>
-                              <JFXComboBox fx:id="tipProizvodaComboBox" prefHeight="41.0" prefWidth="251.0">
-                                 <HBox.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </HBox.margin>
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding>
-                              </JFXComboBox>
-                              <Region />
-                              <JFXButton onAction="#dodajTipStisak" prefHeight="40.0" prefWidth="21.0" text=" ">
-                                 <graphic>
-                                    <FontAwesomeIconView glyphName="PLUS" size="30" />
-                                 </graphic>
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding>
-                                 <HBox.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </HBox.margin>
-                                 <tooltip>
-                                    <Tooltip text="Dodajte novi tip proizvoda" />
-                                 </tooltip>
-                              </JFXButton>
-                           </children>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </HBox>
-                        <JFXTextField fx:id="nazivProizvodaTextField" alignment="CENTER" focusColor="BLACK">
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </VBox.margin>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </JFXTextField>
-                        <JFXTextField fx:id="barkodTextField" alignment="CENTER" focusColor="BLACK">
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </VBox.margin>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </JFXTextField>
-                        <JFXTextField fx:id="sifraTextField" alignment="CENTER" focusColor="BLACK">
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </VBox.margin>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </JFXTextField>
-                        <JFXTextField fx:id="kolicinaTextField" alignment="CENTER" focusColor="BLACK">
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </VBox.margin>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </JFXTextField>
-                        <JFXTextField fx:id="cijena" alignment="CENTER" focusColor="BLACK">
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </VBox.margin>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </JFXTextField>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <JFXComboBox fx:id="JIBProizvodjacaComboBox" prefHeight="41.0" prefWidth="250.0">
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding>
-                                 <HBox.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </HBox.margin>
-                              </JFXComboBox>
-                              <JFXButton onAction="#dodajProizvodjaca" text=" ">
-                                 <graphic>
-                                    <FontAwesomeIconView glyphName="PLUS" size="30" />
-                                 </graphic>
-                                 <tooltip>
-                                    <Tooltip text="Dodajte novog proizvodjača" />
-                                 </tooltip>
-                              </JFXButton>
-                           </children>
-                        </HBox>
-                        <JFXComboBox fx:id="materijaliComboBox" prefHeight="41.0" prefWidth="288.0">
-                           <VBox.margin>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </VBox.margin>
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </JFXComboBox>
-                     </children>
-                     <HBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </HBox.margin>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </VBox>
-                  <Region HBox.hgrow="ALWAYS" />
-               </children>
+            <Label text="Tip proizvoda:">
+               <font>
+                  <Font size="18.0" />
+               </font>
                <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="70.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Naziv proizvoda:" GridPane.rowIndex="1">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="70.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Barkod:" GridPane.rowIndex="2">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="70.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+            </Label>
+            <HBox GridPane.columnIndex="1">
+               <children>
+                  <JFXComboBox fx:id="tipProizvodaComboBox">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </JFXComboBox>
+                  <JFXButton onAction="#dodajTipStisak" text=" " HBox.hgrow="ALWAYS">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="PLUS" size="30" />
+                     </graphic>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                     <tooltip>
+                        <Tooltip text="Dodajte novi tip proizvoda" />
+                     </tooltip>
+                  </JFXButton>
+               </children>
             </HBox>
+            <JFXTextField fx:id="nazivProizvodaTextField" alignment="CENTER" focusColor="BLACK" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
+               </GridPane.margin>
+            </JFXTextField>
+            <JFXTextField fx:id="barkodTextField" alignment="CENTER" focusColor="BLACK" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
+               </GridPane.margin>
+            </JFXTextField>
+            <Label text="Sifra:" GridPane.rowIndex="3">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="70.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+            </Label>
+            <JFXTextField fx:id="sifraTextField" alignment="CENTER" focusColor="BLACK" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
+               </GridPane.margin>
+            </JFXTextField>
+            <Label text="Kolicina:" GridPane.rowIndex="4">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="70.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+            </Label>
+            <JFXTextField fx:id="kolicinaTextField" alignment="CENTER" focusColor="BLACK" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
+               </GridPane.margin>
+            </JFXTextField>
+            <Label text="Cijena:" GridPane.rowIndex="5">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="70.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+            </Label>
+            <JFXTextField fx:id="cijenaTextField" alignment="CENTER" focusColor="BLACK" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
+               </GridPane.margin>
+            </JFXTextField>
+            <Label text="JIB Proizvodjaca:" GridPane.rowIndex="6">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="70.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+            </Label>
+            <HBox prefHeight="51.0" prefWidth="131.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+               <children>
+                  <JFXComboBox fx:id="JIBProizvodjacaComboBox">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </JFXComboBox>
+                  <JFXButton onAction="#dodajProizvodjaca" text=" ">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="PLUS" size="30" />
+                     </graphic>
+                     <tooltip>
+                        <Tooltip text="Dodajte novog proizvodjača" />
+                     </tooltip>
+                  </JFXButton>
+               </children>
+            </HBox>
+            <Label prefHeight="37.0" prefWidth="173.0" text="Izbor materijala:" GridPane.rowIndex="7">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="70.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+            </Label>
+            <JFXComboBox fx:id="materijaliComboBox" prefHeight="41.0" prefWidth="196.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
+               </GridPane.margin>
+            </JFXComboBox>
          </children>
-      </VBox>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </GridPane>
       <JFXButton layoutX="425.0" layoutY="791.0" text="Sačuvaj" />
       <JFXButton layoutX="629.0" layoutY="791.0" text="Otkaži" />
    </children>
