@@ -2,9 +2,9 @@ package gui;
 
 import com.jfoenix.controls.JFXComboBox;
 import dao.DAOMaterijal;
-import dao.DAOTipProizvoda;
+import dao.DAOProizvodGrupa;
 import dto.DTOMaterijal;
-import dto.DTOTipProizvoda;
+import dto.DTOProizvodGrupa;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -36,9 +36,9 @@ public class DodavanjeProizvodaController implements Initializable {
     }
     
     private void popuniProizvode() {
-        DAOTipProizvoda daoTip=new DAOTipProizvoda();
-        ObservableList<DTOTipProizvoda> listaProizvoda;
-        listaProizvoda = daoTip.getTipoveProizvoda();  
+        DAOProizvodGrupa daoTip=new DAOProizvodGrupa();
+        ObservableList<DTOProizvodGrupa> listaProizvoda;
+        listaProizvoda = daoTip.getGrupeProizvoda();
         System.out.println(listaProizvoda.size());
         for (int i = 0; i < listaProizvoda.size(); i++) {
             tipProizvodaComboBox.getItems().add(listaProizvoda.get(i).getNazivTipaProizvoda());

@@ -4,8 +4,8 @@ import babyshop.AlertHelper;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
-import dao.DAOTipProizvoda;
-import dto.DTOTipProizvoda;
+import dao.DAOProizvodGrupa;
+import dto.DTOProizvodGrupa;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -43,6 +43,9 @@ public class UnosNovogTipaController implements Initializable {
     private JFXCheckBox visinaCheckBox;
 
     @FXML
+    private JFXCheckBox bojaCheckBox;
+
+    @FXML
     private JFXCheckBox godisnjeDobaCheckBox;
 
     @FXML
@@ -77,30 +80,35 @@ public class UnosNovogTipaController implements Initializable {
             if (provjeraTipaDaLiPostoji(tipProizvodaTextField.getText())) {
                 AlertHelper.showAlert(Alert.AlertType.INFORMATION, "", "Izabrani tip proizvoda vec postoji !");
             } else {
-                DAOTipProizvoda daoTip=new DAOTipProizvoda();
-              //  DTOTipProizvoda dtoTip=new DTOTipProizvoda(0, tipProizvodaTextField.getText().toUpperCase());
-            //    dtoTip.setNazivTipaProizvoda(tipProizvodaTextField.getText().toUpperCase());
-              //  System.out.println(dtoTip.getNazivTipaProizvoda());
-                if(daoTip.upisUBazu(tipProizvodaTextField.getText().toUpperCase())){
-                    AlertHelper.showAlert(Alert.AlertType.INFORMATION, "", "Super !");
-                }
-                
-                Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/dodavanjeProizvoda.fxml"));
-                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                Scene korisnikScena = new Scene(korisnikView);
-                window.resizableProperty().setValue(Boolean.FALSE);
-                window.setScene(korisnikScena);
-                window.centerOnScreen();
-                window.show();
+            /*    
+                System.out.println("Boja"+bojaCheckBox.isSelected());
+                 System.out.println("Doba"+godisnjeDobaCheckBox.isSelected());
+               */ 
+                DAOProizvodGrupa daogrupa = new DAOProizvodGrupa();
+                if (!daogrupa.upisUBazuGrupu(tipProizvodaTextField.getText().toUpperCase(),
+                        duzinaCheckBox.isSelected(), sirinaCheckBox.isSelected(),
+                        visinaCheckBox.isIndeterminate(), velicinaCheckBox.isSelected(),
+                        uzrastCheckBox.isSelected(), polCheckBox.isSelected(),
+                        bojaCheckBox.isSelected(), godisnjeDobaCheckBox.isSelected())) {
+                    AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greska prilikom upisa grupe u bazu !");
+                } else {
+                    Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/dodavanjeProizvoda.fxml"));
+                    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    Scene korisnikScena = new Scene(korisnikView);
+                    window.resizableProperty().setValue(Boolean.FALSE);
+                    window.setScene(korisnikScena);
+                    window.centerOnScreen();
+                    window.show();
+               }
             }
         }
     }
 
     private boolean provjeraTipaDaLiPostoji(String ime) {
 
-        DAOTipProizvoda daoTip = new DAOTipProizvoda();
-        ObservableList<DTOTipProizvoda> listaProizvoda;
-        listaProizvoda = daoTip.getTipoveProizvoda();
+        DAOProizvodGrupa daoTip = new DAOProizvodGrupa();
+        ObservableList<DTOProizvodGrupa> listaProizvoda;
+        listaProizvoda = daoTip.getGrupeProizvoda();
         List<String> tipovi = new ArrayList<>();
         for (int i = 0; i < listaProizvoda.size(); i++) {
             tipovi.add(listaProizvoda.get(i).getNazivTipaProizvoda());
