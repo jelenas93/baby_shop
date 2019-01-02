@@ -209,7 +209,7 @@
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
                               </JFXComboBox>
-                              <JFXButton text=" ">
+                              <JFXButton onAction="#dodajProizvodjaca" text=" ">
                                  <graphic>
                                     <FontAwesomeIconView glyphName="PLUS" size="30" />
                                  </graphic>

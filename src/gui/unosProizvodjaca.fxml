@@ -12,8 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="gui.UnosProizvodjacaController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.UnosProizvodjacaController">
    <children>
       <GridPane layoutX="80.0" layoutY="60.0" prefHeight="267.0" prefWidth="438.0">
         <columnConstraints>
@@ -34,12 +33,12 @@
             <JFXTextField fx:id="nazivTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
-                  <JFXComboBox fx:id="mjestoComboBox" prefHeight="39.0" prefWidth="165.0">
+                  <JFXComboBox fx:id="mjestoComboBox" prefHeight="39.0" prefWidth="180.0">
                      <HBox.margin>
-                        <Insets bottom="10.0" top="10.0" />
+                        <Insets bottom="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
                   </JFXComboBox>
-                  <JFXButton fx:id="dodajMjestoButton" alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="0.0" text=" ">
+                  <JFXButton fx:id="dodajMjestoButton" alignment="CENTER" contentDisplay="CENTER" onAction="#dodajMjesto" prefHeight="40.0" prefWidth="0.0" text=" ">
                      <graphic>
                         <FontAwesomeIconView glyphName="PLUS" size="30" />
                      </graphic>
@@ -49,8 +48,8 @@
                   </JFXButton>
                </children>
             </HBox>
-            <JFXButton fx:id="sacuvajButton" text="Sačuvaj" GridPane.rowIndex="3" />
-            <JFXButton fx:id="otkaziButton" text="Otkaži" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <JFXButton fx:id="sacuvajButton" onAction="#sacuvajStisak" text="Sačuvaj" GridPane.rowIndex="3" />
+            <JFXButton fx:id="otkaziButton" onAction="#otkaziStisak" text="Otkaži" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
    </children>

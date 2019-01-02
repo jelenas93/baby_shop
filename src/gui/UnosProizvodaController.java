@@ -51,6 +51,16 @@ public class UnosProizvodaController implements Initializable {
         popuniProizvode();
 
     }
+    
+     public void dodajProizvodjaca(ActionEvent event) throws IOException{
+        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosProizvodjaca.fxml"));
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene korisnikScena = new Scene(korisnikView);
+        window.resizableProperty().setValue(Boolean.FALSE);
+        window.setScene(korisnikScena);
+        window.centerOnScreen();
+        window.show();
+    }
 
     public void dodajTipStisak(ActionEvent event) throws IOException {
         Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosNovogTipa.fxml"));

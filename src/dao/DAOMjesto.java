@@ -14,7 +14,7 @@ import javafx.collections.ObservableList;
 
 public class DAOMjesto {
     
-    private final String SQL_GET_MJESTO="select * from baby)shop.mjesto";
+    private final String SQL_GET_MJESTO="select * from baby_shop.mjesto";
     
     public ObservableList<DTOMjesto> getMjesto() {
         Connection con = null;
@@ -33,7 +33,6 @@ public class DAOMjesto {
                 String naziv=rs.getString(2);
                 String opstina=rs.getString(3);
                 String drzava=rs.getString(4);
-               
                 mjesta.add(new DTOMjesto(postanskiBroj, naziv, opstina, drzava));
             }
         } catch (SQLException ex) {
