@@ -22,7 +22,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
-public class UnosNovogTipaController implements Initializable {
+public class UnosGrupaProizvodController implements Initializable {
 
     @FXML
     private JFXCheckBox polCheckBox;
@@ -63,7 +63,7 @@ public class UnosNovogTipaController implements Initializable {
     }
 
     public void otkaziStisak(ActionEvent event) throws IOException {
-        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/dodavanjeProizvoda.fxml"));
+        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosProizvoda.fxml"));
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene korisnikScena = new Scene(korisnikView);
         window.resizableProperty().setValue(Boolean.FALSE);
@@ -73,7 +73,6 @@ public class UnosNovogTipaController implements Initializable {
     }
 
     public void sacuvajStisak(ActionEvent event) throws IOException {
-
         if ("".equals(tipProizvodaTextField.getText())) {
             AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste unijeli tip proizvoda !");
         } else {
@@ -88,7 +87,7 @@ public class UnosNovogTipaController implements Initializable {
                         bojaCheckBox.isSelected(), godisnjeDobaCheckBox.isSelected())) {
                     AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greska prilikom upisa grupe u bazu !");
                 } else {
-                    Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/dodavanjeProizvoda.fxml"));
+                    Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosProizvoda.fxml"));
                     Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     Scene korisnikScena = new Scene(korisnikView);
                     window.resizableProperty().setValue(Boolean.FALSE);

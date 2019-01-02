@@ -18,7 +18,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class DodavanjeProizvodaController implements Initializable {
+public class UnosProizvodaController implements Initializable {
 
     @FXML
     private JFXComboBox<String> materijaliComboBox;
