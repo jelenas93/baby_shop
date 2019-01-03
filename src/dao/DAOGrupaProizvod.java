@@ -14,8 +14,8 @@ import javafx.collections.FXCollections;
 
 public class DAOGrupaProizvod {
 
-    public final String SQL_GET_PROIZVOD_GRUPA="select * from baby_shop.proizvod_grupa";
-    
+    public final String SQL_GET_PROIZVOD_GRUPA = "select * from baby_shop.proizvod_grupa";
+
     public ObservableList<DTOProizvodGrupa> getGrupeProizvoda() {
         Connection con = null;
         PreparedStatement ps = null;
@@ -26,18 +26,18 @@ public class DAOGrupaProizvod {
             ps = con.prepareStatement(SQL_GET_PROIZVOD_GRUPA);
             rs = ps.executeQuery();
             while (rs.next()) {
-                int idTpaPorizvoda=rs.getInt(1);
-                String nazivTipaProizvoda=rs.getString(2);
-                boolean duzina=rs.getBoolean(3);
-                boolean sirina=rs.getBoolean(4);
-                boolean visina=rs.getBoolean(5);
-                boolean velicina=rs.getBoolean(6);
-                boolean uzrast=rs.getBoolean(7);
-                boolean pol=rs.getBoolean(8);
-                boolean boja=rs.getBoolean(9);
-                boolean godisnjeDoba=rs.getBoolean(10);
+                int idTpaPorizvoda = rs.getInt(1);
+                String nazivTipaProizvoda = rs.getString(2);
+                boolean duzina = rs.getBoolean(3);
+                boolean sirina = rs.getBoolean(4);
+                boolean visina = rs.getBoolean(5);
+                boolean velicina = rs.getBoolean(6);
+                boolean uzrast = rs.getBoolean(7);
+                boolean pol = rs.getBoolean(8);
+                boolean boja = rs.getBoolean(9);
+                boolean godisnjeDoba = rs.getBoolean(10);
                 grupaProizvoda.add(new DTOProizvodGrupa(idTpaPorizvoda, nazivTipaProizvoda,
-                duzina,sirina,visina, velicina, uzrast,pol,boja,godisnjeDoba));
+                        duzina, sirina, visina, velicina, uzrast, pol, boja, godisnjeDoba));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAOGrupaProizvod.class.getName()).log(Level.SEVERE, null, ex);
@@ -63,17 +63,31 @@ public class DAOGrupaProizvod {
 
         return FXCollections.observableArrayList(grupaProizvoda);
     }
-    
-  /*   public int getNazivProizvod(String ime){
-        int idGrupe=0;
+
+    public DTOProizvodGrupa getNazivProizvoda(String ime) {
+        DTOProizvodGrupa proizvod=null;
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
             con = ConnectionPool.getInstance().checkOut();
-            ps = con.prepareStatement("select IdGrupe from baby_shop.grupa_proizvod where NazivTipaProizvoda="+ime);
+            ps = con.prepareStatement("select * from baby_shop.proizvod_grupa where NazivTipaProizvoda like '" + ime + "%'");
             rs = ps.executeQuery();
-            idGrupe=rs.getInt(1);
+         //   System.out.println(rs);
+            while (rs.next()) {
+                int idGrupe = rs.getInt(1);
+                String nazivTipaProizvoda = rs.getString(2);
+                boolean duzina = rs.getBoolean(3);
+                boolean sirina = rs.getBoolean(4);
+                boolean visina = rs.getBoolean(5);
+                boolean velicina = rs.getBoolean(6);
+                boolean uzrast = rs.getBoolean(7);
+                boolean pol = rs.getBoolean(8);
+                boolean boja = rs.getBoolean(9);
+                boolean godisnjeDoba = rs.getBoolean(10);
+                proizvod=new DTOProizvodGrupa(idGrupe, nazivTipaProizvoda, duzina, sirina,
+                        visina, velicina, uzrast, pol, boja, godisnjeDoba);
+            }
         } catch (SQLException ex) {
             Logger.getLogger(DAOGrupaProizvod.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -95,14 +109,14 @@ public class DAOGrupaProizvod {
                 }
             }
         }
-        return idGrupe;
-        
-    } 
-    */
+        return proizvod;
+
+    }
+
     public boolean upisUBazuGrupu(String naziv, boolean duzina, boolean sirina,
-            boolean visina,boolean velicina, boolean uzrast, boolean pol,
-            boolean boja, boolean godisnjeDoba){
-       
+            boolean visina, boolean velicina, boolean uzrast, boolean pol,
+            boolean boja, boolean godisnjeDoba) {
+
         Connection con = null;
         PreparedStatement myStatement = null;
         try {
@@ -116,10 +130,10 @@ public class DAOGrupaProizvod {
             myStatement.setBoolean(3, sirina);
             myStatement.setBoolean(4, visina);
             myStatement.setBoolean(5, velicina);
-            myStatement.setBoolean(6,uzrast);
-            myStatement.setBoolean(7,pol);
-            myStatement.setBoolean(8,boja);
-            myStatement.setBoolean(9,godisnjeDoba);
+            myStatement.setBoolean(6, uzrast);
+            myStatement.setBoolean(7, pol);
+            myStatement.setBoolean(8, boja);
+            myStatement.setBoolean(9, godisnjeDoba);
             myStatement.execute();
         } catch (SQLException ex) {
             Logger.getLogger(DAOGrupaProizvod.class.getName()).log(Level.SEVERE, null, ex);
@@ -142,5 +156,5 @@ public class DAOGrupaProizvod {
         }
         return true;
     }
-   
+
 }

@@ -2,23 +2,21 @@ package dto;
 
 public class DTOProizvod {
     
-    private int idProizvoda, idTipProizvoda, kolicina, idGrupe;
+    private int idProizvoda, kolicina, idGrupe;
     private String barkod, sifra, naziv, JIBProizvodjaca, godisnjeDoba;
     private double cijena;
     //osobine
-    private char pol;
     private int uzrast, velicina;
-    private String boja;
+    private String pol, boja;
     private double duzina, sirina, visina;
 
-    public DTOProizvod(int idProizvoda, String barkod, String sifra, String naziv, int kolicina, double cijena, String JIBProizvodjaca, int idTipProizvoda, int idGrupe, char pol, int uzrast, String boja, int velicina, double duzina, double sirina, double visina, String godisnjeDoba) {
+    public DTOProizvod(int idProizvoda, String barkod, String sifra, String naziv, int kolicina, double cijena, String JIBProizvodjaca, int idGrupe,double duzina, double sirina, double visina, int velicina, int uzrast, String pol, String boja, String godisnjeDoba) {
         this.idProizvoda = idProizvoda;
         this.kolicina = kolicina;
         this.idGrupe = idGrupe;
         this.barkod = barkod;
         this.sifra = sifra;
         this.naziv = naziv;
-        this.idTipProizvoda=idTipProizvoda;
         this.JIBProizvodjaca = JIBProizvodjaca;
         this.cijena = cijena;
         this.pol = pol;
@@ -63,7 +61,7 @@ public class DTOProizvod {
         this.cijena = cijena;
     }
 
-    public void setPol(char pol) {
+    public void setPol(String pol) {
         this.pol = pol;
     }
 
@@ -123,7 +121,7 @@ public class DTOProizvod {
         return cijena;
     }
 
-    public char getPol() {
+    public String getPol() {
         return pol;
     }
 
@@ -149,14 +147,6 @@ public class DTOProizvod {
 
     public double getVisina() {
         return visina;
-    }
-
-    public int getIdTipProizvoda() {
-        return idTipProizvoda;
-    }
-
-    public void setIdTipProizvoda(int idTipProizvoda) {
-        this.idTipProizvoda = idTipProizvoda;
     }
 
     public String getGodisnjeDoba() {
