@@ -20,6 +20,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class UnosProizvodaController implements Initializable {
@@ -34,7 +35,7 @@ public class UnosProizvodaController implements Initializable {
     private JFXComboBox<String> JIBProizvodjacaComboBox;
 
     @FXML
-    private VBox vbox = new VBox(10);
+    private VBox vbox /*= new VBox()*/;
 
     @FXML
     private final Label duzinaLabel = new Label("Dužina: ");
@@ -120,33 +121,41 @@ public class UnosProizvodaController implements Initializable {
             DTOProizvodGrupa dtoProizvodGrupa = null;
             dtoProizvodGrupa = daoGrupa.getNazivProizvoda(tipProizvodaComboBox.getSelectionModel().getSelectedItem());
             if (dtoProizvodGrupa.isBoja()) {
+                bojaLabel.setFont(new Font(18));
                 vbox.getChildren().add(bojaLabel);
             }
             if (dtoProizvodGrupa.isDuzina()) {
+                duzinaLabel.setFont(new Font(18));
                 vbox.getChildren().add(duzinaLabel);
             
             }
             if (dtoProizvodGrupa.isSirina()) {
+                sirinaLabel.setFont(new Font(18));
                 vbox.getChildren().add(sirinaLabel);
                
             }
             if (dtoProizvodGrupa.isVisina()) {
+                visinaLabel.setFont(new Font(18));
                 vbox.getChildren().add(visinaLabel);
             }
             if (dtoProizvodGrupa.isGodisnjeDoba()) {
+                godisnjeDobaLabel.setFont(new Font(18));
                 vbox.getChildren().add(godisnjeDobaLabel);
                 
             }
             if (dtoProizvodGrupa.isPol()) {
+                polLabel.setFont(new Font(18));
                 vbox.getChildren().add(polLabel);
                 
             }
 
             if (dtoProizvodGrupa.isUzrast()) {
+                uzrastLabel.setFont(new Font(18));
                 vbox.getChildren().add(uzrastLabel);
                
             }
             if (dtoProizvodGrupa.isVelicina()) {
+                velicinaLabel.setFont(new Font(18));
                 vbox.getChildren().add(velicinaLabel);
             }
 
