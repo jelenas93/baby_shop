@@ -98,7 +98,9 @@ public class DAOKorisnickiNalog {
         PreparedStatement myStatement = null;
         try {
             con = ConnectionPool.getInstance().checkOut();
-            myStatement = con.prepareStatement("INSERT INTO baby_shop.korisnicki_nalog (IdNaloga, KorisnickoIme, Lozinka, Aktivan, TipKorisnika, IdZaposlenog) VALUES (?, ?, ?, ?, ?, ?)");
+            myStatement = con.prepareStatement("INSERT INTO baby_shop.korisnicki_nalog (IdNaloga,"
+                    + " KorisnickoIme, Lozinka, Aktivan, TipKorisnika, IdZaposlenog)"
+                    + " VALUES (?, ?, ?, ?, ?, ?)");
             myStatement.setInt(1, idNaloga);
             myStatement.setString(2, korisnickoIme);
             myStatement.setString(3, lozinka);

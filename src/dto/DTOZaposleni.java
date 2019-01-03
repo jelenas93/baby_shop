@@ -1,15 +1,18 @@
 package dto;
 
 public class DTOZaposleni {
-    private String ime, prezime, JMBG;
+
+    private String ime, prezime, JMBG, mejl;
     private double iznosPlate;
     private int idZaposlenog, postanskiBroj, idTipZaposlenog;
 
-    public DTOZaposleni(String ime, String prezime, String JMBG, double iznosPlate, int idZaposlenog, int postanskiBroj, int idTipZaposlenog) {
+    public DTOZaposleni(String ime, String prezime, String JMBG, double iznosPlate, String mejl, int idZaposlenog,
+            int postanskiBroj, int idTipZaposlenog) {
         this.ime = ime;
         this.prezime = prezime;
         this.JMBG = JMBG;
         this.iznosPlate = iznosPlate;
+        this.mejl = mejl;
         this.idZaposlenog = idZaposlenog;
         this.postanskiBroj = postanskiBroj;
         this.idTipZaposlenog = idTipZaposlenog;
@@ -59,6 +62,14 @@ public class DTOZaposleni {
         this.iznosPlate = iznosPlate;
     }
 
+    public String getMejl() {
+        return mejl;
+    }
+
+    public void setMejl(String mejl) {
+        this.mejl = mejl;
+    }
+
     public void setIdZaposlenog(int idZaposlenog) {
         this.idZaposlenog = idZaposlenog;
     }
@@ -73,15 +84,13 @@ public class DTOZaposleni {
 
     @Override
     public String toString() {
-        return "DTOZaposleni{" + "idZaposlenog=" + idZaposlenog  
-                + ",Ime=" + ime 
-                + ", Prezime=" + prezime 
-                + ", JMBG=" + JMBG 
-                + ", Iznos Plate=" + iznosPlate 
-                + ", Postanski broj=" + postanskiBroj 
+        return "DTOZaposleni{" + "idZaposlenog=" + idZaposlenog
+                + ",Ime=" + ime
+                + ", Prezime=" + prezime
+                + ", JMBG=" + JMBG
+                + ", Iznos Plate=" + iznosPlate
+                + ", Postanski broj=" + postanskiBroj
                 + ", idTipZaposlenog=" + idTipZaposlenog + '}';
     }
-     
-    
+
 }
- 
