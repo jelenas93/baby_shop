@@ -23,6 +23,7 @@ import javafx.stage.Stage;
 
 public class UnosProizvodjacaController implements Initializable {
 
+    public static boolean proizvodjac;
     @FXML
     private JFXTextField JIBProizvodjacaTextField;
 
@@ -56,6 +57,7 @@ public class UnosProizvodjacaController implements Initializable {
     }
     
     public void dodajMjesto(ActionEvent event) throws IOException{
+        proizvodjac=true;
         Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosMjesta.fxml"));
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene korisnikScena = new Scene(korisnikView);

@@ -11,7 +11,6 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import dao.DAODobavljac;
 import dao.DAOMjesto;
-import dao.DAOProizvodjac;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import dto.DTOMjesto;
 import java.io.IOException;
@@ -80,6 +79,7 @@ public class UnosDobavljacaController implements Initializable {
     }
     
     public void dodajMjesto(ActionEvent event) throws IOException{
+        UnosProizvodjacaController.proizvodjac=false;
         Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosMjesta.fxml"));
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene korisnikScena = new Scene(korisnikView);
