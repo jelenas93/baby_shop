@@ -1,5 +1,6 @@
 package gui;
 
+import babyshop.AlertHelper;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import dao.DAOMaterijal;
@@ -19,25 +20,31 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class UnosProizvodaController implements Initializable {
-
     @FXML
     private JFXComboBox<String> materijaliComboBox;
-
     @FXML
     private JFXComboBox<String> tipProizvodaComboBox;
-
     @FXML
     private JFXComboBox<String> JIBProizvodjacaComboBox;
-
+    @FXML
+    private JFXTextField nazivProizvodaTextField;
+    @FXML
+    private JFXTextField barkodTextField;
+    @FXML
+    private JFXTextField sifraTextField;
+    @FXML
+    private JFXTextField kolicinaTextField;
+    @FXML
+    private JFXTextField cijenaTextField;
     @FXML
     private VBox vboxLabel /*= new VBox()*/;
-
     @FXML
     private VBox vboxTextField /*= new VBox()*/;
     @FXML
@@ -192,6 +199,23 @@ public class UnosProizvodaController implements Initializable {
                 vboxTextField.getChildren().add(velicinaTextField);
             }
         }
+    }
+    
+    public void sacuvajStisak(ActionEvent event) throws IOException{
+        if("".equals(tipProizvodaComboBox.getSelectionModel().getSelectedItem()) ||
+                "".equals(nazivProizvodaTextField.getText()) ||
+                "".equals(barkodTextField.getText()) || "".equals(sifraTextField.getText()) ||
+                "".equals(kolicinaTextField.getText()) || "".equals(cijenaTextField.getText()) ||
+                "".equals(JIBProizvodjacaComboBox.getSelectionModel().getSelectedItem()) ||
+                "".equals(materijaliComboBox.getSelectionModel().getSelectedItem())){
+            AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste unijelo osnovne podatke.");
+        }else{
+            
+        }
+    }
+    
+    public void otkaziStisak() throws IOException{
+        System.exit(0);
     }
 
 }
