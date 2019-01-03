@@ -265,7 +265,7 @@
             </Label>
             <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="10">
                <children>
-                  <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" prefHeight="50.0" prefWidth="150.0" text="Sačuvaj" HBox.hgrow="ALWAYS">
+                  <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#sacuvajStisak" prefHeight="50.0" prefWidth="150.0" text="Sačuvaj" HBox.hgrow="ALWAYS">
                      <font>
                         <Font size="22.0" />
                      </font>
@@ -277,7 +277,7 @@
                      </padding>
                   </JFXButton>
                   <Region />
-                  <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" prefHeight="50.0" prefWidth="150.0" text="Otkaži" HBox.hgrow="ALWAYS">
+                  <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#otkaziStisak" prefHeight="50.0" prefWidth="150.0" text="Otkaži" HBox.hgrow="ALWAYS">
                      <font>
                         <Font size="22.0" />
                      </font>

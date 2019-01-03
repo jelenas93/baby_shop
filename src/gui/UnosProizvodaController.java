@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import dao.DAOMaterijal;
 import dao.DAOGrupaProizvod;
+import dao.DAOProizvod;
 import dao.DAOProizvodjac;
 import dto.DTOMaterijal;
 import dto.DTOProizvodGrupa;
@@ -27,6 +28,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class UnosProizvodaController implements Initializable {
+
     @FXML
     private JFXComboBox<String> materijaliComboBox;
     @FXML
@@ -75,11 +77,12 @@ public class UnosProizvodaController implements Initializable {
     @FXML
     private JFXTextField uzrastTextField = new JFXTextField();
     @FXML
-    private JFXTextField polTextField = new JFXTextField();
+    private JFXComboBox<String> polComboBox = new JFXComboBox();
     @FXML
-    private JFXTextField bojaTextField = new JFXTextField();
+    private JFXComboBox<String> bojaComboBox = new JFXComboBox();
     @FXML
-    private JFXTextField godisnjeDobaTextField = new JFXTextField();
+    private JFXComboBox<String> godisnjeDobaComboBox = new JFXComboBox();
+    private int idGrupe;
 
     private void popuniMaterijale() {
         DAOMaterijal daoMaterijal = new DAOMaterijal();
@@ -147,11 +150,14 @@ public class UnosProizvodaController implements Initializable {
             DAOGrupaProizvod daoGrupa = new DAOGrupaProizvod();
             DTOProizvodGrupa dtoProizvodGrupa = null;
             dtoProizvodGrupa = daoGrupa.getNazivProizvoda(tipProizvodaComboBox.getSelectionModel().getSelectedItem());
+            idGrupe = dtoProizvodGrupa.getIdGrupe();
             if (dtoProizvodGrupa.isBoja()) {
                 bojaLabel.setFont(new Font(18));
-                bojaTextField.setFont(new Font(18));
+                //    bojaComboBox.set
+                //bojaTextField.setFont(new Font(18));
+                bojaComboBox.getItems().addAll("Bijela", "Crna", "Plava", "Zelena", "Smeđa", "Žuta", "Narandžasta", "Crvena", "Roza", "Ljubičasta");
                 vboxLabel.getChildren().add(bojaLabel);
-                vboxTextField.getChildren().add(bojaTextField);
+                vboxTextField.getChildren().add(bojaComboBox);
             }
             if (dtoProizvodGrupa.isDuzina()) {
                 duzinaLabel.setFont(new Font(18));
@@ -165,7 +171,6 @@ public class UnosProizvodaController implements Initializable {
                 sirinaTextField.setFont(new Font(18));
                 vboxLabel.getChildren().add(sirinaLabel);
                 vboxTextField.getChildren().add(sirinaTextField);
-
             }
             if (dtoProizvodGrupa.isVisina()) {
                 visinaLabel.setFont(new Font(18));
@@ -175,16 +180,17 @@ public class UnosProizvodaController implements Initializable {
             }
             if (dtoProizvodGrupa.isGodisnjeDoba()) {
                 godisnjeDobaLabel.setFont(new Font(18));
-                godisnjeDobaTextField.setFont(new Font(18));
+                //  godisnjeDobaTextField.setFont(new Font(18));
+                godisnjeDobaComboBox.getItems().addAll("Proljeće", "Ljeto", "Jesen", "Zima");
                 vboxLabel.getChildren().add(godisnjeDobaLabel);
-                vboxTextField.getChildren().add(godisnjeDobaTextField);
-
+                vboxTextField.getChildren().add(godisnjeDobaComboBox);
             }
             if (dtoProizvodGrupa.isPol()) {
                 polLabel.setFont(new Font(18));
-                polTextField.setFont(new Font(18));
+                //  polTextField.setFont(new Font(18));
+                polComboBox.getItems().addAll("M", "Ž");
                 vboxLabel.getChildren().add(polLabel);
-                vboxTextField.getChildren().add(polTextField);
+                vboxTextField.getChildren().add(polComboBox);
             }
             if (dtoProizvodGrupa.isUzrast()) {
                 uzrastLabel.setFont(new Font(18));
@@ -200,21 +206,80 @@ public class UnosProizvodaController implements Initializable {
             }
         }
     }
-    
-    public void sacuvajStisak(ActionEvent event) throws IOException{
-        if("".equals(tipProizvodaComboBox.getSelectionModel().getSelectedItem()) ||
-                "".equals(nazivProizvodaTextField.getText()) ||
-                "".equals(barkodTextField.getText()) || "".equals(sifraTextField.getText()) ||
-                "".equals(kolicinaTextField.getText()) || "".equals(cijenaTextField.getText()) ||
-                "".equals(JIBProizvodjacaComboBox.getSelectionModel().getSelectedItem()) ||
-                "".equals(materijaliComboBox.getSelectionModel().getSelectedItem())){
-            AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste unijelo osnovne podatke.");
-        }else{
-            
+
+    public void sacuvajStisak(ActionEvent event) throws IOException {
+        if ("".equals(tipProizvodaComboBox.getSelectionModel().getSelectedItem())
+                || "".equals(nazivProizvodaTextField.getText())
+                || "".equals(barkodTextField.getText()) || "".equals(sifraTextField.getText())
+                || "".equals(kolicinaTextField.getText()) || "".equals(cijenaTextField.getText())
+                || "".equals(JIBProizvodjacaComboBox.getSelectionModel().getSelectedItem())
+                || "".equals(materijaliComboBox.getSelectionModel().getSelectedItem())) {
+            AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste unijeli osnovne podatke.");
+        } else {
+            DAOGrupaProizvod daoGrupa = new DAOGrupaProizvod();
+            DTOProizvodGrupa dtoProizvodGrupa = null;
+            dtoProizvodGrupa = daoGrupa.getNazivProizvoda(tipProizvodaComboBox.getSelectionModel().getSelectedItem());
+            if (dtoProizvodGrupa.isBoja() && "".equals(bojaComboBox.getSelectionModel().getSelectedItem())) {
+                AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste izabrali boju.");
+            } else if (dtoProizvodGrupa.isDuzina() && "".equals(duzinaTextField.getText())) {
+                AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste unijeli dužinu.");
+            } else if (dtoProizvodGrupa.isSirina() && "".equals(sirinaTextField.getText())) {
+                AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste unijeli širinu.");
+            } else if (dtoProizvodGrupa.isVisina() && "".equals(visinaTextField.getText())) {
+                AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste unijeli visinu.");
+            } else if (dtoProizvodGrupa.isGodisnjeDoba() && "".equals(godisnjeDobaComboBox.getSelectionModel().getSelectedItem())) {
+                AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste iabrali godišnje doba.");
+            } else if (dtoProizvodGrupa.isPol() && "".equals(polComboBox.getSelectionModel().getSelectedItem())) {
+                AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste izabrali pol.");
+            } else if (dtoProizvodGrupa.isUzrast() && "".equals(uzrastTextField.getText())) {
+                AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste unijeli uzrast.");
+            } else if (dtoProizvodGrupa.isVelicina() && "".equals(velicinaTextField.getText())) {
+                AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste unijeli veličinu.");
+            } else {
+                DAOProizvod daoProizvod = new DAOProizvod();
+             //   try {
+                    String jib = JIBProizvodjacaComboBox.getSelectionModel().getSelectedItem().split(", ")[0];
+                   /* if (!daoProizvod.upisUBazuProizvod(barkodTextField.getText(), sifraTextField.getText(),
+                            nazivProizvodaTextField.getText().toUpperCase(),
+                            Integer.parseInt(kolicinaTextField.getText()),
+                            Double.parseDouble(cijenaTextField.getText()),
+                            jib, idGrupe, Double.parseDouble(duzinaTextField.getText()),
+                            Double.parseDouble(sirinaTextField.getText()),
+                            Double.parseDouble(visinaTextField.getText()),
+                            Integer.parseInt(velicinaTextField.getText()),
+                            Integer.parseInt(uzrastTextField.getText()),
+                            polComboBox.getSelectionModel().getSelectedItem(),
+                            bojaComboBox.getSelectionModel().getSelectedItem(),
+                            godisnjeDobaComboBox.getSelectionModel().getSelectedItem())) {
+                        AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom upisa proizvoda u bazu.");
+                    } else {
+                        System.exit(0);
+                    }*/
+                     if (!daoProizvod.upisUBazuProizvod(barkodTextField.getText(), sifraTextField.getText(),
+                            nazivProizvodaTextField.getText().toUpperCase(),
+                            Integer.parseInt(kolicinaTextField.getText()),
+                            Double.parseDouble(cijenaTextField.getText()),
+                            jib, idGrupe,null,
+                            Double.parseDouble(sirinaTextField.getText()),
+                            Double.parseDouble(visinaTextField.getText()),
+                            Integer.parseInt(velicinaTextField.getText()),
+                            Integer.parseInt(uzrastTextField.getText()),
+                            polComboBox.getSelectionModel().getSelectedItem(),
+                            bojaComboBox.getSelectionModel().getSelectedItem(),
+                            godisnjeDobaComboBox.getSelectionModel().getSelectedItem())) {
+                        AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom upisa proizvoda u bazu.");
+                    } else {
+                        System.exit(0);
+                    }
+           /*     } catch (NumberFormatException e) {
+                    AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Unesite brojeve !");
+                }
+*/
+            }
         }
     }
-    
-    public void otkaziStisak() throws IOException{
+
+    public void otkaziStisak() throws IOException {
         System.exit(0);
     }
 
