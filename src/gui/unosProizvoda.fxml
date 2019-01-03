@@ -18,8 +18,8 @@
    <children>
       <GridPane layoutX="325.0" layoutY="546.0" prefHeight="385.0" prefWidth="790.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
         <columnConstraints>
-          <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" minWidth="10.0" />
-          <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="0.0" />
+          <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="384.0" minWidth="10.0" prefWidth="384.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="499.0" minWidth="0.0" prefWidth="386.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -67,12 +67,12 @@
             </Label>
             <HBox GridPane.columnIndex="1">
                <children>
-                  <JFXComboBox fx:id="tipProizvodaComboBox">
+                  <JFXComboBox fx:id="tipProizvodaComboBox" prefHeight="41.0" prefWidth="375.0">
                      <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets bottom="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
                      <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets bottom="5.0" right="5.0" top="5.0" />
                      </padding>
                   </JFXComboBox>
                   <JFXButton onAction="#dodajTipStisak" text=" " HBox.hgrow="ALWAYS">
@@ -83,13 +83,19 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                      <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets bottom="5.0" left="5.0" top="5.0" />
                      </HBox.margin>
                      <tooltip>
                         <Tooltip text="Dodajte novi tip proizvoda" />
                      </tooltip>
                   </JFXButton>
                </children>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
             </HBox>
             <JFXTextField fx:id="nazivProizvodaTextField" alignment="CENTER" focusColor="BLACK" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <padding>
@@ -192,12 +198,12 @@
             </Label>
             <HBox prefHeight="51.0" prefWidth="131.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                <children>
-                  <JFXComboBox fx:id="JIBProizvodjacaComboBox">
+                  <JFXComboBox fx:id="JIBProizvodjacaComboBox" prefHeight="41.0" prefWidth="325.0">
                      <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets bottom="5.0" right="5.0" top="5.0" />
                      </padding>
                      <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets bottom="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
                   </JFXComboBox>
                   <JFXButton onAction="#dodajProizvodjaca" text=" ">
@@ -207,8 +213,20 @@
                      <tooltip>
                         <Tooltip text="Dodajte novog proizvodjača" />
                      </tooltip>
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" top="5.0" />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
                   </JFXButton>
                </children>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
             </HBox>
             <Label prefHeight="37.0" prefWidth="173.0" text="Izbor materijala:" GridPane.rowIndex="7">
                <font>
@@ -221,7 +239,7 @@
                   <Insets bottom="10.0" left="70.0" right="10.0" top="10.0" />
                </GridPane.margin>
             </Label>
-            <JFXComboBox fx:id="materijaliComboBox" prefHeight="41.0" prefWidth="196.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+            <JFXComboBox fx:id="materijaliComboBox" prefHeight="41.0" prefWidth="432.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
