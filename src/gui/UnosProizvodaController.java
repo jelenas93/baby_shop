@@ -19,6 +19,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class UnosProizvodaController implements Initializable {
@@ -31,10 +32,27 @@ public class UnosProizvodaController implements Initializable {
 
     @FXML
     private JFXComboBox<String> JIBProizvodjacaComboBox;
-    
+
     @FXML
-    private Label duzinaLabel,sirinaLabel,visinaLabel,velicinaLabel,uzrastLabel,polLabel,bojaLabel,godisnjeDobaLabel;
-    
+    private VBox vbox = new VBox(10);
+
+    @FXML
+    private final Label duzinaLabel = new Label("Dužina: ");
+    @FXML
+    private final Label sirinaLabel = new Label("Širina: ");
+    @FXML
+    private final Label visinaLabel = new Label("Visina: ");
+    @FXML
+    private final Label velicinaLabel = new Label("Veličina: ");
+    @FXML
+    private final Label uzrastLabel = new Label("Uzrast: ");
+    @FXML
+    private final Label polLabel = new Label("Pol: ");
+    @FXML
+    private final Label bojaLabel = new Label("Boja: ");
+    @FXML
+    private final Label godisnjeDobaLabel = new Label("Godišnje doba: ");
+
     private void popuniMaterijale() {
         DAOMaterijal daoMaterijal = new DAOMaterijal();
         ObservableList<DTOMaterijal> listaMaterijala;
@@ -64,26 +82,13 @@ public class UnosProizvodaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        sakrijPolja();
+        //sakrijPolja();
         popuniMaterijale();
         popuniProizvode();
         popuniProizvodjace();
 
     }
 
-    private void sakrijPolja(){
-        duzinaLabel.setVisible(false);
-        sirinaLabel.setVisible(false);
-        visinaLabel.setVisible(false);
-        velicinaLabel.setVisible(false);
-        uzrastLabel.setVisible(false);
-        polLabel.setVisible(false);
-        bojaLabel.setVisible(false);
-        godisnjeDobaLabel.setVisible(false);
-        
-                
-    }
-   
     public void dodajProizvodjaca(ActionEvent event) throws IOException {
         Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosProizvodjaca.fxml"));
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -103,39 +108,49 @@ public class UnosProizvodaController implements Initializable {
         window.centerOnScreen();
         window.show();
     }
-    
-    public void comboBoxTip(){
+
+    public void comboBoxTip() {
+        vbox.getChildren().clear();
         provjeraKojiPodaciSePrikazuju();
     }
-   
-    private void provjeraKojiPodaciSePrikazuju(){
-        tipProizvodaComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if(!("".equals(tipProizvodaComboBox.getSelectionModel().getSelectedItem()))){
-                DAOGrupaProizvod daoGrupa=new DAOGrupaProizvod();
-                DTOProizvodGrupa dtoProizvodGrupa=null;
-                dtoProizvodGrupa=daoGrupa.getNazivProizvoda(tipProizvodaComboBox.getSelectionModel().getSelectedItem());
-                if(dtoProizvodGrupa.isBoja())
-                    bojaLabel.setVisible(true);
-                else if(dtoProizvodGrupa.isDuzina())
-                    duzinaLabel.setVisible(true);
-                else if(dtoProizvodGrupa.isGodisnjeDoba())
-                    godisnjeDobaLabel.setVisible(true);
-                else if(dtoProizvodGrupa.isPol())
-                    polLabel.setVisible(true);
-                else if(dtoProizvodGrupa.isSirina())
-                    sirinaLabel.setVisible(true);
-                else if(dtoProizvodGrupa.isUzrast())
-                    uzrastLabel.setVisible(true);
-                else if(dtoProizvodGrupa.isVelicina())
-                    velicinaLabel.setVisible(true);
-                else if(dtoProizvodGrupa.isVisina())
-                    visinaLabel.setVisible(true);
-                            
-                   
+
+    private void provjeraKojiPodaciSePrikazuju() {
+        if (!("".equals(tipProizvodaComboBox.getSelectionModel().getSelectedItem()))) {
+            DAOGrupaProizvod daoGrupa = new DAOGrupaProizvod();
+            DTOProizvodGrupa dtoProizvodGrupa = null;
+            dtoProizvodGrupa = daoGrupa.getNazivProizvoda(tipProizvodaComboBox.getSelectionModel().getSelectedItem());
+            if (dtoProizvodGrupa.isBoja()) {
+                vbox.getChildren().add(bojaLabel);
+            }
+            if (dtoProizvodGrupa.isDuzina()) {
+                vbox.getChildren().add(duzinaLabel);
+            
+            }
+            if (dtoProizvodGrupa.isSirina()) {
+                vbox.getChildren().add(sirinaLabel);
+               
+            }
+            if (dtoProizvodGrupa.isVisina()) {
+                vbox.getChildren().add(visinaLabel);
+            }
+            if (dtoProizvodGrupa.isGodisnjeDoba()) {
+                vbox.getChildren().add(godisnjeDobaLabel);
                 
             }
-            
-        });
+            if (dtoProizvodGrupa.isPol()) {
+                vbox.getChildren().add(polLabel);
+                
+            }
+
+            if (dtoProizvodGrupa.isUzrast()) {
+                vbox.getChildren().add(uzrastLabel);
+               
+            }
+            if (dtoProizvodGrupa.isVelicina()) {
+                vbox.getChildren().add(velicinaLabel);
+            }
+
+        }
     }
-    
+
 }

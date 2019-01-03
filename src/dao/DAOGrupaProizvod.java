@@ -73,7 +73,6 @@ public class DAOGrupaProizvod {
             con = ConnectionPool.getInstance().checkOut();
             ps = con.prepareStatement("select * from baby_shop.proizvod_grupa where NazivTipaProizvoda like '" + ime + "%'");
             rs = ps.executeQuery();
-         //   System.out.println(rs);
             while (rs.next()) {
                 int idGrupe = rs.getInt(1);
                 String nazivTipaProizvoda = rs.getString(2);
@@ -110,7 +109,6 @@ public class DAOGrupaProizvod {
             }
         }
         return proizvod;
-
     }
 
     public boolean upisUBazuGrupu(String naziv, boolean duzina, boolean sirina,
