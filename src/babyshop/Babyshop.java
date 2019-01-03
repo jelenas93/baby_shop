@@ -11,7 +11,7 @@ public class Babyshop extends Application {
     
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/gui/unosProizvoda.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/gui/biloKako.fxml"));
         //primaryStage.getIcons().add(new Image("file:" + String.valueOf(Paths.get(System.getProperty("user.dir"), "film.png"))));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
