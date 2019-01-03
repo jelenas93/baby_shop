@@ -35,7 +35,10 @@ public class UnosProizvodaController implements Initializable {
     private JFXComboBox<String> JIBProizvodjacaComboBox;
 
     @FXML
-    private VBox vbox /*= new VBox()*/;
+    private VBox vboxLabel /*= new VBox()*/;
+
+    @FXML
+    private VBox vboxTextField /*= new VBox()*/;
 
     @FXML
     private final Label duzinaLabel = new Label("Dužina: ");
@@ -111,7 +114,7 @@ public class UnosProizvodaController implements Initializable {
     }
 
     public void comboBoxTip() {
-        vbox.getChildren().clear();
+        vboxLabel.getChildren().clear();
         provjeraKojiPodaciSePrikazuju();
     }
 
@@ -122,41 +125,41 @@ public class UnosProizvodaController implements Initializable {
             dtoProizvodGrupa = daoGrupa.getNazivProizvoda(tipProizvodaComboBox.getSelectionModel().getSelectedItem());
             if (dtoProizvodGrupa.isBoja()) {
                 bojaLabel.setFont(new Font(18));
-                vbox.getChildren().add(bojaLabel);
+                vboxLabel.getChildren().add(bojaLabel);
             }
             if (dtoProizvodGrupa.isDuzina()) {
                 duzinaLabel.setFont(new Font(18));
-                vbox.getChildren().add(duzinaLabel);
-            
+                vboxLabel.getChildren().add(duzinaLabel);
+
             }
             if (dtoProizvodGrupa.isSirina()) {
                 sirinaLabel.setFont(new Font(18));
-                vbox.getChildren().add(sirinaLabel);
-               
+                vboxLabel.getChildren().add(sirinaLabel);
+
             }
             if (dtoProizvodGrupa.isVisina()) {
                 visinaLabel.setFont(new Font(18));
-                vbox.getChildren().add(visinaLabel);
+                vboxLabel.getChildren().add(visinaLabel);
             }
             if (dtoProizvodGrupa.isGodisnjeDoba()) {
                 godisnjeDobaLabel.setFont(new Font(18));
-                vbox.getChildren().add(godisnjeDobaLabel);
-                
+                vboxLabel.getChildren().add(godisnjeDobaLabel);
+
             }
             if (dtoProizvodGrupa.isPol()) {
                 polLabel.setFont(new Font(18));
-                vbox.getChildren().add(polLabel);
-                
+                vboxLabel.getChildren().add(polLabel);
+
             }
 
             if (dtoProizvodGrupa.isUzrast()) {
                 uzrastLabel.setFont(new Font(18));
-                vbox.getChildren().add(uzrastLabel);
-               
+                vboxLabel.getChildren().add(uzrastLabel);
+
             }
             if (dtoProizvodGrupa.isVelicina()) {
                 velicinaLabel.setFont(new Font(18));
-                vbox.getChildren().add(velicinaLabel);
+                vboxLabel.getChildren().add(velicinaLabel);
             }
 
         }
