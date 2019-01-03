@@ -1,6 +1,7 @@
 package gui;
 
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextField;
 import dao.DAOMaterijal;
 import dao.DAOGrupaProizvod;
 import dao.DAOProizvodjac;
@@ -39,7 +40,6 @@ public class UnosProizvodaController implements Initializable {
 
     @FXML
     private VBox vboxTextField /*= new VBox()*/;
-
     @FXML
     private final Label duzinaLabel = new Label("Dužina: ");
     @FXML
@@ -56,6 +56,23 @@ public class UnosProizvodaController implements Initializable {
     private final Label bojaLabel = new Label("Boja: ");
     @FXML
     private final Label godisnjeDobaLabel = new Label("Godišnje doba: ");
+
+    @FXML
+    private JFXTextField duzinaTextField = new JFXTextField();
+    @FXML
+    private JFXTextField sirinaTextField = new JFXTextField();
+    @FXML
+    private JFXTextField visinaTextField = new JFXTextField();
+    @FXML
+    private JFXTextField velicinaTextField = new JFXTextField();
+    @FXML
+    private JFXTextField uzrastTextField = new JFXTextField();
+    @FXML
+    private JFXTextField polTextField = new JFXTextField();
+    @FXML
+    private JFXTextField bojaTextField = new JFXTextField();
+    @FXML
+    private JFXTextField godisnjeDobaTextField = new JFXTextField();
 
     private void popuniMaterijale() {
         DAOMaterijal daoMaterijal = new DAOMaterijal();
@@ -86,7 +103,6 @@ public class UnosProizvodaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //sakrijPolja();
         popuniMaterijale();
         popuniProizvode();
         popuniProizvodjace();
@@ -115,6 +131,7 @@ public class UnosProizvodaController implements Initializable {
 
     public void comboBoxTip() {
         vboxLabel.getChildren().clear();
+        vboxTextField.getChildren().clear();
         provjeraKojiPodaciSePrikazuju();
     }
 
@@ -125,43 +142,55 @@ public class UnosProizvodaController implements Initializable {
             dtoProizvodGrupa = daoGrupa.getNazivProizvoda(tipProizvodaComboBox.getSelectionModel().getSelectedItem());
             if (dtoProizvodGrupa.isBoja()) {
                 bojaLabel.setFont(new Font(18));
+                bojaTextField.setFont(new Font(18));
                 vboxLabel.getChildren().add(bojaLabel);
+                vboxTextField.getChildren().add(bojaTextField);
             }
             if (dtoProizvodGrupa.isDuzina()) {
                 duzinaLabel.setFont(new Font(18));
+                duzinaTextField.setFont(new Font(18));
                 vboxLabel.getChildren().add(duzinaLabel);
+                vboxTextField.getChildren().add(duzinaTextField);
 
             }
             if (dtoProizvodGrupa.isSirina()) {
                 sirinaLabel.setFont(new Font(18));
+                sirinaTextField.setFont(new Font(18));
                 vboxLabel.getChildren().add(sirinaLabel);
+                vboxTextField.getChildren().add(sirinaTextField);
 
             }
             if (dtoProizvodGrupa.isVisina()) {
                 visinaLabel.setFont(new Font(18));
+                visinaTextField.setFont(new Font(18));
                 vboxLabel.getChildren().add(visinaLabel);
+                vboxTextField.getChildren().add(visinaTextField);
             }
             if (dtoProizvodGrupa.isGodisnjeDoba()) {
                 godisnjeDobaLabel.setFont(new Font(18));
+                godisnjeDobaTextField.setFont(new Font(18));
                 vboxLabel.getChildren().add(godisnjeDobaLabel);
+                vboxTextField.getChildren().add(godisnjeDobaTextField);
 
             }
             if (dtoProizvodGrupa.isPol()) {
                 polLabel.setFont(new Font(18));
+                polTextField.setFont(new Font(18));
                 vboxLabel.getChildren().add(polLabel);
-
+                vboxTextField.getChildren().add(polTextField);
             }
-
             if (dtoProizvodGrupa.isUzrast()) {
                 uzrastLabel.setFont(new Font(18));
+                uzrastTextField.setFont(new Font(18));
                 vboxLabel.getChildren().add(uzrastLabel);
-
+                vboxTextField.getChildren().add(uzrastTextField);
             }
             if (dtoProizvodGrupa.isVelicina()) {
                 velicinaLabel.setFont(new Font(18));
+                velicinaTextField.setFont(new Font(18));
                 vboxLabel.getChildren().add(velicinaLabel);
+                vboxTextField.getChildren().add(velicinaTextField);
             }
-
         }
     }
 
