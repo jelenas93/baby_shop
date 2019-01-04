@@ -10,6 +10,8 @@ import dao.DAOProizvodjac;
 import dto.DTOMaterijal;
 import dto.DTOProizvodGrupa;
 import dto.DTOProizvodjac;
+import dto.DTOSkladisteProizvod;
+import dao.DAOSkladisteProizvod;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -27,6 +29,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import java.util.ArrayList;
 
 public class UnosProizvodaController implements Initializable {
 
@@ -388,13 +391,20 @@ public class UnosProizvodaController implements Initializable {
                     }
                 }
                 DAOProizvod daoProizvod = new DAOProizvod();
+                DAOSkladisteProizvod daoUSkladiste=new DAOSkladisteProizvod();
                 String jib = JIBProizvodjacaComboBox.getSelectionModel().getSelectedItem().split(", ")[1];
                 if (!daoProizvod.upisUBazuProizvod(barkodTextField.getText(), sifraTextField.getText(),
                         nazivProizvodaTextField.getText().toUpperCase(),
                         kolicina, cijena, jib, idGrupe, duzina, sirina, visina, velicina, uzrast, pol, boja, godisnjeDoba)) {
                     AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom upisa proizvoda u bazu.");
                 } else {
-                    System.exit(0);
+                    ArrayList<DTOSkladisteProizvod> skladisteProizvod = new ArrayList<>();
+                    skladisteProizvod=daoUSkladiste.pregledSkladista();
+                    if(!daoUSkladiste.dodajProizvodUSkladiste(1,daoProizvod.idProizvoda(),kolicina)){
+                        AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom dodavanja proizvoda u skladiste.");
+                    }else{
+                        System.exit(0);
+                    }
                 }
             }
         }

@@ -52,7 +52,7 @@ public class DAOSkladisteProizvod {
         return true;
     }
     
-    public ObservableList<DTOSkladisteProizvod> pregledSkladista(){
+    public ArrayList<DTOSkladisteProizvod> pregledSkladista(){
          Connection con = null;
         PreparedStatement ps = null;
 
@@ -61,7 +61,7 @@ public class DAOSkladisteProizvod {
 
         try {
             con = ConnectionPool.getInstance().checkOut();
-            ps = con.prepareStatement("select * from skladiste");
+            ps = con.prepareStatement("select * from skladiste_proizvod");
             rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -91,6 +91,7 @@ public class DAOSkladisteProizvod {
                 }
             }
         }
-        return FXCollections.observableArrayList(skladisteProizvod);
+        return skladisteProizvod;
     }
+    
 }

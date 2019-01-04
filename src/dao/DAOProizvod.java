@@ -2,6 +2,7 @@ package dao;
 
 import connectionpool.ConnectionPool;
 import dto.DTOProizvod;
+import dto.DTOSkladisteProizvod;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -153,6 +154,45 @@ public class DAOProizvod {
             }
         }
         return true;
+    }
+    
+    public int idProizvoda(){
+        Connection con = null;
+        PreparedStatement ps = null;
+
+        ResultSet rs = null;
+        int retValue=0;
+
+        try {
+            con = ConnectionPool.getInstance().checkOut();
+            ps = con.prepareStatement("select max(IdProizvoda) as max_id_proizvoda from proizvod");
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                retValue = rs.getInt("max_id_proizvoda");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOProizvodjac.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (con != null) {
+                ConnectionPool.getInstance().checkIn(con);
+            }
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOProizvodjac.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOProizvodjac.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return retValue;
     }
 
 }
