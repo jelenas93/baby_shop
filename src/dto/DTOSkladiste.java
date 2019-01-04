@@ -2,22 +2,17 @@ package dto;
 
 public class DTOSkladiste {
     
-    private int idSkladista, stanje, postanskiBroj;
+    private int idSkladista, postanskiBroj;
     private String adresa;
 
-    public DTOSkladiste(int idSkladista, int stanje, int postanskiBroj, String adresa) {
+    public DTOSkladiste(int idSkladista, int postanskiBroj, String adresa) {
         this.idSkladista = idSkladista;
-        this.stanje = stanje;
         this.postanskiBroj = postanskiBroj;
         this.adresa = adresa;
     }
 
     public int getIdSkladista() {
         return idSkladista;
-    }
-
-    public int getStanje() {
-        return stanje;
     }
 
     public int getPostanskiBroj() {
@@ -30,10 +25,6 @@ public class DTOSkladiste {
 
     public void setIdSkladista(int idSkladista) {
         this.idSkladista = idSkladista;
-    }
-
-    public void setStanje(int stanje) {
-        this.stanje = stanje;
     }
 
     public void setPostanskiBroj(int postanskiBroj) {
