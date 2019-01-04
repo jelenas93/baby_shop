@@ -42,29 +42,32 @@ public class UnosMjestaController implements Initializable {
 
     }
 
-    public void otkaziStisak(ActionEvent event) throws IOException {
-        if (UnosProizvodjacaController.proizvodjac) {
-            UnosProizvodjacaController.proizvodjac=false;
-            Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosProizvodjaca.fxml"));
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene korisnikScena = new Scene(korisnikView);
-            window.resizableProperty().setValue(Boolean.FALSE);
-            window.setScene(korisnikScena);
-            window.centerOnScreen();
-            window.show();
+    private void vracanjeNaOdgovaracujuForfmu(ActionEvent event) throws IOException{
+        Parent korisnikView = null;
+        if (UnosProizvodjacaController.flegZaVracanjeNaProizvodjaca) {
+            UnosProizvodjacaController.flegZaVracanjeNaProizvodjaca = false;
+            korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosProizvodjaca.fxml"));
+        } else if (UnosZaposlenogController.flegZaVracanjeNaZaposlenog) {
+            UnosZaposlenogController.flegZaVracanjeNaZaposlenog = false;
+            korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosZaposlenog.fxml"));
         } else {
-            Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosDobavljaca.fxml"));
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene korisnikScena = new Scene(korisnikView);
-            window.resizableProperty().setValue(Boolean.FALSE);
-            window.setScene(korisnikScena);
-            window.centerOnScreen();
-            window.show();
+            UnosDobavljacaController.flegZaVracanjeNaDobavljaca = false;
+            korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosDobavljaca.fxml"));
         }
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene korisnikScena = new Scene(korisnikView);
+        window.resizableProperty().setValue(Boolean.FALSE);
+        window.setScene(korisnikScena);
+        window.centerOnScreen();
+        window.show();
+    }
+    
+    public void otkaziStisak(ActionEvent event) throws IOException {
+        vracanjeNaOdgovaracujuForfmu(event);
     }
 
     public void sacuvajStisak(ActionEvent event) throws IOException {
-        
+
         if ("".equals(nazivTextField.getText()) || "".equals(opstinaTextField.getText())
                 || "".equals(drzavaTextField.getText()) || "".equals(postanskiBrojTextField.getText())) {
             AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste unijeli podatke.");
@@ -76,24 +79,7 @@ public class UnosMjestaController implements Initializable {
                         nazivTextField.getText(), opstinaTextField.getText(), drzavaTextField.getText())) {
                     AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom upisa mjesta u bazu.");
                 } else {
-                    if (UnosProizvodjacaController.proizvodjac) {
-            UnosProizvodjacaController.proizvodjac=false;
-            Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosProizvodjaca.fxml"));
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene korisnikScena = new Scene(korisnikView);
-            window.resizableProperty().setValue(Boolean.FALSE);
-            window.setScene(korisnikScena);
-            window.centerOnScreen();
-            window.show();
-        } else {
-            Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosDobavljaca.fxml"));
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene korisnikScena = new Scene(korisnikView);
-            window.resizableProperty().setValue(Boolean.FALSE);
-            window.setScene(korisnikScena);
-            window.centerOnScreen();
-            window.show();
-        }
+                    vracanjeNaOdgovaracujuForfmu(event);
                 }
             } catch (NumberFormatException e) {
                 AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Poštanski broj ne može biti slovo !");

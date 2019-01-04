@@ -23,7 +23,7 @@ import javafx.stage.Stage;
 
 public class UnosProizvodjacaController implements Initializable {
 
-    public static boolean proizvodjac;
+    public static boolean flegZaVracanjeNaProizvodjaca;
     @FXML
     private JFXTextField JIBProizvodjacaTextField;
 
@@ -31,7 +31,7 @@ public class UnosProizvodjacaController implements Initializable {
     private JFXTextField nazivTextField;
 
     @FXML
-    private JFXComboBox<String> mjestoComboBox;
+    private JFXComboBox<DTOMjesto> mjestoComboBox;
 
     @FXML
     private JFXButton dodajMjestoButton;
@@ -47,7 +47,7 @@ public class UnosProizvodjacaController implements Initializable {
         ObservableList<DTOMjesto> listaMjesta;
         listaMjesta = daoMjesto.getMjesto();
         for (int i = 0; i < listaMjesta.size(); i++) {
-            mjestoComboBox.getItems().add(listaMjesta.get(i).getNaziv() + ", " + listaMjesta.get(i).getPostanskiBroj());
+            mjestoComboBox.getItems().add(listaMjesta.get(i));
         }
     }
 
@@ -57,7 +57,8 @@ public class UnosProizvodjacaController implements Initializable {
     }
     
     public void dodajMjesto(ActionEvent event) throws IOException{
-        proizvodjac=true;
+        flegZaVracanjeNaProizvodjaca=true;
+        UnosDobavljacaController.flegZaVracanjeNaDobavljaca=false;
         Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosMjesta.fxml"));
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene korisnikScena = new Scene(korisnikView);
@@ -84,8 +85,8 @@ public class UnosProizvodjacaController implements Initializable {
         } else {
 
             DAOProizvodjac dAOProizvodjac = new DAOProizvodjac();
-            int postanskiBroj=Integer.parseInt(mjestoComboBox.getSelectionModel().getSelectedItem().split(", ")[1]);
-            if (!dAOProizvodjac.upisUBazuProizvodjaca(JIBProizvodjacaTextField.getText(), nazivTextField.getText(), postanskiBroj)) {
+          //  int postanskiBroj=Integer.parseInt(mjestoComboBox.getSelectionModel().getSelectedItem().split(", ")[1]);
+            if (!dAOProizvodjac.upisUBazuProizvodjaca(JIBProizvodjacaTextField.getText(), nazivTextField.getText(), mjestoComboBox.getSelectionModel().getSelectedItem().getPostanskiBroj())) {
                 AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom upisa proizvođača u bazu.");
             } else {
                 Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosProizvoda.fxml"));

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import babyshop.AlertHelper;
@@ -13,21 +8,24 @@ import dao.DAOTipZaposlenog;
 import dao.DAOZaposleni;
 import dto.DTOMjesto;
 import dto.DTOTipZaposlenog;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author Tijana Lakic
- */
 public class UnosZaposlenogController implements Initializable {
 
+    public static boolean flegZaVracanjeNaZaposlenog;
+    
     @FXML
     private JFXComboBox<DTOTipZaposlenog> tipZaposlenogComboBox;
     @FXML
@@ -43,9 +41,6 @@ public class UnosZaposlenogController implements Initializable {
     @FXML
     private JFXComboBox<DTOMjesto> mjestoComboBox;
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
@@ -92,6 +87,19 @@ public class UnosZaposlenogController implements Initializable {
     @FXML
     private void OtkaziButtonOnAction(ActionEvent event) {
          System.exit(0);
+    }
+    
+    public void dodajMjesto(ActionEvent event) throws IOException{
+        UnosProizvodjacaController.flegZaVracanjeNaProizvodjaca=false;
+        UnosDobavljacaController.flegZaVracanjeNaDobavljaca=false;
+        flegZaVracanjeNaZaposlenog=true;
+        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosMjesta.fxml"));
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene korisnikScena = new Scene(korisnikView);
+        window.resizableProperty().setValue(Boolean.FALSE);
+        window.setScene(korisnikScena);
+        window.centerOnScreen();
+        window.show();
     }
     
 }

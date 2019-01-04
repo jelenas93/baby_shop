@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import babyshop.AlertHelper;
@@ -27,16 +22,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author Marija
- */
 public class UnosDobavljacaController implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
+    public static boolean flegZaVracanjeNaDobavljaca;
+
     @FXML
     private JFXTextField nazivTextField;
 
@@ -53,7 +42,7 @@ public class UnosDobavljacaController implements Initializable {
     private JFXTextField telefonTextField;
 
     @FXML
-    private JFXComboBox<String> mjestoComboBox;
+    private JFXComboBox<DTOMjesto> mjestoComboBox;
 
     @FXML
     private FontAwesomeIconView dodajMjestoButton;
@@ -74,12 +63,13 @@ public class UnosDobavljacaController implements Initializable {
         ObservableList<DTOMjesto> listaMjesta;
         listaMjesta = daoMjesto.getMjesto();
         for (int i = 0; i < listaMjesta.size(); i++) {
-            mjestoComboBox.getItems().add(listaMjesta.get(i).getNaziv() + ", " + listaMjesta.get(i).getPostanskiBroj());
+            mjestoComboBox.getItems().add(listaMjesta.get(i));
         }
     }
     
     public void dodajMjesto(ActionEvent event) throws IOException{
-        UnosProizvodjacaController.proizvodjac=false;
+        UnosProizvodjacaController.flegZaVracanjeNaProizvodjaca=false;
+        flegZaVracanjeNaDobavljaca=true;
         Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosMjesta.fxml"));
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene korisnikScena = new Scene(korisnikView);
@@ -108,8 +98,10 @@ public class UnosDobavljacaController implements Initializable {
         } else {
 
             DAODobavljac dAODobavljac = new DAODobavljac();
-            int postanskiBroj=Integer.parseInt(mjestoComboBox.getSelectionModel().getSelectedItem().split(", ")[1]);
-            if (!dAODobavljac.dodajDobavljaca(postanskiBroj,nazivTextField.getText(),emailTextField.getText(),adresaTextField.getText(),telefonTextField.getText(), jibTextField.getText())) {
+           // int postanskiBroj=Integer.parseInt(mjestoComboBox.getSelectionModel().getSelectedItem().split(", ")[1]);
+            if (!dAODobavljac.dodajDobavljaca(mjestoComboBox.getSelectionModel().getSelectedItem().getPostanskiBroj(),
+                    nazivTextField.getText(),emailTextField.getText(),adresaTextField.getText(),
+                    telefonTextField.getText(), jibTextField.getText())) {
                 AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom upisa proizvođača u bazu.");
             } else {
                 Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosProizvoda.fxml"));
