@@ -13,6 +13,7 @@ import dto.DTOProizvodjac;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -84,8 +85,8 @@ public class UnosProizvodaController implements Initializable {
     private JFXComboBox<String> godisnjeDobaComboBox = new JFXComboBox();
     private int idGrupe;
 
-    private double duzina = 0, sirina = 0, visina = 0;
-    private int velicina = 0, uzrast = 0;
+    private double duzina = 0.0, sirina = 0.0, visina = 0.0, cijena = 0.0;
+    private int velicina = 0, uzrast = 0, kolicina = 0;
     private String pol = "", boja = "", godisnjeDoba = "";
 
     private void popuniMaterijale() {
@@ -212,98 +213,182 @@ public class UnosProizvodaController implements Initializable {
     }
 
     public void sacuvajStisak(ActionEvent event) throws IOException {
-        if ("".equals(tipProizvodaComboBox.getSelectionModel().getSelectedItem())
+        if (tipProizvodaComboBox.getSelectionModel().getSelectedIndex() < 0
                 || "".equals(nazivProizvodaTextField.getText())
                 || "".equals(barkodTextField.getText()) || "".equals(sifraTextField.getText())
                 || "".equals(kolicinaTextField.getText()) || "".equals(cijenaTextField.getText())
-                || "".equals(JIBProizvodjacaComboBox.getSelectionModel().getSelectedItem())
-                || "".equals(materijaliComboBox.getSelectionModel().getSelectedItem())) {
+                || JIBProizvodjacaComboBox.getSelectionModel().getSelectedIndex() < 0
+                || materijaliComboBox.getSelectionModel().getSelectedIndex() < 0) {
             AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste unijeli osnovne podatke.");
+        } else if (!Pattern.matches("[0-9]{13}", barkodTextField.getText())) {
+            AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Neispravan barkod.");
+        } else if (!Pattern.matches("[0-9]{5}", sifraTextField.getText())) {
+            AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Neispravna šifra.");
+        } else if (!("".equals(cijenaTextField.getText()))) {
+            try {
+                cijena = Double.parseDouble(cijenaTextField.getText());
+                System.out.println("Cijena " + cijena);
+            } catch (NumberFormatException e) {
+                AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Cijena mora biti realan broj.");
+            }
+        } else if (!("".equals(kolicinaTextField.getText()))) {
+            try {
+                kolicina = Integer.parseInt(kolicinaTextField.getText());
+            } catch (NumberFormatException e) {
+                AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Količina mora biti cijeli broj.");
+            }
+
         } else {
             DAOGrupaProizvod daoGrupa = new DAOGrupaProizvod();
-            DTOProizvodGrupa dtoProizvodGrupa = null;
-            dtoProizvodGrupa = daoGrupa.getNazivProizvoda(tipProizvodaComboBox.getSelectionModel().getSelectedItem());
-            if (dtoProizvodGrupa.isBoja()) {
-                if ("".equals(bojaComboBox.getSelectionModel().getSelectedItem())) {
+            DTOProizvodGrupa dtoProizvodGrupa = daoGrupa.getNazivProizvoda(tipProizvodaComboBox.getSelectionModel().getSelectedItem());
+
+            /*
+            if ("".equals(bojaComboBox.getSelectionModel().getSelectedItem())) {
+                if (dtoProizvodGrupa.isBoja()) {
                     AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste izabrali boju.");
                 } else {
                     boja = bojaComboBox.getSelectionModel().getSelectedItem();
                 }
-            } else if (dtoProizvodGrupa.isDuzina()) {
+            }
+            if (dtoProizvodGrupa.isDuzina()) {
                 if ("".equals(duzinaTextField.getText())) {
                     AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste unijeli dužinu.");
                 } else {
-                    duzina = Double.parseDouble(duzinaTextField.getText());
+                    try {
+                        duzina = Double.parseDouble(duzinaTextField.getText());
+                    } catch (NumberFormatException e) {
+                        AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Dužina mora biti broj !");
+                    }
                 }
-            } else if (dtoProizvodGrupa.isSirina()) {
+            }
+            if (dtoProizvodGrupa.isSirina()) {
                 if ("".equals(sirinaTextField.getText())) {
                     AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste unijeli širinu.");
                 } else {
-                    sirina = Double.parseDouble(sirinaTextField.getText());
+                    try {
+                        sirina = Double.parseDouble(sirinaTextField.getText());
+                    } catch (NumberFormatException e) {
+                        AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Širina mora biti broj !");
+                    }
                 }
-            } else if (dtoProizvodGrupa.isVisina()) {
+            }
+            if (dtoProizvodGrupa.isVisina()) {
                 if ("".equals(visinaTextField.getText())) {
                     AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste unijeli visinu.");
                 } else {
-                    visina = Double.parseDouble(visinaTextField.getText());
+                    try {
+                        visina = Double.parseDouble(visinaTextField.getText());
+                    } catch (NumberFormatException e) {
+                        AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Visina mora biti broj !");
+                    }
                 }
-            } else if (dtoProizvodGrupa.isGodisnjeDoba()) {
+            }
+            if (dtoProizvodGrupa.isGodisnjeDoba()) {
                 if ("".equals(godisnjeDobaComboBox.getSelectionModel().getSelectedItem())) {
                     AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste iabrali godišnje doba.");
                 } else {
                     godisnjeDoba = godisnjeDobaComboBox.getSelectionModel().getSelectedItem();
                 }
-            } else if (dtoProizvodGrupa.isPol()) {
+            }
+            if (dtoProizvodGrupa.isPol()) {
                 if ("".equals(polComboBox.getSelectionModel().getSelectedItem())) {
                     AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste izabrali pol.");
                 } else {
                     pol = polComboBox.getSelectionModel().getSelectedItem();
                 }
-            } else if (dtoProizvodGrupa.isUzrast()) {
+            }
+            if (dtoProizvodGrupa.isUzrast()) {
                 if ("".equals(uzrastTextField.getText())) {
                     AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste unijeli uzrast.");
                 } else {
-                    uzrast = Integer.parseInt(uzrastTextField.getText());
+                    try {
+                        uzrast = Integer.parseInt(uzrastTextField.getText());
+                    } catch (NumberFormatException e) {
+                        AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Uzrast mora biti broj !");
+                    }
                 }
-            } else if (dtoProizvodGrupa.isVelicina()) {
+            }
+            if (dtoProizvodGrupa.isVelicina()) {
                 if ("".equals(velicinaTextField.getText())) {
                     AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste unijeli veličinu.");
                 } else {
-                    velicina = Integer.parseInt(velicinaTextField.getText());
+                    try {
+                        velicina = Integer.parseInt(velicinaTextField.getText());
+                    } catch (NumberFormatException e) {
+                        AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Veličina mora biti broj !");
+                    }
                 }
+            }*/
+            if (dtoProizvodGrupa.isBoja() && "".equals(bojaComboBox.getSelectionModel().getSelectedItem())) {
+                AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste izabrali boju.");
+            } else if (dtoProizvodGrupa.isDuzina() && "".equals(duzinaTextField.getText())) {
+                AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste unijeli dužinu.");
+            } else if (dtoProizvodGrupa.isSirina() && "".equals(sirinaTextField.getText())) {
+                AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste unijeli širinu.");
+            } else if (dtoProizvodGrupa.isVisina() && "".equals(visinaTextField.getText())) {
+                AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste unijeli visinu.");
+            } else if (dtoProizvodGrupa.isGodisnjeDoba() && "".equals(godisnjeDobaComboBox.getSelectionModel().getSelectedItem())) {
+                AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste iabrali godišnje doba.");
+            } else if (dtoProizvodGrupa.isPol() && "".equals(polComboBox.getSelectionModel().getSelectedItem())) {
+                AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste izabrali pol.");
+            } else if (dtoProizvodGrupa.isUzrast() && "".equals(uzrastTextField.getText())) {
+                AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste unijeli uzrast.");
+            } else if (dtoProizvodGrupa.isVelicina() && "".equals(velicinaTextField.getText())) {
+                AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste unijeli veličinu.");
             } else {
+                if (dtoProizvodGrupa.isBoja()) {
+                    boja = bojaComboBox.getSelectionModel().getSelectedItem();
+                }
+                if (dtoProizvodGrupa.isDuzina()) {
+                    try {
+                        duzina = Double.parseDouble(duzinaTextField.getText());
+                    } catch (NumberFormatException e) {
+                        AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Dužina mora biti broj !");
+                    }
+                }
+                if (dtoProizvodGrupa.isSirina()) {
+                    try {
+                        sirina = Double.parseDouble(sirinaTextField.getText());
+                    } catch (NumberFormatException e) {
+                        AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Širina mora biti broj !");
+                    }
+                }
+                if (dtoProizvodGrupa.isVisina()) {
+                    try {
+                        visina = Double.parseDouble(visinaTextField.getText());
+                    } catch (NumberFormatException e) {
+                        AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Visina mora biti broj !");
+                    }
+                }
+                if (dtoProizvodGrupa.isGodisnjeDoba()) {
+                    godisnjeDoba = godisnjeDobaComboBox.getSelectionModel().getSelectedItem();
+                }
+                if (dtoProizvodGrupa.isPol()) {
+                    pol = polComboBox.getSelectionModel().getSelectedItem();
+                }
+                if (dtoProizvodGrupa.isUzrast()) {
+                    try {
+                        uzrast = Integer.parseInt(uzrastTextField.getText());
+                    } catch (NumberFormatException e) {
+                        AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Uzrast mora biti broj !");
+                    }
+                }
+                if (dtoProizvodGrupa.isVelicina()) {
+                    try {
+                        velicina = Integer.parseInt(velicinaTextField.getText());
+                    } catch (NumberFormatException e) {
+                        AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Veličina mora biti broj !");
+                    }
+                }
                 DAOProizvod daoProizvod = new DAOProizvod();
-                //   try {
                 String jib = JIBProizvodjacaComboBox.getSelectionModel().getSelectedItem().split(", ")[1];
-                /* if (!daoProizvod.upisUBazuProizvod(barkodTextField.getText(), sifraTextField.getText(),
-                            nazivProizvodaTextField.getText().toUpperCase(),
-                            Integer.parseInt(kolicinaTextField.getText()),
-                            Double.parseDouble(cijenaTextField.getText()),
-                            jib, idGrupe, Double.parseDouble(duzinaTextField.getText()),
-                            Double.parseDouble(sirinaTextField.getText()),
-                            Double.parseDouble(visinaTextField.getText()),
-                            Integer.parseInt(velicinaTextField.getText()),
-                            Integer.parseInt(uzrastTextField.getText()),
-                            polComboBox.getSelectionModel().getSelectedItem(),
-                            bojaComboBox.getSelectionModel().getSelectedItem(),
-                            godisnjeDobaComboBox.getSelectionModel().getSelectedItem())) {
-                        AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom upisa proizvoda u bazu.");
-                    } else {
-                        System.exit(0);
-                    }*/
                 if (!daoProizvod.upisUBazuProizvod(barkodTextField.getText(), sifraTextField.getText(),
                         nazivProizvodaTextField.getText().toUpperCase(),
-                        Integer.parseInt(kolicinaTextField.getText()),
-                        Double.parseDouble(cijenaTextField.getText()),
-                        jib, idGrupe, duzina, sirina, visina, velicina, uzrast, pol, boja, godisnjeDoba)) {
+                        kolicina, cijena, jib, idGrupe, duzina, sirina, visina, velicina, uzrast, pol, boja, godisnjeDoba)) {
                     AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom upisa proizvoda u bazu.");
                 } else {
                     System.exit(0);
                 }
-                /*     } catch (NumberFormatException e) {
-                    AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Unesite brojeve !");
-                }
-                 */
             }
         }
     }

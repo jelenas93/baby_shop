@@ -13,10 +13,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class DAOProizvod {
-    
-    public final String SQL_GET_PROIZVOD="select * from baby_shop.proizvod";
-    
-     public ObservableList<DTOProizvod> getProizvode() {
+
+    public final String SQL_GET_PROIZVOD = "select * from baby_shop.proizvod";
+
+    public ObservableList<DTOProizvod> getProizvode() {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -26,24 +26,24 @@ public class DAOProizvod {
             ps = con.prepareStatement(SQL_GET_PROIZVOD);
             rs = ps.executeQuery();
             while (rs.next()) {
-                int idPorizvoda=rs.getInt(1);
-                String barkod=rs.getString(2);
-                String sifra=rs.getString(3);
-                String naziv=rs.getString(4);
-                int kolicina=rs.getInt(5);
-                double cijena=rs.getDouble(6);
-                String JIBProizvodjaca=rs.getString(7);
-                int idGrupe=rs.getInt(8);
-                double duzina=rs.getDouble(9);
-                double sirina=rs.getDouble(10);
-                double visina=rs.getDouble(11);
-                int velicina=rs.getInt(12);
-                int uzrast=rs.getInt(13);
-                String pol=rs.getString(14);
-                String boja=rs.getString(15);
-                String godisnjeDoba=rs.getString(16);
+                int idPorizvoda = rs.getInt(1);
+                String barkod = rs.getString(2);
+                String sifra = rs.getString(3);
+                String naziv = rs.getString(4);
+                int kolicina = rs.getInt(5);
+                double cijena = rs.getDouble(6);
+                String JIBProizvodjaca = rs.getString(7);
+                int idGrupe = rs.getInt(8);
+                double duzina = rs.getDouble(9);
+                double sirina = rs.getDouble(10);
+                double visina = rs.getDouble(11);
+                int velicina = rs.getInt(12);
+                int uzrast = rs.getInt(13);
+                String pol = rs.getString(14);
+                String boja = rs.getString(15);
+                String godisnjeDoba = rs.getString(16);
                 proizvodi.add(new DTOProizvod(idPorizvoda, barkod, sifra, naziv,
-                        kolicina, cijena, JIBProizvodjaca, idGrupe, duzina, 
+                        kolicina, cijena, JIBProizvodjaca, idGrupe, duzina,
                         sirina, visina, velicina, uzrast, pol, boja, godisnjeDoba));
             }
         } catch (SQLException ex) {
@@ -70,12 +70,12 @@ public class DAOProizvod {
 
         return FXCollections.observableArrayList(proizvodi);
     }
-     
-      public boolean upisUBazuProizvod(String barkod, String sifra,String naziv,
-            int kolicina, double cijena, String JIBProizvodjaca, int idGrupe, 
-            double duzina, double sirina,double visina, int velicina, int uzrast,
-            String pol, String boja, String godisnjeDoba){
-       
+
+    public boolean upisUBazuProizvod(String barkod, String sifra, String naziv,
+            int kolicina, double cijena, String JIBProizvodjaca, int idGrupe,
+            double duzina, double sirina, double visina, int velicina, int uzrast,
+            String pol, String boja, String godisnjeDoba) {
+
         Connection con = null;
         PreparedStatement myStatement = null;
         try {
@@ -91,14 +91,47 @@ public class DAOProizvod {
             myStatement.setInt(4, kolicina);
             myStatement.setDouble(5, cijena);
             myStatement.setString(6, JIBProizvodjaca);
-            myStatement.setDouble(8, duzina);
-            myStatement.setDouble(9, sirina);
-            myStatement.setDouble(10, visina);
-            myStatement.setInt(11, velicina);
-            myStatement.setInt(12,uzrast);
-            myStatement.setString(13,pol);
-            myStatement.setString(14,boja);
-            myStatement.setString(15,godisnjeDoba);
+            myStatement.setInt(7, idGrupe);
+            if (duzina != 0) {
+                myStatement.setDouble(8, duzina);
+            } else {
+                myStatement.setNull(8, java.sql.Types.NULL);
+            }
+            if (sirina != 0) {
+                myStatement.setDouble(9, sirina);
+            } else {
+                myStatement.setNull(9, java.sql.Types.NULL);
+            }
+            if (visina != 0) {
+                myStatement.setDouble(10, visina);
+            } else {
+                myStatement.setNull(10, java.sql.Types.NULL);
+            }
+            if (velicina != 0) {
+                myStatement.setInt(11, velicina);
+            } else {
+                myStatement.setNull(11, java.sql.Types.NULL);
+            }
+            if (uzrast != 0) {
+                myStatement.setInt(12, uzrast);
+            } else {
+                myStatement.setNull(12, java.sql.Types.NULL);
+            }
+            if (!("".equals(pol))) {
+                myStatement.setString(13, pol);
+            } else {
+                myStatement.setNull(13, java.sql.Types.NULL);
+            }
+            if (!("".equals(boja))) {
+                myStatement.setString(14, boja);
+            } else {
+                myStatement.setNull(14, java.sql.Types.NULL);
+            }
+            if (!("".equals(godisnjeDoba))) {
+                myStatement.setString(15, godisnjeDoba);
+            } else {
+                myStatement.setNull(15, java.sql.Types.NULL);
+            }
             myStatement.execute();
         } catch (SQLException ex) {
             Logger.getLogger(DAOProizvod.class.getName()).log(Level.SEVERE, null, ex);
@@ -121,5 +154,5 @@ public class DAOProizvod {
         }
         return true;
     }
-   
+
 }
