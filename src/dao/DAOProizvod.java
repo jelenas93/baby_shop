@@ -72,7 +72,7 @@ public class DAOProizvod {
     }
 
     public boolean upisUBazuProizvod(String barkod, String sifra, String naziv,
-            int kolicina, double cijena, String JIBProizvodjaca, int idGrupe,
+            int kolicina, Double cijena, String JIBProizvodjaca, int idGrupe,
             double duzina, double sirina, double visina, int velicina, int uzrast,
             String pol, String boja, String godisnjeDoba) {
 

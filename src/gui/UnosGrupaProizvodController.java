@@ -63,13 +63,14 @@ public class UnosGrupaProizvodController implements Initializable {
     }
 
     public void otkaziStisak(ActionEvent event) throws IOException {
-        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosProizvoda.fxml"));
+        ((Node)(event.getSource())).getScene().getWindow().hide();
+      /*  Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosProizvoda.fxml"));
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene korisnikScena = new Scene(korisnikView);
         window.resizableProperty().setValue(Boolean.FALSE);
         window.setScene(korisnikScena);
         window.centerOnScreen();
-        window.show();
+        window.show();*/
     }
 
     public void sacuvajStisak(ActionEvent event) throws IOException {
@@ -87,13 +88,15 @@ public class UnosGrupaProizvodController implements Initializable {
                         bojaCheckBox.isSelected(), godisnjeDobaCheckBox.isSelected())) {
                     AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greska prilikom upisa grupe u bazu !");
                 } else {
-                    Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosProizvoda.fxml"));
+                  
+                    ((Node)(event.getSource())).getScene().getWindow().hide();
+                  /*  Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosProizvoda.fxml"));
                     Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     Scene korisnikScena = new Scene(korisnikView);
                     window.resizableProperty().setValue(Boolean.FALSE);
                     window.setScene(korisnikScena);
                     window.centerOnScreen();
-                    window.show();
+                    window.show();*/
                }
             }
         }

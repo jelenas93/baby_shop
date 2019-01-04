@@ -4,13 +4,13 @@ public class DTOProizvod {
     
     private int idProizvoda, kolicina, idGrupe;
     private String barkod, sifra, naziv, JIBProizvodjaca, godisnjeDoba;
-    private double cijena;
+    private Double cijena;
     //osobine
     private int uzrast, velicina;
     private String pol, boja;
     private double duzina, sirina, visina;
 
-    public DTOProizvod(int idProizvoda, String barkod, String sifra, String naziv, int kolicina, double cijena, String JIBProizvodjaca, int idGrupe,double duzina, double sirina, double visina, int velicina, int uzrast, String pol, String boja, String godisnjeDoba) {
+    public DTOProizvod(int idProizvoda, String barkod, String sifra, String naziv, int kolicina, Double cijena, String JIBProizvodjaca, int idGrupe,double duzina, double sirina, double visina, int velicina, int uzrast, String pol, String boja, String godisnjeDoba) {
         this.idProizvoda = idProizvoda;
         this.kolicina = kolicina;
         this.idGrupe = idGrupe;
@@ -57,7 +57,7 @@ public class DTOProizvod {
         this.JIBProizvodjaca = JIBProizvodjaca;
     }
 
-    public void setCijena(double cijena) {
+    public void setCijena(Double cijena) {
         this.cijena = cijena;
     }
 
@@ -117,7 +117,7 @@ public class DTOProizvod {
         return JIBProizvodjaca;
     }
 
-    public double getCijena() {
+    public Double getCijena() {
         return cijena;
     }
 
