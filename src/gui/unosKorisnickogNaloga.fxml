@@ -33,16 +33,16 @@
                <font>
                   <Font size="18.0" />
                </font></Label>
-            <JFXTextField GridPane.columnIndex="1" />
-            <JFXTextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <JFXButton text="Sacuvaj" GridPane.rowIndex="3" />
-            <JFXButton text="Otkazi" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <JFXTextField fx:id="korisnickoImeTextField" GridPane.columnIndex="1" />
+            <JFXTextField fx:id="lozinkaTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <JFXButton onAction="#sacuvajButtonOnAction" text="Sacuvaj" GridPane.rowIndex="3" />
+            <JFXButton onAction="#otkaziButtonOnAction" text="Otkazi" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Label layoutX="20.0" layoutY="142.0" text="Tip korisnickog naloga:" GridPane.rowIndex="2">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <JFXComboBox prefHeight="31.0" prefWidth="259.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <JFXComboBox fx:id="tipKorisnickogNalogaComboBox" prefHeight="31.0" prefWidth="259.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

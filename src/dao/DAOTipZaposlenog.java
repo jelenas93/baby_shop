@@ -66,7 +66,7 @@ public class DAOTipZaposlenog {
 
     }
     
-    public boolean dodajTipZaposlenog(int idTipaZaposlenog,String nazivTipaZaposlenog){
+    public boolean dodajTipZaposlenog(String nazivTipaZaposlenog){
     
    
             Connection con=null;
@@ -74,8 +74,9 @@ public class DAOTipZaposlenog {
             try {     
             con=ConnectionPool.getInstance().checkOut();
             ps=con.prepareStatement("insert into baby_shop.tip_zaposlenog "
-                    + "(IdTipa,NazivTipa) VALUES (default,?)");
+                    + "(NazivTipa) VALUES (?)");
             ps.setString(1, nazivTipaZaposlenog);
+            ps.execute();
         } catch (SQLException ex) {
             Logger.getLogger(DAOTipZaposlenog.class.getName()).log(Level.SEVERE, null, ex);
         }finally {

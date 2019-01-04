@@ -29,14 +29,13 @@ public class DAOKorisnickiNalog {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                int idNaloga=rs.getInt(1);
-                String korisnickoIme = rs.getString(2);
-                String lozinka = rs.getString(3);
-                boolean aktivan = rs.getBoolean(4);
-                String tipKorisnika = rs.getString(5);        
-                int idZaposlenog = rs.getInt(6);
+                String korisnickoIme = rs.getString(1);
+                String lozinka = rs.getString(2);
+                boolean aktivan = rs.getBoolean(3);
+                String tipKorisnika = rs.getString(4);        
+                int idZaposlenog = rs.getInt(5);
 
-                korisnici.add(new DTOKorisnickiNalog(korisnickoIme, lozinka, tipKorisnika, idZaposlenog, idNaloga, aktivan));
+                korisnici.add(new DTOKorisnickiNalog(korisnickoIme, lozinka, aktivan, tipKorisnika, idZaposlenog));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAOKorisnickiNalog.class.getName()).log(Level.SEVERE, null, ex);
@@ -92,22 +91,20 @@ public class DAOKorisnickiNalog {
         }
         return true;
     }*/
-    public boolean dodajKorisnickiNalog(String korisnickoIme, String lozinka, String tipKorisnika, 
-            int idZaposlenog, int idNaloga, boolean aktivan){
+    public boolean dodajKorisnickiNalog(String korisnickoIme, String lozinka, boolean aktivan,
+            String tipKorisnika, int idZaposlenog ){
         Connection con = null;
         PreparedStatement myStatement = null;
         try {
             con = ConnectionPool.getInstance().checkOut();
-            myStatement = con.prepareStatement("INSERT INTO baby_shop.korisnicki_nalog (IdNaloga,"
-                    + " KorisnickoIme, Lozinka, Aktivan, TipKorisnika, IdZaposlenog)"
-                    + " VALUES (?, ?, ?, ?, ?, ?)");
-            myStatement.setInt(1, idNaloga);
-            myStatement.setString(2, korisnickoIme);
-            myStatement.setString(3, lozinka);
-            myStatement.setBoolean(4, aktivan);
-            myStatement.setString(5, tipKorisnika);
-            myStatement.setInt(6, idZaposlenog);
-            
+            myStatement = con.prepareStatement("INSERT INTO baby_shop.korisnicki_nalog ("
+                   + " KorisnickoIme, Lozinka, Aktivan, TipKorisnika, IdZaposlenog)"
+                    + " VALUES (?, ?, ?, ?, ?)");
+            myStatement.setString(1, korisnickoIme);
+            myStatement.setString(2, lozinka);
+            myStatement.setBoolean(3, aktivan);
+            myStatement.setString(4, tipKorisnika);
+            myStatement.setInt(5, idZaposlenog);
             myStatement.execute();
         } catch (SQLException ex) {
             System.out.println(ex);

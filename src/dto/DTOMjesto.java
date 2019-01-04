@@ -42,6 +42,11 @@ public class DTOMjesto {
     public void setDrzava(String drzava) {
         this.drzava = drzava;
     }
+
+    @Override
+    public String toString() {
+        return  postanskiBroj+" " + naziv ;
+    }
     
     
 }

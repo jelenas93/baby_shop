@@ -5,12 +5,11 @@ public class DTOKorisnickiNalog {
         private int idZaposlenog, idNaloga;
         private boolean aktivan;
 
-    public DTOKorisnickiNalog(String korisnickoIme, String lozinka, String tipKorisnika, int idZaposlenog, int idNaloga, boolean aktivan) {
+    public DTOKorisnickiNalog(String korisnickoIme, String lozinka, boolean aktivan, String tipKorisnika, int idZaposlenog) {
         this.korisnickoIme = korisnickoIme;
         this.lozinka = lozinka;
         this.tipKorisnika = tipKorisnika;
         this.idZaposlenog = idZaposlenog;
-        this.idNaloga = idNaloga;
         this.aktivan = aktivan;
     }
 

@@ -6,8 +6,8 @@ public class DTOZaposleni {
     private double iznosPlate;
     private int idZaposlenog, postanskiBroj, idTipZaposlenog;
 
-    public DTOZaposleni(String ime, String prezime, String JMBG, double iznosPlate, String mejl, int idZaposlenog,
-            int postanskiBroj, int idTipZaposlenog) {
+    public DTOZaposleni(String ime, String prezime, String JMBG, double iznosPlate,
+            String mejl,int postanskiBroj,int idTipZaposlenog) {
         this.ime = ime;
         this.prezime = prezime;
         this.JMBG = JMBG;
@@ -15,7 +15,6 @@ public class DTOZaposleni {
         this.mejl = mejl;
         this.idZaposlenog = idZaposlenog;
         this.postanskiBroj = postanskiBroj;
-        this.idTipZaposlenog = idTipZaposlenog;
     }
 
     public String getIme() {

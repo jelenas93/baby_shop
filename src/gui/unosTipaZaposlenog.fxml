@@ -26,9 +26,9 @@
                <font>
                   <Font size="18.0" />
                </font></Label>
-            <JFXButton text="Sacuvaj" GridPane.rowIndex="1" />
-            <JFXButton text="Otkazi" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <JFXTextField GridPane.columnIndex="1" />
+            <JFXButton onAction="#sacuvajButtonOnAction" text="Sacuvaj" GridPane.rowIndex="1" />
+            <JFXButton onAction="#otkaziButtonOnAction" text="Otkazi" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <JFXTextField fx:id="nazivTipaZaposlenogTextField" GridPane.columnIndex="1" />
          </children>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

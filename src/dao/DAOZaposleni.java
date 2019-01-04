@@ -36,15 +36,15 @@ public class DAOZaposleni {
             ps=con.prepareStatement(SQL_GET_ZAPOSLENI);
             rs=ps.executeQuery();
             while(rs.next()){
-                int idZaposlenog=rs.getInt(1);
-                String jmbg=rs.getString(2);
-                String ime=rs.getString(3);
-                String prezime=rs.getString(4);
-                double iznosPlate=rs.getDouble(5);
-                String mejl=rs.getString(6);
-                int postanskiBroj=rs.getInt(7);
-                int idTipa=rs.getInt(8);
-                zaposleni.add(new DTOZaposleni(ime, prezime, jmbg, iznosPlate, mejl,idZaposlenog, postanskiBroj, idZaposlenog));
+                String jmbg=rs.getString(1);
+                String ime=rs.getString(2);
+                String prezime=rs.getString(3);
+                double iznosPlate=rs.getDouble(4);
+                String mejl=rs.getString(5);
+                int postanskiBroj=rs.getInt(6);
+                int idZaposlenog=rs.getInt(7);
+                zaposleni.add(new DTOZaposleni(ime, prezime, jmbg, iznosPlate, mejl,
+                        postanskiBroj,idZaposlenog));
             
             }
         } catch (SQLException ex) {
@@ -76,7 +76,7 @@ public class DAOZaposleni {
         return FXCollections.observableArrayList(zaposleni);     
     }
     public boolean dodajZaposlenog(String ime,String prezime,String jmbg,double iznosPlate,
-            String mejl,int idZaposlenog,int postanskiBroj,int idTipZaposlenog){
+            String mejl,int postanskiBroj,int idTipZaposlenog){
         
         Connection con=null;
         PreparedStatement ps=null;
@@ -84,15 +84,16 @@ public class DAOZaposleni {
         try {
             con=connectionpool.ConnectionPool.getInstance().checkOut();
             ps=con.prepareStatement("INSERT INTO baby_shop.zaposleni"
-            +"( IdZaposlenog,JMBG,Ime,Prezime,IznosPlate,Email,PostanskiBroj,IdTipa )"
-            + " VALUES( default,?,?,?,?,?,?)");
+            +"( JMBG,Ime,Prezime,IznosPlate,Email,PostanskiBroj,IdTipa)"
+            + " VALUES( ?,?,?,?,?,?,?)");
             ps.setString(1, jmbg);
             ps.setString(2, ime);
             ps.setString(3, prezime);
             ps.setDouble(4, iznosPlate);
             ps.setString(5, mejl);
             ps.setInt(6, postanskiBroj);
-            
+            ps.setInt(7, idTipZaposlenog);
+            ps.execute();
 
 
         } catch (SQLException ex) {

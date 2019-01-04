@@ -27,7 +27,7 @@ public class DTOTipZaposlenog {
 
     @Override
     public String toString() {
-        return "DTOTipZaposlenog{" + "idTipaZaposlenog=" + idTipaZaposlenog + ", nazivTipa=" + nazivTipa + '}';
+        return   nazivTipa;
     }
     
     
