@@ -93,4 +93,46 @@ public class DAOProizvodjac {
         }
         return true;
     }
+    
+    public DTOProizvodjac proizvodjacNaOsnovuJIB(String jib) {
+        Connection con = null;
+        PreparedStatement ps = null;
+
+        ResultSet rs = null;
+        DTOProizvodjac proizvodjac = null;
+
+        try {
+            con = ConnectionPool.getInstance().checkOut();
+            ps = con.prepareStatement("select * from proizvodjac where JIBProizvodjaca like '" + jib + "%'");
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String JIBProizvodjaca = rs.getString("JIBProizvodjaca");
+                String nazivProizvodjaca = rs.getString(2);
+                int postanskiBroj = rs.getInt(3);
+                proizvodjac=new DTOProizvodjac(JIBProizvodjaca, nazivProizvodjaca, postanskiBroj);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOProizvodjac.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (con != null) {
+                ConnectionPool.getInstance().checkIn(con);
+            }
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOProizvodjac.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOProizvodjac.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return proizvodjac;
+    }
 }

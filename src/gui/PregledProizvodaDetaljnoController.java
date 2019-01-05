@@ -6,12 +6,14 @@
 package gui;
 
 import dao.DAOProizvod;
+import dao.DAOProizvodjac;
 import dto.DTOProizvod;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,8 +23,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import tabele.TabelaDetaljanProizvod;
@@ -31,7 +35,7 @@ public class PregledProizvodaDetaljnoController implements Initializable {
 
     @FXML
     private TableView<TabelaDetaljanProizvod> tabela;
-    
+
     @FXML
     private TableColumn<TabelaDetaljanProizvod, String> barKod;
 
@@ -74,11 +78,19 @@ public class PregledProizvodaDetaljnoController implements Initializable {
     @FXML
     private TableColumn<TabelaDetaljanProizvod, String> godisnjeDoba;
 
+    @FXML
+    private Button nazad;
+
+    @FXML
+    private TextField nazivTextField;
+
+    private boolean pretraga = false;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         postaviTabelu();
-    }    
-    
+    }
+
     private void postaviTabelu() {
         barKod.setCellValueFactory(new PropertyValueFactory<>("barkod"));
         sifra.setCellValueFactory(new PropertyValueFactory<>("sifra"));
@@ -96,23 +108,44 @@ public class PregledProizvodaDetaljnoController implements Initializable {
         godisnjeDoba.setCellValueFactory(new PropertyValueFactory<>("godisnjeDoba"));
         tabela.setItems(getTabela());
     }
-    
-    private ObservableList<TabelaDetaljanProizvod> getTabela() {
-        ObservableList<DTOProizvod> lista =new DAOProizvod().getProizvode();
 
-        List<TabelaDetaljanProizvod> listaMoja = new ArrayList<>();
-        for (DTOProizvod proizvod: lista) {
-            listaMoja.add(new TabelaDetaljanProizvod(proizvod.getBarkod(), proizvod.getSifra(),  proizvod.getNaziv(), 
-            proizvod.getJIBProizvodjaca(), proizvod.getKolicina(), proizvod.getCijena(), proizvod.getDuzina(), proizvod.getSirina(), 
-                    proizvod.getVisina(), proizvod.getVelicina(), proizvod.getUzrast(), proizvod.getPol(), proizvod.getBoja(), proizvod.getGodisnjeDoba()));
-        }
+    private ObservableList<TabelaDetaljanProizvod> getTabela() {
+
+        ObservableList<DTOProizvod> lista = new DAOProizvod().getProizvode();
         ObservableList<TabelaDetaljanProizvod> listaZaPrikaz = FXCollections.observableArrayList();
-        for (TabelaDetaljanProizvod proizvod : listaMoja) {
-            listaZaPrikaz.add(proizvod);
+        List<TabelaDetaljanProizvod> listaMoja = new ArrayList<>();
+        if (!pretraga) {
+            pretraga = true;
+            for (DTOProizvod proizvod : lista) {
+                listaMoja.add(new TabelaDetaljanProizvod(proizvod.getBarkod(), proizvod.getSifra(), proizvod.getNaziv(),
+                    new DAOProizvodjac().proizvodjacNaOsnovuJIB(proizvod.getJIBProizvodjaca()).getNaziv(), proizvod.getKolicina(), proizvod.getCijena(), proizvod.getDuzina(), proizvod.getSirina(),
+                    proizvod.getVisina(), proizvod.getVelicina(), proizvod.getUzrast(), proizvod.getPol(), proizvod.getBoja(), proizvod.getGodisnjeDoba()));
+            }
+            for (TabelaDetaljanProizvod proizvod : listaMoja) {
+                listaZaPrikaz.add(proizvod);
+            }
+            return listaZaPrikaz;
+        } else {
+            lista.clear();
+            lista=new DAOProizvod().getProizvodPoNazivu(nazivTextField.getText());
+            for (DTOProizvod proizvod : lista) {
+                listaMoja.add(new TabelaDetaljanProizvod(proizvod.getBarkod(), proizvod.getSifra(), proizvod.getNaziv(),
+                    new DAOProizvodjac().proizvodjacNaOsnovuJIB(proizvod.getJIBProizvodjaca()).getNaziv(), proizvod.getKolicina(), proizvod.getCijena(), proizvod.getDuzina(), proizvod.getSirina(),
+                    proizvod.getVisina(), proizvod.getVelicina(), proizvod.getUzrast(), proizvod.getPol(), proizvod.getBoja(), proizvod.getGodisnjeDoba()));
+            }
+            for (TabelaDetaljanProizvod proizvod : listaMoja) {
+                listaZaPrikaz.add(proizvod);
+            }
+            return listaZaPrikaz;
         }
-        return listaZaPrikaz;
     }
     
+    public void nazivUnos(){
+        nazivTextField.getOnInputMethodTextChanged();
+        //nazivTextField.requestFocus();
+        postaviTabelu();
+      }
+
     public void nazad(ActionEvent event) throws IOException {
         Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/pregledProizvoda.fxml"));
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -122,6 +155,5 @@ public class PregledProizvodaDetaljnoController implements Initializable {
         window.centerOnScreen();
         window.show();
     }
-    
-    
+
 }
