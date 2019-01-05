@@ -1,13 +1,16 @@
 package gui;
 
+import babyshop.AlertHelper;
 import dao.DAOProizvod;
 import dto.DTOProizvod;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -18,7 +21,7 @@ import tabele.TabelaKasa;
 
 public class KasaController implements Initializable {
 
-     @FXML
+    @FXML
     private Label prodavacLabel;
 
     @FXML
@@ -77,17 +80,23 @@ public class KasaController implements Initializable {
 
     @FXML
     private Button razduzenjeButton;
-    
-    public boolean barkod=false;
-    
+
+    public boolean barkod = false;
+
+    public double ukupno = 0;
+
+    public boolean pozvanaMetodaBarkod = false;
+
+    public boolean pozvanaMetodaSifra = false;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         kasaTabela.getItems().add(new TabelaKasa());
-    //    puniTabelu();
-    }    
-    
+        datumLabel.setText(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE));
+        ukupnaCijenaLabel.setText("0,0");
+    }
+
     private void puniTabelu() {
-        
         barkodKolona.setCellValueFactory(new PropertyValueFactory<>("barkod"));
         sifraKolona.setCellValueFactory(new PropertyValueFactory<>("sifra"));
         nazivKolona.setCellValueFactory(new PropertyValueFactory<>("naziv"));
@@ -96,49 +105,67 @@ public class KasaController implements Initializable {
         vrijednostKolona.setCellValueFactory(new PropertyValueFactory<>("vrijednost"));
         kasaTabela.getItems().add(getTabela());
     }
-    
-    
-      private TabelaKasa getTabela() {
-      //  ObservableList<DTOProizvod> lista =new DAOProizvod().getProizvode();
-        DTOProizvod proizvod=null;
-        if(barkod){
-             proizvod=new DAOProizvod().getProizvodPoBarkodu(barkodTextField.getText());
-        }else{
-             proizvod=new DAOProizvod().getProizvodPoSifri(sifraTextField.getText());
+
+    private TabelaKasa getTabela() {
+        DTOProizvod proizvod = null;
+        if (barkod) {
+            proizvod = new DAOProizvod().getProizvodPoBarkodu(barkodTextField.getText());
+        } else {
+            proizvod = new DAOProizvod().getProizvodPoSifri(sifraTextField.getText());
         }
-        TabelaKasa tabelaKasa=new TabelaKasa(proizvod.getBarkod(), proizvod.getSifra(),
+        TabelaKasa tabelaKasa = new TabelaKasa(proizvod.getBarkod(), proizvod.getSifra(),
                 proizvod.getNaziv(), Integer.parseInt(kolicinaTextField.getText()),
-                proizvod.getCijena(), proizvod.getCijena());
+                proizvod.getCijena(), new Double(Integer.parseInt(kolicinaTextField.getText()) * proizvod.getCijena()));
+        ukupno += Integer.parseInt(kolicinaTextField.getText()) * proizvod.getCijena();
+        ukupnaCijenaLabel.setText(String.format("%.2f", ukupno));
         return tabelaKasa;
     }
-      
-      private boolean provjeraBarkoda(){
-          barkod=true;
-          if(!"".equals(barkodTextField.getText()) && Pattern.matches("[0-9]{13}", barkodTextField.getText())){
-              kolicinaTextField.requestFocus();
-              puniTabelu();
-              return true;
-          }
-          return false;
-      }
-      
-      public void barkodUnos(){
-          boolean nesto=provjeraBarkoda();
-          barkod=false;
-      }
-      
-      private boolean provjeraSifre(){
-          barkod=false;
-          if(!"".equals(sifraTextField.getText()) && Pattern.matches("[0-9]{5}", sifraTextField.getText())){
-              kolicinaTextField.requestFocus();
-              puniTabelu();
-              return true;
-              
-          }
-          return false;
-      }
-      
-      public void sifraUnos(){
-          boolean nesto=provjeraSifre();
-      }
+
+    private boolean provjeraBarkoda() {
+        barkod = true;
+        if (!"".equals(barkodTextField.getText()) && Pattern.matches("[0-9]{13}", barkodTextField.getText())) {
+            kolicinaTextField.requestFocus();
+            return true;
+        }
+        return false;
+    }
+
+    public void barkodUnos() {
+        pozvanaMetodaBarkod = provjeraBarkoda();
+        barkod = false;
+    }
+
+    private boolean provjeraSifre() {
+        barkod = false;
+        if (!"".equals(sifraTextField.getText()) && Pattern.matches("[0-9]{5}", sifraTextField.getText())) {
+            kolicinaTextField.requestFocus();
+            return true;
+        }
+        return false;
+    }
+
+    public void sifraUnos() {
+        pozvanaMetodaSifra = provjeraSifre();
+    }
+
+    public void klikNaKolicinu() {
+        if (!("".equals(kolicinaTextField.getText()))) {
+            try {
+                Integer.parseInt(kolicinaTextField.getText());
+                puniTabelu();
+                if (pozvanaMetodaBarkod) {
+                    barkodTextField.clear();
+                    pozvanaMetodaBarkod = false;
+                    barkodTextField.requestFocus();
+                } else if (pozvanaMetodaSifra) {
+                    sifraTextField.clear();
+                    pozvanaMetodaSifra = false;
+                    sifraTextField.requestFocus();
+                }
+                kolicinaTextField.setText("1");
+            } catch (NumberFormatException e) {
+                AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Unesite broj.");
+            }
+        }
+    }
 }
