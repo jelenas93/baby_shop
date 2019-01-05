@@ -1,35 +1,19 @@
 package tabele;
 
-public class TabelaProizvod {
-    private Integer id, kolicina;
+public class TabelaKasa {
     private String barkod, sifra, naziv;
-    private Double cijena;
+    private Integer kolicina;
+    private Double cijena, vrijednost;
+    
+    public TabelaKasa(){}
 
-    public TabelaProizvod(){}
-   
-    public TabelaProizvod(Integer id, String barkod, String sifra, String naziv, Integer kolicina, Double cijena) {
-        this.id = id;
-        this.kolicina = kolicina;
+    public TabelaKasa(String barkod, String sifra, String naziv, Integer kolicina, Double cijena, Double vrijednost) {
         this.barkod = barkod;
         this.sifra = sifra;
         this.naziv = naziv;
-        this.cijena = cijena;
-    }
-    
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getKolicina() {
-        return kolicina;
-    }
-
-    public void setKolicina(Integer kolicina) {
         this.kolicina = kolicina;
+        this.cijena = cijena;
+        this.vrijednost = vrijednost;
     }
 
     public String getBarkod() {
@@ -56,6 +40,14 @@ public class TabelaProizvod {
         this.naziv = naziv;
     }
 
+    public Integer getKolicina() {
+        return kolicina;
+    }
+
+    public void setKolicina(Integer kolicina) {
+        this.kolicina = kolicina;
+    }
+
     public Double getCijena() {
         return cijena;
     }
@@ -63,5 +55,13 @@ public class TabelaProizvod {
     public void setCijena(Double cijena) {
         this.cijena = cijena;
     }
-    
+
+    public Double getVrijednost() {
+        return vrijednost;
+    }
+
+    public void setVrijednost(Double vrijednost) {
+        this.vrijednost = vrijednost;
+    }
+   
 }

@@ -40,8 +40,10 @@ public class PregledProizvodaController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-     postaviTabelu();
+     tabela.getItems().add(new TabelaProizvod());
+    postaviTabelu();
     }
+    
     private void postaviTabelu() {
         redniBrojKolona.setCellValueFactory(new PropertyValueFactory<>("id"));
         barkodKolona.setCellValueFactory(new PropertyValueFactory<>("barkod"));
