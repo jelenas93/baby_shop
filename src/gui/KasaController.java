@@ -2,10 +2,17 @@ package gui;
 
 import babyshop.AlertHelper;
 import dao.DAOProizvod;
+import dao.DAORacun;
+import dao.DAOStavka;
 import dto.DTOProizvod;
+import dto.DTOStavka;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 import javafx.fxml.FXML;
@@ -88,6 +95,8 @@ public class KasaController implements Initializable {
     public boolean pozvanaMetodaBarkod = false;
 
     public boolean pozvanaMetodaSifra = false;
+    
+    public ArrayList<DTOStavka> listaStavki=new ArrayList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -116,6 +125,9 @@ public class KasaController implements Initializable {
         TabelaKasa tabelaKasa = new TabelaKasa(proizvod.getBarkod(), proizvod.getSifra(),
                 proizvod.getNaziv(), Integer.parseInt(kolicinaTextField.getText()),
                 proizvod.getCijena(), new Double(Integer.parseInt(kolicinaTextField.getText()) * proizvod.getCijena()));
+        
+        listaStavki.add(new DTOStavka(0,0, Integer.parseInt(kolicinaTextField.getText()),
+                Integer.parseInt(kolicinaTextField.getText()) * proizvod.getCijena(), proizvod.getIdProizvoda()));
         ukupno += Integer.parseInt(kolicinaTextField.getText()) * proizvod.getCijena();
         ukupnaCijenaLabel.setText(String.format("%.2f", ukupno));
         return tabelaKasa;
@@ -168,4 +180,51 @@ public class KasaController implements Initializable {
             }
         }
     }
+    
+    public void stampajRacun(){
+        
+        DAORacun daoRacun=new DAORacun();
+        if(!daoRacun.dodajRacun(2, new java.sql.Date(new Date().getTime()), ukupno)){
+            AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greeska racuna");
+        }
+        int idRacuna=daoRacun.idZadnjegRacuna();
+        DAOStavka daoStavka=new DAOStavka();
+        
+        for(DTOStavka stavka:listaStavki){
+            System.out.println(stavka);
+            if(!daoStavka.upisUBazuStavku(idRacuna, stavka.getKolicina(), stavka.getCijena(), stavka.getIdProizvoda())){
+                AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška pri upisu stavke u bazu.");
+            }
+        }
+        System.out.println("Uspjelo");
+    }
+    
+    public void brisanjeSaRacuna(){
+         if (!kasaTabela.getSelectionModel().getSelectedItems().toString().equals("[]")) {
+            /* List<> svi = vratiSveZaposlene();
+            for (Zaposleni z : svi) {
+                if (z.getJMBG().equals(tabela.getSelectionModel().getSelectedItem().getJMBG())) {
+                    IzmjenaZaposlenogController.zaposleni = z;
+                    if (tabela.getSelectionModel().getSelectedItem().getPozicija().equals("Prodavac karata")) {
+                        IzmjenaZaposlenogController.pozicija = "ProdavacKarata";
+                    } else if (tabela.getSelectionModel().getSelectedItem().getPozicija().equals("Prodavac hrane i pica")) {
+                        IzmjenaZaposlenogController.pozicija = "ProdavacHraneIPIca";
+                    } else {
+                        IzmjenaZaposlenogController.pozicija = tabela.getSelectionModel().getSelectedItem().getPozicija();
+                    }
+                    Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/izmjenaZaposlenog.fxml"));
+                    Scene korisnikScena = new Scene(korisnikView);
+                    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    window.setScene(korisnikScena);
+                    window.centerOnScreen();
+                    window.show();
+                }
+            }*/
+            //kasaTabela.getI
+        } else {
+            AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste izabrali zaposlenog kom želite izmjeniti podatke.");
+            return;
+        }
+    }
+    
 }

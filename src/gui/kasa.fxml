@@ -50,12 +50,12 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <Button fx:id="knjizenjeButton" layoutX="1062.0" layoutY="100.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="120.0" text="Knjiženje" textAlignment="CENTER" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="100.0">
+      <Button fx:id="knjizenjeButton" layoutX="1062.0" layoutY="100.0" mnemonicParsing="false" onAction="#stampajRacun" prefHeight="50.0" prefWidth="120.0" text="Knjiženje" textAlignment="CENTER" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="100.0">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button fx:id="brisanjeButton" alignment="CENTER" layoutX="813.0" layoutY="100.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="120.0" text="Brisanje" textAlignment="CENTER" AnchorPane.rightAnchor="330.0" AnchorPane.topAnchor="100.0">
+      <Button fx:id="brisanjeButton" alignment="CENTER" layoutX="813.0" layoutY="100.0" mnemonicParsing="false" onAction="#brisanjeSaRacuna" prefHeight="50.0" prefWidth="120.0" text="Brisanje" textAlignment="CENTER" AnchorPane.rightAnchor="330.0" AnchorPane.topAnchor="100.0">
          <font>
             <Font size="18.0" />
          </font>

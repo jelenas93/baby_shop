@@ -1,17 +1,15 @@
 package dto;
 
 public class DTOStavka {
-    
-    private int idRacuna, idStavke, idProizvoda, kolicina;
-    private String jedinicaMjere; 
+
+    private int idStavke, idProizvoda, kolicina, idRacuna;
     private double cijena;
 
-    public DTOStavka(int idRacuna, int idStavke, int idProizvoda, int kolicina, String jedinicaMjere, double cijena) {
-        this.idRacuna = idRacuna;
+    public DTOStavka(int idStavke, int idRacuna, int kolicina, double cijena, int idProizvoda) {
         this.idStavke = idStavke;
+        this.idRacuna = idRacuna;
         this.idProizvoda = idProizvoda;
         this.kolicina = kolicina;
-        this.jedinicaMjere = jedinicaMjere;
         this.cijena = cijena;
     }
 
@@ -47,14 +45,6 @@ public class DTOStavka {
         this.kolicina = kolicina;
     }
 
-    public String getJedinicaMjere() {
-        return jedinicaMjere;
-    }
-
-    public void setJedinicaMjere(String jedinicaMjere) {
-        this.jedinicaMjere = jedinicaMjere;
-    }
-
     public double getCijena() {
         return cijena;
     }
@@ -65,13 +55,10 @@ public class DTOStavka {
 
     @Override
     public String toString() {
-        return "DTOStavka{" + "idRacuna=" + idRacuna 
-                + ", idStavke=" + idStavke 
-                + ", idProizvoda=" + idProizvoda 
-                + ", kolicina=" + kolicina 
-                + ", jedinicaMjere=" + jedinicaMjere 
+        return "DTOStavka{" + ", idStavke=" + idStavke
+                + ", idProizvoda=" + idProizvoda
+                + ", kolicina=" + kolicina
                 + ", cijena=" + cijena + '}';
     }
-    
-    
+
 }

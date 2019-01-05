@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import connectionpool.ConnectionPool;
@@ -18,12 +13,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 
 public class DAORacun {
 
@@ -70,17 +59,17 @@ public class DAORacun {
         return FXCollections.observableArrayList(skladiste);
     }
     
-    public boolean dodajRacun(int idZaposlenog,Date datumRacuna,double ukupnaCijena){
+    public boolean dodajRacun(int idZaposlenog, Date datumRacuna, double ukupnaCijena){
         Connection con = null;
         PreparedStatement myStatement = null;
         try {
             con = ConnectionPool.getInstance().checkOut();
             myStatement = con.prepareStatement("INSERT INTO `baby_shop`.`racun` "
                     + " VALUES (default, ?, ?, ?)");
-            myStatement.setInt(1, idZaposlenog);
-            myStatement.setDate(2, (java.sql.Date) datumRacuna);
-            myStatement.setDouble(3, ukupnaCijena);
             
+            myStatement.setDate(1, (java.sql.Date) datumRacuna);
+            myStatement.setDouble(2, ukupnaCijena);
+            myStatement.setInt(3, idZaposlenog);
             myStatement.execute();
         } catch (SQLException ex) {
             Logger.getLogger(DAOProizvod.class.getName()).log(Level.SEVERE, null, ex);
@@ -147,4 +136,42 @@ public class DAORacun {
         return retValue;
     }
     
+     public int idZadnjegRacuna() {
+        Connection con = null;
+        PreparedStatement ps = null;
+
+        ResultSet rs = null;
+        int retValue = 0;
+
+        try {
+            con = ConnectionPool.getInstance().checkOut();
+            ps = con.prepareStatement("select max(IdRacuna) as max_id_racuna from racun");
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                retValue = rs.getInt("max_id_racuna");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAORacun.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (con != null) {
+                ConnectionPool.getInstance().checkIn(con);
+            }
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAORacun.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAORacun.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return retValue;
+    }
 }

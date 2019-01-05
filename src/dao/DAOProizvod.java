@@ -171,7 +171,7 @@ public class DAOProizvod {
                 retValue = rs.getInt("max_id_proizvoda");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(DAOProizvodjac.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOProizvod.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (con != null) {
                 ConnectionPool.getInstance().checkIn(con);
@@ -180,14 +180,14 @@ public class DAOProizvod {
                 try {
                     ps.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(DAOProizvodjac.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(DAOProizvod.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if (rs != null) {
                 try {
                     rs.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(DAOProizvodjac.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(DAOProizvod.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
