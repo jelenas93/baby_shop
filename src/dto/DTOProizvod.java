@@ -156,4 +156,11 @@ public class DTOProizvod {
     public void setGodisnjeDoba(String godisnjeDoba) {
         this.godisnjeDoba = godisnjeDoba;
     }
+
+    @Override
+    public String toString() {
+        return "DTOProizvod{" + "idProizvoda=" + idProizvoda + ", kolicina=" + kolicina + ", idGrupe=" + idGrupe + ", barkod=" + barkod + ", sifra=" + sifra + ", naziv=" + naziv + ", JIBProizvodjaca=" + JIBProizvodjaca + ", godisnjeDoba=" + godisnjeDoba + ", cijena=" + cijena + ", uzrast=" + uzrast + ", velicina=" + velicina + ", pol=" + pol + ", boja=" + boja + ", duzina=" + duzina + ", sirina=" + sirina + ", visina=" + visina + '}';
+    }
+    
+    
 }
