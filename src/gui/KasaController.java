@@ -95,14 +95,14 @@ public class KasaController implements Initializable {
     public boolean pozvanaMetodaBarkod = false;
 
     public boolean pozvanaMetodaSifra = false;
-    
-    public ArrayList<DTOStavka> listaStavki=new ArrayList<>();
+
+    public ArrayList<DTOStavka> listaStavki = new ArrayList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         kasaTabela.getItems().add(new TabelaKasa());
         datumLabel.setText(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE));
-        ukupnaCijenaLabel.setText("0,0");
+        ukupnaCijenaLabel.setText("0,00");
     }
 
     private void puniTabelu() {
@@ -124,9 +124,9 @@ public class KasaController implements Initializable {
         }
         TabelaKasa tabelaKasa = new TabelaKasa(proizvod.getBarkod(), proizvod.getSifra(),
                 proizvod.getNaziv(), Integer.parseInt(kolicinaTextField.getText()),
-                proizvod.getCijena(), new Double(Integer.parseInt(kolicinaTextField.getText()) * proizvod.getCijena()));
-        
-        listaStavki.add(new DTOStavka(0,0, Integer.parseInt(kolicinaTextField.getText()),
+                proizvod.getCijena(), Integer.parseInt(kolicinaTextField.getText()) * proizvod.getCijena());
+
+        listaStavki.add(new DTOStavka(Integer.parseInt(kolicinaTextField.getText()),
                 Integer.parseInt(kolicinaTextField.getText()) * proizvod.getCijena(), proizvod.getIdProizvoda()));
         ukupno += Integer.parseInt(kolicinaTextField.getText()) * proizvod.getCijena();
         ukupnaCijenaLabel.setText(String.format("%.2f", ukupno));
@@ -180,51 +180,39 @@ public class KasaController implements Initializable {
             }
         }
     }
-    
-    public void stampajRacun(){
-        
-        DAORacun daoRacun=new DAORacun();
-        if(!daoRacun.dodajRacun(2, new java.sql.Date(new Date().getTime()), ukupno)){
+
+    public void stampajRacun() {
+
+        DAORacun daoRacun = new DAORacun();
+        if (!daoRacun.dodajRacun(2, new java.sql.Date(new Date().getTime()), ukupno)) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greeska racuna");
         }
-        int idRacuna=daoRacun.idZadnjegRacuna();
-        DAOStavka daoStavka=new DAOStavka();
-        
-        for(DTOStavka stavka:listaStavki){
+        int idRacuna = daoRacun.idZadnjegRacuna();
+        DAOStavka daoStavka = new DAOStavka();
+
+        for (DTOStavka stavka : listaStavki) {
             System.out.println(stavka);
-            if(!daoStavka.upisUBazuStavku(idRacuna, stavka.getKolicina(), stavka.getCijena(), stavka.getIdProizvoda())){
+            if (!daoStavka.upisUBazuStavku(idRacuna, stavka.getKolicina(), stavka.getCijena(), stavka.getIdProizvoda())) {
                 AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška pri upisu stavke u bazu.");
             }
         }
+        ukupno=0;
+        ukupnaCijenaLabel.setText("0,00");
         System.out.println("Uspjelo");
     }
-    
-    public void brisanjeSaRacuna(){
-         if (!kasaTabela.getSelectionModel().getSelectedItems().toString().equals("[]")) {
-            /* List<> svi = vratiSveZaposlene();
-            for (Zaposleni z : svi) {
-                if (z.getJMBG().equals(tabela.getSelectionModel().getSelectedItem().getJMBG())) {
-                    IzmjenaZaposlenogController.zaposleni = z;
-                    if (tabela.getSelectionModel().getSelectedItem().getPozicija().equals("Prodavac karata")) {
-                        IzmjenaZaposlenogController.pozicija = "ProdavacKarata";
-                    } else if (tabela.getSelectionModel().getSelectedItem().getPozicija().equals("Prodavac hrane i pica")) {
-                        IzmjenaZaposlenogController.pozicija = "ProdavacHraneIPIca";
-                    } else {
-                        IzmjenaZaposlenogController.pozicija = tabela.getSelectionModel().getSelectedItem().getPozicija();
-                    }
-                    Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/izmjenaZaposlenog.fxml"));
-                    Scene korisnikScena = new Scene(korisnikView);
-                    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    window.setScene(korisnikScena);
-                    window.centerOnScreen();
-                    window.show();
-                }
-            }*/
-            //kasaTabela.getI
+
+    public void brisanjeSaRacuna() {
+        if (!kasaTabela.getSelectionModel().getSelectedItems().toString().equals("[]")) {
+            TabelaKasa selektovanRed = kasaTabela.getSelectionModel().getSelectedItem();
+            ukupno -= selektovanRed.getVrijednost();
+            ukupnaCijenaLabel.setText(String.format("%.2f", ukupno));
+            kasaTabela.getItems().remove(selektovanRed);
+            //dodati da se i stavka ta brise i regulisati ukupnu cijenu
+
         } else {
             AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste izabrali zaposlenog kom želite izmjeniti podatke.");
             return;
         }
     }
-    
+
 }

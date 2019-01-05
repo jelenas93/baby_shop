@@ -12,6 +12,12 @@ public class DTOStavka {
         this.kolicina = kolicina;
         this.cijena = cijena;
     }
+    
+    public DTOStavka(int kolicina, double cijena, int idProizvoda) {
+        this.idProizvoda = idProizvoda;
+        this.kolicina = kolicina;
+        this.cijena = cijena;
+    }
 
     public int getIdRacuna() {
         return idRacuna;
