@@ -20,6 +20,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -100,7 +101,7 @@ public class KasaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-      //  kasaTabela.getItems().add(new TabelaKasa());
+        //  kasaTabela.getItems().add(new TabelaKasa());
         datumLabel.setText(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE));
         ukupnaCijenaLabel.setText("0,00");
     }
@@ -113,24 +114,104 @@ public class KasaController implements Initializable {
         cijenaKolona.setCellValueFactory(new PropertyValueFactory<>("cijena"));
         vrijednostKolona.setCellValueFactory(new PropertyValueFactory<>("vrijednost"));
         kasaTabela.getItems().add(getTabela());
+
     }
 
     private TabelaKasa getTabela() {
         DTOProizvod proizvod = null;
+        TabelaKasa kasaZaVratiti = null;
         if (barkod) {
+            boolean ima = false;
             proizvod = new DAOProizvod().getProizvodPoBarkodu(barkodTextField.getText());
+            List<TabelaKasa> tabela = kasaTabela.getItems();
+            for (TabelaKasa el : tabela) {
+                if (el.getBarkod().equals(barkodTextField.getText())) {
+                    ima = true;
+                }
+            }
+            if (ima) {
+                for (TabelaKasa el : tabela) {
+                    if (el.getBarkod().equals(barkodTextField.getText())) {
+                        kasaTabela.getItems().add(new TabelaKasa(proizvod.getBarkod(), proizvod.getSifra(),
+                                proizvod.getNaziv(), Integer.parseInt(kolicinaTextField.getText()) + el.getKolicina(),
+                                proizvod.getCijena(),
+                                Integer.parseInt(kolicinaTextField.getText()) * proizvod.getCijena() + el.getVrijednost()));
+                        for (DTOStavka stavka : listaStavki) {
+                            if (el.getBarkod().equals(proizvod.getBarkod())) {
+                                listaStavki.remove(stavka);
+                                break;
+                            }
+                        }
+                        listaStavki.add(
+                                new DTOStavka(Integer.parseInt(kolicinaTextField.getText()) + el.getKolicina(),
+                                        Integer.parseInt(kolicinaTextField.getText()) * proizvod.getCijena() + el.getVrijednost(), proizvod.getIdProizvoda()));
+                        ukupno += Integer.parseInt(kolicinaTextField.getText()) * proizvod.getCijena();
+
+                        ukupnaCijenaLabel.setText(String.format("%.2f", ukupno));
+                        kasaTabela.getItems().remove(el);
+                        break;
+                    }
+                }
+            } else {
+                kasaZaVratiti = new TabelaKasa(proizvod.getBarkod(), proizvod.getSifra(),
+                        proizvod.getNaziv(), Integer.parseInt(kolicinaTextField.getText()),
+                        proizvod.getCijena(), Integer.parseInt(kolicinaTextField.getText()) * proizvod.getCijena());
+                listaStavki.add(
+                        new DTOStavka(Integer.parseInt(kolicinaTextField.getText()),
+                                Integer.parseInt(kolicinaTextField.getText()) * proizvod.getCijena(), proizvod.getIdProizvoda()));
+                ukupno += Integer.parseInt(kolicinaTextField.getText()) * proizvod.getCijena();
+
+                ukupnaCijenaLabel.setText(String.format("%.2f", ukupno));
+                return kasaZaVratiti;
+            }
         } else {
             proizvod = new DAOProizvod().getProizvodPoSifri(sifraTextField.getText());
-        }
-        TabelaKasa tabelaKasa = new TabelaKasa(proizvod.getBarkod(), proizvod.getSifra(),
-                proizvod.getNaziv(), Integer.parseInt(kolicinaTextField.getText()),
-                proizvod.getCijena(), Integer.parseInt(kolicinaTextField.getText()) * proizvod.getCijena());
+            boolean ima = false;
+            List<TabelaKasa> tabela = kasaTabela.getItems();
+            for (TabelaKasa el : tabela) {
+                if (el.getSifra().equals(sifraTextField.getText())) {
+                    ima = true;
+                }
+            }
+            if (ima) {
+                for (TabelaKasa el : tabela) {
+                    if (el.getSifra().equals(sifraTextField.getText())) {
+                        kasaTabela.getItems().add(new TabelaKasa(proizvod.getBarkod(), proizvod.getSifra(),
+                                proizvod.getNaziv(), Integer.parseInt(kolicinaTextField.getText()) + el.getKolicina(),
+                                proizvod.getCijena(),
+                                Integer.parseInt(kolicinaTextField.getText()) * proizvod.getCijena() + el.getVrijednost()));
+                        for (DTOStavka stavka : listaStavki) {
+                            if (el.getSifra().equals(proizvod.getSifra())) {
+                                listaStavki.remove(stavka);
+                                break;
+                            }
+                        }
+                        listaStavki.add(
+                                new DTOStavka(Integer.parseInt(kolicinaTextField.getText()) + el.getKolicina(),
+                                        Integer.parseInt(kolicinaTextField.getText()) * proizvod.getCijena() + el.getVrijednost(), proizvod.getIdProizvoda()));
+                        ukupno += Integer.parseInt(kolicinaTextField.getText()) * proizvod.getCijena();
+                        ukupnaCijenaLabel.setText(String.format("%.2f", ukupno));
+                        kasaTabela.getItems().remove(el);
+                        break;
+                    }
+                }
+            } else {
+                kasaZaVratiti = new TabelaKasa(proizvod.getBarkod(), proizvod.getSifra(),
+                        proizvod.getNaziv(), Integer.parseInt(kolicinaTextField.getText()),
+                        proizvod.getCijena(), Integer.parseInt(kolicinaTextField.getText()) * proizvod.getCijena());
 
-        listaStavki.add(new DTOStavka(Integer.parseInt(kolicinaTextField.getText()),
-                Integer.parseInt(kolicinaTextField.getText()) * proizvod.getCijena(), proizvod.getIdProizvoda()));
-        ukupno += Integer.parseInt(kolicinaTextField.getText()) * proizvod.getCijena();
-        ukupnaCijenaLabel.setText(String.format("%.2f", ukupno));
-        return tabelaKasa;
+                listaStavki.add(
+                        new DTOStavka(Integer.parseInt(kolicinaTextField.getText()),
+                                Integer.parseInt(kolicinaTextField.getText()) * proizvod.getCijena(), proizvod.getIdProizvoda()));
+                ukupno += Integer.parseInt(kolicinaTextField.getText()) * proizvod.getCijena();
+
+                ukupnaCijenaLabel.setText(String.format("%.2f", ukupno));
+                return kasaZaVratiti;
+            }
+
+        }
+        return kasaZaVratiti;
+
     }
 
     private boolean provjeraBarkoda() {
@@ -182,24 +263,20 @@ public class KasaController implements Initializable {
     }
 
     public void stampajRacun() {
-
         DAORacun daoRacun = new DAORacun();
-        if (!daoRacun.dodajRacun(2,new java.sql.Date(new Date().getTime()), ukupno)) {
+        if (!daoRacun.dodajRacun(2, new java.sql.Date(new Date().getTime()), ukupno)) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greeska racuna");
         }
         int idRacuna = daoRacun.idZadnjegRacuna();
-        System.out.println(idRacuna);
         DAOStavka daoStavka = new DAOStavka();
-
         for (DTOStavka stavka : listaStavki) {
             System.out.println(stavka);
             if (!daoStavka.upisUBazuStavku(idRacuna, stavka.getKolicina(), stavka.getCijena(), stavka.getIdProizvoda())) {
                 AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška pri upisu stavke u bazu.");
             }
         }
-        ukupno=0;
+        ukupno = 0;
         ukupnaCijenaLabel.setText("0,00");
-        System.out.println("Uspjelo");
         listaStavki.clear();
         kasaTabela.getItems().clear();
     }
@@ -209,18 +286,16 @@ public class KasaController implements Initializable {
             TabelaKasa selektovanRed = kasaTabela.getSelectionModel().getSelectedItem();
             ukupno -= selektovanRed.getVrijednost();
             ukupnaCijenaLabel.setText(String.format("%.2f", ukupno));
-            kasaTabela.getItems().remove(selektovanRed);
-            for(DTOStavka stavka:listaStavki){
-                DAOProizvod daoProizvod=new DAOProizvod();
-                DTOProizvod proizvod=daoProizvod.getProizvodPoId(stavka.getIdProizvoda());
-                        if(selektovanRed.getSifra().equals(proizvod.getSifra())){
-                            listaStavki.remove(stavka);
-                            break;
-                        }
+            //kasaTabela.getItems().remove(selektovanRed);
+            for (DTOStavka stavka : listaStavki) {
+                DAOProizvod daoProizvod = new DAOProizvod();
+                DTOProizvod proizvod = daoProizvod.getProizvodPoId(stavka.getIdProizvoda());
+                if (selektovanRed.getSifra().equals(proizvod.getSifra())) {
+                    listaStavki.remove(stavka);
+                    break;
+                }
             }
             kasaTabela.getItems().remove(selektovanRed);
-            //dodati da se i stavka ta brise i
-
         } else {
             AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste izabrali zaposlenog kom želite izmjeniti podatke.");
             return;
