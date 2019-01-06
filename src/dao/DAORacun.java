@@ -31,12 +31,12 @@ public class DAORacun {
             while (rs.next()) {
                 int idRacuna = rs.getInt("IdRacuna");
                 Date datumRacuna = rs.getDate("DatumRacuna");
-                double ukupnaCijena = rs.getDouble("Ukupna_cijena");
+                double ukupnaCijena = rs.getDouble("UkupnaCijena");
                 int idZaposlenog = rs.getInt("IdZaposlenog");
                 skladiste.add(new DTORacun(idRacuna, idZaposlenog, datumRacuna, ukupnaCijena));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(DAOProizvodjac.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAORacun.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (con != null) {
                 ConnectionPool.getInstance().checkIn(con);
@@ -45,14 +45,14 @@ public class DAORacun {
                 try {
                     ps.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(DAOProizvodjac.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(DAORacun.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if (rs != null) {
                 try {
                     rs.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(DAOProizvodjac.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(DAORacun.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -72,21 +72,21 @@ public class DAORacun {
             myStatement.setInt(3, idZaposlenog);
             myStatement.execute();
         } catch (SQLException ex) {
-            Logger.getLogger(DAOProizvod.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAORacun.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         } finally {
             if (con != null) {
                 try {
                     con.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(DAOProizvod.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(DAORacun.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if (myStatement != null) {
                 try {
                     myStatement.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(DAOProizvod.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(DAORacun.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -108,12 +108,12 @@ public class DAORacun {
             while (rs.next()) {
                 int IdRacuna = rs.getInt("IdRacuna");
                 Date datumRacuna=rs.getDate("DatumRacuna");
-                double UkupnaCijena=rs.getDouble("Ukupna_Cijena");
+                double UkupnaCijena=rs.getDouble("UkupnaCijena");
                 int IdZaposlenog=rs.getInt("IdZaposlenog");
                 retValue=new DTORacun(IdRacuna, IdZaposlenog, datumRacuna, UkupnaCijena);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(DAOProizvodjac.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAORacun.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (con != null) {
                 ConnectionPool.getInstance().checkIn(con);
@@ -122,14 +122,14 @@ public class DAORacun {
                 try {
                     ps.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(DAOProizvodjac.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(DAORacun.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if (rs != null) {
                 try {
                     rs.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(DAOProizvodjac.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(DAORacun.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }

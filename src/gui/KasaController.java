@@ -289,7 +289,6 @@ public class KasaController implements Initializable {
         int idRacuna = daoRacun.idZadnjegRacuna();
         DAOStavka daoStavka = new DAOStavka();
         for (DTOStavka stavka : listaStavki) {
-            System.out.println(stavka);
             if (!daoStavka.upisUBazuStavku(idRacuna, stavka.getKolicina(), stavka.getCijena(), stavka.getIdProizvoda())) {
                 AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška pri upisu stavke u bazu.");
             }

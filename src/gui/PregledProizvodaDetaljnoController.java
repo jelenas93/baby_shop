@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import dao.DAOProizvod;
@@ -13,7 +8,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.regex.Pattern;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -150,7 +144,7 @@ public class PregledProizvodaDetaljnoController implements Initializable {
         Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/pregledProizvoda.fxml"));
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene korisnikScena = new Scene(korisnikView);
-        window.resizableProperty().setValue(Boolean.FALSE);
+      //  window.resizableProperty().setValue(Boolean.FALSE);
         window.setScene(korisnikScena);
         window.centerOnScreen();
         window.show();

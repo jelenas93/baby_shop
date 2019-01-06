@@ -11,7 +11,7 @@ public class Babyshop extends Application {
     
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/gui/kasa.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/gui/PregledProizvodaDetaljno.fxml"));
        //   Parent root = FXMLLoader.load(getClass().getResource("/gui/unosProizvoda.fxml"));
         
     //   Parent root = FXMLLoader.load(getClass().getResource("/gui/unosZaposlenog.fxml"));
