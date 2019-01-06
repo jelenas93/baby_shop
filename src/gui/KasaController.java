@@ -100,7 +100,7 @@ public class KasaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        kasaTabela.getItems().add(new TabelaKasa());
+      //  kasaTabela.getItems().add(new TabelaKasa());
         datumLabel.setText(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE));
         ukupnaCijenaLabel.setText("0,00");
     }
@@ -210,7 +210,16 @@ public class KasaController implements Initializable {
             ukupno -= selektovanRed.getVrijednost();
             ukupnaCijenaLabel.setText(String.format("%.2f", ukupno));
             kasaTabela.getItems().remove(selektovanRed);
-            //dodati da se i stavka ta brise i regulisati ukupnu cijenu
+            for(DTOStavka stavka:listaStavki){
+                DAOProizvod daoProizvod=new DAOProizvod();
+                DTOProizvod proizvod=daoProizvod.getProizvodPoId(stavka.getIdProizvoda());
+                        if(selektovanRed.getSifra().equals(proizvod.getSifra())){
+                            listaStavki.remove(stavka);
+                            break;
+                        }
+            }
+            kasaTabela.getItems().remove(selektovanRed);
+            //dodati da se i stavka ta brise i
 
         } else {
             AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste izabrali zaposlenog kom želite izmjeniti podatke.");
