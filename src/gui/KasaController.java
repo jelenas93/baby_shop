@@ -184,10 +184,11 @@ public class KasaController implements Initializable {
     public void stampajRacun() {
 
         DAORacun daoRacun = new DAORacun();
-        if (!daoRacun.dodajRacun(2, new java.sql.Date(new Date().getTime()), ukupno)) {
+        if (!daoRacun.dodajRacun(2,new java.sql.Date(new Date().getTime()), ukupno)) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greeska racuna");
         }
         int idRacuna = daoRacun.idZadnjegRacuna();
+        System.out.println(idRacuna);
         DAOStavka daoStavka = new DAOStavka();
 
         for (DTOStavka stavka : listaStavki) {
@@ -199,6 +200,8 @@ public class KasaController implements Initializable {
         ukupno=0;
         ukupnaCijenaLabel.setText("0,00");
         System.out.println("Uspjelo");
+        listaStavki.clear();
+        kasaTabela.getItems().clear();
     }
 
     public void brisanjeSaRacuna() {
