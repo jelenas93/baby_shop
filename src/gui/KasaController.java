@@ -124,11 +124,12 @@ public class KasaController implements Initializable {
             boolean ima = false;
             proizvod = new DAOProizvod().getProizvodPoBarkodu(barkodTextField.getText());
             List<TabelaKasa> tabela = kasaTabela.getItems();
+            if(!tabela.isEmpty()){
             for (TabelaKasa el : tabela) {
                 if (el.getBarkod().equals(barkodTextField.getText())) {
                     ima = true;
                 }
-            }
+            }}
             if (ima) {
                 for (TabelaKasa el : tabela) {
                     if (el.getBarkod().equals(barkodTextField.getText())) {
@@ -168,11 +169,12 @@ public class KasaController implements Initializable {
             proizvod = new DAOProizvod().getProizvodPoSifri(sifraTextField.getText());
             boolean ima = false;
             List<TabelaKasa> tabela = kasaTabela.getItems();
+            if(!tabela.isEmpty()){
             for (TabelaKasa el : tabela) {
                 if (el.getSifra().equals(sifraTextField.getText())) {
                     ima = true;
                 }
-            }
+            }}
             if (ima) {
                 for (TabelaKasa el : tabela) {
                     if (el.getSifra().equals(sifraTextField.getText())) {
@@ -286,7 +288,7 @@ public class KasaController implements Initializable {
             TabelaKasa selektovanRed = kasaTabela.getSelectionModel().getSelectedItem();
             ukupno -= selektovanRed.getVrijednost();
             ukupnaCijenaLabel.setText(String.format("%.2f", ukupno));
-            //kasaTabela.getItems().remove(selektovanRed);
+            kasaTabela.getItems().remove(selektovanRed);
             for (DTOStavka stavka : listaStavki) {
                 DAOProizvod daoProizvod = new DAOProizvod();
                 DTOProizvod proizvod = daoProizvod.getProizvodPoId(stavka.getIdProizvoda());
