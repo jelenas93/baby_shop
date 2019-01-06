@@ -63,5 +63,11 @@ public class TabelaKasa {
     public void setVrijednost(Double vrijednost) {
         this.vrijednost = vrijednost;
     }
+
+    @Override
+    public String toString() {
+        return "TabelaKasa{" + "barkod=" + barkod + ", sifra=" + sifra + ", naziv=" + naziv + ", kolicina=" + kolicina + ", cijena=" + cijena + ", vrijednost=" + vrijednost + '}';
+    }
    
+    
 }
