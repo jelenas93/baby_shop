@@ -98,7 +98,7 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <TextField fx:id="brojRacunaTextField" alignment="CENTER" layoutX="177.0" layoutY="641.0" prefHeight="50.0" prefWidth="120.0" promptText="broj računa" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="170.0">
+      <TextField fx:id="brojRacunaTextField" alignment="CENTER" layoutX="177.0" layoutY="641.0" onAction="#pronadjiRacunZaStorniranje" prefHeight="50.0" prefWidth="120.0" promptText="broj računa" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="170.0">
          <font>
             <Font size="18.0" />
          </font>

@@ -108,7 +108,7 @@ public class DAORacun {
             while (rs.next()) {
                 int IdRacuna = rs.getInt("IdRacuna");
                 Date datumRacuna=rs.getDate("DatumRacuna");
-                double UkupnaCijena=rs.getDouble("UkupnaCijena");
+                double UkupnaCijena=rs.getDouble("Ukupna_cijena");
                 int IdZaposlenog=rs.getInt("IdZaposlenog");
                 retValue=new DTORacun(IdRacuna, IdZaposlenog, datumRacuna, UkupnaCijena);
             }
