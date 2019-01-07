@@ -33,7 +33,8 @@ public class DAORacun {
                 Date datumRacuna = rs.getDate("DatumRacuna");
                 double ukupnaCijena = rs.getDouble("UkupnaCijena");
                 int idZaposlenog = rs.getInt("IdZaposlenog");
-                skladiste.add(new DTORacun(idRacuna, idZaposlenog, datumRacuna, ukupnaCijena));
+                boolean storniran=rs.getBoolean("Storniran");
+                skladiste.add(new DTORacun(idRacuna, idZaposlenog, datumRacuna, ukupnaCijena, storniran));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAORacun.class.getName()).log(Level.SEVERE, null, ex);
@@ -59,17 +60,18 @@ public class DAORacun {
         return FXCollections.observableArrayList(skladiste);
     }
     
-    public boolean dodajRacun(int idZaposlenog, Date datumRacuna, double ukupnaCijena){
+    public boolean dodajRacun(int idZaposlenog, Date datumRacuna, double ukupnaCijena, boolean storniran){
         Connection con = null;
         PreparedStatement myStatement = null;
         try {
             con = ConnectionPool.getInstance().checkOut();
             myStatement = con.prepareStatement("INSERT INTO `baby_shop`.`racun` "
-                    + " VALUES (default, ?, ?, ?)");
+                    + " VALUES (default, ?, ?, ?, ?)");
             
             myStatement.setDate(1, (java.sql.Date) datumRacuna);
             myStatement.setDouble(2, ukupnaCijena);
             myStatement.setInt(3, idZaposlenog);
+            myStatement.setBoolean(4, storniran);
             myStatement.execute();
         } catch (SQLException ex) {
             Logger.getLogger(DAORacun.class.getName()).log(Level.SEVERE, null, ex);
@@ -110,7 +112,8 @@ public class DAORacun {
                 Date datumRacuna=rs.getDate("DatumRacuna");
                 double UkupnaCijena=rs.getDouble("Ukupna_cijena");
                 int IdZaposlenog=rs.getInt("IdZaposlenog");
-                retValue=new DTORacun(IdRacuna, IdZaposlenog, datumRacuna, UkupnaCijena);
+                boolean storniran=rs.getBoolean("Storniran");
+                retValue=new DTORacun(IdRacuna, IdZaposlenog, datumRacuna, UkupnaCijena, storniran);
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAORacun.class.getName()).log(Level.SEVERE, null, ex);

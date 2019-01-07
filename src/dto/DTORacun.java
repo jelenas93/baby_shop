@@ -6,12 +6,22 @@ public class DTORacun {
     private int idRacuna, idZaposlenog;
     private Date datumRacuna;
     private double ukupnaCijena;
+    private boolean storniran;
 
-    public DTORacun(int idRacuna, int idZaposlenog, Date datumRacuna, double ukupnaCijena) {
+    public DTORacun(int idRacuna, int idZaposlenog, Date datumRacuna, double ukupnaCijena, boolean storniran) {
         this.idRacuna = idRacuna;
         this.idZaposlenog = idZaposlenog;
         this.datumRacuna = datumRacuna;
         this.ukupnaCijena = ukupnaCijena;
+        this.storniran=storniran;
+    }
+
+    public boolean getStorniran() {
+        return storniran;
+    }
+
+    public void setStorniran(boolean storniran) {
+        this.storniran = storniran;
     }
 
     public void setIdRacuna(int idRacuna) {
