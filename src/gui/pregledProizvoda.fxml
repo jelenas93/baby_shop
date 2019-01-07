@@ -35,7 +35,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </TextField>
-            <TextField alignment="CENTER" prefWidth="200.0" promptText="naziv">
+            <TextField fx:id="nazivTextField" alignment="CENTER" onAction="#nazivUnos" onInputMethodTextChanged="#nazivUnos" onKeyTyped="#nazivUnos" prefWidth="200.0" promptText="naziv">
                <font>
                   <Font size="17.0" />
                </font>

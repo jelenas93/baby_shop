@@ -18,6 +18,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import tabele.TabelaProizvod;
@@ -45,6 +46,11 @@ public class PregledProizvodaController implements Initializable {
     @FXML
     private TableColumn<TabelaProizvod, Double> cijenaKolona;
 
+    private boolean pretraga = false;
+
+    @FXML
+    private TextField nazivTextField;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         tabela.getItems().add(new TabelaProizvod());
@@ -62,19 +68,37 @@ public class PregledProizvodaController implements Initializable {
     }
 
     private ObservableList<TabelaProizvod> getTabela() {
-        ObservableList<DTOProizvod> lista = new DAOProizvod().getProizvode();
 
-        List<TabelaProizvod> listaMoja = new ArrayList<>();
-        for (DTOProizvod proizvod : lista) {
-            listaMoja.add(new TabelaProizvod(proizvod.getIdProizvoda(),
-                    proizvod.getBarkod(), proizvod.getSifra(), proizvod.getNaziv(),
-                    proizvod.getKolicina(), proizvod.getCijena()));
-        }
+        ObservableList<DTOProizvod> lista = new DAOProizvod().getProizvode();
         ObservableList<TabelaProizvod> listaZaPrikaz = FXCollections.observableArrayList();
-        for (TabelaProizvod proizvod : listaMoja) {
-            listaZaPrikaz.add(proizvod);
+        List<TabelaProizvod> listaMoja = new ArrayList<>();
+        if (!pretraga) {
+            pretraga = true;
+            for (DTOProizvod proizvod : lista) {
+                listaMoja.add(new TabelaProizvod(proizvod.getIdProizvoda(), proizvod.getBarkod(),
+                        proizvod.getSifra(), proizvod.getNaziv(), proizvod.getKolicina(), proizvod.getCijena()));
+            }
+            for (TabelaProizvod proizvod : listaMoja) {
+                listaZaPrikaz.add(proizvod);
+            }
+            return listaZaPrikaz;
+        } else {
+            lista.clear();
+            lista = new DAOProizvod().getProizvodPoNazivu(nazivTextField.getText());
+            for (DTOProizvod proizvod : lista) {
+                listaMoja.add(new TabelaProizvod(proizvod.getIdProizvoda(), proizvod.getBarkod(), proizvod.getSifra(), proizvod.getNaziv(),
+                        proizvod.getKolicina(), proizvod.getCijena()));
+            }
+            for (TabelaProizvod proizvod : listaMoja) {
+                listaZaPrikaz.add(proizvod);
+            }
+            return listaZaPrikaz;
         }
-        return listaZaPrikaz;
+    }
+
+    public void nazivUnos() {
+        nazivTextField.getOnInputMethodTextChanged();
+        postaviTabelu();
     }
 
     public void detaljnoStisak(ActionEvent event) throws IOException {
