@@ -57,4 +57,39 @@ public class DAOStorniranRacun {
         }
         return FXCollections.observableArrayList(storniraniRacuni);
     }
+    
+    public boolean dodajStorniraniRacun(Date datumRacuna, double ukupnaCijena, int idZaposlenog, int idRacuna){
+        Connection con = null;
+        PreparedStatement myStatement = null;
+        try {
+            con = ConnectionPool.getInstance().checkOut();
+            myStatement = con.prepareStatement("INSERT INTO `baby_shop`.`storniran_racun` "
+                    + " VALUES (default, ?, ?, ?, ?)");
+            
+            myStatement.setDate(1, (java.sql.Date) datumRacuna);
+            myStatement.setDouble(2, ukupnaCijena);
+            myStatement.setInt(3, idZaposlenog);
+            myStatement.setInt(4, idRacuna);
+            myStatement.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAORacun.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAORacun.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (myStatement != null) {
+                try {
+                    myStatement.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAORacun.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return true;
+    }
 }

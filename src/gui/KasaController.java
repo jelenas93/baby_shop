@@ -4,6 +4,7 @@ import babyshop.AlertHelper;
 import dao.DAOProizvod;
 import dao.DAORacun;
 import dao.DAOStavka;
+import dao.DAOStorniranRacun;
 import dto.DTOProizvod;
 import dto.DTORacun;
 import dto.DTOStavka;
@@ -346,11 +347,13 @@ public class KasaController implements Initializable {
             new DAOProizvod().azurirajProizvod(proizvodZaStorniranje.getKolicina()+kasa.getKolicina(), proizvodZaStorniranje.getIdProizvoda());
         }
         int idRacuna=Integer.parseInt(brojRacunaTextField.getText());
-        //DTORacun racunZaStorniranje=new DAORacun().vratiRacunPoId(idRacuna);
+        DTORacun racunZaStorniranje=new DAORacun().vratiRacunPoId(idRacuna);
         double negativnoUkupno=-ukupno;
-        new DAORacun().azurirajRacun(negativnoUkupno, idRacuna, true);
+        new DAORacun().azurirajRacun(idRacuna, true);
+        new DAOStorniranRacun().dodajStorniraniRacun(new java.sql.Date(new Date().getTime()), negativnoUkupno, racunZaStorniranje.getIdZaposlenog(), idRacuna);
         ukupno = 0;
         ukupnaCijenaLabel.setText("0,00");
+        brojRacunaTextField.setText("");
         listaStavki.clear();
         kasaTabela.getItems().clear();
     }
