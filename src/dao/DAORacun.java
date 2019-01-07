@@ -177,4 +177,36 @@ public class DAORacun {
         }
         return retValue;
     }
+     
+     public boolean azurirajRacun(double cijena, int id, boolean storniran){
+        Connection con = null;
+        PreparedStatement myStatement = null;
+        try {
+            con = ConnectionPool.getInstance().checkOut();
+            myStatement = con.prepareStatement("UPDATE `baby_shop`.`racun` "
+                    + "SET UkupnaCijena=?, storniran=? WHERE IdRacuna="+id);
+            myStatement.setDouble(1, cijena);
+            myStatement.setBoolean(2, storniran);
+            myStatement.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOProizvod.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOProizvod.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (myStatement != null) {
+                try {
+                    myStatement.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOProizvod.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return true;
+    }
 }

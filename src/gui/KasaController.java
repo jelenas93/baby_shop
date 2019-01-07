@@ -5,6 +5,7 @@ import dao.DAOProizvod;
 import dao.DAORacun;
 import dao.DAOStavka;
 import dto.DTOProizvod;
+import dto.DTORacun;
 import dto.DTOStavka;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -15,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -283,7 +285,7 @@ public class KasaController implements Initializable {
 
     public void stampajRacun() {
         DAORacun daoRacun = new DAORacun();
-        if (!daoRacun.dodajRacun(2, new java.sql.Date(new Date().getTime()), ukupno)) {
+        if (!daoRacun.dodajRacun(2, new java.sql.Date(new Date().getTime()), ukupno,false)) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greeska racuna");
         }
         int idRacuna = daoRacun.idZadnjegRacuna();
@@ -319,4 +321,37 @@ public class KasaController implements Initializable {
         }
     }
 
+    public void pronadjiRacunZaStorniranje(){
+        int idRacuna=Integer.parseInt(brojRacunaTextField.getText());
+        DTORacun racunZaStorniranje=new DAORacun().vratiRacunPoId(idRacuna);
+        listaStavki=new DAOStavka().stavkeNaRacunu(idRacuna);
+        barkodKolona.setCellValueFactory(new PropertyValueFactory<>("barkod"));
+        sifraKolona.setCellValueFactory(new PropertyValueFactory<>("sifra"));
+        nazivKolona.setCellValueFactory(new PropertyValueFactory<>("naziv"));
+        kolicinaKolona.setCellValueFactory(new PropertyValueFactory<>("kolicina"));
+        cijenaKolona.setCellValueFactory(new PropertyValueFactory<>("cijena"));
+        vrijednostKolona.setCellValueFactory(new PropertyValueFactory<>("vrijednost"));
+        for(DTOStavka stavka: listaStavki){
+            DTOProizvod proizvod=new DAOProizvod().getProizvodPoId(stavka.getIdProizvoda());
+            kasaTabela.getItems().add(new TabelaKasa(proizvod.getBarkod(), proizvod.getSifra(), proizvod.getNaziv(), 
+                    stavka.getKolicina(), proizvod.getCijena(), stavka.getCijena()));
+        }
+        ukupno=racunZaStorniranje.getUkupnaCijena();
+        ukupnaCijenaLabel.setText(String.format("%.2f",racunZaStorniranje.getUkupnaCijena()));
+    }
+    
+    public void stornirajRacun(){
+        for(TabelaKasa kasa:kasaTabela.getItems()){
+            DTOProizvod proizvodZaStorniranje=new DAOProizvod().getProizvodPoBarkodu(kasa.getBarkod());
+            new DAOProizvod().azurirajProizvod(proizvodZaStorniranje.getKolicina()+kasa.getKolicina(), proizvodZaStorniranje.getIdProizvoda());
+        }
+        int idRacuna=Integer.parseInt(brojRacunaTextField.getText());
+        //DTORacun racunZaStorniranje=new DAORacun().vratiRacunPoId(idRacuna);
+        double negativnoUkupno=-ukupno;
+        new DAORacun().azurirajRacun(negativnoUkupno, idRacuna, true);
+        ukupno = 0;
+        ukupnaCijenaLabel.setText("0,00");
+        listaStavki.clear();
+        kasaTabela.getItems().clear();
+    }
 }

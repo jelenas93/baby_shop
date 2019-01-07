@@ -94,4 +94,45 @@ public class DAOStavka {
         return true;
     }
     
+    public ArrayList<DTOStavka> stavkeNaRacunu(int idRacuna) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ArrayList<DTOStavka> stavke = new ArrayList<>();
+        try {
+            con = ConnectionPool.getInstance().checkOut();
+            ps = con.prepareStatement("select * from baby_shop.stavka where IdRacuna="+idRacuna);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int idStavke=rs.getInt("IdStavke");
+                //int idRacun=rs.getInt("IdRacuna");
+                int kolicina=rs.getInt("Kolicina");
+                double cijena=rs.getDouble("Cijena");
+                int idProizvoda=rs.getInt("IdProizvoda");
+                stavke.add(new DTOStavka(idStavke, idRacuna, kolicina, cijena, idProizvoda));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DTOStavka.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (con != null) {
+                ConnectionPool.getInstance().checkIn(con);
+            }
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOStavka.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOStavka.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return stavke;
+    }
 }
