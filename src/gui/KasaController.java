@@ -324,7 +324,6 @@ public class KasaController implements Initializable {
     public void pronadjiRacunZaStorniranje(){
         int idRacuna=Integer.parseInt(brojRacunaTextField.getText());
         DTORacun racunZaStorniranje=new DAORacun().vratiRacunPoId(idRacuna);
-        System.out.println(racunZaStorniranje.toString());
         listaStavki=new DAOStavka().stavkeNaRacunu(idRacuna);
         barkodKolona.setCellValueFactory(new PropertyValueFactory<>("barkod"));
         sifraKolona.setCellValueFactory(new PropertyValueFactory<>("sifra"));
@@ -337,6 +336,22 @@ public class KasaController implements Initializable {
             kasaTabela.getItems().add(new TabelaKasa(proizvod.getBarkod(), proizvod.getSifra(), proizvod.getNaziv(), 
                     stavka.getKolicina(), proizvod.getCijena(), stavka.getCijena()));
         }
+        ukupno=racunZaStorniranje.getUkupnaCijena();
         ukupnaCijenaLabel.setText(String.format("%.2f",racunZaStorniranje.getUkupnaCijena()));
+    }
+    
+    public void stornirajRacun(){
+        for(TabelaKasa kasa:kasaTabela.getItems()){
+            DTOProizvod proizvodZaStorniranje=new DAOProizvod().getProizvodPoBarkodu(kasa.getBarkod());
+            new DAOProizvod().azurirajProizvod(proizvodZaStorniranje.getKolicina()+kasa.getKolicina(), proizvodZaStorniranje.getIdProizvoda());
+        }
+        int idRacuna=Integer.parseInt(brojRacunaTextField.getText());
+        //DTORacun racunZaStorniranje=new DAORacun().vratiRacunPoId(idRacuna);
+        double negativnoUkupno=-ukupno;
+        new DAORacun().azurirajRacun(negativnoUkupno, idRacuna, true);
+        ukupno = 0;
+        ukupnaCijenaLabel.setText("0,00");
+        listaStavki.clear();
+        kasaTabela.getItems().clear();
     }
 }

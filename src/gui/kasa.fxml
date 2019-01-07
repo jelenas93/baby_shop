@@ -93,7 +93,7 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <Button fx:id="storniranjeButton" alignment="CENTER" contentDisplay="CENTER" layoutX="322.0" layoutY="641.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" text="Storniranje računa" textAlignment="CENTER" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="320.0">
+      <Button fx:id="storniranjeButton" alignment="CENTER" contentDisplay="CENTER" layoutX="322.0" layoutY="641.0" mnemonicParsing="false" onAction="#stornirajRacun" prefHeight="50.0" prefWidth="200.0" text="Storniranje računa" textAlignment="CENTER" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="320.0">
          <font>
             <Font size="18.0" />
          </font>
