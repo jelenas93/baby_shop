@@ -421,4 +421,38 @@ public class DAOProizvod {
         }
         return dTOProizvod;
     }
+    
+    public boolean azurirajProizvod(int kolicina, int id) {
+
+        Connection con = null;
+        PreparedStatement myStatement = null;
+        try {
+            con = ConnectionPool.getInstance().checkOut();
+            myStatement = con.prepareStatement("UPDATE `baby_shop`.`proizvod` "
+                    + "SET Kolicina=? WHERE IdProizvoda="+id);
+            myStatement.setInt(1, kolicina);
+            myStatement.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOProizvod.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOProizvod.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (myStatement != null) {
+                try {
+                    myStatement.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOProizvod.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return true;
+    }
+    
+    
 }
