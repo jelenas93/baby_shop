@@ -88,7 +88,7 @@ public class UnosGrupaProizvodController implements Initializable {
                         bojaCheckBox.isSelected(), godisnjeDobaCheckBox.isSelected())) {
                     AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greska prilikom upisa grupe u bazu !");
                 } else {
-                  
+                 // UnosProizvodaController.popuniProizvode();
                     ((Node)(event.getSource())).getScene().getWindow().hide();
                   /*  Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosProizvoda.fxml"));
                     Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();

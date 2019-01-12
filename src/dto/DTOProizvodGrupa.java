@@ -99,6 +99,11 @@ public class DTOProizvodGrupa {
     public void setGodisnjeDoba(boolean godisnjeDoba) {
         this.godisnjeDoba = godisnjeDoba;
     }
+
+    @Override
+    public String toString() {
+        return "DTOProizvodGrupa{" + "idGrupe=" + idGrupe + ", nazivTipaProizvoda=" + nazivTipaProizvoda + ", pol=" + pol + ", uzrast=" + uzrast + ", duzina=" + duzina + ", sirina=" + sirina + ", visina=" + visina + ", boja=" + boja + ", velicina=" + velicina + ", godisnjeDoba=" + godisnjeDoba + '}';
+    }
     
     
     

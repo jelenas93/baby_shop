@@ -342,6 +342,7 @@ public class KasaController implements Initializable {
             DAOProizvod daoProizvod = new DAOProizvod();
             for (DTOStavka stavka : listaStavki) {
                 DTOProizvod proizvod = daoProizvod.getProizvodPoId(stavka.getIdProizvoda());
+                boolean uspjeno=daoProizvod.azurirajProizvod(proizvod.getKolicina()+selektovanRed.getKolicina(), proizvod.getIdProizvoda());
                 if (selektovanRed.getSifra().equals(proizvod.getSifra())) {
                     listaStavki.remove(stavka);
                     break;

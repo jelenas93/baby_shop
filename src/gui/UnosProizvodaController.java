@@ -12,6 +12,7 @@ import dto.DTOProizvodGrupa;
 import dto.DTOProizvodjac;
 import dto.DTOSkladisteProizvod;
 import dao.DAOSkladisteProizvod;
+import dto.DTOProizvod;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -344,13 +345,15 @@ public class UnosProizvodaController implements Initializable {
                     try {
                         duzina = Double.parseDouble(duzinaTextField.getText());
                     } catch (NumberFormatException e) {
-                        AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Dužina mora biti broj !");
+                        duzinaTextField.requestFocus();
+                        //  AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Dužina mora biti broj !");
                     }
                 }
                 if (dtoProizvodGrupa.isSirina()) {
                     try {
                         sirina = Double.parseDouble(sirinaTextField.getText());
                     } catch (NumberFormatException e) {
+                        sirinaTextField.requestFocus();
                         AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Širina mora biti broj !");
                     }
                 }
@@ -358,7 +361,8 @@ public class UnosProizvodaController implements Initializable {
                     try {
                         visina = Double.parseDouble(visinaTextField.getText());
                     } catch (NumberFormatException e) {
-                        AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Visina mora biti broj !");
+                        visinaTextField.requestFocus();
+                        // AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Visina mora biti broj !");
                     }
                 }
                 if (dtoProizvodGrupa.isGodisnjeDoba()) {
@@ -371,6 +375,7 @@ public class UnosProizvodaController implements Initializable {
                     try {
                         uzrast = Integer.parseInt(uzrastTextField.getText());
                     } catch (NumberFormatException e) {
+                        uzrastTextField.requestFocus();
                         AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Uzrast mora biti broj !");
                     }
                 }
@@ -378,23 +383,34 @@ public class UnosProizvodaController implements Initializable {
                     try {
                         velicina = Integer.parseInt(velicinaTextField.getText());
                     } catch (NumberFormatException e) {
-                        AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Veličina mora biti broj !");
+                        velicinaTextField.requestFocus();
+                        //  AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Veličina mora biti broj !");
                     }
                 }
                 DAOProizvod daoProizvod = new DAOProizvod();
                 DAOSkladisteProizvod daoUSkladiste = new DAOSkladisteProizvod();
                 String jib = JIBProizvodjacaComboBox.getSelectionModel().getSelectedItem().split(", ")[1];
-                if (!daoProizvod.upisUBazuProizvod(barkodTextField.getText(), sifraTextField.getText(),
-                        nazivProizvodaTextField.getText().toUpperCase(),
-                        kolicina, cijena, jib, idGrupe, duzina, sirina, visina, velicina, uzrast, pol, boja, godisnjeDoba)) {
-                    AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom upisa proizvoda u bazu.");
+                DTOProizvod proizvodB = daoProizvod.getProizvodPoBarkodu(barkodTextField.getText());
+                if (proizvodB != null) {
+                    AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Postoji proizvod sa barkodom " + barkodTextField.getText() + " .");
                 } else {
-                    ArrayList<DTOSkladisteProizvod> skladisteProizvod = new ArrayList<>();
-                    skladisteProizvod = daoUSkladiste.pregledSkladista();
-                    if (!daoUSkladiste.dodajProizvodUSkladiste(1, daoProizvod.idProizvoda(), kolicina)) {
-                        AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom dodavanja proizvoda u skladiste.");
+                    DTOProizvod proizvodS = daoProizvod.getProizvodPoSifri(sifraTextField.getText());
+                    if (proizvodS != null) {
+                        AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Postoji proizvod sa šifrom " + sifraTextField.getText() + " .");
                     } else {
-                        System.exit(0);
+                        if (!daoProizvod.upisUBazuProizvod(barkodTextField.getText(), sifraTextField.getText(),
+                                nazivProizvodaTextField.getText().toUpperCase(),
+                                kolicina, cijena, jib, idGrupe, duzina, sirina, visina, velicina, uzrast, pol, boja, godisnjeDoba)) {
+                            AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom upisa proizvoda u bazu.");
+                        } else {
+                            ArrayList<DTOSkladisteProizvod> skladisteProizvod = new ArrayList<>();
+                            skladisteProizvod = daoUSkladiste.pregledSkladista();
+                            if (!daoUSkladiste.dodajProizvodUSkladiste(1, daoProizvod.idProizvoda(), kolicina)) {
+                                AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom dodavanja proizvoda u skladiste.");
+                            } else {
+                                System.exit(0);
+                            }
+                        }
                     }
                 }
             }
