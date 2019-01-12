@@ -403,13 +403,13 @@ public class UnosProizvodaController implements Initializable {
                                 kolicina, cijena, jib, idGrupe, duzina, sirina, visina, velicina, uzrast, pol, boja, godisnjeDoba)) {
                             AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom upisa proizvoda u bazu.");
                         } else {
-                            ArrayList<DTOSkladisteProizvod> skladisteProizvod = new ArrayList<>();
-                            skladisteProizvod = daoUSkladiste.pregledSkladista();
+                         /*   ArrayList<DTOSkladisteProizvod> skladisteProizvod = new ArrayList<>();
+                            skladisteProizvod = daoUSkladiste.pregledSkladista();*/
                             if (!daoUSkladiste.dodajProizvodUSkladiste(1, daoProizvod.idProizvoda(), kolicina)) {
                                 AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom dodavanja proizvoda u skladiste.");
-                            } else {
+                            }/* else {
                                 System.exit(0);
-                            }
+                            }*/
                         }
                     }
                 }

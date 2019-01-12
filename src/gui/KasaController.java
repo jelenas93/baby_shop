@@ -3,12 +3,14 @@ package gui;
 import babyshop.AlertHelper;
 import dao.DAOProizvod;
 import dao.DAORacun;
+import dao.DAOSkladisteProizvod;
 import dao.DAOStavka;
 import dao.DAOStorniranRacun;
 import dto.DTOProizvod;
 import dto.DTORacun;
 import dto.DTOStavka;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -262,21 +264,25 @@ public class KasaController implements Initializable {
 
     private int provjeraStanja() {
         DAOProizvod dao = new DAOProizvod();
-        DTOProizvod proizvod=null;
+        DAOSkladisteProizvod daoSkladiste = new DAOSkladisteProizvod();
+        DTOProizvod proizvod = null;
         if (barkod) {
             proizvod = dao.getProizvodPoBarkodu(barkodTextField.getText());
             boolean daLiMoguAzurirati = dao.azurirajProizvod(proizvod.getKolicina() - Integer.parseInt(kolicinaTextField.getText()),
                     proizvod.getIdProizvoda());
             if (daLiMoguAzurirati) {
-                stanjeLabel.setText((proizvod.getKolicina() - Integer.parseInt(kolicinaTextField.getText())) + "");
+                //  stanjeLabel.setText((proizvod.getKolicina() - Integer.parseInt(kolicinaTextField.getText())) + "");
                 return proizvod.getKolicina() - Integer.parseInt(kolicinaTextField.getText());
             }
         } else {
             proizvod = dao.getProizvodPoSifri(sifraTextField.getText());
             boolean daLiMoguAzurirati = dao.azurirajProizvod(proizvod.getKolicina() - Integer.parseInt(kolicinaTextField.getText()),
                     proizvod.getIdProizvoda());
+
+           /* boolean azuriranjeSkladista = daoSkladiste.azurirajProizvodUSkladistu(proizvod.getKolicina() - Integer.parseInt(kolicinaTextField.getText()),
+                    proizvod.getIdProizvoda());*/
             if (daLiMoguAzurirati) {
-                stanjeLabel.setText((proizvod.getKolicina() - Integer.parseInt(kolicinaTextField.getText())) + "");
+                //  stanjeLabel.setText((proizvod.getKolicina() - Integer.parseInt(kolicinaTextField.getText())) + "");
                 return proizvod.getKolicina() - Integer.parseInt(kolicinaTextField.getText());
             }
         }
@@ -286,10 +292,12 @@ public class KasaController implements Initializable {
 
     public void klikNaKolicinu() {
         if (!("".equals(kolicinaTextField.getText()))) {
+
+            Integer.parseInt(kolicinaTextField.getText());
             try {
-                Integer.parseInt(kolicinaTextField.getText());
                 int fleg = provjeraStanja();
-                if (fleg != -1) {
+                if (fleg > 0) {
+                    stanjeLabel.setText(fleg + "");
                     puniTabelu();
                     if (pozvanaMetodaBarkod) {
                         barkodTextField.clear();
@@ -302,6 +310,7 @@ public class KasaController implements Initializable {
                     }
                     kolicinaTextField.setText("1");
                 } else {
+
                     AlertHelper.showAlert(Alert.AlertType.ERROR, "", /*"Na stanju imate " + fleg + " proizvoda."*/ "Nemate dovoljno proizvoda na stanju.");
                 }
             } catch (NumberFormatException e) {
@@ -340,13 +349,24 @@ public class KasaController implements Initializable {
             stanjeLabel.setText("");
             kasaTabela.getItems().remove(selektovanRed);
             DAOProizvod daoProizvod = new DAOProizvod();
+            DAOSkladisteProizvod skladiste = new DAOSkladisteProizvod();
             for (DTOStavka stavka : listaStavki) {
                 DTOProizvod proizvod = daoProizvod.getProizvodPoId(stavka.getIdProizvoda());
-                boolean uspjeno=daoProizvod.azurirajProizvod(proizvod.getKolicina()+selektovanRed.getKolicina(), proizvod.getIdProizvoda());
-                if (selektovanRed.getSifra().equals(proizvod.getSifra())) {
-                    listaStavki.remove(stavka);
-                    break;
+                boolean uspjeno = daoProizvod.azurirajProizvod(proizvod.getKolicina() + selektovanRed.getKolicina(), proizvod.getIdProizvoda());
+                if (!uspjeno) {
+                    AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom ažuriranja proizvoda.");
+                } else {
+                    boolean upisanoUsklasite = skladiste.azurirajProizvodUSkladistu(proizvod.getKolicina() + selektovanRed.getKolicina(), proizvod.getIdProizvoda());
+                    if (!upisanoUsklasite) {
+                        AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom ažuriranja proizvoda u skladištu.");
+                    } else {
+                        if (selektovanRed.getSifra().equals(proizvod.getSifra())) {
+                            listaStavki.remove(stavka);
+                            break;
+                        }
+                    }
                 }
+
             }
         } else {
             AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste izabrali stavku.");

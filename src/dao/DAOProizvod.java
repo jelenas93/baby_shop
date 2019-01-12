@@ -1,7 +1,9 @@
 package dao;
 
+import babyshop.AlertHelper;
 import connectionpool.ConnectionPool;
 import dto.DTOProizvod;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 
 public class DAOProizvod {
 
@@ -425,15 +428,20 @@ public class DAOProizvod {
     public boolean azurirajProizvod(int kolicina, int id) {
 
         Connection con = null;
-        PreparedStatement myStatement = null;
+        //PreparedStatement myStatement = null;
+        CallableStatement myStatement=null;
         try {
             con = ConnectionPool.getInstance().checkOut();
-            myStatement = con.prepareStatement("UPDATE `baby_shop`.`proizvod` "
-                    + "SET Kolicina=? WHERE IdProizvoda="+id);
+           /* myStatement = con.prepareStatement("UPDATE `baby_shop`.`proizvod` "
+                    + "SET Kolicina=? WHERE IdProizvoda="+id);*/
+            myStatement=con.prepareCall("{call azuriraj_proizvod(?, ?)}");
+          //  myStatement.setInt(1, kolicina);
             myStatement.setInt(1, kolicina);
+            myStatement.setInt(2, id);
             myStatement.execute();
         } catch (SQLException ex) {
-            Logger.getLogger(DAOProizvod.class.getName()).log(Level.SEVERE, null, ex);
+            AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Kolicina je negativna.");
+          //  Logger.getLogger(DAOProizvod.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         } finally {
             if (con != null) {

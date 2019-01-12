@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import connectionpool.ConnectionPool;
-import dto.DTOSkladiste;
 import dto.DTOSkladisteProizvod;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,8 +9,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 public class DAOSkladisteProizvod {
     
@@ -31,21 +23,21 @@ public class DAOSkladisteProizvod {
             myStatement.setInt(3, stanje);
             myStatement.execute();
         } catch (SQLException ex) {
-            Logger.getLogger(DAOProizvodjac.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOSkladisteProizvod.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         } finally {
             if (con != null) {
                 try {
                     con.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(DAOProizvodjac.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(DAOSkladisteProizvod.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if (myStatement != null) {
                 try {
                     myStatement.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(DAOProizvodjac.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(DAOSkladisteProizvod.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -53,7 +45,7 @@ public class DAOSkladisteProizvod {
     }
     
     public ArrayList<DTOSkladisteProizvod> pregledSkladista(){
-         Connection con = null;
+        Connection con = null;
         PreparedStatement ps = null;
 
         ResultSet rs = null;
@@ -71,7 +63,7 @@ public class DAOSkladisteProizvod {
                 skladisteProizvod.add(new DTOSkladisteProizvod(idSkladista, idProizvoda, stanje));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(DAOProizvodjac.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOSkladisteProizvod.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (con != null) {
                 ConnectionPool.getInstance().checkIn(con);
@@ -80,18 +72,50 @@ public class DAOSkladisteProizvod {
                 try {
                     ps.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(DAOProizvodjac.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(DAOSkladisteProizvod.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             if (rs != null) {
                 try {
                     rs.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(DAOProizvodjac.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(DAOSkladisteProizvod.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
         return skladisteProizvod;
+    }
+    
+    public boolean azurirajProizvodUSkladistu(int kolicina, int id) {
+
+        Connection con = null;
+        PreparedStatement myStatement = null;
+        try {
+            con = ConnectionPool.getInstance().checkOut();
+            myStatement = con.prepareStatement("UPDATE `baby_shop`.`skladiste_proizvod` "
+                    + "SET Stanje=? WHERE IdProizvoda="+id);
+            myStatement.setInt(1, kolicina);
+            myStatement.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOSkladisteProizvod.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOSkladisteProizvod.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (myStatement != null) {
+                try {
+                    myStatement.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOSkladisteProizvod.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return true;
     }
     
 }
