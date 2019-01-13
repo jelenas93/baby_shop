@@ -13,8 +13,19 @@ public class DTOZaposleni {
         this.JMBG = JMBG;
         this.iznosPlate = iznosPlate;
         this.mejl = mejl;
-        this.idZaposlenog = idZaposlenog;
+        this.idTipZaposlenog = idTipZaposlenog;
         this.postanskiBroj = postanskiBroj;
+    }
+      public DTOZaposleni(int idZaposlenog,String ime, String prezime, String JMBG, double iznosPlate,
+            String mejl,int postanskiBroj,int idTipZaposlenog) {
+        this.ime = ime;
+        this.prezime = prezime;
+        this.JMBG = JMBG;
+        this.iznosPlate = iznosPlate;
+        this.mejl = mejl;
+        this.idTipZaposlenog = idTipZaposlenog;
+        this.postanskiBroj = postanskiBroj;
+        this.idZaposlenog=idZaposlenog;
     }
 
     public String getIme() {

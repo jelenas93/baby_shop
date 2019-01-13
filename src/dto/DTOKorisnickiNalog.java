@@ -12,6 +12,14 @@ public class DTOKorisnickiNalog {
         this.idZaposlenog = idZaposlenog;
         this.aktivan = aktivan;
     }
+      public DTOKorisnickiNalog(int idNaloga, String korisnickoIme, String lozinka, boolean aktivan, String tipKorisnika, int idZaposlenog) {
+        this.korisnickoIme = korisnickoIme;
+        this.lozinka = lozinka;
+        this.tipKorisnika = tipKorisnika;
+        this.idZaposlenog = idZaposlenog;
+        this.aktivan = aktivan;
+        this.idNaloga=idNaloga;
+    }
 
     public String getKorisnickoIme() {
         return korisnickoIme;
