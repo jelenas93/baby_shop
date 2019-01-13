@@ -20,11 +20,11 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class UnosDobavljacaController implements Initializable {
 
-    public static boolean flegZaVracanjeNaDobavljaca;
 
     @FXML
     private JFXTextField nazivTextField;
@@ -59,6 +59,7 @@ public class UnosDobavljacaController implements Initializable {
     }    
     
     private void popuniMjesta() {
+        mjestoComboBox.getItems().clear();
         DAOMjesto daoMjesto = new DAOMjesto();
         ObservableList<DTOMjesto> listaMjesta;
         listaMjesta = daoMjesto.getMjesto();
@@ -68,15 +69,15 @@ public class UnosDobavljacaController implements Initializable {
     }
     
     public void dodajMjesto(ActionEvent event) throws IOException{
-        UnosProizvodjacaController.flegZaVracanjeNaProizvodjaca=false;
-        flegZaVracanjeNaDobavljaca=true;
-        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosMjesta.fxml"));
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+     Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosMjesta.fxml"));
+        Stage window = new Stage();
         Scene korisnikScena = new Scene(korisnikView);
         window.resizableProperty().setValue(Boolean.FALSE);
         window.setScene(korisnikScena);
         window.centerOnScreen();
-        window.show();
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.showAndWait();
+        popuniMjesta();
     }
     
     public void otkazi(ActionEvent event) throws IOException {
