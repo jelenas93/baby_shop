@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
+import tabele.TabelaNarudzbenica;
 
 public class DAOStavkaNarudzbe {
    
@@ -95,9 +96,9 @@ public class DAOStavkaNarudzbe {
     }
     
     //metoda za vadjene iz liste
- /*   private void upisiUbazuSveStavke(ObservableList<TabelaNarudzbenica> lista){
-        DAOStavkaNarudzbe daoStavka=null;
-        DAOProizvod daoProizvod=null;
+    public void upisiUbazuSveStavke(ObservableList<TabelaNarudzbenica> lista){
+        DAOStavkaNarudzbe daoStavka=new DAOStavkaNarudzbe();
+        DAOProizvod daoProizvod=new DAOProizvod();
         int idNarudbenice=new DAONarudzbenica().idZadnjeNarudzbenice();
         for(TabelaNarudzbenica izTabele: lista){
             DTOProizvod proizvod=daoProizvod.getProizvodPoSifri(izTabele.getSifra());
@@ -107,6 +108,6 @@ public class DAOStavkaNarudzbe {
             }
             
         }
-    }*/
+    }
     
 }
