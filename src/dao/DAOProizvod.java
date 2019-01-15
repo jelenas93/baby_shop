@@ -462,5 +462,58 @@ public class DAOProizvod {
         return true;
     }
     
-    
+    public ObservableList<DTOProizvod> getSveProizvodeOdDobavljaca(int idDobavljaca){
+        Connection con = null;
+        CallableStatement call=null;
+        ResultSet rs = null;
+        ArrayList<DTOProizvod> proizvodi = new ArrayList<>();
+        try {
+            con = ConnectionPool.getInstance().checkOut();
+            call=con.prepareCall("{call izlistaj_sve_proizvode(?)}");
+            call.setInt(1, idDobavljaca);
+            rs = call.executeQuery();
+            while (rs.next()) {
+                int idPorizvoda = rs.getInt(1);
+                String barkod = rs.getString(2);
+                String sifra = rs.getString(3);
+                String naziv = rs.getString(4);
+                int kolicina = rs.getInt(5);
+                double cijena = rs.getDouble(6);
+                String JIBProizvodjaca = rs.getString(7);
+                int idGrupe = rs.getInt(8);
+                double duzina = rs.getDouble(9);
+                double sirina = rs.getDouble(10);
+                double visina = rs.getDouble(11);
+                int velicina = rs.getInt(12);
+                int uzrast = rs.getInt(13);
+                String pol = rs.getString(14);
+                String boja = rs.getString(15);
+                String godisnjeDoba = rs.getString(16);
+                proizvodi.add(new DTOProizvod(idPorizvoda, barkod, sifra, naziv,
+                        kolicina, cijena, JIBProizvodjaca, idGrupe, duzina,
+                        sirina, visina, velicina, uzrast, pol, boja, godisnjeDoba));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOProizvod.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (con != null) {
+                ConnectionPool.getInstance().checkIn(con);
+            }
+            if (call != null) {
+                try {
+                    call.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOProizvod.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOProizvod.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return FXCollections.observableArrayList(proizvodi);
+    }
 }

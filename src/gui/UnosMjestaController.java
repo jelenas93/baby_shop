@@ -45,7 +45,7 @@ public class UnosMjestaController implements Initializable {
 
     public void otkaziStisak(ActionEvent event) throws IOException {
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                window.close();
+        window.close();
     }
 
     public void sacuvajStisak(ActionEvent event) throws IOException {

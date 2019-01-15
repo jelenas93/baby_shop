@@ -1,12 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import connectionpool.ConnectionPool;
 import dto.DTODobavljac;
+import dto.DTODobavljacProizvod;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -66,7 +62,8 @@ public class DAODobavljac {
         return FXCollections.observableArrayList(dobavljaci);
     }
     
-    public boolean dodajDobavljaca(int postanskiBroj,String nazivDobavljaca,String email,String adresa,String telefon,String JIBDobavljaca) {
+    public boolean dodajDobavljaca(int postanskiBroj,String nazivDobavljaca,String email,String adresa,String telefon,String JIBDobavljaca) 
+    {
 
         Connection con = null;
         PreparedStatement myStatement = null;
@@ -100,5 +97,85 @@ public class DAODobavljac {
             }
         }
         return true;
+    }
+    
+    public int getIdDobavljaca(String ime){
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        int id=0;
+        try {
+            con = ConnectionPool.getInstance().checkOut();
+            ps = con.prepareStatement("select IdDobavljaca from baby_shop.dobavljac where Naziv="+ime);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                id=rs.getInt("IdDobavljaca");
+               }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAODobavljac.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (con != null) {
+                ConnectionPool.getInstance().checkIn(con);
+            }
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAODobavljac.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAODobavljac.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return id;
+    }
+    
+    public ArrayList<DTODobavljacProizvod> getIdSvihProizvoda(int idDobavljaca){
+        Connection con = null;
+        PreparedStatement ps = null;
+
+        ResultSet rs = null;
+        ArrayList<DTODobavljacProizvod> lista=new ArrayList<>();
+
+        try {
+            con = ConnectionPool.getInstance().checkOut();
+            ps = con.prepareStatement("select * from baby_shop.dobavljac_proizvod where IdDobavljaca="+idDobavljaca);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int id=rs.getInt("IdDobavljaca");
+                int idProizvoda=rs.getInt("IdProizvoda");
+                lista.add(new DTODobavljacProizvod(idDobavljaca, idProizvoda));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAODobavljac.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (con != null) {
+                ConnectionPool.getInstance().checkIn(con);
+            }
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAODobavljac.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAODobavljac.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+
+        return lista;
+        
     }
 }
