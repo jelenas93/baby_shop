@@ -21,7 +21,7 @@ public class DAORacun {
         PreparedStatement ps = null;
 
         ResultSet rs = null;
-        ArrayList<DTORacun> skladiste = new ArrayList<>();
+        ArrayList<DTORacun> racuni = new ArrayList<>();
 
         try {
             con = ConnectionPool.getInstance().checkOut();
@@ -34,7 +34,7 @@ public class DAORacun {
                 double ukupnaCijena = rs.getDouble("UkupnaCijena");
                 int idZaposlenog = rs.getInt("IdZaposlenog");
                 boolean storniran=rs.getBoolean("Storniran");
-                skladiste.add(new DTORacun(idRacuna, idZaposlenog, datumRacuna, ukupnaCijena, storniran));
+                racuni.add(new DTORacun(idRacuna, idZaposlenog, datumRacuna, ukupnaCijena, storniran));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAORacun.class.getName()).log(Level.SEVERE, null, ex);
@@ -57,7 +57,7 @@ public class DAORacun {
                 }
             }
         }
-        return FXCollections.observableArrayList(skladiste);
+        return FXCollections.observableArrayList(racuni);
     }
     
     public boolean dodajRacun(int idZaposlenog, Date datumRacuna, double ukupnaCijena, boolean storniran){

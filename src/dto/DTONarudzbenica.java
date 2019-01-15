@@ -6,12 +6,22 @@ public class DTONarudzbenica {
     private int idNarudzbenice, idZaposlenog;
     private Date datumNarudzbenice;
     private boolean isporucena;
+    private double ukupnaCijena;
 
-    public DTONarudzbenica(int idNarudzbenice, int idZaposlenog, Date datumNarudzbenice, boolean isporucena) {
+    public DTONarudzbenica(int idNarudzbenice, Date datumNarudzbenice, boolean isporucena, int idZaposlenog,  double ukupnaCijena) {
         this.idNarudzbenice = idNarudzbenice;
         this.idZaposlenog = idZaposlenog;
         this.datumNarudzbenice = datumNarudzbenice;
         this.isporucena = isporucena;
+        this.ukupnaCijena=ukupnaCijena;
+    }
+
+    public double getUkupnaCijena() {
+        return ukupnaCijena;
+    }
+
+    public void setUkupnaCijena(double ukupnaCijena) {
+        this.ukupnaCijena = ukupnaCijena;
     }
 
     public void setIdNarudzbenice(int idNarudzbenice) {

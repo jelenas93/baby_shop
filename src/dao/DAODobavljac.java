@@ -99,18 +99,24 @@ public class DAODobavljac {
         return true;
     }
     
-    public int getIdDobavljaca(String ime){
+    public DTODobavljac getDobavljacPoNazivu(String ime){
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        int id=0;
+        DTODobavljac dobavljac=null;
         try {
             con = ConnectionPool.getInstance().checkOut();
-            ps = con.prepareStatement("select IdDobavljaca from baby_shop.dobavljac where Naziv="+ime);
+            ps = con.prepareStatement("select * from baby_shop.dobavljac where Naziv like'"+ime+"%'");
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                id=rs.getInt("IdDobavljaca");
+                int id=rs.getInt("IdDobavljaca");
+                int postanskiBroj=rs.getInt("PostanskiBroj");
+                String email=rs.getString("Email");
+                String adresa=rs.getString("Adresa");
+                String telefon=rs.getString("Telefon");
+                String jib=rs.getString("JIBDobavljaca");
+                dobavljac=new DTODobavljac(id, postanskiBroj, ime, email, adresa, telefon, jib);
                }
         } catch (SQLException ex) {
             Logger.getLogger(DAODobavljac.class.getName()).log(Level.SEVERE, null, ex);
@@ -133,7 +139,7 @@ public class DAODobavljac {
                 }
             }
         }
-        return id;
+        return dobavljac;
     }
     
     public ArrayList<DTODobavljacProizvod> getIdSvihProizvoda(int idDobavljaca){
@@ -178,4 +184,8 @@ public class DAODobavljac {
         return lista;
         
     }
+    
+    
+    
+    
 }

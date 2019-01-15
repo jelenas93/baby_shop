@@ -2,15 +2,14 @@ package dto;
 
 public class DTOStavkaNarudzbe {
     private int idStavkeNarudzbe, idNarudzbenice, kolicina, idProizvoda;
-    private double cijena, ukupnaCijena;
+    private double cijena;
 
-    public DTOStavkaNarudzbe(int idStavkeNarudzbe, int idNarudzbenice, int kolicina, int idProizvoda, double cijena, double ukupnaCijena) {
+    public DTOStavkaNarudzbe(int idStavkeNarudzbe, int idNarudzbenice, int kolicina, double cijena, int idProizvoda) {
         this.idStavkeNarudzbe = idStavkeNarudzbe;
         this.idNarudzbenice = idNarudzbenice;
         this.kolicina = kolicina;
         this.idProizvoda = idProizvoda;
         this.cijena = cijena;
-        this.ukupnaCijena = ukupnaCijena;
     }
 
     public void setIdStavkeNarudzbe(int idStavkeNarudzbe) {
@@ -33,10 +32,6 @@ public class DTOStavkaNarudzbe {
         this.cijena = cijena;
     }
 
-    public void setUkupnaCijena(double ukupnaCijena) {
-        this.ukupnaCijena = ukupnaCijena;
-    }
-
     public int getIdStavkeNarudzbe() {
         return idStavkeNarudzbe;
     }
@@ -56,10 +51,5 @@ public class DTOStavkaNarudzbe {
     public double getCijena() {
         return cijena;
     }
-
-    public double getUkupnaCijena() {
-        return ukupnaCijena;
-    }
-    
     
 }
