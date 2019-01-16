@@ -18,6 +18,15 @@ import dto.DTOProizvod;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import static com.itextpdf.kernel.pdf.PdfName.Table;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
+import java.io.FileNotFoundException;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +55,8 @@ import java.util.Date;
 import java.util.Properties;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
 
@@ -240,8 +251,13 @@ public class NarudzbenicaController implements Initializable {
         sviProizvodi = narudzbenica.getItems();
         if (sviProizvodi.size() == 0) {
             AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Narudzbenica je prazna.");
-        } else {
-            FileWriter fileWriter = null;
+        } else { 
+            
+            DAODobavljac daod = new DAODobavljac();
+            DTODobavljac dtod = daod.getDobavljacPoNazivu(imeDobavljacaComboBox.getSelectionModel().getSelectedItem()); 
+            String nazivDobavljaca = dtod.getNaziv();
+          //  kreirajFajlNarudzbe(sviProizvodi,nazivDobavljaca);
+        /*    FileWriter fileWriter = null;
             String heder = "  Sifra  ,  Bar Kod  ,  Naziv  ,  Naruceno  ";
             String noviRed = "\n";
             String delimiter = "  ,  ";
@@ -276,9 +292,9 @@ public class NarudzbenicaController implements Initializable {
                     e.printStackTrace();
                 }
 
-            }
-            DAODobavljac daod = new DAODobavljac();
-            DTODobavljac dtod = daod.getDobavljacPoNazivu(imeDobavljacaComboBox.getSelectionModel().getSelectedItem());
+            } 
+*/
+            
             String mejlDobavljaca = dtod.getEmail();
 
             String host = "smtp.gmail.com";
@@ -291,8 +307,10 @@ public class NarudzbenicaController implements Initializable {
             String poruka = "Nova narudzba";
 
             String[] attachFiles = new String[1];
-            attachFiles[0] = "narudzbenica.csv";
-
+            attachFiles[0] = kreirajFajlNarudzbe(sviProizvodi,nazivDobavljaca); 
+            
+            if ("".equals(attachFiles[0])) {  AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Narudzbenica nije kreirana"); }
+            else {
             try {
                 sendEmailWithAttachments(host, port, posiljalac, lozinka, primalac,
                         predmet, poruka, attachFiles);
@@ -309,6 +327,7 @@ public class NarudzbenicaController implements Initializable {
         //    DAOStavkaNarudzbe daosn = new DAOStavkaNarudzbe();
             upisiUbazuSveStavke(sviProizvodi);
              narudzbenica.getItems().clear();
+        }
         }
     }
 
@@ -364,6 +383,52 @@ public class NarudzbenicaController implements Initializable {
 
         Transport.send(msg);
 
+    } 
+    
+    
+    
+    public static String kreirajFajlNarudzbe( ObservableList<TabelaNarudzbenica>  stavke,String nazivDobavljaca) {
+        
+        try { 
+             String vrijemeNarudzbe=new SimpleDateFormat("dd.MM.yyyy").format(Calendar.getInstance().getTime()); 
+             String satNarudzbe  = new SimpleDateFormat("HH").format(Calendar.getInstance().getTime());
+             String minNarudzbe = new SimpleDateFormat("mm").format(Calendar.getInstance().getTime());
+             String sekNarudzbe = new SimpleDateFormat("ss").format(Calendar.getInstance().getTime());
+            PdfDocument pdfDoc = new PdfDocument(new PdfWriter("./narudzbenice/narudzba"+vrijemeNarudzbe+" "+satNarudzbe+"h"+minNarudzbe+"min"+sekNarudzbe+"s"+nazivDobavljaca+".pdf"));
+            
+            
+            try (Document doc = new Document(pdfDoc)) {
+                 
+                
+                doc.add(new Paragraph("Datum: " + vrijemeNarudzbe+" "+satNarudzbe+":"+minNarudzbe+":"+sekNarudzbe));
+                
+                Table table = new Table(4);
+
+                table.addCell("Sifra");
+                table.addCell("Barkod");
+                table.addCell("Naziv");
+                table.addCell("Naruceno");
+                for ( int i = 0 ; i < stavke.size() ; i++) {
+
+                    table.addCell(stavke.get(i).getSifra());
+                    table.addCell(stavke.get(i).getBarKod());
+                    table.addCell(stavke.get(i).getNaziv()); 
+                    table.addCell(String.valueOf(stavke.get(i).getNaruceno())); 
+                    
+                    
+                    
+                }
+
+                doc.add(table);
+                 return "./narudzbenice/narudzba"+vrijemeNarudzbe+" "+satNarudzbe+"h"+minNarudzbe+"min"+sekNarudzbe+"s"+nazivDobavljaca+".pdf";
+            }
+           
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(TabelaNarudzba.class
+                    .getName()).log(Level.SEVERE, null, ex);
+            
+        }
+        return "";
     }
 
 }
