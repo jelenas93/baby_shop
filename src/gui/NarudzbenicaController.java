@@ -137,13 +137,13 @@ public class NarudzbenicaController implements Initializable {
     private void postaviTabelu() {
 
         sifra.setCellValueFactory(new PropertyValueFactory<>("sifra"));
-        barKod.setCellValueFactory(new PropertyValueFactory<>("barkod"));
+        barKod.setCellValueFactory(new PropertyValueFactory<>("barKod"));
         naziv.setCellValueFactory(new PropertyValueFactory<>("naziv"));
         stanje.setCellValueFactory(new PropertyValueFactory<>("stanje"));
         cijena.setCellValueFactory(new PropertyValueFactory<>("cijena"));
 
         sifraNarucenog.setCellValueFactory(new PropertyValueFactory<>("sifra"));
-        barKodNarucenog.setCellValueFactory(new PropertyValueFactory<>("barkod"));
+        barKodNarucenog.setCellValueFactory(new PropertyValueFactory<>("barKod"));
         nazivNarucenog.setCellValueFactory(new PropertyValueFactory<>("naziv"));
         naruceno.setCellValueFactory(new PropertyValueFactory<>("naruceno"));
 
@@ -165,6 +165,7 @@ public class NarudzbenicaController implements Initializable {
         DAOProizvod daop = new DAOProizvod();
         ObservableList<DTOProizvod> lista = daop.getSveProizvodeOdDobavljaca(IdDobavljaca);
         for (DTOProizvod proizvod : lista) {
+            System.out.println(proizvod.getBarkod());
             listaMoja.add(new TabelaNarudzba(proizvod.getSifra(), proizvod.getBarkod(), proizvod.getNaziv(), proizvod.getCijena(),
                     proizvod.getKolicina()
             ));
@@ -178,18 +179,22 @@ public class NarudzbenicaController implements Initializable {
 
     @FXML
     public void dodajArtiklButtonOnAction(ActionEvent event) {
-
+        ObservableList<TabelaNarudzba> selektovano;
+        selektovano = narudzba.getSelectionModel().getSelectedItems();
         if ("".equals(KolicinaTextField.getText())) {
             AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste unijeli kolicinu.");
-        } else {
-            ObservableList<TabelaNarudzba> selektovano;
-            selektovano = narudzba.getSelectionModel().getSelectedItems();
+        }  
+        else if (selektovano.size() == 0) {AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Nista nije izabrano.");} 
+        else {
+          //  ObservableList<TabelaNarudzba> selektovano;
+         //   selektovano = narudzba.getSelectionModel().getSelectedItems();
             int kolicina = Integer.valueOf(KolicinaTextField.getText());
-            String barKod = selektovano.get(0).getBarKod();
-            String sifra = selektovano.get(0).getSifra();
-            String naziv = selektovano.get(0).getNaziv();
+            String barkod = selektovano.get(0).getBarKod(); 
+            System.out.println(barkod);
+            String sifraa = selektovano.get(0).getSifra();
+            String naziiv = selektovano.get(0).getNaziv();
 
-            TabelaNarudzbenica novo = new TabelaNarudzbenica(sifra, naziv, kolicina, barKod);
+            TabelaNarudzbenica novo = new TabelaNarudzbenica(sifraa, naziiv, kolicina, barkod);
             narudzbenica.getItems().add(novo);
             KolicinaTextField.clear();
         }
@@ -207,6 +212,25 @@ public class NarudzbenicaController implements Initializable {
             selektovano.forEach(sviProizvodi::remove);
         }
 
+    }
+    
+    
+     public void upisiUbazuSveStavke(ObservableList<TabelaNarudzbenica> lista){
+        DAOStavkaNarudzbe daoStavka=new DAOStavkaNarudzbe();
+        DAOProizvod daoProizvod=new DAOProizvod();
+        DAONarudzbenica daoNarudzbenica=new DAONarudzbenica();
+        int idNarudbenice=new DAONarudzbenica().idZadnjeNarudzbenice();
+        double ukupno=0;
+        for(TabelaNarudzbenica izTabele: lista){
+            DTOProizvod proizvod=daoProizvod.getProizvodPoSifri(izTabele.getSifra());
+            ukupno+=proizvod.getCijena()*izTabele.getNaruceno();
+            if(!daoStavka.upisUBazuStavkuNarudzbe(idNarudbenice, izTabele.getNaruceno(), proizvod.getCijena(), proizvod.getIdProizvoda())){
+                AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška pri upisu stavke narudžbe u bazu.");
+                break;
+            }
+            
+        }
+        daoNarudzbenica.azurirajNarudzbenicu(idNarudbenice, ukupno);
     }
 
     @FXML
@@ -282,9 +306,9 @@ public class NarudzbenicaController implements Initializable {
             DAONarudzbenica daon = new DAONarudzbenica();
 
             daon.upisiNarudzbenicuUBazu(new java.sql.Date(new Date().getTime()), true, 1, 0);
-            DAOStavkaNarudzbe daosn = new DAOStavkaNarudzbe();
-            daosn.upisiUbazuSveStavke(sviProizvodi);
-
+        //    DAOStavkaNarudzbe daosn = new DAOStavkaNarudzbe();
+            upisiUbazuSveStavke(sviProizvodi);
+             narudzbenica.getItems().clear();
         }
     }
 

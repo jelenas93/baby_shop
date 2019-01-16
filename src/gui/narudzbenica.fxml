@@ -52,7 +52,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button fx:id="posaljiNarudzbuButton" alignment="CENTER" contentDisplay="CENTER" layoutX="922.0" layoutY="611.0" mnemonicParsing="false" onAction="#posaljiNarudzbuButtonOnAction" prefHeight="50.0" prefWidth="200.0" text="POSALJI NARUDZBU" textAlignment="CENTER" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="30.0">
+      <Button fx:id="posaljiNarudzbuButton" alignment="CENTER" contentDisplay="CENTER" layoutX="922.0" layoutY="611.0" mnemonicParsing="false" onAction="#posaljiNarudzbuButtonOnAction" prefHeight="50.0" prefWidth="200.0" text="Posalji narudzbu" textAlignment="CENTER" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="30.0">
          <font>
             <Font size="18.0" />
          </font></Button>

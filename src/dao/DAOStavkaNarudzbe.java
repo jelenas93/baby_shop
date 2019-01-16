@@ -98,22 +98,6 @@ public class DAOStavkaNarudzbe {
     
     
     //metoda za vadjene iz liste
-    public void upisiUbazuSveStavke(ObservableList<TabelaNarudzbenica> lista){
-        DAOStavkaNarudzbe daoStavka=new DAOStavkaNarudzbe();
-        DAOProizvod daoProizvod=new DAOProizvod();
-        DAONarudzbenica daoNarudzbenica=new DAONarudzbenica();
-        int idNarudbenice=new DAONarudzbenica().idZadnjeNarudzbenice();
-        double ukupno=0;
-        for(TabelaNarudzbenica izTabele: lista){
-            DTOProizvod proizvod=daoProizvod.getProizvodPoSifri(izTabele.getSifra());
-            ukupno+=proizvod.getCijena()*izTabele.getNaruceno();
-            if(!upisUBazuStavkuNarudzbe(idNarudbenice, izTabele.getNaruceno(), proizvod.getCijena(), proizvod.getIdProizvoda())){
-                AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška pri upisu stavke narudžbe u bazu.");
-                break;
-            }
-            
-        }
-        daoNarudzbenica.azurirajNarudzbenicu(idNarudbenice, ukupno);
-    }
+   
     
 }
