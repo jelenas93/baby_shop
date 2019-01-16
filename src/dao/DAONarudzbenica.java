@@ -178,5 +178,34 @@ public class DAONarudzbenica {
         return retValue;
     }
     
-    
+     public boolean azurirajNarudzbenicu(int id, double ukupnaCijena){
+        Connection con = null;
+        PreparedStatement myStatement = null;
+        try {
+            con = ConnectionPool.getInstance().checkOut();
+            myStatement = con.prepareStatement("UPDATE `baby_shop`.`narudzbenica` "
+                    + "SET UkupnaCijena=? WHERE IdNarudzbenice="+id);
+            myStatement.setDouble(1, ukupnaCijena);
+            myStatement.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAONarudzbenica.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAONarudzbenica.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (myStatement != null) {
+                try {
+                    myStatement.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAONarudzbenica.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return true;
+    }
 }
