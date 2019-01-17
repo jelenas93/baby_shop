@@ -104,8 +104,8 @@ public class KasaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //datumLabel.setText(new SimpleDateFormat().format(new Date()).);
-        datumLabel.setText(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE));
+        SimpleDateFormat sdf=new SimpleDateFormat("dd.MM.yyyy");
+        datumLabel.setText(sdf.format(new Date().getTime()));
         ukupnaCijenaLabel.setText("0,00");
     }
 
@@ -298,7 +298,7 @@ public class KasaController implements Initializable {
             Integer.parseInt(kolicinaTextField.getText());
             try {
                 int fleg = provjeraStanja();
-                if (fleg > 0) {
+                if (fleg >= 0) {
                     stanjeLabel.setText(fleg + "");
                     puniTabelu();
                     if (pozvanaMetodaBarkod) {
@@ -338,6 +338,7 @@ public class KasaController implements Initializable {
             }
             ukupno = 0;
             ukupnaCijenaLabel.setText("0,00");
+            stanjeLabel.setText("");
             listaStavki.clear();
             kasaTabela.getItems().clear();
         }
@@ -411,4 +412,8 @@ public class KasaController implements Initializable {
         listaStavki.clear();
         kasaTabela.getItems().clear();
     }
+    
+    
+    
+    
 }

@@ -3,6 +3,7 @@ package dao;
 import connectionpool.ConnectionPool;
 import dto.DTORacun;
 import java.io.IOException;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,7 +34,7 @@ public class DAORacun {
                 Date datumRacuna = rs.getDate("DatumRacuna");
                 double ukupnaCijena = rs.getDouble("UkupnaCijena");
                 int idZaposlenog = rs.getInt("IdZaposlenog");
-                boolean storniran=rs.getBoolean("Storniran");
+                boolean storniran = rs.getBoolean("Storniran");
                 racuni.add(new DTORacun(idRacuna, idZaposlenog, datumRacuna, ukupnaCijena, storniran));
             }
         } catch (SQLException ex) {
@@ -59,15 +60,15 @@ public class DAORacun {
         }
         return FXCollections.observableArrayList(racuni);
     }
-    
-    public boolean dodajRacun(int idZaposlenog, Date datumRacuna, double ukupnaCijena, boolean storniran){
+
+    public boolean dodajRacun(int idZaposlenog, Date datumRacuna, double ukupnaCijena, boolean storniran) {
         Connection con = null;
         PreparedStatement myStatement = null;
         try {
             con = ConnectionPool.getInstance().checkOut();
             myStatement = con.prepareStatement("INSERT INTO `baby_shop`.`racun` "
                     + " VALUES (default, ?, ?, ?, ?)");
-            
+
             myStatement.setDate(1, (java.sql.Date) datumRacuna);
             myStatement.setDouble(2, ukupnaCijena);
             myStatement.setInt(3, idZaposlenog);
@@ -94,26 +95,26 @@ public class DAORacun {
         }
         return true;
     }
-    
-    public DTORacun vratiRacunPoId(int idRacuna){
+
+    public DTORacun vratiRacunPoId(int idRacuna) {
         Connection con = null;
         PreparedStatement ps = null;
 
         ResultSet rs = null;
-        DTORacun retValue=null;
+        DTORacun retValue = null;
 
         try {
             con = ConnectionPool.getInstance().checkOut();
-            ps = con.prepareStatement("select * from racun where IdRacuna="+idRacuna);
+            ps = con.prepareStatement("select * from racun where IdRacuna=" + idRacuna);
             rs = ps.executeQuery();
 
             while (rs.next()) {
                 int IdRacuna = rs.getInt("IdRacuna");
-                Date datumRacuna=rs.getDate("DatumRacuna");
-                double UkupnaCijena=rs.getDouble("UkupnaCijena");
-                int IdZaposlenog=rs.getInt("IdZaposlenog");
-                boolean storniran=rs.getBoolean("Storniran");
-                retValue=new DTORacun(IdRacuna, IdZaposlenog, datumRacuna, UkupnaCijena, storniran);
+                Date datumRacuna = rs.getDate("DatumRacuna");
+                double UkupnaCijena = rs.getDouble("UkupnaCijena");
+                int IdZaposlenog = rs.getInt("IdZaposlenog");
+                boolean storniran = rs.getBoolean("Storniran");
+                retValue = new DTORacun(IdRacuna, IdZaposlenog, datumRacuna, UkupnaCijena, storniran);
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAORacun.class.getName()).log(Level.SEVERE, null, ex);
@@ -138,8 +139,8 @@ public class DAORacun {
         }
         return retValue;
     }
-    
-     public int idZadnjegRacuna() {
+
+    public int idZadnjegRacuna() {
         Connection con = null;
         PreparedStatement ps = null;
 
@@ -177,14 +178,14 @@ public class DAORacun {
         }
         return retValue;
     }
-     
-     public boolean azurirajRacun(int id, boolean storniran){
+
+    public boolean azurirajRacun(int id, boolean storniran) {
         Connection con = null;
         PreparedStatement myStatement = null;
         try {
             con = ConnectionPool.getInstance().checkOut();
             myStatement = con.prepareStatement("UPDATE `baby_shop`.`racun` "
-                    + "SET storniran=? WHERE IdRacuna="+id);
+                    + "SET storniran=? WHERE IdRacuna=" + id);
             myStatement.setBoolean(1, storniran);
             myStatement.execute();
         } catch (SQLException ex) {
@@ -207,5 +208,48 @@ public class DAORacun {
             }
         }
         return true;
+    }
+
+    public ObservableList<DTORacun> getRacunePoDatumu(Date datum){
+        Connection con = null;
+        CallableStatement call=null;
+        ResultSet rs = null;
+        ArrayList<DTORacun> racuni = new ArrayList<>();
+
+        try {
+            con = ConnectionPool.getInstance().checkOut();
+            call=con.prepareCall("{call suma_racuna(?)}");
+            rs = call.executeQuery();
+
+            while (rs.next()) {
+                int idRacuna = rs.getInt("IdRacuna");
+                Date datumRacuna = rs.getDate("DatumRacuna");
+                double ukupnaCijena = rs.getDouble("UkupnaCijena");
+                int idZaposlenog = rs.getInt("IdZaposlenog");
+                boolean storniran = rs.getBoolean("Storniran");
+                racuni.add(new DTORacun(idRacuna, idZaposlenog, datumRacuna, ukupnaCijena, storniran));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAORacun.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (con != null) {
+                ConnectionPool.getInstance().checkIn(con);
+            }
+            if (call != null) {
+                try {
+                    call.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAORacun.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAORacun.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return FXCollections.observableArrayList(racuni);
     }
 }
