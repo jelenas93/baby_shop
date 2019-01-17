@@ -60,7 +60,7 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <TableView fx:id="kasaTabela" editable="true" layoutX="41.0" layoutY="223.0" prefHeight="436.0" prefWidth="1183.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="180.0">
+      <TableView fx:id="kasaTabela" editable="true" layoutX="41.0" layoutY="223.0" prefHeight="436.0" prefWidth="1183.0" style="-fx-background-color: transparent;" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="180.0">
         <columns>
           <TableColumn fx:id="barkodKolona" prefWidth="212.0" text="Barkod" />
           <TableColumn fx:id="sifraKolona" prefWidth="148.0" text="Šifra" />

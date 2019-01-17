@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import babyshop.AlertHelper;
@@ -73,16 +68,8 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
-/**
- * FXML Controller class
- *
- * @author Jovana Trkulja
- */
 public class NarudzbenicaController implements Initializable {
-
-    /**
-     * Initializes the controller class.
-     */
+    
     @FXML
     private TableView<TabelaNarudzba> narudzba;
 
