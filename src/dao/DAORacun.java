@@ -219,6 +219,7 @@ public class DAORacun {
         try {
             con = ConnectionPool.getInstance().checkOut();
             call=con.prepareCall("{call suma_racuna(?)}");
+            call.setDate(1, (java.sql.Date) datum);
             rs = call.executeQuery();
 
             while (rs.next()) {

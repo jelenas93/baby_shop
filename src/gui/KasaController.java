@@ -102,7 +102,7 @@ public class KasaController implements Initializable {
     public boolean barkod = false;
 
     public double ukupno = 0;
-    
+
     public static double ukupnoZaProsljedjivanje;
 
     public boolean pozvanaMetodaBarkod = false;
@@ -113,7 +113,7 @@ public class KasaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        SimpleDateFormat sdf=new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
         datumLabel.setText(sdf.format(new Date().getTime()));
         ukupnaCijenaLabel.setText("0,00");
     }
@@ -290,7 +290,7 @@ public class KasaController implements Initializable {
             boolean daLiMoguAzurirati = dao.azurirajProizvod(proizvod.getKolicina() - Integer.parseInt(kolicinaTextField.getText()),
                     proizvod.getIdProizvoda());
 
-           /* boolean azuriranjeSkladista = daoSkladiste.azurirajProizvodUSkladistu(proizvod.getKolicina() - Integer.parseInt(kolicinaTextField.getText()),
+            /* boolean azuriranjeSkladista = daoSkladiste.azurirajProizvodUSkladistu(proizvod.getKolicina() - Integer.parseInt(kolicinaTextField.getText()),
                     proizvod.getIdProizvoda());*/
             if (daLiMoguAzurirati) {
                 //  stanjeLabel.setText((proizvod.getKolicina() - Integer.parseInt(kolicinaTextField.getText())) + "");
@@ -405,7 +405,7 @@ public class KasaController implements Initializable {
         ukupnaCijenaLabel.setText(String.format("%.2f", racunZaStorniranje.getUkupnaCijena()));
     }
 
-    public void stornirajRacun(){
+    public void stornirajRacun() {
         for (TabelaKasa kasa : kasaTabela.getItems()) {
             DTOProizvod proizvodZaStorniranje = new DAOProizvod().getProizvodPoBarkodu(kasa.getBarkod());
             new DAOProizvod().azurirajProizvod(proizvodZaStorniranje.getKolicina() + kasa.getKolicina(), proizvodZaStorniranje.getIdProizvoda());
@@ -421,10 +421,21 @@ public class KasaController implements Initializable {
         listaStavki.clear();
         kasaTabela.getItems().clear();
     }
-    
-    public void racunajKusur(ActionEvent event) throws IOException{
-        ukupnoZaProsljedjivanje=ukupno;
+
+    public void racunajKusur(ActionEvent event) throws IOException {
+        ukupnoZaProsljedjivanje = ukupno;
         Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/kusur.fxml"));
+        Stage window = new Stage();
+        Scene korisnikScena = new Scene(korisnikView);
+        window.resizableProperty().setValue(Boolean.FALSE);
+        window.setScene(korisnikScena);
+        window.centerOnScreen();
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.showAndWait();
+    }
+
+    public void razduziRacun(ActionEvent event) throws IOException {
+        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/razduzenje.fxml"));
         Stage window = new Stage();
         Scene korisnikScena = new Scene(korisnikView);
         window.resizableProperty().setValue(Boolean.FALSE);
