@@ -11,43 +11,49 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.PregledKorisnickogNalogaController">
+<AnchorPane id="AnchorPane" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.PregledZaposlenogController">
    <children>
       <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <TableView fx:id="korisnickiNalogTableView" prefHeight="300.0" prefWidth="200.0">
+            <TableView fx:id="zaposleniTableView" prefHeight="300.0" prefWidth="900.0">
               <columns>
-                <TableColumn fx:id="korisnickoImeTableColumn" prefWidth="158.0" text="Korisnicko Ime" />
-                  <TableColumn fx:id="imeZaposlenogTableColumn" minWidth="5.0" prefWidth="152.0" text="Ime" />
-                  <TableColumn fx:id="prezimeZaposlenogTableColumn" minWidth="2.0" prefWidth="175.0" text="Prezime" />
-                  <TableColumn fx:id="jmbgZaposlenogTableColumn" prefWidth="217.0" text="JMBG" />
-                  <TableColumn fx:id="tipNalogaTableColumn" prefWidth="197.0" text="Tip Korisnickog Naloga" />
+                  <TableColumn fx:id="imeZaposlenogTableColumn" minWidth="5.0" prefWidth="279.0" text="Ime" />
+                  <TableColumn fx:id="prezimeZaposlenogTableColumn" minWidth="2.0" prefWidth="294.0" text="Prezime" />
+                  <TableColumn fx:id="jmbgZaposlenogTableColumn" prefWidth="325.0" text="JMBG" />
               </columns>
             </TableView>
-            <GridPane vgap="30.0">
+            <GridPane hgap="50.0" vgap="50.0">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button mnemonicParsing="false" onAction="#izmjenaButtonOnAction" text="Izmjeni korisnički nalog">
+                  <Button mnemonicParsing="false" onAction="#izmjenaButtonOnAction" text="Izmijeni zaposlenog" GridPane.columnIndex="2">
                      <GridPane.margin>
-                        <Insets left="100.0" />
+                        <Insets left="20.0" />
                      </GridPane.margin>
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#deaktivirajNalogButtonOnAction" text="Deaktiviraj nalog" GridPane.columnIndex="1">
+                  <Button layoutX="370.0" layoutY="10.0" mnemonicParsing="false" onAction="#detaljanPrikazButtonOnAction" text="Detaljan prikaz zaposlenog " GridPane.columnIndex="1">
                      <GridPane.margin>
-                        <Insets left="100.0" />
+                        <Insets left="10.0" />
                      </GridPane.margin>
                      <font>
                         <Font size="18.0" />
+                     </font></Button>
+                  <Button mnemonicParsing="false" onAction="#dodajNovogZaposlenogButtonOnAction" text="Dodaj novog zaposlenog">
+                     <font>
+                        <Font size="18.0" />
                      </font>
+                     <GridPane.margin>
+                        <Insets left="30.0" />
+                     </GridPane.margin>
                   </Button>
                </children>
                <padding>

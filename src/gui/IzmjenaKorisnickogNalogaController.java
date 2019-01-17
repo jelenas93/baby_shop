@@ -6,11 +6,14 @@
 package gui;
 
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import dao.DAOKorisnickiNalog;
 import dto.DTOKorisnickiNalog;
 import dto.DTOKorisnikWrapper;
+import java.io.IOException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,7 +31,7 @@ public class IzmjenaKorisnickogNalogaController implements Initializable {
     @FXML
     private  JFXTextField korisnickoImeTextField;
     @FXML
-    private  JFXTextField lozinkaTextField;
+    private  JFXPasswordField lozinkaTextField;
     @FXML
     private JFXComboBox<String> tipKorisnickogNalogaComboBox;
     private DTOKorisnickiNalog nalog;
@@ -38,13 +41,14 @@ public class IzmjenaKorisnickogNalogaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        tipKorisnickogNalogaComboBox.getItems().add("Admin");
-        tipKorisnickogNalogaComboBox.getItems().add("Korisnik");
+        tipKorisnickogNalogaComboBox.getItems().add(utils.Utils.PROPERTIES.getProperty("TIP_KORISNICKOG_NALOGA1"));
+        tipKorisnickogNalogaComboBox.getItems().add(utils.Utils.PROPERTIES.getProperty("TIP_KORISNICKOG_NALOGA2"));
+        tipKorisnickogNalogaComboBox.getItems().add(utils.Utils.PROPERTIES.getProperty("TIP_KORISNICKOG_NALOGA3"));
 
     }    
 
     @FXML
-    private void sacuvajButtonOnAction(ActionEvent event) {
+    private void sacuvajButtonOnAction(ActionEvent event) throws IOException, NoSuchAlgorithmException {
         
         nalog.setKorisnickoIme(korisnickoImeTextField.getText());
         nalog.setLozinka(lozinkaTextField.getText());
@@ -64,8 +68,11 @@ public class IzmjenaKorisnickogNalogaController implements Initializable {
     
         nalog=DAOKorisnickiNalog.getNalogById(korisnik.getIdNaloga());
         korisnickoImeTextField.setText(nalog.getKorisnickoIme());
-        lozinkaTextField.setText(nalog.getLozinka());
-        tipKorisnickogNalogaComboBox.getSelectionModel().select(nalog.getTipKorisnika()); 
+        lozinkaTextField.setText(nalog.getLozinka().toString());
+        String tip=tipKorisnickogNalogaComboBox.getItems().stream().filter(x -> nalog.getTipKorisnika().
+                equals(x)).findAny().orElse(null);
+            
+        tipKorisnickogNalogaComboBox.getSelectionModel().select(tip); 
     
     }
 }
