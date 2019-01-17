@@ -45,7 +45,7 @@
             <Font size="18.0" />
          </font>
       </TextField>
-      <Button fx:id="kusurButton" layoutX="958.0" layoutY="100.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="120.0" text="Kusur" textAlignment="CENTER" AnchorPane.rightAnchor="185.0" AnchorPane.topAnchor="100.0">
+      <Button fx:id="kusurButton" layoutX="958.0" layoutY="100.0" mnemonicParsing="false" onAction="#racunajKusur" prefHeight="50.0" prefWidth="120.0" text="Kusur" textAlignment="CENTER" AnchorPane.rightAnchor="185.0" AnchorPane.topAnchor="100.0">
          <font>
             <Font size="18.0" />
          </font>

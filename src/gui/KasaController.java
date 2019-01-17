@@ -421,4 +421,15 @@ public class KasaController implements Initializable {
         kasaTabela.getItems().clear();
     }
     
+    public void racunajKusur(ActionEvent event) throws IOException{
+        ukupnoZaProsljedjivanje=ukupno;
+        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/kusur.fxml"));
+        Stage window = new Stage();
+        Scene korisnikScena = new Scene(korisnikView);
+        window.resizableProperty().setValue(Boolean.FALSE);
+        window.setScene(korisnikScena);
+        window.centerOnScreen();
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.showAndWait();
+    }
 }
