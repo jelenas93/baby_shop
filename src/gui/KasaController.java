@@ -11,6 +11,7 @@ import dto.DTORacun;
 import dto.DTOStavka;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -103,6 +104,7 @@ public class KasaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        //datumLabel.setText(new SimpleDateFormat().format(new Date()).);
         datumLabel.setText(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE));
         ukupnaCijenaLabel.setText("0,00");
     }
