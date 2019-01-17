@@ -321,8 +321,10 @@ public class KasaController implements Initializable {
                     }
                     kolicinaTextField.setText("1");
                 } else {
-
-                    AlertHelper.showAlert(Alert.AlertType.ERROR, "", /*"Na stanju imate " + fleg + " proizvoda."*/ "Nemate dovoljno proizvoda na stanju.");
+                    kolicinaTextField.setText("1");
+                    barkodTextField.clear();
+                    sifraTextField.clear();
+                    AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Nemate dovoljno proizvoda na stanju.");
                 }
             } catch (NumberFormatException e) {
                 AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Unesite broj.");

@@ -1,5 +1,6 @@
 package dao;
 
+import babyshop.AlertHelper;
 import connectionpool.ConnectionPool;
 import dto.DTORacun;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 
 public class DAORacun {
 
@@ -190,6 +192,7 @@ public class DAORacun {
             myStatement.execute();
         } catch (SQLException ex) {
             Logger.getLogger(DAORacun.class.getName()).log(Level.SEVERE, null, ex);
+          // AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Nemate dovoljno proizvoda na stanju.");
             return false;
         } finally {
             if (con != null) {
@@ -215,7 +218,6 @@ public class DAORacun {
         CallableStatement call=null;
         ResultSet rs = null;
         ArrayList<DTORacun> racuni = new ArrayList<>();
-
         try {
             con = ConnectionPool.getInstance().checkOut();
             call=con.prepareCall("{call suma_racuna(?)}");
@@ -231,7 +233,7 @@ public class DAORacun {
                 racuni.add(new DTORacun(idRacuna, idZaposlenog, datumRacuna, ukupnaCijena, storniran));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(DAORacun.class.getName()).log(Level.SEVERE, null, ex);
+             Logger.getLogger(DAORacun.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (con != null) {
                 ConnectionPool.getInstance().checkIn(con);

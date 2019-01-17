@@ -428,20 +428,15 @@ public class DAOProizvod {
     public boolean azurirajProizvod(int kolicina, int id) {
 
         Connection con = null;
-        //PreparedStatement myStatement = null;
         CallableStatement myStatement=null;
         try {
             con = ConnectionPool.getInstance().checkOut();
-           /* myStatement = con.prepareStatement("UPDATE `baby_shop`.`proizvod` "
-                    + "SET Kolicina=? WHERE IdProizvoda="+id);*/
             myStatement=con.prepareCall("{call azuriraj_proizvod(?, ?)}");
-          //  myStatement.setInt(1, kolicina);
             myStatement.setInt(1, kolicina);
             myStatement.setInt(2, id);
             myStatement.execute();
         } catch (SQLException ex) {
-            AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Kolicina je negativna.");
-          //  Logger.getLogger(DAOProizvod.class.getName()).log(Level.SEVERE, null, ex);
+           // Logger.getLogger(DAOProizvod.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         } finally {
             if (con != null) {
