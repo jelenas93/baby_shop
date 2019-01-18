@@ -5,13 +5,23 @@ import java.util.Date;
 public class DTOKalkulacija {
     
     private int idKalkulacije, idDobavljaca, idZaposlenog;
-    private Date datumKalkulacije;  //ne znam da li ce ostati date il simpledateformat vidjecemo
+    private Date datumKalkulacije; 
+    private double ukupnaCIjena;
 
-    public DTOKalkulacija(int idKalkulacije, int idDobavljaca, int idZaposlenog, Date datumKalkulacije) {
+    public DTOKalkulacija(int idKalkulacije, Date datumKalkulacije, int idDobavljaca, int idZaposlenog, double ukupnaCijena) {
         this.idKalkulacije = idKalkulacije;
         this.idDobavljaca = idDobavljaca;
         this.idZaposlenog = idZaposlenog;
         this.datumKalkulacije = datumKalkulacije;
+        this.ukupnaCIjena=ukupnaCijena;
+    }
+
+    public double getUkupnaCIjena() {
+        return ukupnaCIjena;
+    }
+
+    public void setUkupnaCIjena(double ukupnaCIjena) {
+        this.ukupnaCIjena = ukupnaCIjena;
     }
 
     public void setIdKalkulacije(int idKalkulacije) {

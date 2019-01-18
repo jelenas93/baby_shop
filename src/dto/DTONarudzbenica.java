@@ -5,15 +5,24 @@ import java.util.Date;
 public class DTONarudzbenica {
     private int idNarudzbenice, idZaposlenog;
     private Date datumNarudzbenice;
-    private boolean isporucena;
+    private boolean isporucena, kalkulisana;
     private double ukupnaCijena;
 
-    public DTONarudzbenica(int idNarudzbenice, Date datumNarudzbenice, boolean isporucena, int idZaposlenog,  double ukupnaCijena) {
+    public DTONarudzbenica(int idNarudzbenice, Date datumNarudzbenice, boolean isporucena, int idZaposlenog,  double ukupnaCijena, boolean kalkulisana) {
         this.idNarudzbenice = idNarudzbenice;
         this.idZaposlenog = idZaposlenog;
         this.datumNarudzbenice = datumNarudzbenice;
         this.isporucena = isporucena;
         this.ukupnaCijena=ukupnaCijena;
+        this.kalkulisana=kalkulisana;
+    }
+
+    public boolean isKalkulisana() {
+        return kalkulisana;
+    }
+
+    public void setKalkulisana(boolean kalkulisana) {
+        this.kalkulisana = kalkulisana;
     }
 
     public double getUkupnaCijena() {

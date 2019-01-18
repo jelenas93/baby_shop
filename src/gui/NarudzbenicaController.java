@@ -310,7 +310,7 @@ public class NarudzbenicaController implements Initializable {
 
             DAONarudzbenica daon = new DAONarudzbenica();
 
-            daon.upisiNarudzbenicuUBazu(new java.sql.Date(new Date().getTime()), true, 1, 0);
+            daon.upisiNarudzbenicuUBazu(new java.sql.Date(new Date().getTime()), true, 1, 0, false);
         //    DAOStavkaNarudzbe daosn = new DAOStavkaNarudzbe();
             upisiUbazuSveStavke(sviProizvodi);
              narudzbenica.getItems().clear();
