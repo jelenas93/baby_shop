@@ -92,7 +92,7 @@ public class DTOZaposleni {
         this.idTipZaposlenog = idTipZaposlenog;
     }
 
-    @Override
+  /* @Override
     public String toString() {
         return "DTOZaposleni{" + "idZaposlenog=" + idZaposlenog
                 + ",Ime=" + ime
@@ -101,6 +101,6 @@ public class DTOZaposleni {
                 + ", Iznos Plate=" + iznosPlate
                 + ", Postanski broj=" + postanskiBroj
                 + ", idTipZaposlenog=" + idTipZaposlenog + '}';
-    }
+    }*/
 
 }

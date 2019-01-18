@@ -17,24 +17,11 @@ public class DTOKorisnikWrapper {
     private DTOKorisnickiNalog korisnickiNalog;
     private DTOZaposleni zaposleni;
     
-//    private String ime, prezime, JMBG, mejl;
-//    private double iznosPlate;
-//    private int idZaposlenog, postanskiBroj, idTipZaposlenog;
-//    private String korisnickoIme, lozinka, tipKorisnika;
-//    private int idNaloga;
-//    private boolean aktivan;
 
     public DTOKorisnikWrapper() {
 
     }
-//        public DTOKorisnikWrapper(String korisnickoIme,String ime,String prezime,String jmbg,String tipKorisnika,boolean aktivan) {
-//        this.ime = ime;
-//        this.prezime = prezime;
-//        this.JMBG = jmbg;
-//        this.korisnickoIme = korisnickoIme;
-//        this.aktivan = aktivan;
-//        this.tipKorisnika = tipKorisnika;
-//    }
+
 
     public DTOKorisnikWrapper(DTOKorisnickiNalog korisnickiNalog, DTOZaposleni zaposleni) {
         this.korisnickiNalog = korisnickiNalog;
@@ -102,14 +89,6 @@ zaposleni.setIdTipZaposlenog(idZaposlenog);    }
 
     public void setIdNaloga(int idNaloga) {
 korisnickiNalog.setIdNaloga(idNaloga);    }
-    
-/*public DTOKorisnickiNalog getKorisnickiNalog(){
-
-    return DAOKorisnickiNalog.getNalogById(idNaloga);
-}
-public DTOZaposleni getZaposleni(){
-
-    return DAOZaposleni.getZaposleniById(idZaposlenog);
-}*/
+   
 
 }
