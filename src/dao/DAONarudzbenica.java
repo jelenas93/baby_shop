@@ -34,7 +34,9 @@ public class DAONarudzbenica {
                 int idZaposlenog = rs.getInt("IdZaposlenog");
                 double ukupnaCijena = rs.getDouble("UkupnaCijena");
                 boolean kalkulisana=rs.getBoolean("Kalkulisana");
-                narudzbenice.add(new DTONarudzbenica(idNarudzbenice, datum, isporucena, idZaposlenog, ukupnaCijena, kalkulisana));
+                int idDobavljaca=rs.getInt("IdDobavljaca");
+                narudzbenice.add(new DTONarudzbenica(idNarudzbenice, datum, 
+                        isporucena, idZaposlenog, ukupnaCijena, kalkulisana, idDobavljaca));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAONarudzbenica.class.getName()).log(Level.SEVERE, null, ex);
@@ -60,22 +62,23 @@ public class DAONarudzbenica {
         return FXCollections.observableArrayList(narudzbenice);
     }
     
-    public boolean upisiNarudzbenicuUBazu(Date datumRacuna, boolean isporucena, int idZaposlenog, double ukupnaCijena, boolean kalkulisana){
+    public boolean upisiNarudzbenicuUBazu(Date datumRacuna, boolean isporucena, int idZaposlenog, double ukupnaCijena, boolean kalkulisana, int idDobavljaca){
         Connection con = null;
         PreparedStatement myStatement = null;
         try {
             con = ConnectionPool.getInstance().checkOut();
             myStatement = con.prepareStatement("INSERT INTO `baby_shop`.`narudzbenica` "
-                    + " VALUES (default, ?, ?, ?, ?, ?)");
+                    + " VALUES (default, ?, ?, ?, ?, ?, ?)");
             
             myStatement.setDate(1, (java.sql.Date) datumRacuna);
             myStatement.setBoolean(2, isporucena);
             myStatement.setInt(3, idZaposlenog);
             myStatement.setDouble(4, ukupnaCijena);
             myStatement.setBoolean(5, kalkulisana);
+            myStatement.setInt(6, idDobavljaca);
             myStatement.execute();
         } catch (SQLException ex) {
-            Logger.getLogger(DAORacun.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAONarudzbenica.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         } finally {
             if (con != null) {
@@ -115,7 +118,8 @@ public class DAONarudzbenica {
                 int idZaposlenog=rs.getInt("IdZaposlenog");
                 double ukupnaCijena=rs.getDouble("UkupnaCijena");
                 boolean kalkulisana=rs.getBoolean("Kalkulisana");
-                retValue=new DTONarudzbenica(idNarudzbenice, datumRacuna, isporucena, idZaposlenog, ukupnaCijena, kalkulisana);
+                int idDobavljaca=rs.getInt("IdDobavljaca");
+                retValue=new DTONarudzbenica(idNarudzbenice, datumRacuna, isporucena, idZaposlenog, ukupnaCijena, kalkulisana,idDobavljaca);
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAONarudzbenica.class.getName()).log(Level.SEVERE, null, ex);
@@ -210,4 +214,51 @@ public class DAONarudzbenica {
         }
         return true;
     }
+     
+     public ObservableList<DTONarudzbenica> getNarudzbenicePoDobavljacu(int idDobavljaca) {
+        Connection con = null;
+        PreparedStatement ps = null;
+
+        ResultSet rs = null;
+        ArrayList<DTONarudzbenica> narudzbenice = new ArrayList<>();
+
+        try {
+            con = ConnectionPool.getInstance().checkOut();
+            ps = con.prepareStatement("select * from narudzbenica where IdDobavljaca="+idDobavljaca);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int idNarudzbenice = rs.getInt("IdNarudzbenice");
+                Date datum = rs.getDate("DatumNarudzbenice");
+                boolean isporucena=rs.getBoolean("Isporucena");
+                int idZaposlenog = rs.getInt("IdZaposlenog");
+                double ukupnaCijena = rs.getDouble("UkupnaCijena");
+                boolean kalkulisana=rs.getBoolean("Kalkulisana");
+                narudzbenice.add(new DTONarudzbenica(idNarudzbenice, datum, 
+                        isporucena, idZaposlenog, ukupnaCijena, kalkulisana, idDobavljaca));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAONarudzbenica.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (con != null) {
+                ConnectionPool.getInstance().checkIn(con);
+            }
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAONarudzbenica.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAONarudzbenica.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return FXCollections.observableArrayList(narudzbenice);
+    }
+    
 }

@@ -3,18 +3,27 @@ package dto;
 import java.util.Date;
 
 public class DTONarudzbenica {
-    private int idNarudzbenice, idZaposlenog;
+    private int idNarudzbenice, idZaposlenog, idDobavljaca;
     private Date datumNarudzbenice;
     private boolean isporucena, kalkulisana;
     private double ukupnaCijena;
 
-    public DTONarudzbenica(int idNarudzbenice, Date datumNarudzbenice, boolean isporucena, int idZaposlenog,  double ukupnaCijena, boolean kalkulisana) {
+    public DTONarudzbenica(int idNarudzbenice, Date datumNarudzbenice, boolean isporucena,
+            int idZaposlenog,  double ukupnaCijena, boolean kalkulisana, int idDobavljaca) {
         this.idNarudzbenice = idNarudzbenice;
         this.idZaposlenog = idZaposlenog;
         this.datumNarudzbenice = datumNarudzbenice;
         this.isporucena = isporucena;
         this.ukupnaCijena=ukupnaCijena;
         this.kalkulisana=kalkulisana;
+    }
+
+    public int getIdDobavljaca() {
+        return idDobavljaca;
+    }
+
+    public void setIdDobavljaca(int idDobavljaca) {
+        this.idDobavljaca = idDobavljaca;
     }
 
     public boolean isKalkulisana() {
