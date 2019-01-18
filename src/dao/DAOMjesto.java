@@ -96,4 +96,49 @@ public class DAOMjesto {
         return true;
     }
 
+    public static DTOMjesto getMjestoByPostanskiBroj(int post) {
+        Connection con = null;
+        PreparedStatement ps = null;
+
+        ResultSet rs = null;
+        DTOMjesto mjesto = null;
+
+        try {
+            con = ConnectionPool.getInstance().checkOut();
+            ps = con.prepareStatement("select * from baby_shop.mjesto where PostanskiBroj=?");
+            ps.setInt(1, post);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int postanskiBroj = rs.getInt(1);
+                String naziv = rs.getString(2);
+                String opstina = rs.getString(3);
+                String drzava = rs.getString(4);
+                mjesto=new DTOMjesto(postanskiBroj, naziv, opstina, drzava);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOMjesto.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (con != null) {
+                ConnectionPool.getInstance().checkIn(con);
+            }
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOMjesto.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOMjesto.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+
+        return mjesto;
+    }
+
 }

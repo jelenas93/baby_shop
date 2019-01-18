@@ -98,4 +98,45 @@ public class DAOTipZaposlenog {
         return true;
     
     }
+     public static DTOTipZaposlenog getTipZaposlenogById(int id) {
+
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        DTOTipZaposlenog tipzaposlenog = null;
+
+        try {
+            con = ConnectionPool.getInstance().checkOut();
+            ps = con.prepareStatement("select * from baby_shop.tip_zaposlenog where IdTipa=?");
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int idTipaZaposlenog = rs.getInt(1);
+                String nazivTipaZaposlenog = rs.getString(2);
+                tipzaposlenog=new DTOTipZaposlenog(idTipaZaposlenog, nazivTipaZaposlenog);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOTipZaposlenog.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (con != null) {
+                ConnectionPool.getInstance().checkIn(con);
+            }
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOTipZaposlenog.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOTipZaposlenog.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return tipzaposlenog;
+
+    }
 }
