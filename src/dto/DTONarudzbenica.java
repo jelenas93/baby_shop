@@ -8,6 +8,7 @@ public class DTONarudzbenica {
     private boolean isporucena, kalkulisana;
     private double ukupnaCijena;
 
+   
     public DTONarudzbenica(int idNarudzbenice, Date datumNarudzbenice, boolean isporucena,
             int idZaposlenog,  double ukupnaCijena, boolean kalkulisana, int idDobavljaca) {
         this.idNarudzbenice = idNarudzbenice;
