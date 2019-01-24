@@ -6,9 +6,11 @@ import dao.DAORacun;
 import dao.DAOSkladisteProizvod;
 import dao.DAOStavka;
 import dao.DAOStorniranRacun;
+import dao.DAOZaposleni;
 import dto.DTOProizvod;
 import dto.DTORacun;
 import dto.DTOStavka;
+import dto.DTOZaposleni;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -118,6 +120,8 @@ public class KasaController implements Initializable {
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
         datumLabel.setText(sdf.format(new Date().getTime()));
         ukupnaCijenaLabel.setText("0,00");
+        DTOZaposleni k = DAOZaposleni.getZaposleniById(PocetnaFormaController.idZaposlenog);
+        prodavacLabel.setText(k.getIme()+" "+k.getPrezime());
     }
 
     private void puniTabelu() {
