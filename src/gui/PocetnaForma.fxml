@@ -12,7 +12,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="labelaSluzbenik" layoutX="43.0" layoutY="73.0" prefHeight="26.0" prefWidth="105.0" text="Službenik:">
+      <Label fx:id="labelaSluzbenik" layoutX="43.0" layoutY="73.0" prefHeight="26.0" prefWidth="105.0" text="Poslovođa:">
          <font>
             <Font size="18.0" />
          </font>
