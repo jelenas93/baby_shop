@@ -1,56 +1,30 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tabele;
 
-/**
- *
- * @author Jovana Trkulja
- */
 public class TabelaKalkulacija {
-    
-   private int  redniBroj,kolicina;
-   private String sifra, naziv,jedMjere,barKod;
-   private double fakturnaCijena,rabat,fakturnaVrijednostNaRabat, nabavnaCijena,nabavnaVrijednost,marza,marzaIznos,vrijednostBezPdv,stopa,pdv,prodajnaVrijednost,prodajnaCijena;
-    
-    public TabelaKalkulacija() {} 
-    
-    public TabelaKalkulacija( int rb, String barKod, String sifra,String naziv, int kol,String jedMjere, double fakturnaCijena, 
-            double rabat,double fakturnaVrijednostNaRabat, double nabavnaCijena, double nabavnaVrijednost, double marza, 
-            double marzaIznos, double vrijednostBezPdv, double stopa, double pdv, double prodajnaVrijednost, double prodajnaCijena) 
-    
-    {
-    this.redniBroj = rb;
-    this.barKod=barKod;
-    this.fakturnaCijena=fakturnaCijena;
-    this.fakturnaVrijednostNaRabat=fakturnaVrijednostNaRabat;
-    this.sifra=sifra;
-    this.naziv=naziv;
-    this.kolicina=kol;
-    this.jedMjere=jedMjere;
-    this.rabat=rabat;
-    this.marza=marza;
-    this.marzaIznos=marzaIznos;
-    this.nabavnaVrijednost=nabavnaVrijednost;
-    this.nabavnaCijena=nabavnaCijena;
-    this.vrijednostBezPdv=vrijednostBezPdv;
-    this.stopa=stopa;
-    this.pdv=pdv;
-    this.prodajnaCijena=prodajnaCijena;
-    this.prodajnaVrijednost=prodajnaVrijednost;
-    
-    
-   
+
+    private int kolicina, stopa, idProizvoda;
+    private String sifra, naziv, jedMjere, barKod;
+    private double fakturnaCijena, rabat, fakturnaVrijednostNaRabat, nabavnaCijena, nabavnaVrijednost, marza, marzaIznos, vrijednostBezPdv, pdv, prodajnaVrijednost, prodajnaCijena;
+
+    public TabelaKalkulacija() {
     }
 
-    public int getRedniBroj() {
-        return redniBroj;
+    public TabelaKalkulacija(String sifra, String barKod, String naziv, int kolicina, String jedMjere, int idProizvoda) {
+        this.barKod = barKod;
+        this.sifra = sifra;
+        this.naziv = naziv;
+        this.kolicina=kolicina;
+        this.jedMjere=jedMjere;
+        this.stopa = 17;
+        this.idProizvoda=idProizvoda;
     }
 
-    public void setRedniBroj(int redniBroj) {
-        this.redniBroj = redniBroj;
+    public int getIdProizvoda() {
+        return idProizvoda;
+    }
+
+    public void setIdProizvoda(int idProizvoda) {
+        this.idProizvoda = idProizvoda;
     }
 
     public int getKolicina() {
@@ -157,11 +131,11 @@ public class TabelaKalkulacija {
         this.vrijednostBezPdv = vrijednostBezPdv;
     }
 
-    public double getStopa() {
+    public int getStopa() {
         return stopa;
     }
 
-    public void setStopa(double stopa) {
+    public void setStopa(int stopa) {
         this.stopa = stopa;
     }
 
@@ -188,5 +162,5 @@ public class TabelaKalkulacija {
     public void setProdajnaCijena(double prodajnaCijena) {
         this.prodajnaCijena = prodajnaCijena;
     }
-    
+
 }

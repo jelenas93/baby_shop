@@ -1,11 +1,11 @@
 package dto;
 
 public class DTOStavkaKalkulacije {
-    private int idKalkulacije, idProizvoda, kolicina, rabat, marza, pdv;
-    private double fakturnaCijena;
+    private int idKalkulacije, idProizvoda, kolicina, pdv;
+    private double fakturnaCijena, rabat, marza;
     private String jedinicaMjere;
 
-    public DTOStavkaKalkulacije(int idKalkulacije, int idProizvoda, double fakturnaCijena, int kolicina, String jedinicaMjere, int rabat, int marza, int pdv) {
+    public DTOStavkaKalkulacije(int idKalkulacije, int idProizvoda, double fakturnaCijena, int kolicina, String jedinicaMjere, double rabat, double marza, int pdv) {
         this.idKalkulacije = idKalkulacije;
         this.idProizvoda = idProizvoda;
         this.kolicina = kolicina;
@@ -40,19 +40,19 @@ public class DTOStavkaKalkulacije {
         this.kolicina = kolicina;
     }
 
-    public int getRabat() {
+    public double getRabat() {
         return rabat;
     }
 
-    public void setRabat(int rabat) {
+    public void setRabat(double rabat) {
         this.rabat = rabat;
     }
 
-    public int getMarza() {
+    public double getMarza() {
         return marza;
     }
 
-    public void setMarza(int marza) {
+    public void setMarza(double marza) {
         this.marza = marza;
     }
 

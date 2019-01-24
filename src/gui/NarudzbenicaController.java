@@ -163,7 +163,7 @@ public class NarudzbenicaController implements Initializable {
         DAOProizvod daop = new DAOProizvod();
         ObservableList<DTOProizvod> lista = daop.getSveProizvodeOdDobavljaca(IdDobavljaca);
         for (DTOProizvod proizvod : lista) {
-            System.out.println(proizvod.getBarkod());
+          //  System.out.println(proizvod.getBarkod());
             listaMoja.add(new TabelaNarudzba(proizvod.getSifra(), proizvod.getBarkod(), proizvod.getNaziv(), proizvod.getCijena(),
                     proizvod.getKolicina()
             ));

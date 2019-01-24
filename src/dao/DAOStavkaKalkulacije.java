@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 
 public class DAOStavkaKalkulacije {
      public boolean upisUBazuStavkuKalkulacije(int idKalkulacije, int idProizvoda,
-             double cijena, int kolicina, String jedinicaMjere, int rabat, int marza, int pdv ){
+             double cijena, int kolicina, String jedinicaMjere, double rabat, double marza, int pdv ){
         
         Connection con = null;
         PreparedStatement myStatement = null;
@@ -27,8 +27,8 @@ public class DAOStavkaKalkulacije {
             myStatement.setDouble(3, cijena);
             myStatement.setInt(4, kolicina);
             myStatement.setString(5, jedinicaMjere);
-            myStatement.setInt(6, rabat);
-            myStatement.setInt(7, marza);
+            myStatement.setDouble(6, rabat);
+            myStatement.setDouble(7, marza);
             myStatement.setInt(8, pdv);
             myStatement.execute();
         } catch (SQLException ex) {

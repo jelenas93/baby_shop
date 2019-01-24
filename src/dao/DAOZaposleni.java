@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import connectionpool.ConnectionPool;
@@ -19,10 +14,6 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-/**
- *
- * @author Tijana Lakic
- */
 public class DAOZaposleni {
 
     // public static final String SQL_GET_ZAPOSLENI = "select * from baby_shop.zaposleni";

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import dto.DTOTipZaposlenog;
@@ -17,10 +12,6 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-/**
- *
- * @author Tijana Lakic
- */
 public class DAOTipZaposlenog {
 
     public final String SQL_GET_TIP_ZAPOSLENOG = "select * from baby_shop.tip_zaposlenog";
@@ -98,7 +89,8 @@ public class DAOTipZaposlenog {
         return true;
     
     }
-     public static DTOTipZaposlenog getTipZaposlenogById(int id) {
+  
+    public static DTOTipZaposlenog getTipZaposlenogById(int id) {
 
         Connection con = null;
         PreparedStatement ps = null;
