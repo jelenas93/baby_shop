@@ -47,7 +47,7 @@
             <Font size="16.0" />
          </font>
       </Button>
-      <Button layoutX="69.0" layoutY="380.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="183.0" text="Pregled proizvoda">
+      <Button layoutX="69.0" layoutY="380.0" mnemonicParsing="false" onAction="#klikPregledProizvoda" prefHeight="39.0" prefWidth="183.0" text="Pregled proizvoda">
          <font>
             <Font size="18.0" />
          </font>

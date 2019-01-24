@@ -141,7 +141,7 @@ public class PregledProizvodaDetaljnoController implements Initializable {
       }
 
     public void nazad(ActionEvent event) throws IOException {
-        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/pregledProizvoda.fxml"));
+        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/PocetnaForma.fxml"));
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene korisnikScena = new Scene(korisnikView);
       //  window.resizableProperty().setValue(Boolean.FALSE);

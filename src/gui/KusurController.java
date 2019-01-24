@@ -1,8 +1,6 @@
 package gui;
 
 import java.net.URL;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -43,7 +41,7 @@ public class KusurController implements Initializable {
         double kusur=0.0;
         kusur=Double.parseDouble(uplacenoTextField.getText())-KasaController.ukupnoZaProsljedjivanje;
         kusurLabel.setText(String.format("%.2f", kusur));
-        KasaController.ukupnoZaProsljedjivanje=0.0;
+       // KasaController.ukupnoZaProsljedjivanje=0.0;
     }
 
 }

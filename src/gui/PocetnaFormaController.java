@@ -1,13 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
-import dao.DAOKorisnickiNalog;
 import dao.DAOZaposleni;
-import dto.DTOKorisnickiNalog;
 import dto.DTOZaposleni;
 import java.io.IOException;
 import java.net.URL;
@@ -98,7 +91,16 @@ public class PocetnaFormaController implements Initializable {
     }
 
     public void klikPregledZaposlenih(ActionEvent event) throws IOException {
-        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/kasa.fxml"));
+        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/pregledZaposlenog.fxml"));
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene korisnikScena = new Scene(korisnikView);
+        window.setScene(korisnikScena);
+        window.centerOnScreen();
+        window.show();
+    }
+    
+     public void klikPregledProizvoda(ActionEvent event) throws IOException {
+        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/PregledProizvodaDetaljno.fxml"));
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene korisnikScena = new Scene(korisnikView);
         window.setScene(korisnikScena);

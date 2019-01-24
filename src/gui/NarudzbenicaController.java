@@ -54,6 +54,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -374,7 +379,14 @@ public class NarudzbenicaController implements Initializable {
     } 
     
     
-    
+    public void nazadStisak(ActionEvent event) throws IOException{
+        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/PocetnaForma.fxml"));
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene korisnikScena = new Scene(korisnikView);
+        window.setScene(korisnikScena);
+        window.centerOnScreen();
+        window.show();
+    }
     
 
 }
