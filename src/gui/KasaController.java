@@ -9,6 +9,7 @@ import dao.DAOStorniranRacun;
 import dto.DTOProizvod;
 import dto.DTORacun;
 import dto.DTOStavka;
+import static gui.NarudzbenicaController.kreirajFajlNarudzbe;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -35,6 +36,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import pdf.PDF;
 import tabele.TabelaKasa;
 
 public class KasaController implements Initializable {
@@ -338,7 +340,7 @@ public class KasaController implements Initializable {
         } else {
             DAORacun daoRacun = new DAORacun();
             if (!daoRacun.dodajRacun(2, new java.sql.Date(new Date().getTime()), ukupno, false)) {
-                AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greeska racuna");
+                AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greska racuna");
             }
             int idRacuna = daoRacun.idZadnjegRacuna();
             DAOStavka daoStavka = new DAOStavka();
@@ -347,6 +349,8 @@ public class KasaController implements Initializable {
                     AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška pri upisu stavke u bazu.");
                 }
             }
+            String[] attachFiles = new String[1];
+            attachFiles[0] = PDF.kreirajFajlRacun(listaStavki,new DAORacun().vratiRacunPoId(idRacuna));
             ukupno = 0;
             ukupnaCijenaLabel.setText("0,00");
             stanjeLabel.setText("");
