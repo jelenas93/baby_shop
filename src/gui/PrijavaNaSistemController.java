@@ -73,7 +73,7 @@ public class PrijavaNaSistemController implements Initializable {
             String unesenaLozinkaUFormu = lozinkaField.getText();
             String korisnickoIme = korisnickoImeTextField.getText();
             DTOKorisnickiNalog nalog = DAOKorisnickiNalog.getKorisnickiNalozi().stream().filter(x -> korisnickoIme.equals(x.getKorisnickoIme())).findAny().orElse(null);
-          
+            PocetnaFormaController.idZaposlenog=nalog.getIdZaposlenog();
             if (nalog != null) {
 
                 int byteCounter = 0;
@@ -105,8 +105,8 @@ public class PrijavaNaSistemController implements Initializable {
 
                 } else {
 
-                    AlertHelper.showAlert(Alert.AlertType.INFORMATION, "", "Uspješna prijava.");
-                    Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/pregledZaposlenog.fxml"));
+                    //AlertHelper.showAlert(Alert.AlertType.INFORMATION, "", "Uspješna prijava.");
+                    Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/PocetnaForma.fxml"));
                     Stage window = new Stage();
                     Scene korisnikScena = new Scene(korisnikView);
                     window.resizableProperty().setValue(Boolean.FALSE);
