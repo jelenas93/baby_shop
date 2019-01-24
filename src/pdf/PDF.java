@@ -2,6 +2,8 @@ package pdf;
 
 import com.itextpdf.kernel.color.Color;
 import com.itextpdf.kernel.font.PdfFont;
+
+
 import com.itextpdf.kernel.font.PdfType1Font;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -50,7 +52,7 @@ public class PDF {
             PdfDocument pdfDoc = new PdfDocument(new PdfWriter("./racuni/racun" + racun.getIdRacuna() + ".pdf"));
 
             try (Document doc = new Document(pdfDoc,PageSize.A5)) {
-                BaseFont bf=BaseFont.createFont(FontFactory.HELVETICA, "CP1250", true);
+                BaseFont bf=BaseFont.createFont(FontFactory.HELVETICA, "CP1250", BaseFont.EMBEDDED);
                 Font moj=new Font(bf, 12, Font.BOLD);
                 doc.add(new Paragraph("Baby shop"));
                 doc.add(new Paragraph("Datum: " + vrijeme + " " + sat + ":" + min + ":" + sek));
