@@ -12,22 +12,17 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button layoutX="46.0" layoutY="97.0" mnemonicParsing="false" onAction="#pregledZaposlenih" prefHeight="39.0" prefWidth="233.0" text="Pregled zaposlenih">
+      <Button layoutX="46.0" layoutY="95.0" mnemonicParsing="false" onAction="#pregledZaposlenih" prefHeight="40.0" prefWidth="250.0" text="Rad sa zaposlenicima">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button layoutX="46.0" layoutY="221.0" mnemonicParsing="false" onAction="#dodajZaposlenog" prefHeight="39.0" prefWidth="233.0" text="Dodaj zaposlenog">
+      <Button layoutX="46.0" layoutY="305.0" mnemonicParsing="false" onAction="#dodajProizvod" prefHeight="40.0" prefWidth="250.0" text="Dodaj proizvod">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button layoutX="46.0" layoutY="340.0" mnemonicParsing="false" onAction="#dodajProizvod" prefHeight="39.0" prefWidth="233.0" text="Dodaj proizvod">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
-      <Button layoutX="46.0" layoutY="280.0" mnemonicParsing="false" onAction="#pregledProizvoda" prefHeight="39.0" prefWidth="233.0" text="Pregled proizvoda">
+      <Button layoutX="46.0" layoutY="235.0" mnemonicParsing="false" onAction="#pregledProizvoda" prefHeight="40.0" prefWidth="250.0" text="Pregled proizvoda">
          <font>
             <Font size="18.0" />
          </font>
@@ -37,7 +32,7 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <Button layoutX="46.0" layoutY="160.0" mnemonicParsing="false" onAction="#pregledKorisnickihNaloga" text="Pregled korisničkih naloga">
+      <Button layoutX="46.0" layoutY="165.0" mnemonicParsing="false" onAction="#pregledKorisnickihNaloga" prefHeight="40.0" prefWidth="250.0" text="Rad sa korisničkim nalozima">
          <font>
             <Font size="18.0" />
          </font>

@@ -28,6 +28,7 @@
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -35,7 +36,7 @@
                <children>
                   <Button mnemonicParsing="false" onAction="#izmjenaButtonOnAction" text="Izmjeni korisnički nalog">
                      <GridPane.margin>
-                        <Insets left="100.0" />
+                        <Insets left="50.0" />
                      </GridPane.margin>
                      <font>
                         <Font size="18.0" />
@@ -48,6 +49,14 @@
                      <font>
                         <Font size="18.0" />
                      </font>
+                  </Button>
+                  <Button layoutX="410.0" layoutY="36.0" mnemonicParsing="false" onAction="#nazadButtonOnAction" prefHeight="39.0" prefWidth="108.0" text="Nazad" GridPane.columnIndex="2">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="80.0" />
+                     </GridPane.margin>
                   </Button>
                </children>
                <padding>

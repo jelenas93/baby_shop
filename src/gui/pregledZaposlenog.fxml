@@ -22,19 +22,20 @@
                   <TableColumn fx:id="jmbgZaposlenogTableColumn" prefWidth="325.0" text="JMBG" />
               </columns>
             </TableView>
-            <GridPane hgap="50.0" vgap="50.0">
+            <GridPane>
               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="130.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="130.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="60.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" prefWidth="0.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button mnemonicParsing="false" onAction="#izmjenaButtonOnAction" text="Izmijeni zaposlenog" GridPane.columnIndex="2">
+                  <Button mnemonicParsing="false" onAction="#izmjenaButtonOnAction" prefHeight="39.0" prefWidth="183.0" text="Izmijeni zaposlenog" GridPane.columnIndex="2">
                      <GridPane.margin>
-                        <Insets left="20.0" />
+                        <Insets left="10.0" />
                      </GridPane.margin>
                      <font>
                         <Font size="18.0" />
@@ -47,7 +48,15 @@
                      <font>
                         <Font size="18.0" />
                      </font></Button>
-                  <Button mnemonicParsing="false" onAction="#dodajNovogZaposlenogButtonOnAction" text="Dodaj novog zaposlenog">
+                  <Button mnemonicParsing="false" onAction="#dodajNovogZaposlenogButtonOnAction" prefHeight="39.0" prefWidth="229.0" text="Dodaj novog zaposlenog">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="20.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button layoutX="506.0" layoutY="36.0" mnemonicParsing="false" onAction="#nazadButtonOnAction" text="Nazad" GridPane.columnIndex="3">
                      <font>
                         <Font size="18.0" />
                      </font>

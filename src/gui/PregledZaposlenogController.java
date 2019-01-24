@@ -17,6 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -128,6 +129,20 @@ public class PregledZaposlenogController implements Initializable {
         window.showAndWait();
         zaposleni = FXCollections.observableArrayList(DAOZaposleni.getZaposleni());
         zaposleniTableView.setItems(zaposleni);
+    }
+
+    @FXML
+    private void nazadButtonOnAction(ActionEvent event) throws IOException {
+        ((Node) event.getSource()).getScene().getWindow().hide();
+
+        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/administratorPocetnaForma.fxml"));
+        Stage window = new Stage();
+        Scene korisnikScena = new Scene(korisnikView);
+        window.resizableProperty().setValue(Boolean.FALSE);
+        window.setScene(korisnikScena);
+        window.centerOnScreen();
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.showAndWait();
     }
 
 }
