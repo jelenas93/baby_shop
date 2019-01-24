@@ -42,7 +42,6 @@ public class PrijavaNaSistemController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         for (DTOKorisnickiNalog x : DAOKorisnickiNalog.getKorisnickiNalozi()) {
-            // System.out.println("nalog ime "+x.getKorisnickoIme());
 
         }
     }
@@ -60,13 +59,14 @@ public class PrijavaNaSistemController implements Initializable {
             AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Unesite podatke za prijavu na sistem.");
 
         } else {
+            
             boolean nepostojeciNalog = false;
             boolean pogresnaLozinka = false;
             String unesenaLozinkaUFormu = lozinkaField.getText();
             String korisnickoIme = korisnickoImeTextField.getText();
             DTOKorisnickiNalog nalog = DAOKorisnickiNalog.getKorisnickiNalozi().stream().filter(x -> korisnickoIme.equals(x.getKorisnickoIme())).findAny().orElse(null);
-            PocetnaFormaController.idZaposlenog = nalog.getIdZaposlenog();
             if (nalog != null) {
+                PocetnaFormaController.idZaposlenog = nalog.getIdZaposlenog();
 
                 int byteCounter = 0;
                 byte[] hesLozinkeIzdvojenIzBaze = new byte[32];
@@ -97,16 +97,35 @@ public class PrijavaNaSistemController implements Initializable {
                 } else {
 
                     //AlertHelper.showAlert(Alert.AlertType.INFORMATION, "", "Uspješna prijava.");
-                    
-                    Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/PocetnaForma.fxml"));
-                    Stage window = new Stage();
-                    Scene korisnikScena = new Scene(korisnikView);
-                    window.resizableProperty().setValue(Boolean.FALSE);
-                    window.setScene(korisnikScena);
-                    window.centerOnScreen();
-                    window.initModality(Modality.APPLICATION_MODAL);
-                    window.showAndWait();
+                    if ("Administrator".equals(nalog.getTipKorisnika())) {
+                        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/administratorPocetnaForma.fxml"));
+                        Stage window = new Stage();
+                        Scene korisnikScena = new Scene(korisnikView);
+                        window.resizableProperty().setValue(Boolean.FALSE);
+                        window.setScene(korisnikScena);
+                        window.centerOnScreen();
+                        window.initModality(Modality.APPLICATION_MODAL);
+                        window.showAndWait();
+                    } else if ("Poslovođa".equals(nalog.getTipKorisnika())) {
 
+                        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/PocetnaForma.fxml"));
+                        Stage window = new Stage();
+                        Scene korisnikScena = new Scene(korisnikView);
+                        window.resizableProperty().setValue(Boolean.FALSE);
+                        window.setScene(korisnikScena);
+                        window.centerOnScreen();
+                        window.initModality(Modality.APPLICATION_MODAL);
+                        window.showAndWait();
+                    } else if ("Kasir".equals(nalog.getTipKorisnika())) {
+                        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/kasa.fxml"));
+                        Stage window = new Stage();
+                        Scene korisnikScena = new Scene(korisnikView);
+                        window.resizableProperty().setValue(Boolean.FALSE);
+                        window.setScene(korisnikScena);
+                        window.centerOnScreen();
+                        window.initModality(Modality.APPLICATION_MODAL);
+                        window.showAndWait();
+                    }
                 }
             } else {
                 AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Unijeli ste nepostojeći nalog. Molim Vas, pokušajte ponovo.");
