@@ -114,14 +114,22 @@ public class KasaController implements Initializable {
     public boolean pozvanaMetodaSifra = false;
 
     public ArrayList<DTOStavka> listaStavki = new ArrayList<>();
+    @FXML
+    private Button nazadButton;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
         datumLabel.setText(sdf.format(new Date().getTime()));
         ukupnaCijenaLabel.setText("0,00");
         DTOZaposleni k = DAOZaposleni.getZaposleniById(PocetnaFormaController.idZaposlenog);
         prodavacLabel.setText(k.getIme()+" "+k.getPrezime());
+        
+        if(k.getIdTipZaposlenog()!=13){
+            nazadButton.setText("Odjava");
+        }
     }
 
     private void puniTabelu() {
@@ -262,6 +270,7 @@ public class KasaController implements Initializable {
         return false;
     }
 
+    @FXML
     public void barkodUnos() {
         pozvanaMetodaBarkod = provjeraBarkoda();
     }
@@ -275,6 +284,7 @@ public class KasaController implements Initializable {
         return false;
     }
 
+    @FXML
     public void sifraUnos() {
         pozvanaMetodaSifra = provjeraSifre();
     }
@@ -307,6 +317,7 @@ public class KasaController implements Initializable {
         return -1;
     }
 
+    @FXML
     public void klikNaKolicinu() {
         if (!("".equals(kolicinaTextField.getText()))) {
 
@@ -338,6 +349,7 @@ public class KasaController implements Initializable {
         }
     }
 
+    @FXML
     public void stampajRacun() {
         if (kasaTabela.getItems().size() == 0) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Nemate stavke na računu.");
@@ -363,6 +375,7 @@ public class KasaController implements Initializable {
         }
     }
 
+    @FXML
     public void brisanjeSaRacuna() {
         if (!kasaTabela.getSelectionModel().getSelectedItems().toString().equals("[]")) {
             TabelaKasa selektovanRed = kasaTabela.getSelectionModel().getSelectedItem();
@@ -396,6 +409,7 @@ public class KasaController implements Initializable {
         }
     }
 
+    @FXML
     public void pronadjiRacunZaStorniranje() {
         int idRacuna = Integer.parseInt(brojRacunaTextField.getText());
         DTORacun racunZaStorniranje = new DAORacun().vratiRacunPoId(idRacuna);
@@ -415,6 +429,7 @@ public class KasaController implements Initializable {
         ukupnaCijenaLabel.setText(String.format("%.2f", racunZaStorniranje.getUkupnaCijena()));
     }
 
+    @FXML
     public void stornirajRacun() {
         for (TabelaKasa kasa : kasaTabela.getItems()) {
             DTOProizvod proizvodZaStorniranje = new DAOProizvod().getProizvodPoBarkodu(kasa.getBarkod());
@@ -432,6 +447,7 @@ public class KasaController implements Initializable {
         kasaTabela.getItems().clear();
     }
 
+    @FXML
     public void racunajKusur(ActionEvent event) throws IOException {
         ukupnoZaProsljedjivanje = ukupno;
         Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/kusur.fxml"));
@@ -444,6 +460,7 @@ public class KasaController implements Initializable {
         window.showAndWait();
     }
 
+    @FXML
     public void razduziRacun(ActionEvent event) throws IOException {
         Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/razduzenje.fxml"));
         Stage window = new Stage();
@@ -455,12 +472,23 @@ public class KasaController implements Initializable {
         window.showAndWait();
     }
     
+    @FXML
     public void nazadStisak(ActionEvent event) throws IOException{
-        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/PocetnaForma.fxml"));
+        DTOZaposleni k = DAOZaposleni.getZaposleniById(PocetnaFormaController.idZaposlenog);
+        if(k.getIdTipZaposlenog()==13)
+        { Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/PocetnaForma.fxml"));
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene korisnikScena = new Scene(korisnikView);
+        window.setScene(korisnikScena);
+        window.centerOnScreen();
+        window.show();}
+        else{
+         Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/prijavaNaSistem.fxml"));
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene korisnikScena = new Scene(korisnikView);
         window.setScene(korisnikScena);
         window.centerOnScreen();
         window.show();
+        }
     }
 }
