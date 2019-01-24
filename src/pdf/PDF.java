@@ -156,9 +156,8 @@ public class PDF {
             PdfDocument pdfDoc = new PdfDocument(new PdfWriter("./kalkulacija/kalkulacija_" + id + ".pdf"));
             
             try (Document doc = new Document(pdfDoc,PageSize.A4.rotate())) {
-              //  doc.setFont( PdfType1Font.TIMES_ROMAN, 16);
+                doc.setFontSize(10);
                 Border border = new SolidBorder(Color.WHITE, Float.MIN_VALUE);
-               
                 Paragraph prodavnica = new Paragraph("Poslovna jedinica BABY SHOP");
                 prodavnica.setTextAlignment(TextAlignment.LEFT);
                 Paragraph idKalkulacije = new Paragraph("ID: " + id);
@@ -230,9 +229,9 @@ public class PDF {
 
                 doc.add(new Paragraph(""));
                 Table table = new Table(17);
-                table.setBorderLeft(border);
+               /* table.setBorderLeft(border);
                 table.setBorderRight(border);
-                table.setFont("HELVETICA");
+                table.setFont("HELVETICA");*/
                 table.addCell("Rb.");
                 table.addCell("Sifra");
                 //table.addCell("Barkod");

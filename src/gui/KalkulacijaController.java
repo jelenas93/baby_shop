@@ -159,7 +159,7 @@ public class KalkulacijaController implements Initializable {
         DTODobavljac dtoDobavljac = daoDobavljac.getDobavljacPoNazivu(imeDobavljaca);
         idDobavljaca = dtoDobavljac.getIdDobavljaca();
         DAONarudzbenica daoNarudzbenica = new DAONarudzbenica();
-        ObservableList<DTONarudzbenica> narudzbenice = daoNarudzbenica.getNarudzbenicePoDobavljacu(dtoDobavljac.getIdDobavljaca());
+        ObservableList<DTONarudzbenica> narudzbenice = daoNarudzbenica.getNekalkulisaneNarudzbenicePoDobavljacu(dtoDobavljac.getIdDobavljaca());
 
         for (int i = 0; i < narudzbenice.size(); i++) {
             narudzbaComboBox.getItems().add(narudzbenice.get(i).getIdNarudzbenice() + " " + narudzbenice.get(i).getDatumNarudzbenice());
