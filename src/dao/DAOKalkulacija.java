@@ -28,13 +28,11 @@ public class DAOKalkulacija {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                int idNarudzbenice = rs.getInt("IdKalkulacije");
                 Date datum = rs.getDate("DatumKalkulacije");
                 int idDobavljaca=rs.getInt("IdDobavljaca");
                 int idZaposlenog = rs.getInt("IdZaposlenog");
                 double ukupnaCijena = rs.getDouble("UkupnaCijena");
-                int brojFakture=rs.getInt("BrojFakture");
-                kalkulacije.add(new DTOKalkulacija(idZaposlenog, datum, idDobavljaca, idZaposlenog, ukupnaCijena, brojFakture));
+                kalkulacije.add(new DTOKalkulacija(idZaposlenog, datum, idDobavljaca, idZaposlenog, ukupnaCijena));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAOKalkulacija.class.getName()).log(Level.SEVERE, null, ex);
@@ -60,18 +58,18 @@ public class DAOKalkulacija {
         return FXCollections.observableArrayList(kalkulacije);
     }
     
-    public boolean upisiKalkulacijuUBazu(Date datumKalkulacije, int idDobavljaca, int idZaposlenog, double ukupnaCijena, int brojFakture){
+    public boolean upisiKalkulacijuUBazu(Date datumKalkulacije, int idDobavljaca, int idZaposlenog, double ukupnaCijena){
         Connection con = null;
         PreparedStatement myStatement = null;
         try {
             con = ConnectionPool.getInstance().checkOut();
             myStatement = con.prepareStatement("INSERT INTO `baby_shop`.`kalkulacija` "
-                    + " VALUES (default, ?, ?, ?, ?, ?)");
+                    + " VALUES (default, ?, ?, ?, ?)");
             myStatement.setDate(1, (java.sql.Date) datumKalkulacije);
             myStatement.setInt(2, idDobavljaca);
             myStatement.setInt(3, idZaposlenog);
             myStatement.setDouble(4, ukupnaCijena);
-            myStatement.setInt(5, brojFakture);
+    
             myStatement.execute();
         } catch (SQLException ex) {
             Logger.getLogger(DAOKalkulacija.class.getName()).log(Level.SEVERE, null, ex);
@@ -112,8 +110,8 @@ public class DAOKalkulacija {
                 int idDobavljaca=rs.getInt("IdDobavljaca");
                 int idZaposlenog=rs.getInt("IdZaposlenog");
                 double ukupnaCijena=rs.getDouble("UkupnaCijena");
-                int brojFakture=rs.getInt("BrojFakture");
-                retValue=new DTOKalkulacija(idZaposlenog, datumRacuna, idDobavljaca, idZaposlenog, ukupnaCijena, brojFakture);
+                
+                retValue=new DTOKalkulacija(idZaposlenog, datumRacuna, idDobavljaca, idZaposlenog, ukupnaCijena);
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAOKalkulacija.class.getName()).log(Level.SEVERE, null, ex);

@@ -10,6 +10,7 @@ import dao.DAOStavkaNarudzbe;
 import dto.DTODobavljac;
 import dto.DTONarudzbenica;
 import dto.DTOProizvod;
+import dto.DTOStavkaKalkulacije;
 import dto.DTOStavkaNarudzbe;
 import java.net.URL;
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import pdf.PDF;
 import tabele.TabelaKalkulacija;
 
 public class KalkulacijaController implements Initializable {
@@ -103,9 +105,6 @@ public class KalkulacijaController implements Initializable {
     private TextField kolicinaTextField;
 
     @FXML
-    private TextField brojFaktureTextField;
-
-    @FXML
     private Label proizvodLabel;
 
     @FXML
@@ -113,7 +112,6 @@ public class KalkulacijaController implements Initializable {
 
     int idDobavljaca;
 
-    //  private ArrayList<Integer> idNaruzdbenica;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         DAODobavljac daod = new DAODobavljac();
@@ -154,20 +152,12 @@ public class KalkulacijaController implements Initializable {
         DTODobavljac dtoDobavljac = daoDobavljac.getDobavljacPoNazivu(imeDobavljaca);
         idDobavljaca = dtoDobavljac.getIdDobavljaca();
         DAONarudzbenica daoNarudzbenica = new DAONarudzbenica();
-        ObservableList<DTONarudzbenica> narudzbenice = daoNarudzbenica.getNekalkulisaneNarudzbenicePoDobavljacu(dtoDobavljac.getIdDobavljaca());
+        ObservableList<DTONarudzbenica> narudzbenice = daoNarudzbenica.getNarudzbenicePoDobavljacu(dtoDobavljac.getIdDobavljaca());
 
-        //   idNaruzdbenica = new ArrayList<>(narudzbenice.size());
-        // HashMap<Integer, String> hash=new HashMap<>();
-        //ArrayList<HashMap<Integer, String>> hashLista=new ArrayList<>(narudzbenice.size());
         for (int i = 0; i < narudzbenice.size(); i++) {
-            // hash.put(narudzbenice.get(i).getIdNarudzbenice(), narudzbenice.get(i).getDatumNarudzbenice() + "");
-            //hashLista.add(hash);
-            //  narudzbaComboBox.setItems((ObservableList<HashMap<Integer, String>>) hashLista);
             narudzbaComboBox.getItems().add(narudzbenice.get(i).getIdNarudzbenice() + " " + narudzbenice.get(i).getDatumNarudzbenice());
         }
 
-        // idNaruzdbenica.add(narudzbenice.get(i).getIdNarudzbenice());
-        /*  narudzbenice.get(i).getDatumNarudzbenice() + ""*/
     }
 
     private ObservableList<TabelaKalkulacija> getTabela() {
@@ -260,8 +250,8 @@ public class KalkulacijaController implements Initializable {
             red.setNabavnaCijena(red.getFakturnaCijena() - red.getFakturnaCijena() * Integer.parseInt(rabatTextField.getText()) / 100);
             red.setNabavnaVrijednost(red.getNabavnaCijena() * red.getKolicina());
             red.setMarza(Double.parseDouble(marzaTextField.getText()));
-            red.setMarzaIznos(red.getNabavnaCijena() - red.getNabavnaCijena() * Double.parseDouble(marzaTextField.getText()) / 100);
-            red.setVrijednostBezPdv(red.getNabavnaVrijednost() - red.getMarzaIznos());
+            red.setMarzaIznos(red.getNabavnaVrijednost()* Double.parseDouble(marzaTextField.getText()) / 100);
+            red.setVrijednostBezPdv(red.getNabavnaVrijednost() + red.getMarzaIznos());
             red.setPdv(red.getVrijednostBezPdv() * red.getStopa() / 100);
             double marzaPostotak = red.getNabavnaCijena() + red.getNabavnaCijena() * red.getMarza() / 100;
             double prodajnaCijena = marzaPostotak + marzaPostotak * red.getStopa() / 100;
@@ -295,7 +285,7 @@ public class KalkulacijaController implements Initializable {
             }
             DAOKalkulacija daoKalkulacija = new DAOKalkulacija();
             if (!daoKalkulacija.upisiKalkulacijuUBazu(new java.sql.Date(new Date().getTime()),
-                    idDobavljaca, 1, ukupno, Integer.parseInt(brojFaktureTextField.getText()))) {
+                    idDobavljaca, 1, ukupno)) {
                 AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greska pru upisu kalkulacije u bazu");
             } else {
                 DAOStavkaKalkulacije daoStavka=new DAOStavkaKalkulacije();
@@ -316,10 +306,15 @@ public class KalkulacijaController implements Initializable {
                 if(!daoNarudzbenica.setujNaruzbuKalkulisana(Integer.parseInt(narudzbaComboBox.getSelectionModel().getSelectedItem().split(" ")[0]))){
                     AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greska!");
                 }
+                
+                ObservableList<TabelaKalkulacija> lista=kalkulacija.getItems();
+                PDF.kreirajFajlKalkulacija(lista, dobavljacComboBox.getSelectionModel().getSelectedItem(), idKalkulacije);
                 kalkulacija.getItems().clear();
-                brojFaktureTextField.setText("");
                 cistiPolja();
             }
         }
+    }
+    public void nazadStisak(){
+        
     }
 }

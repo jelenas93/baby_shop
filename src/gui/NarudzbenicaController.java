@@ -67,6 +67,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import pdf.PDF;
 
 public class NarudzbenicaController implements Initializable {
     
@@ -294,7 +295,7 @@ public class NarudzbenicaController implements Initializable {
             String poruka = "Nova narudzba";
 
             String[] attachFiles = new String[1];
-            attachFiles[0] = kreirajFajlNarudzbe(sviProizvodi,nazivDobavljaca); 
+            attachFiles[0] =PDF.kreirajFajlNarudzbe(sviProizvodi,nazivDobavljaca); 
             
             if ("".equals(attachFiles[0])) {  AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Narudzbenica nije kreirana"); }
             else {
@@ -374,48 +375,6 @@ public class NarudzbenicaController implements Initializable {
     
     
     
-    public static String kreirajFajlNarudzbe( ObservableList<TabelaNarudzbenica>  stavke,String nazivDobavljaca) {
-        
-        try { 
-             String vrijemeNarudzbe=new SimpleDateFormat("dd.MM.yyyy").format(Calendar.getInstance().getTime()); 
-             String satNarudzbe  = new SimpleDateFormat("HH").format(Calendar.getInstance().getTime());
-             String minNarudzbe = new SimpleDateFormat("mm").format(Calendar.getInstance().getTime());
-             String sekNarudzbe = new SimpleDateFormat("ss").format(Calendar.getInstance().getTime());
-            PdfDocument pdfDoc = new PdfDocument(new PdfWriter("./narudzbenice/narudzba"+vrijemeNarudzbe+" "+satNarudzbe+"h"+minNarudzbe+"min"+sekNarudzbe+"s"+nazivDobavljaca+".pdf"));
-            
-            
-            try (Document doc = new Document(pdfDoc)) {
-                 
-                
-                doc.add(new Paragraph("Datum: " + vrijemeNarudzbe+" "+satNarudzbe+":"+minNarudzbe+":"+sekNarudzbe));
-                
-                Table table = new Table(4);
-
-                table.addCell("Sifra");
-                table.addCell("Barkod");
-                table.addCell("Naziv");
-                table.addCell("Naruceno");
-                for ( int i = 0 ; i < stavke.size() ; i++) {
-
-                    table.addCell(stavke.get(i).getSifra());
-                    table.addCell(stavke.get(i).getBarKod());
-                    table.addCell(stavke.get(i).getNaziv()); 
-                    table.addCell(String.valueOf(stavke.get(i).getNaruceno())); 
-                    
-                    
-                    
-                }
-
-                doc.add(table);
-                 return "./narudzbenice/narudzba"+vrijemeNarudzbe+" "+satNarudzbe+"h"+minNarudzbe+"min"+sekNarudzbe+"s"+nazivDobavljaca+".pdf";
-            }
-           
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(TabelaNarudzba.class
-                    .getName()).log(Level.SEVERE, null, ex);
-            
-        }
-        return "";
-    }
+    
 
 }

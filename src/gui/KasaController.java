@@ -9,7 +9,6 @@ import dao.DAOStorniranRacun;
 import dto.DTOProizvod;
 import dto.DTORacun;
 import dto.DTOStavka;
-import static gui.NarudzbenicaController.kreirajFajlNarudzbe;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;

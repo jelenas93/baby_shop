@@ -47,16 +47,6 @@
          </font>
       </Label>
       <ComboBox fx:id="narudzbaComboBox" layoutX="441.0" layoutY="75.0" onAction="#postaviTabelu" prefHeight="40.0" prefWidth="150.0" AnchorPane.leftAnchor="420.0" AnchorPane.topAnchor="30.0" />
-      <Label layoutX="597.0" layoutY="30.0" prefHeight="40.0" prefWidth="100.0" text="Broj fakture:" AnchorPane.leftAnchor="600.0" AnchorPane.topAnchor="30.0">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <TextField fx:id="brojFaktureTextField" alignment="CENTER" layoutX="731.0" layoutY="30.0" prefHeight="40.0" prefWidth="150.0" AnchorPane.leftAnchor="730.0" AnchorPane.topAnchor="30.0">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </TextField>
       <Label fx:id="proizvodLabel" layoutX="30.0" layoutY="105.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="90.0">
          <font>
             <Font size="18.0" />
@@ -90,6 +80,11 @@
       <Button fx:id="sacuvajButton" layoutX="597.0" layoutY="632.0" mnemonicParsing="false" onAction="#sacuvajStisak" prefHeight="40.0" prefWidth="150.0" text="SACUVAJ" AnchorPane.bottomAnchor="30.0">
          <font>
             <Font size="22.0" />
+         </font>
+      </Button>
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="1253.0" layoutY="19.0" mnemonicParsing="false" onAction="#nazadStisak" prefHeight="40.0" prefWidth="100.0" text="Nazad" textAlignment="CENTER" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
+         <font>
+            <Font size="18.0" />
          </font>
       </Button>
    </children>
