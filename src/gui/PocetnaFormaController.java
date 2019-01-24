@@ -23,11 +23,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author Jovana Trkulja
- */
 public class PocetnaFormaController implements Initializable {
 
     @FXML
@@ -56,13 +51,13 @@ public class PocetnaFormaController implements Initializable {
 
     @FXML
     private Button buttonOdjava;
+    
     public static int idZaposlenog;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         DTOZaposleni k = DAOZaposleni.getZaposleniById(idZaposlenog);
         labelaOvdjeDodatiIme.setText(k.getIme() + " " + k.getPrezime());
-
     }
 
     public void klikKasa(ActionEvent event) throws IOException {
@@ -72,7 +67,6 @@ public class PocetnaFormaController implements Initializable {
         window.setScene(korisnikScena);
         window.centerOnScreen();
         window.show();
-
     }
 
     public void klikNarudzba(ActionEvent event) throws IOException {
@@ -82,7 +76,6 @@ public class PocetnaFormaController implements Initializable {
         window.setScene(korisnikScena);
         window.centerOnScreen();
         window.show();
-
     }
 
     public void klikKalkulacija(ActionEvent event) throws IOException {
@@ -92,7 +85,6 @@ public class PocetnaFormaController implements Initializable {
         window.setScene(korisnikScena);
         window.centerOnScreen();
         window.show();
-
     }
 
     // ovaj izvjestaj kad neko uradi ce vracati na njega 
@@ -103,7 +95,6 @@ public class PocetnaFormaController implements Initializable {
         window.setScene(korisnikScena);
         window.centerOnScreen();
         window.show();
-
     }
 
     public void klikPregledZaposlenih(ActionEvent event) throws IOException {
@@ -113,7 +104,6 @@ public class PocetnaFormaController implements Initializable {
         window.setScene(korisnikScena);
         window.centerOnScreen();
         window.show();
-
     }
 
     public void klikOdjava(ActionEvent event) throws IOException {
@@ -123,7 +113,15 @@ public class PocetnaFormaController implements Initializable {
         window.setScene(korisnikScena);
         window.centerOnScreen();
         window.show();
-
+    }
+    
+    public void klikDodajProizvod(ActionEvent event) throws IOException {
+        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosProizvoda.fxml"));
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene korisnikScena = new Scene(korisnikView);
+        window.setScene(korisnikScena);
+        window.centerOnScreen();
+        window.show();
     }
 
 }

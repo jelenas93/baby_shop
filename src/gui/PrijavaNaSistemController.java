@@ -31,11 +31,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.bouncycastle.operator.OperatorCreationException;
 
-/**
- * FXML Controller class
- *
- * @author Tijana Lakic
- */
 public class PrijavaNaSistemController implements Initializable {
 
     @FXML
@@ -43,16 +38,13 @@ public class PrijavaNaSistemController implements Initializable {
     @FXML
     private JFXTextField korisnickoImeTextField;
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-           for(DTOKorisnickiNalog x:DAOKorisnickiNalog.getKorisnickiNalozi()){
-                        System.out.println("nalog ime "+x.getKorisnickoIme());
+        for (DTOKorisnickiNalog x : DAOKorisnickiNalog.getKorisnickiNalozi()) {
+            // System.out.println("nalog ime "+x.getKorisnickoIme());
 
-            }
+        }
     }
 
     @FXML
@@ -73,13 +65,12 @@ public class PrijavaNaSistemController implements Initializable {
             String unesenaLozinkaUFormu = lozinkaField.getText();
             String korisnickoIme = korisnickoImeTextField.getText();
             DTOKorisnickiNalog nalog = DAOKorisnickiNalog.getKorisnickiNalozi().stream().filter(x -> korisnickoIme.equals(x.getKorisnickoIme())).findAny().orElse(null);
-            PocetnaFormaController.idZaposlenog=nalog.getIdZaposlenog();
+            PocetnaFormaController.idZaposlenog = nalog.getIdZaposlenog();
             if (nalog != null) {
 
                 int byteCounter = 0;
                 byte[] hesLozinkeIzdvojenIzBaze = new byte[32];
                 byte[] hesLozinkeISaltIzBaze = nalog.getLozinka();
-                System.out.println("hes "+hesLozinkeISaltIzBaze);
                 int duzinaSalta = Math.abs(hesLozinkeISaltIzBaze.length - hesLozinkeIzdvojenIzBaze.length);
                 byte[] salt = new byte[duzinaSalta];
 
@@ -106,6 +97,7 @@ public class PrijavaNaSistemController implements Initializable {
                 } else {
 
                     //AlertHelper.showAlert(Alert.AlertType.INFORMATION, "", "Uspješna prijava.");
+                    
                     Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/PocetnaForma.fxml"));
                     Stage window = new Stage();
                     Scene korisnikScena = new Scene(korisnikView);
@@ -116,7 +108,7 @@ public class PrijavaNaSistemController implements Initializable {
                     window.showAndWait();
 
                 }
-            }else{
+            } else {
                 AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Unijeli ste nepostojeći nalog. Molim Vas, pokušajte ponovo.");
 
             }

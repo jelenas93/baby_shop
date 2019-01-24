@@ -24,18 +24,18 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <JFXPasswordField fx:id="lozinkaField" alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <JFXTextField fx:id="korisnickoImeTextField" alignment="CENTER" GridPane.columnIndex="1" />
             <Label text="Korisničko ime:">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
+            <JFXTextField fx:id="korisnickoImeTextField" alignment="CENTER" GridPane.columnIndex="1" />
             <Label text="Lozinka:" GridPane.rowIndex="1">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
+            <JFXPasswordField fx:id="lozinkaField" alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Button mnemonicParsing="false" onAction="#prijavaButtonOnAction" text="Prijava" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font size="18.0" />

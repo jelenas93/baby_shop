@@ -100,7 +100,7 @@ public class UnosZaposlenogController implements Initializable {
                     tipZaposlenogComboBox.getSelectionModel().getSelectedItem().getIdTipaZaposlenog());
 
             if (idZaposlenog == -1) {
-                AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom upisa u bazu.");
+                AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom dodavanja zaposlenog.");
             } else {
                 DAOKorisnickiNalog daoKorisnik = new DAOKorisnickiNalog();
                 boolean nalog = daoKorisnik.dodajKorisnickiNalog(korisnickoImeTextField.getText(),
@@ -110,7 +110,6 @@ public class UnosZaposlenogController implements Initializable {
                     AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom upisa u bazu.");
 
                 } else {
-                    AlertHelper.showAlert(Alert.AlertType.INFORMATION, "", "Uspjesno ste upisali u bazu.");
                     Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     window.close();
                 }
