@@ -2,6 +2,7 @@ package pdf;
 
 import com.itextpdf.kernel.color.Color;
 import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfType1Font;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -153,9 +154,9 @@ public class PDF {
             String satKalkulacije = new SimpleDateFormat("HH").format(Calendar.getInstance().getTime());
             String minKalkulacije = new SimpleDateFormat("mm").format(Calendar.getInstance().getTime());
             PdfDocument pdfDoc = new PdfDocument(new PdfWriter("./kalkulacija/kalkulacija_" + id + ".pdf"));
-           
+            
             try (Document doc = new Document(pdfDoc,PageSize.A4.rotate())) {
-                
+              //  doc.setFont( PdfType1Font.TIMES_ROMAN, 16);
                 Border border = new SolidBorder(Color.WHITE, Float.MIN_VALUE);
                
                 Paragraph prodavnica = new Paragraph("Poslovna jedinica BABY SHOP");
@@ -229,7 +230,9 @@ public class PDF {
 
                 doc.add(new Paragraph(""));
                 Table table = new Table(17);
-                table.setBorder(border);
+                table.setBorderLeft(border);
+                table.setBorderRight(border);
+                table.setFont("HELVETICA");
                 table.addCell("Rb.");
                 table.addCell("Sifra");
                 //table.addCell("Barkod");
@@ -249,7 +252,9 @@ public class PDF {
                 table.addCell("Prod. vrijed.");
                 table.addCell("Prod. cijena");
                 for (int i = 0; i < stavke.size(); i++) {
-                    table.addCell(""+i+1);
+                    int j=i+1;
+                    
+                    table.addCell(""+j);
                     table.addCell(stavke.get(i).getSifra());
                   //  table.addCell(stavke.get(i).getBarKod());
                     table.addCell(stavke.get(i).getNaziv());
