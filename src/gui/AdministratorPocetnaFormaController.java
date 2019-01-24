@@ -18,7 +18,7 @@ public class AdministratorPocetnaFormaController implements Initializable {
         
     }  
     
-    void dodajProizvod(ActionEvent event) throws IOException {
+    public void dodajProizvod(ActionEvent event) throws IOException {
         Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosProizvoda.fxml"));
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene korisnikScena = new Scene(korisnikView);
@@ -27,7 +27,7 @@ public class AdministratorPocetnaFormaController implements Initializable {
         window.show();
     }
 
-    void dodajZaposlenog(ActionEvent event) throws IOException {
+    public void dodajZaposlenog(ActionEvent event) throws IOException {
         Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosZaposlenog.fxml"));
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene korisnikScena = new Scene(korisnikView);
@@ -36,7 +36,7 @@ public class AdministratorPocetnaFormaController implements Initializable {
         window.show();
     }
 
-    void odjava(ActionEvent event) throws IOException {
+    public void odjava(ActionEvent event) throws IOException {
         Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/prijavaNaSistem.fxml"));
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene korisnikScena = new Scene(korisnikView);
@@ -45,7 +45,7 @@ public class AdministratorPocetnaFormaController implements Initializable {
         window.show();
     }
 
-    void pregledKorisnickihNaloga(ActionEvent event) throws IOException {
+    public void pregledKorisnickihNaloga(ActionEvent event) throws IOException {
         Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/pregledKorisnickogNaloga.fxml"));
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene korisnikScena = new Scene(korisnikView);
@@ -54,7 +54,7 @@ public class AdministratorPocetnaFormaController implements Initializable {
         window.show();
     }
 
-    void pregledProizvoda(ActionEvent event) throws IOException {
+    public void pregledProizvoda(ActionEvent event) throws IOException {
         Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/pregledProizvoda.fxml"));
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene korisnikScena = new Scene(korisnikView);
@@ -63,7 +63,7 @@ public class AdministratorPocetnaFormaController implements Initializable {
         window.show();
     }
 
-    void pregledZaposlenih(ActionEvent event) throws IOException {
+    public void pregledZaposlenih(ActionEvent event) throws IOException {
         Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/pregledZaposlenog.fxml"));
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene korisnikScena = new Scene(korisnikView);
