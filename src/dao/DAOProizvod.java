@@ -511,4 +511,35 @@ public class DAOProizvod {
         }
         return FXCollections.observableArrayList(proizvodi);
     }
+    
+    public boolean dodajCijenuProizvodu(int id, double cijena) {
+
+        Connection con = null;
+        CallableStatement myStatement=null;
+        try {
+            con = ConnectionPool.getInstance().checkOut();
+            myStatement=con.prepareCall("{call dodaj_cijenu_proizvoda(?, ?)}");
+            myStatement.setInt(1, id);
+            myStatement.setDouble(2, cijena);
+            myStatement.execute();
+        } catch (SQLException ex) {
+            return false;
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOProizvod.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (myStatement != null) {
+                try {
+                    myStatement.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOProizvod.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return true;
+    }
 }
