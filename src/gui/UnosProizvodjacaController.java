@@ -1,6 +1,9 @@
 package gui;
 
 import babyshop.AlertHelper;
+import com.itextpdf.kernel.color.Color;
+import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
+import com.itextpdf.layout.border.Border;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
@@ -10,6 +13,7 @@ import dto.DTOMjesto;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,6 +25,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javax.swing.border.LineBorder;
 
 public class UnosProizvodjacaController implements Initializable {
 
@@ -56,9 +61,9 @@ public class UnosProizvodjacaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         popuniMjesta();
     }
-    
-    public void dodajMjesto(ActionEvent event) throws IOException{
-      Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosMjesta.fxml"));
+
+    public void dodajMjesto(ActionEvent event) throws IOException {
+        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosMjesta.fxml"));
         Stage window = new Stage();
         Scene korisnikScena = new Scene(korisnikView);
         window.resizableProperty().setValue(Boolean.FALSE);
@@ -70,13 +75,8 @@ public class UnosProizvodjacaController implements Initializable {
     }
 
     public void otkaziStisak(ActionEvent event) throws IOException {
-        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosProizvoda.fxml"));
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene korisnikScena = new Scene(korisnikView);
-        window.resizableProperty().setValue(Boolean.FALSE);
-        window.setScene(korisnikScena);
-        window.centerOnScreen();
-        window.show();
+        window.close();
     }
 
     public void sacuvajStisak(ActionEvent event) throws IOException {
@@ -84,21 +84,17 @@ public class UnosProizvodjacaController implements Initializable {
         if ("".equals(JIBProizvodjacaTextField.getText()) || "".equals(nazivTextField.getText())) {
             AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste unijeli podatke.");
         } else {
-
-            DAOProizvodjac dAOProizvodjac = new DAOProizvodjac();
-          //  int postanskiBroj=Integer.parseInt(mjestoComboBox.getSelectionModel().getSelectedItem().split(", ")[1]);
-            if (!dAOProizvodjac.upisUBazuProizvodjaca(JIBProizvodjacaTextField.getText(), nazivTextField.getText(), mjestoComboBox.getSelectionModel().getSelectedItem().getPostanskiBroj())) {
-                AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom upisa proizvođača u bazu.");
+            if (!Pattern.matches("[0-9]{13}", JIBProizvodjacaTextField.getText())) {
+                AlertHelper.showAlert(Alert.AlertType.WARNING, "", "JIB proizvodjaca mora biti broj od 13 cifara.");
             } else {
-                Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosProizvoda.fxml"));
-                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                Scene korisnikScena = new Scene(korisnikView);
-                window.resizableProperty().setValue(Boolean.FALSE);
-                window.setScene(korisnikScena);
-                window.centerOnScreen();
-                window.show();
+                DAOProizvodjac dAOProizvodjac = new DAOProizvodjac();
+                if (!dAOProizvodjac.upisUBazuProizvodjaca(JIBProizvodjacaTextField.getText(), nazivTextField.getText(), mjestoComboBox.getSelectionModel().getSelectedItem().getPostanskiBroj())) {
+                    AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom upisa proizvođača u bazu.");
+                } else {
+                    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    window.close();
+                }
             }
-
         }
     }
 

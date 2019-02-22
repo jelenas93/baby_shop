@@ -42,32 +42,28 @@ public class UnosMjestaController implements Initializable {
 
     }
 
-
     public void otkaziStisak(ActionEvent event) throws IOException {
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.close();
     }
 
     public void sacuvajStisak(ActionEvent event) throws IOException {
-
         if ("".equals(nazivTextField.getText()) || "".equals(opstinaTextField.getText())
                 || "".equals(drzavaTextField.getText()) || "".equals(postanskiBrojTextField.getText())) {
             AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste unijeli podatke.");
         } else {
-
             DAOMjesto daoMjesto = new DAOMjesto();
             try {
                 if (!daoMjesto.upisUBazuMjesta(Integer.parseInt(postanskiBrojTextField.getText()),
                         nazivTextField.getText(), opstinaTextField.getText(), drzavaTextField.getText())) {
                     AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom upisa mjesta u bazu.");
                 } else {
-                  Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                window.close();
+                    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    window.close();
                 }
             } catch (NumberFormatException e) {
                 AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Poštanski broj ne može biti slovo !");
             }
-
         }
     }
 
