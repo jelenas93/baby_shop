@@ -161,18 +161,12 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label text="Tip korisničkog naloga:" GridPane.rowIndex="9">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
             <JFXTextField fx:id="korisnickoImeTextField" GridPane.columnIndex="1" GridPane.rowIndex="7">
                <font>
                   <Font name="System Italic" size="18.0" />
                </font>
             </JFXTextField>
             <JFXPasswordField fx:id="lozinkaTextField" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <JFXComboBox fx:id="tipKorisnickogNalogaComboBox" prefHeight="41.0" prefWidth="576.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
          </children>
       </GridPane>
    </children>

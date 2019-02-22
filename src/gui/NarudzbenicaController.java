@@ -185,10 +185,23 @@ public class NarudzbenicaController implements Initializable {
     public void dodajArtiklButtonOnAction(ActionEvent event) {
         ObservableList<TabelaNarudzba> selektovano;
         selektovano = narudzba.getSelectionModel().getSelectedItems();
-        if ("".equals(KolicinaTextField.getText())) {
-            AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste unijeli kolicinu.");
+        
+        boolean pogresno = false;
+        
+         
+            try {
+                Integer.parseInt(KolicinaTextField.getText());
+              
+            } catch (NumberFormatException e) {
+                pogresno  =true;
+            }  
+           
+        if ("".equals(KolicinaTextField.getText()) || (pogresno)  ||  (  ( Integer.parseInt(KolicinaTextField.getText())  ) < 0 ) ){
+            AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste ispravno unijeli kolicinu.");
+             KolicinaTextField.setText(""); 
         }  
-        else if (selektovano.size() == 0) {AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Nista nije izabrano.");} 
+        else if (selektovano.size() == 0) {AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Nista nije izabrano.");}  
+        
         else {
           //  ObservableList<TabelaNarudzba> selektovano;
          //   selektovano = narudzba.getSelectionModel().getSelectedItems();
@@ -203,7 +216,7 @@ public class NarudzbenicaController implements Initializable {
             KolicinaTextField.clear();
         }
     }
-
+    
     @FXML
     public void ukloniArtiklButtonOnAction(ActionEvent event) {
 
@@ -249,46 +262,9 @@ public class NarudzbenicaController implements Initializable {
             DAODobavljac daod = new DAODobavljac();
             DTODobavljac dtod = daod.getDobavljacPoNazivu(imeDobavljacaComboBox.getSelectionModel().getSelectedItem()); 
             String nazivDobavljaca = dtod.getNaziv();
-          //  kreirajFajlNarudzbe(sviProizvodi,nazivDobavljaca);
-        /*    FileWriter fileWriter = null;
-            String heder = "  Sifra  ,  Bar Kod  ,  Naziv  ,  Naruceno  ";
-            String noviRed = "\n";
-            String delimiter = "  ,  ";
-
-            try {
-
-                fileWriter = new FileWriter("narudzbenica.csv");
-                fileWriter.append(heder.toString());
-                fileWriter.append(noviRed);
-
-                for (int i = 0; i < sviProizvodi.size(); i++) {
-
-                    fileWriter.append(String.valueOf(sviProizvodi.get(i).getSifra()));
-                    fileWriter.append(delimiter);
-                    fileWriter.append(String.valueOf(sviProizvodi.get(i).getBarKod()));
-                    fileWriter.append(delimiter);
-                    fileWriter.append(String.valueOf(sviProizvodi.get(i).getNaziv()));
-                    fileWriter.append(delimiter);
-                    fileWriter.append(Integer.toString(sviProizvodi.get(i).getNaruceno()));
-                    fileWriter.append(noviRed);
-                }
-
-            } catch (IOException ex) {
-                Logger.getLogger(TabelaNarudzbenica.class.getName()).log(Level.SEVERE, null, ex);
-            } finally {
-                try {
-
-                    fileWriter.flush();
-                    fileWriter.close();
-                } catch (IOException e) {
-                    System.out.println("Greska prilikom zatvaranja fajla !!!");
-                    e.printStackTrace();
-                }
-
-            } 
-*/
+        
             
-            String mejlDobavljaca = dtod.getEmail();
+        //    String primalac = dtod.getEmail();
 
             String host = "smtp.gmail.com";
             String port = "587";
@@ -296,8 +272,8 @@ public class NarudzbenicaController implements Initializable {
             String lozinka = "babyshop273";
 
             String primalac = "jelenas9393@gmail.com";
-            String predmet = "Novi mejl od Jovane";
-            String poruka = "Nova narudzba";
+            String predmet = " Nova narudzba od Baby Shop-a";
+            String poruka = "Narudzba je prilozenom fajlu";
 
             String[] attachFiles = new String[1];
             attachFiles[0] =PDF.kreirajFajlNarudzbe(sviProizvodi,nazivDobavljaca); 

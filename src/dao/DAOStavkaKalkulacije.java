@@ -13,14 +13,14 @@ import java.util.logging.Logger;
 
 public class DAOStavkaKalkulacije {
      public boolean upisUBazuStavkuKalkulacije(int idKalkulacije, int idProizvoda,
-             double cijena, int kolicina, String jedinicaMjere, double rabat, double marza, int pdv ){
+             double cijena, int kolicina, String jedinicaMjere, double rabat, double marza, int pdv , double cijenaProizvoda){
         
         Connection con = null;
         PreparedStatement myStatement = null;
         try {
             con = ConnectionPool.getInstance().checkOut();
             myStatement = con.prepareStatement("INSERT INTO `baby_shop`.`kalkulacija_proizvod` "
-                    + "(`RedniBrojStavkeKalkulacije`, `IdKalkulacije`,`IdProizvoda`, `FakturnaCijena`, `Kolicina`, `JedinicaMjere`,`Rabat`,`Marza`, `PDV`)"
+                    + "(`RedniBrojStavkeKalkulacije`, `IdKalkulacije`,`IdProizvoda`, `FakturnaCijena`, `Kolicina`, `JedinicaMjere`,`Rabat`,`Marza`, `PDV`, `Cijena`)"
                     + " VALUES (default, ?, ?, ?, ?, ?, ?, ?, ?)");
             myStatement.setInt(1, idKalkulacije);
             myStatement.setInt(2, idProizvoda);
@@ -30,7 +30,9 @@ public class DAOStavkaKalkulacije {
             myStatement.setDouble(6, rabat);
             myStatement.setDouble(7, marza);
             myStatement.setInt(8, pdv);
+            myStatement.setDouble(9, cijenaProizvoda);
             myStatement.execute();
+            new DAOProizvod().dodajCijenuProizvodu(idProizvoda, cijenaProizvoda);
         } catch (SQLException ex) {
             Logger.getLogger(DAOStavkaKalkulacije.class.getName()).log(Level.SEVERE, null, ex);
             return false;

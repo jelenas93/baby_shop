@@ -305,7 +305,8 @@ public class KalkulacijaController implements Initializable {
                            kalkulacija.getItems().get(i).getJedMjere(), 
                            kalkulacija.getItems().get(i).getRabat(), 
                            kalkulacija.getItems().get(i).getMarza(),
-                           kalkulacija.getItems().get(i).getStopa())){
+                           kalkulacija.getItems().get(i).getStopa(),
+                           kalkulacija.getItems().get(i).getProdajnaCijena())){
                        AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greska pru upisu stavke kalkulacije u bazu");
                    }
                 }

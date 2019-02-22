@@ -52,9 +52,9 @@ public class UnosZaposlenogController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        tipKorisnickogNalogaComboBox.getItems().add(utils.Utils.PROPERTIES.getProperty("TIP_KORISNICKOG_NALOGA1"));
-        tipKorisnickogNalogaComboBox.getItems().add(utils.Utils.PROPERTIES.getProperty("TIP_KORISNICKOG_NALOGA2"));
-        tipKorisnickogNalogaComboBox.getItems().add(utils.Utils.PROPERTIES.getProperty("TIP_KORISNICKOG_NALOGA3"));
+        //tipKorisnickogNalogaComboBox.getItems().add(utils.Utils.PROPERTIES.getProperty("TIP_KORISNICKOG_NALOGA1"));
+       // tipKorisnickogNalogaComboBox.getItems().add(utils.Utils.PROPERTIES.getProperty("TIP_KORISNICKOG_NALOGA2"));
+        //tipKorisnickogNalogaComboBox.getItems().add(utils.Utils.PROPERTIES.getProperty("TIP_KORISNICKOG_NALOGA3"));
 
         popuniComboBoxTipZaposlenog();
         popuniComboBoxMjesta();
@@ -87,8 +87,7 @@ public class UnosZaposlenogController implements Initializable {
         if ("".equals(jmbgTextField.getText()) || "".equals(imeTextField.getText()) || "".equals(prezimeTextField.getText())
                 || "".equals(plataTextField.getText()) || "".equals(mejlTextField.getText())
                 || "".equals(mjestoComboBox.getSelectionModel().getSelectedItem())
-                || "".equals(tipZaposlenogComboBox.getSelectionModel().getSelectedItem()) || "".equals(korisnickoImeTextField.getText()) || "".equals(lozinkaTextField.getText())
-                || "".equals(tipKorisnickogNalogaComboBox.getSelectionModel().getSelectedItem())) {
+                || "".equals(tipZaposlenogComboBox.getSelectionModel().getSelectedItem()) || "".equals(korisnickoImeTextField.getText()) || "".equals(lozinkaTextField.getText())) {
             AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste ispravno unijeli podatke.");
         } else {
 
@@ -104,7 +103,7 @@ public class UnosZaposlenogController implements Initializable {
             } else {
                 DAOKorisnickiNalog daoKorisnik = new DAOKorisnickiNalog();
                 boolean nalog = daoKorisnik.dodajKorisnickiNalog(korisnickoImeTextField.getText(),
-                        lozinkaTextField.getText(), true, tipKorisnickogNalogaComboBox.getSelectionModel().getSelectedItem(),
+                        lozinkaTextField.getText(), true, tipZaposlenogComboBox.getSelectionModel().getSelectedItem().getNazivTipa(),
                         idZaposlenog);
                 if (!nalog) {
                     AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom upisa u bazu.");
