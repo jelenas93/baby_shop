@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import babyshop.AlertHelper;
@@ -30,11 +25,6 @@ import javafx.scene.control.Alert;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author Tijana Lakic
- */
 public class IzmjenaZaposlenogController implements Initializable {
 
     @FXML
@@ -56,9 +46,6 @@ public class IzmjenaZaposlenogController implements Initializable {
     ObservableList<DTOMjesto> listaMjesta;
     ObservableList<DTOTipZaposlenog> listaTipovaZaposlenog;
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -118,7 +105,6 @@ public class IzmjenaZaposlenogController implements Initializable {
             if (!DAOZaposleni.izmjeniZaposlenog(worker)) {
                 AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom upisa u bazu.");
             } else {
-
                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 window.close();
             }

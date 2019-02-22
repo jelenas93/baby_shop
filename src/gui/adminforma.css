@@ -1,0 +1,22 @@
+
+.tab{
+
+   
+    -fx-pref-height : 250;
+    
+}
+
+.tab-label{
+    -fx-text-alignment: left;
+    -fx-font-size: 20;
+    -fx-rotate: 90;
+}
+
+.table{
+    -fx-background-color: #efebe9;
+    -fx-text-fill: white;
+}
+.column-header{
+    -fx-background-color: #a1887f;
+    -fx-text-fill: white;
+}
