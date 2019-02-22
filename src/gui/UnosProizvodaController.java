@@ -126,29 +126,23 @@ public class UnosProizvodaController implements Initializable {
     }
 
     public void dodajProizvodjaca(ActionEvent event) throws IOException {
-        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosProizvodjaca.fxml"));
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene korisnikScena = new Scene(korisnikView);
-        window.resizableProperty().setValue(Boolean.FALSE);
-        window.setScene(korisnikScena);
-        window.centerOnScreen();
-        window.show();
+        FXMLLoader korisnikView = new FXMLLoader(getClass().getResource("/gui/unosProizvodjaca.fxml"));
+        Parent root = (Parent) korisnikView.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.centerOnScreen();
+        stage.showAndWait();
+        popuniProizvode();
     }
 
     public void dodajTipStisak(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/unosGrupaProizvod.fxml"));
-        //   Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosGrupaProizvod.fxml"));
         Parent root = (Parent) loader.load();
-        //  Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
-        //  Scene korisnikScena = new Scene(korisnikView);
-        /* window.resizableProperty().setValue(Boolean.FALSE);
-        window.setScene(korisnikScena);
-        window.centerOnScreen();
-        window.show();*/
         stage.centerOnScreen();
-        stage.show();
+        stage.showAndWait();
+        popuniProizvode();
     }
 
     public void comboBoxTip() {
