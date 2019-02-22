@@ -3,6 +3,7 @@ package gui;
 import babyshop.AlertHelper;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import dao.DAODobavljac;
 import dao.DAOMaterijal;
 import dao.DAOGrupaProizvod;
 import dao.DAOProizvod;
@@ -12,6 +13,7 @@ import dto.DTOProizvodGrupa;
 import dto.DTOProizvodjac;
 import dto.DTOSkladisteProizvod;
 import dao.DAOSkladisteProizvod;
+import dto.DTODobavljac;
 import dto.DTOProizvod;
 import java.io.IOException;
 import java.net.URL;
@@ -40,6 +42,8 @@ public class UnosProizvodaController implements Initializable {
     private JFXComboBox<String> tipProizvodaComboBox;
     @FXML
     private JFXComboBox<String> JIBProizvodjacaComboBox;
+    @FXML
+    private JFXComboBox<String> dobavljacComboBox;
     @FXML
     private JFXTextField nazivProizvodaTextField;
     @FXML
@@ -107,6 +111,15 @@ public class UnosProizvodaController implements Initializable {
             JIBProizvodjacaComboBox.getItems().add(listaProizvodjaca.get(i).getNaziv() + ", " + listaProizvodjaca.get(i).getJIBProizvodjaca());
         }
     }
+    
+    private void popuniDobavljace() {
+         DAODobavljac dAODobavljac = new DAODobavljac();
+        ObservableList<DTODobavljac> listaDobavljaca;
+        listaDobavljaca = dAODobavljac.getDobavljace();
+        for (int i = 0; i < listaDobavljaca.size(); i++) {
+            dobavljacComboBox.getItems().add(listaDobavljaca.get(i).getNaziv() + ", " + listaDobavljaca.get(i).getJIBDobavljaca());
+        }
+    }
 
     private void popuniProizvode() {
         DAOGrupaProizvod daoTip = new DAOGrupaProizvod();
@@ -122,7 +135,7 @@ public class UnosProizvodaController implements Initializable {
         popuniMaterijale();
         popuniProizvode();
         popuniProizvodjace();
-
+        popuniDobavljace();
     }
 
     public void dodajProizvodjaca(ActionEvent event) throws IOException {
@@ -133,6 +146,16 @@ public class UnosProizvodaController implements Initializable {
         stage.centerOnScreen();
         stage.showAndWait();
         popuniProizvode();
+    }
+    
+    public void dodajDobavljaca(ActionEvent event) throws IOException {
+        FXMLLoader korisnikView = new FXMLLoader(getClass().getResource("/gui/unosDobavljaca.fxml"));
+        Parent root = (Parent) korisnikView.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.centerOnScreen();
+        stage.showAndWait();
+        popuniDobavljace();
     }
 
     public void dodajTipStisak(ActionEvent event) throws IOException {
@@ -209,107 +232,19 @@ public class UnosProizvodaController implements Initializable {
     }
 
     public void sacuvajStisak(ActionEvent event) throws IOException {
-        if (tipProizvodaComboBox.getSelectionModel().getSelectedIndex() < 0
-                || "".equals(nazivProizvodaTextField.getText())
+        if (tipProizvodaComboBox.getSelectionModel().isEmpty()  || "".equals(nazivProizvodaTextField.getText())
                 || "".equals(barkodTextField.getText()) || "".equals(sifraTextField.getText())
                 || JIBProizvodjacaComboBox.getSelectionModel().getSelectedIndex() < 0
-                || materijaliComboBox.getSelectionModel().getSelectedIndex() < 0) {
+                || materijaliComboBox.getSelectionModel().isEmpty()) {
             AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste unijeli osnovne podatke.");
         } else if (!Pattern.matches("[0-9]{13}", barkodTextField.getText())) {
             AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Neispravan barkod.");
         } else if (!Pattern.matches("[0-9]{5}", sifraTextField.getText())) {
             AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Neispravna šifra.");
         } else {
-            /*try {
-                kolicina = Integer.parseInt(kolicinaTextField.getText());
-            } catch (NumberFormatException e) {
-                AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Količina mora biti cijeli broj.");
-            }
-            try {
-                cijena = Double.parseDouble(cijenaTextField.getText());
-            } catch (NumberFormatException e) {
-                AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Cijena mora biti realan broj.");
-            }*/
             DAOGrupaProizvod daoGrupa = new DAOGrupaProizvod();
             DTOProizvodGrupa dtoProizvodGrupa = daoGrupa.getNazivProizvoda(tipProizvodaComboBox.getSelectionModel().getSelectedItem());
 
-            /*
-            if ("".equals(bojaComboBox.getSelectionModel().getSelectedItem())) {
-                if (dtoProizvodGrupa.isBoja()) {
-                    AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste izabrali boju.");
-                } else {
-                    boja = bojaComboBox.getSelectionModel().getSelectedItem();
-                }
-            }
-            if (dtoProizvodGrupa.isDuzina()) {
-                if ("".equals(duzinaTextField.getText())) {
-                    AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste unijeli dužinu.");
-                } else {
-                    try {
-                        duzina = Double.parseDouble(duzinaTextField.getText());
-                    } catch (NumberFormatException e) {
-                        AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Dužina mora biti broj !");
-                    }
-                }
-            }
-            if (dtoProizvodGrupa.isSirina()) {
-                if ("".equals(sirinaTextField.getText())) {
-                    AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste unijeli širinu.");
-                } else {
-                    try {
-                        sirina = Double.parseDouble(sirinaTextField.getText());
-                    } catch (NumberFormatException e) {
-                        AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Širina mora biti broj !");
-                    }
-                }
-            }
-            if (dtoProizvodGrupa.isVisina()) {
-                if ("".equals(visinaTextField.getText())) {
-                    AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste unijeli visinu.");
-                } else {
-                    try {
-                        visina = Double.parseDouble(visinaTextField.getText());
-                    } catch (NumberFormatException e) {
-                        AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Visina mora biti broj !");
-                    }
-                }
-            }
-            if (dtoProizvodGrupa.isGodisnjeDoba()) {
-                if ("".equals(godisnjeDobaComboBox.getSelectionModel().getSelectedItem())) {
-                    AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste iabrali godišnje doba.");
-                } else {
-                    godisnjeDoba = godisnjeDobaComboBox.getSelectionModel().getSelectedItem();
-                }
-            }
-            if (dtoProizvodGrupa.isPol()) {
-                if ("".equals(polComboBox.getSelectionModel().getSelectedItem())) {
-                    AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste izabrali pol.");
-                } else {
-                    pol = polComboBox.getSelectionModel().getSelectedItem();
-                }
-            }
-            if (dtoProizvodGrupa.isUzrast()) {
-                if ("".equals(uzrastTextField.getText())) {
-                    AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste unijeli uzrast.");
-                } else {
-                    try {
-                        uzrast = Integer.parseInt(uzrastTextField.getText());
-                    } catch (NumberFormatException e) {
-                        AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Uzrast mora biti broj !");
-                    }
-                }
-            }
-            if (dtoProizvodGrupa.isVelicina()) {
-                if ("".equals(velicinaTextField.getText())) {
-                    AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste unijeli veličinu.");
-                } else {
-                    try {
-                        velicina = Integer.parseInt(velicinaTextField.getText());
-                    } catch (NumberFormatException e) {
-                        AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Veličina mora biti broj !");
-                    }
-                }
-            }*/
             if (dtoProizvodGrupa.isBoja() && bojaComboBox.getSelectionModel().getSelectedIndex() < 0) {
                 AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste izabrali boju.");
             } else if (dtoProizvodGrupa.isDuzina() && "".equals(duzinaTextField.getText())) {
@@ -335,6 +270,7 @@ public class UnosProizvodaController implements Initializable {
                         duzina = Double.parseDouble(duzinaTextField.getText());
                     } catch (NumberFormatException e) {
                         duzinaTextField.requestFocus();
+                          AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Duzina mora biti broj !");
                     }
                 }
                 if (dtoProizvodGrupa.isSirina()) {
@@ -350,6 +286,7 @@ public class UnosProizvodaController implements Initializable {
                         visina = Double.parseDouble(visinaTextField.getText());
                     } catch (NumberFormatException e) {
                         visinaTextField.requestFocus();
+                        AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Visina mora biti broj !");
                     }
                 }
                 if (dtoProizvodGrupa.isGodisnjeDoba()) {
@@ -371,11 +308,13 @@ public class UnosProizvodaController implements Initializable {
                         velicina = Integer.parseInt(velicinaTextField.getText());
                     } catch (NumberFormatException e) {
                         velicinaTextField.requestFocus();
+                        AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Velicina mora biti broj !");
                     }
                 }
                 DAOProizvod daoProizvod = new DAOProizvod();
                 DAOSkladisteProizvod daoUSkladiste = new DAOSkladisteProizvod();
                 String jib = JIBProizvodjacaComboBox.getSelectionModel().getSelectedItem().split(", ")[1];
+                String jibDobavljava=dobavljacComboBox.getSelectionModel().getSelectedItem().split(", ")[1];
                 DTOProizvod proizvodB = daoProizvod.getProizvodPoBarkodu(barkodTextField.getText());
                 if (proizvodB != null) {
                     AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Postoji proizvod sa barkodom " + barkodTextField.getText() + " .");
@@ -385,8 +324,8 @@ public class UnosProizvodaController implements Initializable {
                         AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Postoji proizvod sa šifrom " + sifraTextField.getText() + " .");
                     } else {
                         if (!daoProizvod.upisUBazuProizvod(barkodTextField.getText(), sifraTextField.getText(),
-                                nazivProizvodaTextField.getText().toUpperCase(),
-                                kolicina, cijena, jib, idGrupe, duzina, sirina, visina, velicina, uzrast, pol, boja, godisnjeDoba)) {
+                                nazivProizvodaTextField.getText().toUpperCase(),jib, idGrupe, duzina, sirina, visina,
+                                velicina, uzrast, pol, boja, godisnjeDoba)) {
                             AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom upisa proizvoda u bazu.");
                         } else {
                             if (!daoUSkladiste.dodajProizvodUSkladiste(1, daoProizvod.idProizvoda(), kolicina)) {

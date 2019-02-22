@@ -1,9 +1,6 @@
 package gui;
 
 import babyshop.AlertHelper;
-import com.itextpdf.kernel.color.Color;
-import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
-import com.itextpdf.layout.border.Border;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
@@ -80,8 +77,7 @@ public class UnosProizvodjacaController implements Initializable {
     }
 
     public void sacuvajStisak(ActionEvent event) throws IOException {
-
-        if ("".equals(JIBProizvodjacaTextField.getText()) || "".equals(nazivTextField.getText())) {
+        if ("".equals(JIBProizvodjacaTextField.getText()) || "".equals(nazivTextField.getText()) || mjestoComboBox.getSelectionModel().isEmpty()) {
             AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste unijeli podatke.");
         } else {
             if (!Pattern.matches("[0-9]{13}", JIBProizvodjacaTextField.getText())) {

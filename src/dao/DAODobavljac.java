@@ -15,7 +15,7 @@ import javafx.collections.ObservableList;
 
 public class DAODobavljac {
     
-    public ObservableList<DTODobavljac> dobavljaci() {
+    public ObservableList<DTODobavljac> getDobavljace() {
         Connection con = null;
         PreparedStatement ps = null;
 

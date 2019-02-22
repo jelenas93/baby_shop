@@ -11,6 +11,7 @@ import dto.DTOMjesto;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,7 +25,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class UnosDobavljacaController implements Initializable {
-
 
     @FXML
     private JFXTextField nazivTextField;
@@ -56,8 +56,8 @@ public class UnosDobavljacaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         popuniMjesta();
-    }    
-    
+    }
+
     private void popuniMjesta() {
         mjestoComboBox.getItems().clear();
         DAOMjesto daoMjesto = new DAOMjesto();
@@ -67,9 +67,9 @@ public class UnosDobavljacaController implements Initializable {
             mjestoComboBox.getItems().add(listaMjesta.get(i));
         }
     }
-    
-    public void dodajMjesto(ActionEvent event) throws IOException{
-     Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosMjesta.fxml"));
+
+    public void dodajMjesto(ActionEvent event) throws IOException {
+        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosMjesta.fxml"));
         Stage window = new Stage();
         Scene korisnikScena = new Scene(korisnikView);
         window.resizableProperty().setValue(Boolean.FALSE);
@@ -79,39 +79,31 @@ public class UnosDobavljacaController implements Initializable {
         window.showAndWait();
         popuniMjesta();
     }
-    
+
     public void otkazi(ActionEvent event) throws IOException {
-        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosProizvoda.fxml"));
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene korisnikScena = new Scene(korisnikView);
-        window.resizableProperty().setValue(Boolean.FALSE);
-        window.setScene(korisnikScena);
-        window.centerOnScreen();
-        window.show();
+        window.close();
     }
-    
+
     public void sacuvaj(ActionEvent event) throws IOException {
 
         if ("".equals(nazivTextField.getText()) || "".equals(jibTextField.getText()) || "".equals(emailTextField.getText())
-                || "".equals(mjestoComboBox.getSelectionModel().getSelectedItem())
+                || mjestoComboBox.getSelectionModel().isEmpty()
                 || "".equals(adresaTextField.getText()) || "".equals(telefonTextField.getText())) {
             AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste unijeli podatke.");
         } else {
-
-            DAODobavljac dAODobavljac = new DAODobavljac();
-           // int postanskiBroj=Integer.parseInt(mjestoComboBox.getSelectionModel().getSelectedItem().split(", ")[1]);
-            if (!dAODobavljac.dodajDobavljaca(mjestoComboBox.getSelectionModel().getSelectedItem().getPostanskiBroj(),
-                    nazivTextField.getText(),emailTextField.getText(),adresaTextField.getText(),
-                    telefonTextField.getText(), jibTextField.getText())) {
-                AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom upisa proizvođača u bazu.");
+            if (!Pattern.matches("[0-9]{13}", jibTextField.getText())) {
+                AlertHelper.showAlert(Alert.AlertType.WARNING, "", "JIB dobavljaca mora biti broj od 13 cifara.");
             } else {
-                Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosProizvoda.fxml"));
-                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                Scene korisnikScena = new Scene(korisnikView);
-                window.resizableProperty().setValue(Boolean.FALSE);
-                window.setScene(korisnikScena);
-                window.centerOnScreen();
-                window.show();
+                DAODobavljac dAODobavljac = new DAODobavljac();
+                if (!dAODobavljac.dodajDobavljaca(mjestoComboBox.getSelectionModel().getSelectedItem().getPostanskiBroj(),
+                        nazivTextField.getText(), emailTextField.getText(), adresaTextField.getText(),
+                        telefonTextField.getText(), jibTextField.getText())) {
+                    AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom upisa dobavljača u bazu.");
+                } else {
+                    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    window.close();
+                }
             }
         }
     }
