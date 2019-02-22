@@ -35,7 +35,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <JFXPasswordField fx:id="lozinkaField" alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <JFXPasswordField fx:id="lozinkaField" alignment="CENTER" onAction="#prijavaButtonOnAction" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Button mnemonicParsing="false" onAction="#prijavaButtonOnAction" text="Prijava" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font size="18.0" />

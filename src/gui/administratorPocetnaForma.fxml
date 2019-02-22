@@ -5,14 +5,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="480.0" prefWidth="319.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AdministratorPocetnaFormaController">
+<AnchorPane id="AnchorPane" prefHeight="480.0" prefWidth="336.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AdministratorPocetnaFormaController">
    <children>
       <Label layoutX="73.0" layoutY="33.0" text="Baby shop Banja Luka">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Button layoutX="46.0" layoutY="95.0" mnemonicParsing="false" onAction="#pregledZaposlenih" prefHeight="40.0" prefWidth="250.0" text="Rad sa zaposlenicima">
+      <Button layoutX="46.0" layoutY="95.0" mnemonicParsing="false" onAction="#pregledZaposlenih" prefHeight="40.0" prefWidth="250.0" text="Rad sa zaposlenima">
          <font>
             <Font size="18.0" />
          </font>
@@ -27,7 +27,7 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <Button layoutX="95.0" layoutY="406.0" mnemonicParsing="false" onAction="#odjava" prefHeight="39.0" prefWidth="116.0" text="Odjava">
+      <Button layoutX="113.0" layoutY="406.0" mnemonicParsing="false" onAction="#odjava" prefHeight="39.0" prefWidth="116.0" text="Odjava">
          <font>
             <Font size="18.0" />
          </font>
