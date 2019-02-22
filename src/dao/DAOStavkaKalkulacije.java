@@ -21,7 +21,7 @@ public class DAOStavkaKalkulacije {
             con = ConnectionPool.getInstance().checkOut();
             myStatement = con.prepareStatement("INSERT INTO `baby_shop`.`kalkulacija_proizvod` "
                     + "(`RedniBrojStavkeKalkulacije`, `IdKalkulacije`,`IdProizvoda`, `FakturnaCijena`, `Kolicina`, `JedinicaMjere`,`Rabat`,`Marza`, `PDV`, `Cijena`)"
-                    + " VALUES (default, ?, ?, ?, ?, ?, ?, ?, ?)");
+                    + " VALUES (default, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             myStatement.setInt(1, idKalkulacije);
             myStatement.setInt(2, idProizvoda);
             myStatement.setDouble(3, cijena);
@@ -32,7 +32,7 @@ public class DAOStavkaKalkulacije {
             myStatement.setInt(8, pdv);
             myStatement.setDouble(9, cijenaProizvoda);
             myStatement.execute();
-            new DAOProizvod().dodajCijenuProizvodu(idProizvoda, cijenaProizvoda);
+            new DAOProizvod().dodajCijenuProizvodu(idProizvoda, cijenaProizvoda, kolicina);
         } catch (SQLException ex) {
             Logger.getLogger(DAOStavkaKalkulacije.class.getName()).log(Level.SEVERE, null, ex);
             return false;

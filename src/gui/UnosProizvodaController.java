@@ -4,6 +4,7 @@ import babyshop.AlertHelper;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import dao.DAODobavljac;
+import dao.DAODobavljacProizvod;
 import dao.DAOMaterijal;
 import dao.DAOGrupaProizvod;
 import dao.DAOProizvod;
@@ -98,6 +99,7 @@ public class UnosProizvodaController implements Initializable {
         DAOMaterijal daoMaterijal = new DAOMaterijal();
         ObservableList<DTOMaterijal> listaMaterijala;
         listaMaterijala = daoMaterijal.getMaterijal();
+        materijaliComboBox.getItems().clear();
         for (int i = 0; i < listaMaterijala.size(); i++) {
             materijaliComboBox.getItems().add(listaMaterijala.get(i).getNaziv());
         }
@@ -107,6 +109,7 @@ public class UnosProizvodaController implements Initializable {
         DAOProizvodjac dAOProizvodjac = new DAOProizvodjac();
         ObservableList<DTOProizvodjac> listaProizvodjaca;
         listaProizvodjaca = dAOProizvodjac.getProizvodjace();
+        JIBProizvodjacaComboBox.getItems().clear();
         for (int i = 0; i < listaProizvodjaca.size(); i++) {
             JIBProizvodjacaComboBox.getItems().add(listaProizvodjaca.get(i).getNaziv() + ", " + listaProizvodjaca.get(i).getJIBProizvodjaca());
         }
@@ -116,6 +119,7 @@ public class UnosProizvodaController implements Initializable {
          DAODobavljac dAODobavljac = new DAODobavljac();
         ObservableList<DTODobavljac> listaDobavljaca;
         listaDobavljaca = dAODobavljac.getDobavljace();
+        dobavljacComboBox.getItems().clear();
         for (int i = 0; i < listaDobavljaca.size(); i++) {
             dobavljacComboBox.getItems().add(listaDobavljaca.get(i).getNaziv() + ", " + listaDobavljaca.get(i).getJIBDobavljaca());
         }
@@ -125,6 +129,7 @@ public class UnosProizvodaController implements Initializable {
         DAOGrupaProizvod daoTip = new DAOGrupaProizvod();
         ObservableList<DTOProizvodGrupa> listaProizvoda;
         listaProizvoda = daoTip.getGrupeProizvoda();
+        tipProizvodaComboBox.getItems().clear();
         for (int i = 0; i < listaProizvoda.size(); i++) {
             tipProizvodaComboBox.getItems().add(listaProizvoda.get(i).getNazivTipaProizvoda());
         }
@@ -313,8 +318,12 @@ public class UnosProizvodaController implements Initializable {
                 }
                 DAOProizvod daoProizvod = new DAOProizvod();
                 DAOSkladisteProizvod daoUSkladiste = new DAOSkladisteProizvod();
+                DAODobavljac dobavljac=new DAODobavljac();
+              
+                DAODobavljacProizvod daod=new DAODobavljacProizvod();
                 String jib = JIBProizvodjacaComboBox.getSelectionModel().getSelectedItem().split(", ")[1];
                 String jibDobavljava=dobavljacComboBox.getSelectionModel().getSelectedItem().split(", ")[1];
+                int idDobavljaca=dobavljac.getIdPoJibu(jibDobavljava);
                 DTOProizvod proizvodB = daoProizvod.getProizvodPoBarkodu(barkodTextField.getText());
                 if (proizvodB != null) {
                     AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Postoji proizvod sa barkodom " + barkodTextField.getText() + " .");
@@ -330,6 +339,10 @@ public class UnosProizvodaController implements Initializable {
                         } else {
                             if (!daoUSkladiste.dodajProizvodUSkladiste(1, daoProizvod.idProizvoda(), kolicina)) {
                                 AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom dodavanja proizvoda u skladiste.");
+                            }
+                            
+                            if (!daod.dodajProizvodUSkladiste(idDobavljaca, daoProizvod.idProizvoda())) {
+                                AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom povezivanja proizvoda i dobavljaca.");
                             }
                         }
                     }

@@ -86,8 +86,8 @@ public class UnosZaposlenogController implements Initializable {
 
         if ("".equals(jmbgTextField.getText()) || "".equals(imeTextField.getText()) || "".equals(prezimeTextField.getText())
                 || "".equals(plataTextField.getText()) || "".equals(mejlTextField.getText())
-                || "".equals(mjestoComboBox.getSelectionModel().getSelectedItem())
-                || "".equals(tipZaposlenogComboBox.getSelectionModel().getSelectedItem()) || "".equals(korisnickoImeTextField.getText()) || "".equals(lozinkaTextField.getText())) {
+                || mjestoComboBox.getSelectionModel().isEmpty()
+                || tipZaposlenogComboBox.getSelectionModel().isEmpty() || "".equals(korisnickoImeTextField.getText()) || "".equals(lozinkaTextField.getText())) {
             AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste ispravno unijeli podatke.");
         } else {
 

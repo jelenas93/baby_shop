@@ -142,6 +142,43 @@ public class DAODobavljac {
         return dobavljac;
     }
     
+    public int getIdPoJibu(String jib){
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        int id=0;
+        try {
+            con = ConnectionPool.getInstance().checkOut();
+            ps = con.prepareStatement("select * from baby_shop.dobavljac where JIBDobavljaca like'"+jib+"%'");
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                id=rs.getInt("IdDobavljaca");
+               }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAODobavljac.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (con != null) {
+                ConnectionPool.getInstance().checkIn(con);
+            }
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAODobavljac.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAODobavljac.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return id;
+    }
+    
     public ArrayList<DTODobavljacProizvod> getIdSvihProizvoda(int idDobavljaca){
         Connection con = null;
         PreparedStatement ps = null;

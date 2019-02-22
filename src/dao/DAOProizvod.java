@@ -75,8 +75,8 @@ public class DAOProizvod {
     }
 
     public boolean upisUBazuProizvod(String barkod, String sifra, String naziv,
-            int kolicina, Double cijena, String JIBProizvodjaca, int idGrupe,
-            double duzina, double sirina, double visina, int velicina, int uzrast,
+            String JIBProizvodjaca, int idGrupe,double duzina, double sirina, 
+            double visina, int velicina, int uzrast,
             String pol, String boja, String godisnjeDoba) {
 
         Connection con = null;
@@ -91,8 +91,8 @@ public class DAOProizvod {
             myStatement.setString(1, barkod);
             myStatement.setString(2, sifra);
             myStatement.setString(3, naziv);
-            myStatement.setInt(4, kolicina);
-            myStatement.setDouble(5, cijena);
+            myStatement.setNull(4,java.sql.Types.NULL);
+            myStatement.setNull(5, java.sql.Types.NULL);
             myStatement.setString(6, JIBProizvodjaca);
             myStatement.setInt(7, idGrupe);
             if (duzina != 0) {
@@ -512,15 +512,16 @@ public class DAOProizvod {
         return FXCollections.observableArrayList(proizvodi);
     }
     
-    public boolean dodajCijenuProizvodu(int id, double cijena) {
+    public boolean dodajCijenuProizvodu(int id, double cijena, int kolicina) {
 
         Connection con = null;
         CallableStatement myStatement=null;
         try {
             con = ConnectionPool.getInstance().checkOut();
-            myStatement=con.prepareCall("{call dodaj_cijenu_proizvoda(?, ?)}");
+            myStatement=con.prepareCall("{call dodaj_cijenu_proizvoda(?, ?, ?)}");
             myStatement.setInt(1, id);
             myStatement.setDouble(2, cijena);
+            myStatement.setInt(3, kolicina);
             myStatement.execute();
         } catch (SQLException ex) {
             return false;
