@@ -134,5 +134,10 @@
             </Tab>
          </tabs>
       </JFXTabPane>
+      <Button mnemonicParsing="false" onAction="#odjava" prefHeight="80.0" prefWidth="80.0" style="-fx-background-radius: 100;" text="Odjava" textAlignment="CENTER" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="80.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

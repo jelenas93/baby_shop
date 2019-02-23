@@ -119,15 +119,13 @@ public class KasaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
         datumLabel.setText(sdf.format(new Date().getTime()));
         ukupnaCijenaLabel.setText("0,00");
         DTOZaposleni k = DAOZaposleni.getZaposleniById(PocetnaFormaController.idZaposlenog);
-        prodavacLabel.setText(k.getIme()+" "+k.getPrezime());
-        
-        if(k.getIdTipZaposlenog()!=13){
+        prodavacLabel.setText(k.getIme() + " " + k.getPrezime());
+
+        if (k.getIdTipZaposlenog() == 13) {
             nazadButton.setText("Odjava");
         }
     }
@@ -366,7 +364,7 @@ public class KasaController implements Initializable {
                 }
             }
             String[] attachFiles = new String[1];
-            attachFiles[0] = PDF.kreirajFajlRacun(listaStavki,new DAORacun().vratiRacunPoId(idRacuna));
+            attachFiles[0] = PDF.kreirajFajlRacun(listaStavki, new DAORacun().vratiRacunPoId(idRacuna));
             ukupno = 0;
             ukupnaCijenaLabel.setText("0,00");
             stanjeLabel.setText("");
@@ -471,24 +469,26 @@ public class KasaController implements Initializable {
         window.initModality(Modality.APPLICATION_MODAL);
         window.showAndWait();
     }
-    
+
     @FXML
-    public void nazadStisak(ActionEvent event) throws IOException{
+    public void nazadStisak(ActionEvent event) throws IOException {
         DTOZaposleni k = DAOZaposleni.getZaposleniById(PocetnaFormaController.idZaposlenog);
-        if(k.getIdTipZaposlenog()==13)
-        { Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/PocetnaForma.fxml"));
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene korisnikScena = new Scene(korisnikView);
-        window.setScene(korisnikScena);
-        window.centerOnScreen();
-        window.show();}
-        else{
-         Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/prijavaNaSistem.fxml"));
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene korisnikScena = new Scene(korisnikView);
-        window.setScene(korisnikScena);
-        window.centerOnScreen();
-        window.show();
+        if (k.getIdTipZaposlenog() != 3) {
+            Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/PocetnaForma.fxml"));
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene korisnikScena = new Scene(korisnikView);
+            window.setScene(korisnikScena);
+            window.centerOnScreen();
+            window.show();
+        } else {
+            Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/prijavaNaSistem.fxml"));
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene korisnikScena = new Scene(korisnikView);
+            window.setScene(korisnikScena);
+            window.centerOnScreen();
+            window.show();
         }
+        /* Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.close();*/
     }
 }

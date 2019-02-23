@@ -102,12 +102,9 @@ public class PrijavaNaSistemController implements Initializable {
                     //AlertHelper.showAlert(Alert.AlertType.INFORMATION, "", "Uspješna prijava.");
                     if ("Administrator".equals(nalog.getTipKorisnika())) {
                         ((Node) event.getSource()).getScene().getWindow().hide();
-
-                      //  Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/administratorPocetnaForma.fxml"));
-                      Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/adminFormaSva.fxml"));
+                        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/adminFormaSva.fxml"));
                         Stage window = new Stage();
                         Scene korisnikScena = new Scene(korisnikView);
-                        window.resizableProperty().setValue(Boolean.FALSE);
                         window.setScene(korisnikScena);
                         window.centerOnScreen();
                         window.initModality(Modality.APPLICATION_MODAL);

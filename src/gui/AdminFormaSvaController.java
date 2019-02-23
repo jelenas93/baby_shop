@@ -55,6 +55,7 @@ public class AdminFormaSvaController implements Initializable {
     ObservableList<DTOKorisnikWrapper> nalozi;
     
      public AdminFormaSvaController() {
+        this.zaposleni = FXCollections.observableArrayList(DAOZaposleni.getZaposleni());
         this.nalozi = FXCollections.observableArrayList(DAOKorisnikWrapper.getKorisnickiNaloziWrappers());
 
     }
@@ -65,16 +66,13 @@ public class AdminFormaSvaController implements Initializable {
         imeZaposlenogTableColumn.setCellValueFactory(new PropertyValueFactory("ime"));
         prezimeZaposlenogTableColumn.setCellValueFactory(new PropertyValueFactory("prezime"));
         jmbgZaposlenogTableColumn.setCellValueFactory(new PropertyValueFactory("JMBG"));
-
         zaposleniTableView.setItems(zaposleni);
-        
-        
+         
         korisnickoImeTableColumn.setCellValueFactory(new PropertyValueFactory("korisnickoIme"));
         imeZaposlenogNalogTableColumn.setCellValueFactory(new PropertyValueFactory("ime"));
         prezimeZaposlenogNalogTableColumn.setCellValueFactory(new PropertyValueFactory("prezime"));
         jmbgZaposlenogNalogTableColumn.setCellValueFactory(new PropertyValueFactory("JMBG"));
         tipNalogaTableColumn.setCellValueFactory(new PropertyValueFactory("tipKorisnika"));
-
         korisnickiNalogTableView.setItems(nalozi);
 
     }
@@ -198,5 +196,14 @@ public class AdminFormaSvaController implements Initializable {
         window.showAndWait();
     }
 
+    @FXML
+    private void odjava(ActionEvent event) throws IOException {
+        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/prijavaNaSistem.fxml"));
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene korisnikScena = new Scene(korisnikView);
+        window.setScene(korisnikScena);
+        window.centerOnScreen();
+        window.show();
+    }
    
 }

@@ -1,7 +1,8 @@
 
 .tab{
-    -fx-pref-width : 200;
-    -fx-pref-height : 250;
+       -fx-pref-width : 200;
+       -fx-pref-height : 200;
+    
 }
 
 .tab-label{
