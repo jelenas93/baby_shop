@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="798.0" prefWidth="1505.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.KasaController">
+<AnchorPane id="AnchorPane" fx:id="kasa" prefHeight="798.0" prefWidth="1505.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.KasaController">
    <children>
       <Label layoutX="41.0" layoutY="30.0" prefHeight="50.0" prefWidth="100.0" text="Prodavac:" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="40.0">
          <font>

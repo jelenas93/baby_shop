@@ -123,11 +123,11 @@ public class KasaController implements Initializable {
         datumLabel.setText(sdf.format(new Date().getTime()));
         ukupnaCijenaLabel.setText("0,00");
         DTOZaposleni k = DAOZaposleni.getZaposleniById(PocetnaFormaController.idZaposlenog);
-        prodavacLabel.setText(k.getIme() + " " + k.getPrezime());
+      //  prodavacLabel.setText(k.getIme() + " " + k.getPrezime());
 
-        if (k.getIdTipZaposlenog() == 13) {
+     /*   if (k.getIdTipZaposlenog() == 13) {
             nazadButton.setText("Odjava");
-        }
+        }*/
     }
 
     private void puniTabelu() {

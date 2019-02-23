@@ -71,7 +71,8 @@ import tabele.TabelaNarudzbenica;
 
 public class PoslovodjaController implements Initializable {
 
-   
+   @FXML
+   private Tab pregledTab;
 //narudzbenica   
     @FXML
     private TableView<TabelaNarudzba> narudzba;
@@ -326,6 +327,9 @@ public class PoslovodjaController implements Initializable {
     public boolean pozvanaMetodaSifra = false;
 
     public ArrayList<DTOStavka> listaStavki = new ArrayList<>();
+    private void metoda(){
+      //  pregledTab.getOnSelectionChanged().handle(ActionEvent event);
+    }
     
     
     @Override
