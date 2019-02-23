@@ -121,7 +121,11 @@ public class KalkulacijaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        DAODobavljac daod = new DAODobavljac();
+       postaviDobavljace();
+    }
+    
+    private void postaviDobavljace(){
+         DAODobavljac daod = new DAODobavljac();
         ObservableList<DTODobavljac> listaDobavljaca;
         listaDobavljaca = daod.getDobavljace();
         for (int i = 0; i < listaDobavljaca.size(); i++) {
