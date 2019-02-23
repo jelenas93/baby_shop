@@ -14,6 +14,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
@@ -28,6 +29,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.bouncycastle.operator.OperatorCreationException;
@@ -104,32 +106,39 @@ public class PrijavaNaSistemController implements Initializable {
                         ((Node) event.getSource()).getScene().getWindow().hide();
                         Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/adminFormaSva.fxml"));
                         Stage window = new Stage();
+                        window.getIcons().add(new Image("file:" + String.valueOf(Paths.get(System.getProperty("user.dir"), "logo.jpg"))));
+        
                         Scene korisnikScena = new Scene(korisnikView);
                         window.setScene(korisnikScena);
                         window.centerOnScreen();
-                        window.initModality(Modality.APPLICATION_MODAL);
+                        //window.initModality(Modality.APPLICATION_MODAL);
                         window.showAndWait();
                     } else if ("Poslovođa".equals(nalog.getTipKorisnika())) {
                         ((Node) event.getSource()).getScene().getWindow().hide();
 
                         Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/poslovodja.fxml"));
+                        
                         Stage window = new Stage();
+                        window.getIcons().add(new Image("file:" + String.valueOf(Paths.get(System.getProperty("user.dir"), "logo.jpg"))));
+        
                         Scene korisnikScena = new Scene(korisnikView);
-                        window.resizableProperty().setValue(Boolean.FALSE);
+                       // window.resizableProperty().setValue(Boolean.FALSE);
                         window.setScene(korisnikScena);
                         window.centerOnScreen();
-                        window.initModality(Modality.APPLICATION_MODAL);
+                       // window.initModality(Modality.APPLICATION_MODAL);
                         window.showAndWait();
                     } else if ("Kasir".equals(nalog.getTipKorisnika())) {
                         ((Node) event.getSource()).getScene().getWindow().hide();
 
                         Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/kasa.fxml"));
                         Stage window = new Stage();
+                        window.getIcons().add(new Image("file:" + String.valueOf(Paths.get(System.getProperty("user.dir"), "logo.jpg"))));
+        
                         Scene korisnikScena = new Scene(korisnikView);
-                        window.resizableProperty().setValue(Boolean.FALSE);
+                       // window.resizableProperty().setValue(Boolean.FALSE);
                         window.setScene(korisnikScena);
                         window.centerOnScreen();
-                        window.initModality(Modality.APPLICATION_MODAL);
+                        //window.initModality(Modality.APPLICATION_MODAL);
                         window.showAndWait();
                     }
                 }

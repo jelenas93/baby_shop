@@ -161,7 +161,7 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="kolicinaTextField" alignment="CENTER" prefHeight="50.0" prefWidth="80.0" AnchorPane.rightAnchor="220.0" AnchorPane.topAnchor="30.0">
+                        <TextField fx:id="kolicinaNarudzbaTextField" alignment="CENTER" prefHeight="50.0" prefWidth="80.0" AnchorPane.rightAnchor="220.0" AnchorPane.topAnchor="30.0">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -275,7 +275,7 @@
                      </children></AnchorPane>
               </content>
             </Tab>
-            <Tab fx:id="pregledTab" text="Pregled proizvoda">
+            <Tab text="Pregled proizvoda">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>

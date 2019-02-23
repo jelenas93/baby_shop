@@ -1,0 +1,22 @@
+.text-field{
+    -fx-pref-width: 300;
+    -fx-text-fill: black;
+}
+.combo-box{
+   -fx-pref-width: 300;
+   -fx-pref-hight: 50;
+    -fx-font: Arial;
+}
+
+.combo-box .list-view {
+    -fx-font-size: 18;
+}
+
+.combo-box-base .text{
+    -fx-fill: black;
+}
+
+.jfx-combo-box {
+     -fx-prompt-text-fill: #ffffff;
+     -fx-cell-size: 100;
+ }

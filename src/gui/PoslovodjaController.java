@@ -71,8 +71,7 @@ import tabele.TabelaNarudzbenica;
 
 public class PoslovodjaController implements Initializable {
 
-    @FXML
-    private Tab pregledTab;
+   
 //narudzbenica   
     @FXML
     private TableView<TabelaNarudzba> narudzba;
