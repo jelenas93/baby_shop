@@ -112,7 +112,7 @@ public class PrijavaNaSistemController implements Initializable {
                     } else if ("Poslovođa".equals(nalog.getTipKorisnika())) {
                         ((Node) event.getSource()).getScene().getWindow().hide();
 
-                        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/PocetnaForma.fxml"));
+                        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/poslovodja.fxml"));
                         Stage window = new Stage();
                         Scene korisnikScena = new Scene(korisnikView);
                         window.resizableProperty().setValue(Boolean.FALSE);
