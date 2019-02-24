@@ -8,14 +8,16 @@ package dto;
 public class DTODobavljacIzvjestaj {
     private String JIBDobavljaca;
     private String nazivDobavaljaca;
+    private String sifraProizvoda;
     private String barkodProizvoda;
     private String nazivProizvoda;
     private int kolicinaProizvoda;
     private double cijenaProizvoda;
 
-    public DTODobavljacIzvjestaj(String JIBDobavljaca, String nazivDobavaljaca, String barkodProizvoda, String nazivProizvoda, int kolicinaProizvoda, double cijenaProizvoda) {
+    public DTODobavljacIzvjestaj(String JIBDobavljaca, String nazivDobavaljaca, String sifraProizvoda, String barkodProizvoda, String nazivProizvoda, int kolicinaProizvoda, double cijenaProizvoda) {
         this.JIBDobavljaca = JIBDobavljaca;
         this.nazivDobavaljaca = nazivDobavaljaca;
+        this.sifraProizvoda=sifraProizvoda;
         this.barkodProizvoda = barkodProizvoda;
         this.nazivProizvoda = nazivProizvoda;
         this.kolicinaProizvoda = kolicinaProizvoda;
@@ -36,6 +38,14 @@ public class DTODobavljacIzvjestaj {
 
     public void setNazivDobavaljaca(String nazivDobavaljaca) {
         this.nazivDobavaljaca = nazivDobavaljaca;
+    }
+    
+    public String getSifraProizvoda() {
+        return sifraProizvoda;
+    }
+
+    public void setSifraProizvoda(String sifraProizvoda) {
+        this.sifraProizvoda = sifraProizvoda;
     }
 
     public String getBarkodProizvoda() {

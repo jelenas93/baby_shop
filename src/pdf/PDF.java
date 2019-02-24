@@ -3,7 +3,6 @@ package pdf;
 import com.itextpdf.kernel.color.Color;
 import com.itextpdf.kernel.font.PdfFont;
 
-
 import com.itextpdf.kernel.font.PdfType1Font;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -38,7 +37,9 @@ import com.itextpdf.text.*;
 import dao.DAODobavljac;
 import dao.DAOMjesto;
 import dto.DTODobavljac;
+import dto.DTODobavljacIzvjestaj;
 import dto.DTOMjesto;
+import java.util.Date;
 
 public class PDF {
 
@@ -50,17 +51,17 @@ public class PDF {
             String min = new SimpleDateFormat("mm").format(Calendar.getInstance().getTime());
             String sek = new SimpleDateFormat("ss").format(Calendar.getInstance().getTime());
             PdfDocument pdfDoc = new PdfDocument(new PdfWriter("./racuni/racun" + racun.getIdRacuna() + ".pdf"));
-            
-            try (Document doc = new Document(pdfDoc,PageSize.A5)) {
-                BaseFont bf=BaseFont.createFont(FontFactory.HELVETICA, "CP1250", BaseFont.EMBEDDED);
-                Font moj=new Font(bf, 12, Font.BOLD);
+
+            try (Document doc = new Document(pdfDoc, PageSize.A5)) {
+                BaseFont bf = BaseFont.createFont(FontFactory.HELVETICA, "CP1250", BaseFont.EMBEDDED);
+                Font moj = new Font(bf, 12, Font.BOLD);
                 doc.add(new Paragraph("Baby shop"));
                 doc.add(new Paragraph("Datum: " + vrijeme + " " + sat + ":" + min + ":" + sek));
                 doc.add(new Paragraph("\n"));
                 doc.add(new Paragraph("Maloprodajni račun").setTextAlignment(TextAlignment.CENTER));
-                Border b1=new SolidBorder(Color.WHITE, Float.MIN_VALUE);
-                float [] pointColumnWidthss = {1000F, 1000F, 1000F, 1000F};       
-                Table tablee = new Table(pointColumnWidthss); 
+                Border b1 = new SolidBorder(Color.WHITE, Float.MIN_VALUE);
+                float[] pointColumnWidthss = {1000F, 1000F, 1000F, 1000F};
+                Table tablee = new Table(pointColumnWidthss);
                 Cell c11 = new Cell();
                 c11.add("Proizvod");
                 c11.setBorder(b1);
@@ -83,7 +84,7 @@ public class PDF {
                 tablee.addCell(c44);
                 doc.add(tablee);
                 doc.add(new Paragraph("---------------------------------------------------------------------------------------"));
-                float [] pointColumnWidths = {1000F, 1000F, 1000F, 1000F};       
+                float[] pointColumnWidths = {1000F, 1000F, 1000F, 1000F};
                 Table table = new Table(pointColumnWidths);
                 for (int i = 0; i < stavke.size(); i++) {
                     Cell c1 = new Cell();
@@ -91,18 +92,18 @@ public class PDF {
                     c1.setBorder(b1);
                     c1.setTextAlignment(TextAlignment.LEFT);
                     table.addCell(c1);
-                    Cell c2=new Cell();
+                    Cell c2 = new Cell();
                     c2.add(String.valueOf(stavke.get(i).getKolicina()));
                     c2.setBorder(b1);
                     c2.setTextAlignment(TextAlignment.CENTER);
                     table.addCell(c2);
-                    Cell c3=new Cell();
+                    Cell c3 = new Cell();
                     c3.add(String.valueOf(stavke.get(i).getCijena()));
                     c3.setBorder(b1);
                     c3.setTextAlignment(TextAlignment.CENTER);
                     table.addCell(c3);
-                    Cell c4=new Cell();
-                    c4.add(String.valueOf(stavke.get(i).getCijena()*stavke.get(i).getKolicina()));
+                    Cell c4 = new Cell();
+                    c4.add(String.valueOf(stavke.get(i).getCijena() * stavke.get(i).getKolicina()));
                     c4.setBorder(b1);
                     c4.setTextAlignment(TextAlignment.RIGHT);
                     table.addCell(c4);
@@ -112,43 +113,43 @@ public class PDF {
                 }
                 doc.add(table);
                 doc.add(new Paragraph("---------------------------------------------------------------------------------------"));
-                double pdv=racun.getUkupnaCijena()*17/100;
-                float[] kolone={1000F, 1000F};       
+                double pdv = racun.getUkupnaCijena() * 17 / 100;
+                float[] kolone = {1000F, 1000F};
                 Table tabela = new Table(kolone);
-                Cell ce11=new Cell();
+                Cell ce11 = new Cell();
                 ce11.add("Ukupno: ");
                 ce11.setBorder(b1);
                 tabela.addCell(ce11);
-                Cell ce12=new Cell();
-                ce12.add(String.format("%.2f",(racun.getUkupnaCijena()-pdv)));
+                Cell ce12 = new Cell();
+                ce12.add(String.format("%.2f", (racun.getUkupnaCijena() - pdv)));
                 ce12.setTextAlignment(TextAlignment.RIGHT);
                 ce12.setBorder(b1);
                 tabela.addCell(ce12);
-                Cell ce21=new Cell();
+                Cell ce21 = new Cell();
                 ce21.add("PDV (17.00%) : ");
                 ce21.setBorder(b1);
                 tabela.addCell(ce21);
-                Cell ce22=new Cell();
-                ce22.add(String.format("%.2f",pdv));
+                Cell ce22 = new Cell();
+                ce22.add(String.format("%.2f", pdv));
                 ce22.setTextAlignment(TextAlignment.RIGHT);
                 ce22.setBorder(b1);
                 tabela.addCell(ce22);
-                Cell ce31=new Cell();
+                Cell ce31 = new Cell();
                 ce31.add("Ukupno za plaćanje: ");
                 ce31.setBorder(b1);
                 tabela.addCell(ce31);
-                Cell ce32=new Cell();
-                ce32.add(String.format("%.2f",racun.getUkupnaCijena()));
+                Cell ce32 = new Cell();
+                ce32.add(String.format("%.2f", racun.getUkupnaCijena()));
                 ce32.setTextAlignment(TextAlignment.RIGHT);
                 ce32.setBorder(b1);
                 tabela.addCell(ce32);
                 doc.add(tabela);
-                return "./racuni/racun" +racun.getIdRacuna() + " " + sat + ":" + min + ":" + sek + ".pdf";
+                return "./racuni/racun" + racun.getIdRacuna() + " " + sat + ":" + min + ":" + sek + ".pdf";
             } catch (DocumentException ex) {
                 Logger.getLogger(PDF.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
                 Logger.getLogger(PDF.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            }
 
         } catch (FileNotFoundException ex) {
             Logger.getLogger(PDF.class.getName()).log(Level.SEVERE, null, ex);
@@ -198,19 +199,16 @@ public class PDF {
     }
 
     public static void kreirajFajlKalkulacija(ObservableList<TabelaKalkulacija> stavke, String nazivDobavljaca, int id) {
-
-        System.out.println(nazivDobavljaca);
-        DAODobavljac daoDobavljac=new DAODobavljac();
-        DTODobavljac dobavljac=daoDobavljac.getDobavljacPoNazivu(nazivDobavljaca);
-        DTOMjesto mjesto=DAOMjesto.getMjestoByPostanskiBroj(dobavljac.getPostanskiBroj());
-        System.out.println(mjesto);
+        DAODobavljac daoDobavljac = new DAODobavljac();
+        DTODobavljac dobavljac = daoDobavljac.getDobavljacPoNazivu(nazivDobavljaca);
+        DTOMjesto mjesto = DAOMjesto.getMjestoByPostanskiBroj(dobavljac.getPostanskiBroj());
         try {
             String vrijemeKalkulacije = new SimpleDateFormat("dd.MM.yyyy").format(Calendar.getInstance().getTime());
             String satKalkulacije = new SimpleDateFormat("HH").format(Calendar.getInstance().getTime());
             String minKalkulacije = new SimpleDateFormat("mm").format(Calendar.getInstance().getTime());
             PdfDocument pdfDoc = new PdfDocument(new PdfWriter("./kalkulacija/kalkulacija_" + id + ".pdf"));
-            
-            try (Document doc = new Document(pdfDoc,PageSize.A4.rotate())) {
+
+            try (Document doc = new Document(pdfDoc, PageSize.A4.rotate())) {
                 doc.setFontSize(10);
                 Border border = new SolidBorder(Color.WHITE, Float.MIN_VALUE);
                 Paragraph prodavnica = new Paragraph("Poslovna jedinica BABY SHOP");
@@ -232,7 +230,7 @@ public class PDF {
                 Cell c3 = new Cell();
                 c3.setBorder(border);
                 c3.add(idKalkulacije);
-                
+
                 Cell c4 = new Cell();
                 c4.setBorder(border);
                 c4.add(new Paragraph(""));
@@ -242,7 +240,7 @@ public class PDF {
                 Cell c6 = new Cell();
                 c6.setBorder(border);
                 c6.add(new Paragraph("Kalkulant:").setTextAlignment(TextAlignment.RIGHT));
-                
+
                 Cell c7 = new Cell();
                 c7.setBorder(border);
                 c7.add(new Paragraph("Datum kalkulacije:" + vrijemeKalkulacije));
@@ -252,17 +250,17 @@ public class PDF {
                 Cell c9 = new Cell();
                 c9.setBorder(border);
                 c9.add(vrijeme);
-                
-                Cell c10=new Cell();
+
+                Cell c10 = new Cell();
                 c10.setBorder(border);
-                c10.add("Dobavljač: "+nazivDobavljaca);
+                c10.add("Dobavljač: " + nazivDobavljaca);
                 Cell c11 = new Cell();
                 c11.setBorder(border);
-                c11.add("Mjesto: "+mjesto.getNaziv());
+                c11.add("Mjesto: " + mjesto.getNaziv());
                 Cell c12 = new Cell();
                 c12.setBorder(border);
                 c12.add("");
-                
+
                 tabela1.addCell(c1);
                 tabela1.addCell(c2);
                 tabela1.addCell(c3);
@@ -275,16 +273,15 @@ public class PDF {
                 tabela1.addCell(c10);
                 tabela1.addCell(c11);
                 tabela1.addCell(c12);
-                        
+
                 doc.add(tabela1);
 
                 //  doc.add(prodavnica);
                 //     doc.add(vrijeme);
                 // doc.add(new Paragraph("Vrijeme knjiženja: " + vrijemeKalkulacije + " " + satKalkulacije + ":" + minKalkulacije));
-
                 doc.add(new Paragraph(""));
                 Table table = new Table(17);
-               /* table.setBorderLeft(border);
+                /* table.setBorderLeft(border);
                 table.setBorderRight(border);
                 table.setFont("HELVETICA");*/
                 table.addCell("Rb.");
@@ -306,30 +303,30 @@ public class PDF {
                 table.addCell("Prod. vrijed.");
                 table.addCell("Prod. cijena");
                 for (int i = 0; i < stavke.size(); i++) {
-                    int j=i+1;
-                    
-                    table.addCell(""+j);
+                    int j = i + 1;
+
+                    table.addCell("" + j);
                     table.addCell(stavke.get(i).getSifra());
-                  //  table.addCell(stavke.get(i).getBarKod());
+                    //  table.addCell(stavke.get(i).getBarKod());
                     table.addCell(stavke.get(i).getNaziv());
-                    table.addCell(stavke.get(i).getKolicina()+"");
+                    table.addCell(stavke.get(i).getKolicina() + "");
                     table.addCell(stavke.get(i).getJedMjere());
                     table.addCell(String.format("%.2f", stavke.get(i).getFakturnaCijena()));
-                    table.addCell(String.format("%.2f",stavke.get(i).getRabat()));
-                    table.addCell(String.format("%.2f",stavke.get(i).getFakturnaVrijednostNaRabat()));
-                    table.addCell(String.format("%.2f",stavke.get(i).getNabavnaCijena()));
-                    table.addCell(String.format("%.2f",stavke.get(i).getNabavnaVrijednost()));
-                    table.addCell(String.format("%.2f",stavke.get(i).getMarza()));
-                    table.addCell(String.format("%.2f",stavke.get(i).getMarzaIznos()));
-                    table.addCell(String.format("%.2f",stavke.get(i).getVrijednostBezPdv()));
-                    table.addCell(stavke.get(i).getStopa()+"");
-                    table.addCell(String.format("%.2f",stavke.get(i).getPdv()));
-                    table.addCell(String.format("%.2f",stavke.get(i).getProdajnaVrijednost()));
-                    table.addCell(String.format("%.2f",stavke.get(i).getProdajnaCijena()));
+                    table.addCell(String.format("%.2f", stavke.get(i).getRabat()));
+                    table.addCell(String.format("%.2f", stavke.get(i).getFakturnaVrijednostNaRabat()));
+                    table.addCell(String.format("%.2f", stavke.get(i).getNabavnaCijena()));
+                    table.addCell(String.format("%.2f", stavke.get(i).getNabavnaVrijednost()));
+                    table.addCell(String.format("%.2f", stavke.get(i).getMarza()));
+                    table.addCell(String.format("%.2f", stavke.get(i).getMarzaIznos()));
+                    table.addCell(String.format("%.2f", stavke.get(i).getVrijednostBezPdv()));
+                    table.addCell(stavke.get(i).getStopa() + "");
+                    table.addCell(String.format("%.2f", stavke.get(i).getPdv()));
+                    table.addCell(String.format("%.2f", stavke.get(i).getProdajnaVrijednost()));
+                    table.addCell(String.format("%.2f", stavke.get(i).getProdajnaCijena()));
                 }
 
                 doc.add(table);
-                
+
             }
 
         } catch (FileNotFoundException ex) {
@@ -339,9 +336,58 @@ public class PDF {
         }
         //  return "";
     }
-    
-    public static void kreirajIzvjestajPoDobavljacuZaMjesec(){
-        
+
+    public static void kreirajIzvjestajPoDobavljacuZaMjesec(Date datumOd, Date datumDo, int idDobavljaca) {
+
+        String vrijeme = new SimpleDateFormat("dd.MM.yyyy").format(Calendar.getInstance().getTime());
+        String sat = new SimpleDateFormat("HH").format(Calendar.getInstance().getTime());
+        String min = new SimpleDateFormat("mm").format(Calendar.getInstance().getTime());
+        String sek = new SimpleDateFormat("ss").format(Calendar.getInstance().getTime());
+        ArrayList<DTODobavljacIzvjestaj> proizvodi=new ArrayList<>();
+        proizvodi=new DAODobavljac().proizvodiPoDobavljacuZaMjesec(datumOd, datumDo, idDobavljaca);
+        SimpleDateFormat datum=new SimpleDateFormat("dd.MM.yyyy");
+        try {
+            PdfDocument pdfDoc = new PdfDocument(new PdfWriter("./izvjestaji/poDobavljacu/izvjestaj_odDatuma_" + datum.format(datumOd) + ".pdf"));
+
+            try (Document doc = new Document(pdfDoc, PageSize.A4.rotate())) {
+                doc.setFontSize(10);
+                Paragraph prodavnica = new Paragraph("Poslovna jedinica BABY SHOP");
+                prodavnica.setTextAlignment(TextAlignment.LEFT);
+                doc.add(prodavnica);
+                Paragraph izvjestaj=new Paragraph("Izvjestaj o prodaji artikala po dobavljacu za razdoblje od "+datum.format(datumOd)+" do "+datum.format(datumDo));
+                izvjestaj.setTextAlignment(TextAlignment.CENTER);
+                doc.add(izvjestaj);
+                Paragraph prazanRed=new Paragraph("\n");
+                doc.add(prazanRed);
+                Table table = new Table(8);
+                table.addCell("Rb. ");
+                table.addCell("JIB Dobavljaca");
+                table.addCell("Naziv Dobavljaca");
+                table.addCell("Sifra proizvoda");
+                table.addCell("Barkod proizvoda");
+                table.addCell("Naziv proizvoda");
+                table.addCell("Kolicina proizvoda");
+                table.addCell("Cijena proizvoda");
+                //doc.add(table);
+                for(int i=0;i<proizvodi.size();i++){
+                    int j=i+1;
+                    table.addCell(" "+j+".");
+                    table.addCell(proizvodi.get(i).getJIBDobavljaca());
+                    table.addCell(proizvodi.get(i).getNazivDobavaljaca());
+                    table.addCell(proizvodi.get(i).getSifraProizvoda());
+                    table.addCell(proizvodi.get(i).getBarkodProizvoda());
+                    table.addCell(proizvodi.get(i).getNazivProizvoda());
+                    table.addCell(String.format("%d",proizvodi.get(i).getKolicinaProizvoda()));
+                    table.addCell(String.format("%.2f",proizvodi.get(i).getCijenaProizvoda()));
+                }
+                doc.add(table);
+            }
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(TabelaNarudzba.class
+                    .getName()).log(Level.SEVERE, null, ex);
+
+        }
     }
 
 }

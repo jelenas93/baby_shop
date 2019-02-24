@@ -240,11 +240,12 @@ public class DAODobavljac {
             while(rs.next()){
                 String JIBDobavljaca=rs.getString(1);
                 String nazivDobavaljaca=rs.getString(2);
-                String barkodProizvoda=rs.getString(3);
-                String nazivProizvoda=rs.getString(4);
-                int kolicinaProizvoda=rs.getInt(5);
-                double cijenaProizvoda=rs.getDouble(6);
-                proizvodi.add(new DTODobavljacIzvjestaj(JIBDobavljaca, nazivDobavaljaca, barkodProizvoda, nazivProizvoda, kolicinaProizvoda, cijenaProizvoda));
+                String sifraProizvoda=rs.getString(3);
+                String barkodProizvoda=rs.getString(4);
+                String nazivProizvoda=rs.getString(5);
+                int kolicinaProizvoda=rs.getInt(6);
+                double cijenaProizvoda=rs.getDouble(7);
+                proizvodi.add(new DTODobavljacIzvjestaj(JIBDobavljaca, nazivDobavaljaca, sifraProizvoda, barkodProizvoda, nazivProizvoda, kolicinaProizvoda, cijenaProizvoda));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAODobavljac.class.getName()).log(Level.SEVERE, null, ex);
@@ -282,11 +283,12 @@ public class DAODobavljac {
             while(rs.next()){
                 String JIBDobavljaca=rs.getString(1);
                 String nazivDobavaljaca=rs.getString(2);
-                String barkodProizvoda=rs.getString(3);
-                String nazivProizvoda=rs.getString(4);
-                int kolicinaProizvoda=rs.getInt(5);
-                double cijenaProizvoda=rs.getDouble(6);
-                proizvodi.add(new DTODobavljacIzvjestaj(JIBDobavljaca, nazivDobavaljaca, barkodProizvoda, nazivProizvoda, kolicinaProizvoda, cijenaProizvoda));
+                String sifraProizvoda=rs.getString(3);
+                String barkodProizvoda=rs.getString(4);
+                String nazivProizvoda=rs.getString(5);
+                int kolicinaProizvoda=rs.getInt(6);
+                double cijenaProizvoda=rs.getDouble(7);
+                proizvodi.add(new DTODobavljacIzvjestaj(JIBDobavljaca, nazivDobavaljaca, sifraProizvoda, barkodProizvoda, nazivProizvoda, kolicinaProizvoda, cijenaProizvoda));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAODobavljac.class.getName()).log(Level.SEVERE, null, ex);
