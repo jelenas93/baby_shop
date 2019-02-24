@@ -50,7 +50,7 @@ public class PDF {
             String min = new SimpleDateFormat("mm").format(Calendar.getInstance().getTime());
             String sek = new SimpleDateFormat("ss").format(Calendar.getInstance().getTime());
             PdfDocument pdfDoc = new PdfDocument(new PdfWriter("./racuni/racun" + racun.getIdRacuna() + ".pdf"));
-
+            
             try (Document doc = new Document(pdfDoc,PageSize.A5)) {
                 BaseFont bf=BaseFont.createFont(FontFactory.HELVETICA, "CP1250", BaseFont.EMBEDDED);
                 Font moj=new Font(bf, 12, Font.BOLD);
@@ -338,6 +338,10 @@ public class PDF {
 
         }
         //  return "";
+    }
+    
+    public static void kreirajIzvjestajPoDobavljacuZaMjesec(){
+        
     }
 
 }

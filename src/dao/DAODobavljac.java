@@ -2,12 +2,15 @@ package dao;
 
 import connectionpool.ConnectionPool;
 import dto.DTODobavljac;
+import dto.DTODobavljacIzvjestaj;
 import dto.DTODobavljacProizvod;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
@@ -222,7 +225,89 @@ public class DAODobavljac {
         
     }
     
+    public ArrayList<DTODobavljacIzvjestaj> proizvodiPoDobavljacuZaMjesec(Date datumOd,Date datumDo, int idDobavljaca){
+        Connection con = null;
+        CallableStatement myStatement=null;
+        ArrayList<DTODobavljacIzvjestaj> proizvodi=new ArrayList<>();
+        ResultSet rs = null;
+        try {
+            con = ConnectionPool.getInstance().checkOut();
+            myStatement=con.prepareCall("{call proizvodi_po_dobavljacu_za_mjesec(?, ?, ?)}");
+            myStatement.setDate(1, new java.sql.Date(datumOd.getTime()));
+            myStatement.setDate(2, new java.sql.Date(datumDo.getTime()));
+            myStatement.setInt(3, idDobavljaca);
+            rs=myStatement.executeQuery();
+            while(rs.next()){
+                String JIBDobavljaca=rs.getString(1);
+                String nazivDobavaljaca=rs.getString(2);
+                String barkodProizvoda=rs.getString(3);
+                String nazivProizvoda=rs.getString(4);
+                int kolicinaProizvoda=rs.getInt(5);
+                double cijenaProizvoda=rs.getDouble(6);
+                proizvodi.add(new DTODobavljacIzvjestaj(JIBDobavljaca, nazivDobavaljaca, barkodProizvoda, nazivProizvoda, kolicinaProizvoda, cijenaProizvoda));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAODobavljac.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOProizvod.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (myStatement != null) {
+                try {
+                    myStatement.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOProizvod.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return proizvodi;
+    }
     
+    public ArrayList<DTODobavljacIzvjestaj> proizvodiPoDobavljacuZaGodinu(Date datumOd,Date datumDo, int idDobavljaca){
+         Connection con = null;
+        CallableStatement myStatement=null;
+        ArrayList<DTODobavljacIzvjestaj> proizvodi=new ArrayList<>();
+        ResultSet rs = null;
+        try {
+            con = ConnectionPool.getInstance().checkOut();
+            myStatement=con.prepareCall("{call proizvodi_po_dobavljacu_za_godinu(?, ?, ?)}");
+            myStatement.setDate(1, new java.sql.Date(datumOd.getTime()));
+            myStatement.setDate(2, new java.sql.Date(datumDo.getTime()));
+            myStatement.setInt(3, idDobavljaca);
+            rs=myStatement.executeQuery();
+            while(rs.next()){
+                String JIBDobavljaca=rs.getString(1);
+                String nazivDobavaljaca=rs.getString(2);
+                String barkodProizvoda=rs.getString(3);
+                String nazivProizvoda=rs.getString(4);
+                int kolicinaProizvoda=rs.getInt(5);
+                double cijenaProizvoda=rs.getDouble(6);
+                proizvodi.add(new DTODobavljacIzvjestaj(JIBDobavljaca, nazivDobavaljaca, barkodProizvoda, nazivProizvoda, kolicinaProizvoda, cijenaProizvoda));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAODobavljac.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOProizvod.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (myStatement != null) {
+                try {
+                    myStatement.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOProizvod.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return proizvodi;
+    }
     
     
 }
