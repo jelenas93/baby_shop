@@ -12,17 +12,49 @@ public class DTODobavljacIzvjestaj {
     private String barkodProizvoda;
     private String nazivProizvoda;
     private int kolicinaProizvoda;
+    private String jedinicaMjere;
+    private double fakturnaCijena;
+    private int pdv;
     private double cijenaProizvoda;
 
-    public DTODobavljacIzvjestaj(String JIBDobavljaca, String nazivDobavaljaca, String sifraProizvoda, String barkodProizvoda, String nazivProizvoda, int kolicinaProizvoda, double cijenaProizvoda) {
+    public DTODobavljacIzvjestaj(String JIBDobavljaca, String nazivDobavaljaca, String sifraProizvoda, String barkodProizvoda, String nazivProizvoda, int kolicinaProizvoda, String jedinicaMjere, double fakturnaCijena, int pdv, double cijenaProizvoda) {
         this.JIBDobavljaca = JIBDobavljaca;
         this.nazivDobavaljaca = nazivDobavaljaca;
-        this.sifraProizvoda=sifraProizvoda;
+        this.sifraProizvoda = sifraProizvoda;
         this.barkodProizvoda = barkodProizvoda;
         this.nazivProizvoda = nazivProizvoda;
         this.kolicinaProizvoda = kolicinaProizvoda;
+        this.jedinicaMjere = jedinicaMjere;
+        this.fakturnaCijena = fakturnaCijena;
+        this.pdv = pdv;
         this.cijenaProizvoda = cijenaProizvoda;
     }
+
+    public String getJedinicaMjere() {
+        return jedinicaMjere;
+    }
+
+    public void setJedinicaMjere(String jedinicaMjere) {
+        this.jedinicaMjere = jedinicaMjere;
+    }
+
+    public double getFakturnaCijena() {
+        return fakturnaCijena;
+    }
+
+    public void setFakturnaCijena(double fakturnaCijena) {
+        this.fakturnaCijena = fakturnaCijena;
+    }
+
+    public int getPdv() {
+        return pdv;
+    }
+
+    public void setPdv(int pdv) {
+        this.pdv = pdv;
+    }
+
+    
 
     public String getJIBDobavljaca() {
         return JIBDobavljaca;
