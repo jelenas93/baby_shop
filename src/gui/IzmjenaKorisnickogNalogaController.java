@@ -51,7 +51,9 @@ public class IzmjenaKorisnickogNalogaController implements Initializable {
     private void sacuvajButtonOnAction(ActionEvent event) throws IOException, NoSuchAlgorithmException {
         
         nalog.setKorisnickoIme(korisnickoImeTextField.getText());
-        nalog.setLozinka(lozinkaTextField.getText());
+        if(!(nalog.getLozinka().toString()).equals(lozinkaTextField.getText())){
+            nalog.setLozinka(lozinkaTextField.getText());
+        }
         nalog.setTipKorisnika(tipKorisnickogNalogaComboBox.getSelectionModel().getSelectedItem());
         DAOKorisnickiNalog.izmijeniNalog(nalog);
          Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
