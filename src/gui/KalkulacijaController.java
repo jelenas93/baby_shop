@@ -201,10 +201,10 @@ public class KalkulacijaController implements Initializable {
         if (!kalkulacija.getSelectionModel().getSelectedItems().toString().equals("[]")) {
             try {
                 if(Double.parseDouble(fakturnaCijenaTextField.getText()) < 0){
-                    AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Fakturna cijena mora biti >0 .");
-                }
+                    AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Fakturna cijena mora biti veći od 0 .");
+                }else{
                 rabatTextField.requestFocus();
-                return true;
+                return true;}
             } catch (NumberFormatException e) {
                 AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Cijena mora biti broj.");
                 fakturnaCijenaTextField.setText("");
@@ -224,9 +224,9 @@ public class KalkulacijaController implements Initializable {
             try {
                 if(Integer.parseInt(rabatTextField.getText())<0){
                      AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Rabat mora biti veći od 0.");
-                }
+                }else{
                 marzaTextField.requestFocus();
-                return true;
+                return true;}
             } catch (NumberFormatException e) {
                 AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Rabat mora biti cijeli broj.");
                 rabatTextField.setText("");
@@ -246,8 +246,8 @@ public class KalkulacijaController implements Initializable {
             try {
                 if(Double.parseDouble(marzaTextField.getText())<0){
                      AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Marža mora biti veći od 0.");
-                }
-                return true;
+                }else{
+                return true;}
             } catch (NumberFormatException e) {
                 AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Marža mora biti broj.");
                 marzaTextField.setText("");
