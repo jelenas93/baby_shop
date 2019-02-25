@@ -36,9 +36,13 @@ import tabele.TabelaNarudzbenica;
 import com.itextpdf.text.*;
 import dao.DAODobavljac;
 import dao.DAOMjesto;
+import dao.DAOZaposleni;
 import dto.DTODobavljac;
 import dto.DTODobavljacIzvjestaj;
 import dto.DTOMjesto;
+import dto.DTOZaposleni;
+import gui.PocetnaFormaController;
+import static gui.PocetnaFormaController.idZaposlenog;
 import java.util.Date;
 
 public class PDF {
@@ -172,17 +176,61 @@ public class PDF {
                 doc.add(new Paragraph("Datum: " + vrijemeNarudzbe + " " + satNarudzbe + ":" + minNarudzbe + ":" + sekNarudzbe));
 
                 Table table = new Table(4);
-
-                table.addCell("Sifra");
-                table.addCell("Barkod");
-                table.addCell("Naziv");
-                table.addCell("Naruceno");
+                Border border = new SolidBorder(Color.WHITE, Float.MIN_VALUE);
+                Border borderGray = new SolidBorder(Color.LIGHT_GRAY, Float.MIN_VALUE);
+                Cell k1 = new Cell();
+                k1.setBorderLeft(borderGray);
+                k1.setBorderRight(borderGray);
+                k1.setBackgroundColor(Color.LIGHT_GRAY);
+                k1.add("Sifra");
+                table.addCell(k1);
+                
+                Cell k2 = new Cell();
+                k2.setBorderLeft(borderGray);
+                k2.setBorderRight(borderGray);
+                k2.setBackgroundColor(Color.LIGHT_GRAY);
+                k2.add("Barkod");
+                table.addCell(k2);
+                
+                Cell k3 = new Cell();
+                k3.setBorderLeft(borderGray);
+                k3.setBorderRight(borderGray);
+                k3.setBackgroundColor(Color.LIGHT_GRAY);
+                k3.add("Naziv");
+                table.addCell(k3);
+                
+                Cell k4 = new Cell();
+                k4.setBorderLeft(borderGray);
+                k4.setBorderRight(borderGray);
+                k4.setBackgroundColor(Color.LIGHT_GRAY);
+                k4.add("Naruceno");
+                table.addCell(k4);
+                
                 for (int i = 0; i < stavke.size(); i++) {
-
-                    table.addCell(stavke.get(i).getSifra());
-                    table.addCell(stavke.get(i).getBarKod());
-                    table.addCell(stavke.get(i).getNaziv());
-                    table.addCell(String.valueOf(stavke.get(i).getNaruceno()));
+                    
+                    Cell p1=new Cell();
+                    p1.setBorderLeft(border);
+                    p1.setBorderRight(border);
+                    p1.add(stavke.get(i).getSifra());
+                    table.addCell(p1);
+                    
+                    Cell p2=new Cell();
+                    p2.setBorderLeft(border);
+                    p2.setBorderRight(border);
+                    p2.add(stavke.get(i).getBarKod());
+                    table.addCell(p2);
+                    
+                    Cell p3=new Cell();
+                    p3.setBorderLeft(border);
+                    p3.setBorderRight(border);
+                    p3.add(stavke.get(i).getNaziv());
+                    table.addCell(p3);
+                    
+                    Cell p4=new Cell();
+                    p4.setBorderLeft(border);
+                    p4.setBorderRight(border);
+                    p4.add(String.valueOf(stavke.get(i).getNaruceno()));
+                    table.addCell(p4);
 
                 }
 
@@ -224,6 +272,7 @@ public class PDF {
                 Cell c1 = new Cell();
                 c1.setBorder(border);
                 c1.add(prodavnica);
+
                 Cell c2 = new Cell();
                 c2.setBorder(border);
                 c2.add(new Paragraph(""));
@@ -237,9 +286,12 @@ public class PDF {
                 Cell c5 = new Cell();
                 c5.setBorder(border);
                 c5.add(new Paragraph("MALOPRODAJNA KALKULACIJA").setTextAlignment(TextAlignment.CENTER));
+                c5.setFontSize(15);
+                c5.setBold();
                 Cell c6 = new Cell();
                 c6.setBorder(border);
-                c6.add(new Paragraph("Kalkulant:").setTextAlignment(TextAlignment.RIGHT));
+                DTOZaposleni k = DAOZaposleni.getZaposleniById(PocetnaFormaController.idZaposlenog);
+                c6.add(new Paragraph("Kalkulant: "+k.getIme()+" "+k.getPrezime()).setTextAlignment(TextAlignment.RIGHT));
 
                 Cell c7 = new Cell();
                 c7.setBorder(border);
@@ -284,45 +336,237 @@ public class PDF {
                 /* table.setBorderLeft(border);
                 table.setBorderRight(border);
                 table.setFont("HELVETICA");*/
-                table.addCell("Rb.");
-                table.addCell("Sifra");
+                Border borderGray = new SolidBorder(Color.LIGHT_GRAY, Float.MIN_VALUE);
+                Cell k1 = new Cell();
+                k1.setBorderLeft(borderGray);
+                k1.setBorderRight(borderGray);
+                k1.setBackgroundColor(Color.LIGHT_GRAY);
+                k1.add("Rb.");
+                table.addCell(k1);
+
+                Cell k2 = new Cell();
+                k2.setBorderLeft(borderGray);
+                k2.setBorderRight(borderGray);
+                k2.setBackgroundColor(Color.LIGHT_GRAY);
+                k2.add("Sifra");
+                table.addCell(k2);
                 //table.addCell("Barkod");
-                table.addCell("Naziv robe");
-                table.addCell("Kolicina");
-                table.addCell("JM");
-                table.addCell("Fakt. cijena");
-                table.addCell("Rabat %");
-                table.addCell("Fakt. vr. na rabat");
-                table.addCell("Nab. cijena");
-                table.addCell("Nab. vrijednost");
-                table.addCell("Marza %");
-                table.addCell("Marza iznos");
-                table.addCell("Vr. bez PDV-a");
-                table.addCell("stopa");
-                table.addCell("PDV");
-                table.addCell("Prod. vrijed.");
-                table.addCell("Prod. cijena");
+
+                Cell k3 = new Cell();
+                k3.setBorderLeft(borderGray);
+                k3.setBorderRight(borderGray);
+                k3.setBackgroundColor(Color.LIGHT_GRAY);
+                k3.add("Naziv robe");
+                table.addCell(k3);
+
+                Cell k4 = new Cell();
+                k4.setBorderLeft(borderGray);
+                k4.setBorderRight(borderGray);
+                k4.setBackgroundColor(Color.LIGHT_GRAY);
+                k4.add("Kolicina");
+                table.addCell(k4);
+
+                Cell k5 = new Cell();
+                k5.setBorderLeft(borderGray);
+                k5.setBorderRight(borderGray);
+                k5.setBackgroundColor(Color.LIGHT_GRAY);
+                k5.setTextAlignment(TextAlignment.CENTER);
+                k5.add("JM");
+                table.addCell(k5);
+
+                Cell k6 = new Cell();
+                k6.setBorderLeft(borderGray);
+                k6.setBorderRight(borderGray);
+                k6.setBackgroundColor(Color.LIGHT_GRAY);
+                k6.add("Fakt. cijena");
+                table.addCell(k6);
+
+                Cell k7 = new Cell();
+                k7.setBorderLeft(borderGray);
+                k7.setBorderRight(borderGray);
+                k7.setBackgroundColor(Color.LIGHT_GRAY);
+                k7.add("Rabat %");
+                table.addCell(k7);
+
+                Cell k8 = new Cell();
+                k8.setBorderLeft(borderGray);
+                k8.setBorderRight(borderGray);
+                k8.setBackgroundColor(Color.LIGHT_GRAY);
+                k8.add("Fakt. vr. na rabat");
+                table.addCell(k8);
+
+                Cell k9 = new Cell();
+                k9.setBorderLeft(borderGray);
+                k9.setBorderRight(borderGray);
+                k9.setBackgroundColor(Color.LIGHT_GRAY);
+                k9.add("Nab. cijena");
+                table.addCell(k9);
+
+                Cell k10 = new Cell();
+                k10.setBorderLeft(borderGray);
+                k10.setBorderRight(borderGray);
+                k10.setBackgroundColor(Color.LIGHT_GRAY);
+                k10.add("Nab. vrijed.");
+                table.addCell(k10);
+
+                Cell k11 = new Cell();
+                k11.setBorderLeft(borderGray);
+                k11.setBorderRight(borderGray);
+                k11.setBackgroundColor(Color.LIGHT_GRAY);
+                k11.add("Marza %");
+                table.addCell(k11);
+
+                Cell k12 = new Cell();
+                k12.setBorderLeft(borderGray);
+                k12.setBorderRight(borderGray);
+                k12.setBackgroundColor(Color.LIGHT_GRAY);
+                k12.add("Marza iznos");
+                table.addCell(k12);
+
+                Cell k13 = new Cell();
+                k13.setBorderLeft(borderGray);
+                k13.setBorderRight(borderGray);
+                k13.setBackgroundColor(Color.LIGHT_GRAY);
+                k13.add("Vr. bez PDV-a");
+                table.addCell(k13);
+
+                Cell k14 = new Cell();
+                k14.setBorderLeft(borderGray);
+                k14.setBorderRight(borderGray);
+                k14.setBackgroundColor(Color.LIGHT_GRAY);
+                k14.setTextAlignment(TextAlignment.CENTER);
+                k14.add("Stopa");
+                table.addCell(k14);
+
+                Cell k15 = new Cell();
+                k15.setBorderLeft(borderGray);
+                k15.setBorderRight(borderGray);
+                k15.setBackgroundColor(Color.LIGHT_GRAY);
+                k15.setTextAlignment(TextAlignment.CENTER);
+                k15.add("PDV");
+                table.addCell(k15);
+
+                Cell k16 = new Cell();
+                k16.setBorderLeft(borderGray);
+                k16.setBorderRight(borderGray);
+                k16.setBackgroundColor(Color.LIGHT_GRAY);
+                k16.add("Prod. vrijed.");
+                table.addCell(k16);
+
+                Cell k17 = new Cell();
+                k17.setBorderLeft(borderGray);
+                k17.setBorderRight(borderGray);
+                k17.setBackgroundColor(Color.LIGHT_GRAY);
+                k17.add("Prod. cijena");
+                table.addCell(k17);
+
                 for (int i = 0; i < stavke.size(); i++) {
                     int j = i + 1;
+                    Cell p1 = new Cell();
+                    p1.setBorderLeft(border);
+                    p1.setBorderRight(border);
+                    p1.add("" + j);
+                    table.addCell(p1);
 
-                    table.addCell("" + j);
-                    table.addCell(stavke.get(i).getSifra());
+                    Cell p2 = new Cell();
+                    p2.setBorderLeft(border);
+                    p2.setBorderRight(border);
+                    p2.add(stavke.get(i).getSifra());
+                    table.addCell(p2);
                     //  table.addCell(stavke.get(i).getBarKod());
-                    table.addCell(stavke.get(i).getNaziv());
-                    table.addCell(stavke.get(i).getKolicina() + "");
-                    table.addCell(stavke.get(i).getJedMjere());
-                    table.addCell(String.format("%.2f", stavke.get(i).getFakturnaCijena()));
-                    table.addCell(String.format("%.2f", stavke.get(i).getRabat()));
-                    table.addCell(String.format("%.2f", stavke.get(i).getFakturnaVrijednostNaRabat()));
-                    table.addCell(String.format("%.2f", stavke.get(i).getNabavnaCijena()));
-                    table.addCell(String.format("%.2f", stavke.get(i).getNabavnaVrijednost()));
-                    table.addCell(String.format("%.2f", stavke.get(i).getMarza()));
-                    table.addCell(String.format("%.2f", stavke.get(i).getMarzaIznos()));
-                    table.addCell(String.format("%.2f", stavke.get(i).getVrijednostBezPdv()));
-                    table.addCell(stavke.get(i).getStopa() + "");
-                    table.addCell(String.format("%.2f", stavke.get(i).getPdv()));
-                    table.addCell(String.format("%.2f", stavke.get(i).getProdajnaVrijednost()));
-                    table.addCell(String.format("%.2f", stavke.get(i).getProdajnaCijena()));
+
+                    Cell p3 = new Cell();
+                    p3.setBorderLeft(border);
+                    p3.setBorderRight(border);
+                    p3.add(stavke.get(i).getNaziv());
+                    table.addCell(p3);
+
+                    Cell p4 = new Cell();
+                    p4.setBorderLeft(border);
+                    p4.setBorderRight(border);
+                    p4.setTextAlignment(TextAlignment.CENTER);
+                    p4.add(stavke.get(i).getKolicina() + "");
+                    table.addCell(p4);
+
+                    Cell p5 = new Cell();
+                    p5.setBorderLeft(border);
+                    p5.setBorderRight(border);
+                    p5.setTextAlignment(TextAlignment.CENTER);
+                    p5.add(stavke.get(i).getJedMjere());
+                    table.addCell(p5);
+
+                    Cell p6 = new Cell();
+                    p6.setBorderLeft(border);
+                    p6.setBorderRight(border);
+                    p6.add(String.format("%.2f", stavke.get(i).getFakturnaCijena()));
+                    table.addCell(p6);
+
+                    Cell p7 = new Cell();
+                    p7.setBorderLeft(border);
+                    p7.setBorderRight(border);
+                    p7.add(String.format("%.2f", stavke.get(i).getRabat()));
+                    table.addCell(p7);
+
+                    Cell p8 = new Cell();
+                    p8.setBorderLeft(border);
+                    p8.setBorderRight(border);
+                    p8.add(String.format("%.2f", stavke.get(i).getFakturnaVrijednostNaRabat()));
+                    table.addCell(p8);
+
+                    Cell p9 = new Cell();
+                    p9.setBorderLeft(border);
+                    p9.setBorderRight(border);
+                    p9.add(String.format("%.2f", stavke.get(i).getNabavnaCijena()));
+                    table.addCell(p9);
+
+                    Cell p10 = new Cell();
+                    p10.setBorderLeft(border);
+                    p10.setBorderRight(border);
+                    p10.add(String.format("%.2f", stavke.get(i).getNabavnaVrijednost()));
+                    table.addCell(p10);
+
+                    Cell p11 = new Cell();
+                    p11.setBorderLeft(border);
+                    p11.setBorderRight(border);
+                    p11.add(String.format("%.2f", stavke.get(i).getMarza()));
+                    table.addCell(p11);
+
+                    Cell p12 = new Cell();
+                    p12.setBorderLeft(border);
+                    p12.setBorderRight(border);
+                    p12.add(String.format("%.2f", stavke.get(i).getMarzaIznos()));
+                    table.addCell(p12);
+
+                    Cell p13 = new Cell();
+                    p13.setBorderLeft(border);
+                    p13.setBorderRight(border);
+                    p13.add(String.format("%.2f", stavke.get(i).getVrijednostBezPdv()));
+                    table.addCell(p13);
+
+                    Cell p14 = new Cell();
+                    p14.setBorderLeft(border);
+                    p14.setBorderRight(border);
+                    p14.setTextAlignment(TextAlignment.CENTER);
+                    p14.add(stavke.get(i).getStopa() + ".00 %");
+                    table.addCell(p14);
+
+                    Cell p15 = new Cell();
+                    p15.setBorderLeft(border);
+                    p15.setBorderRight(border);
+                    p15.add(String.format("%.2f", stavke.get(i).getPdv()));
+                    table.addCell(p15);
+
+                    Cell p16 = new Cell();
+                    p16.setBorderLeft(border);
+                    p16.setBorderRight(border);
+                    p16.add(String.format("%.2f", stavke.get(i).getProdajnaVrijednost()));
+                    table.addCell(p16);
+
+                    Cell p17 = new Cell();
+                    p17.setBorderLeft(border);
+                    p17.setBorderRight(border);
+                    p17.add(String.format("%.2f", stavke.get(i).getProdajnaCijena()));
+                    table.addCell(p17);
                 }
 
                 doc.add(table);
@@ -343,42 +587,168 @@ public class PDF {
         String sat = new SimpleDateFormat("HH").format(Calendar.getInstance().getTime());
         String min = new SimpleDateFormat("mm").format(Calendar.getInstance().getTime());
         String sek = new SimpleDateFormat("ss").format(Calendar.getInstance().getTime());
-        ArrayList<DTODobavljacIzvjestaj> proizvodi=new ArrayList<>();
-        proizvodi=new DAODobavljac().proizvodiPoDobavljacuZaMjesec(datumOd, datumDo, idDobavljaca);
-        SimpleDateFormat datum=new SimpleDateFormat("dd.MM.yyyy");
+        Border border = new SolidBorder(Color.WHITE, Float.MIN_VALUE);
+        Border borderGray = new SolidBorder(Color.LIGHT_GRAY, Float.MIN_VALUE);
+        ArrayList<DTODobavljacIzvjestaj> proizvodi = new ArrayList<>();
+        proizvodi = new DAODobavljac().proizvodiPoDobavljacuZaMjesec(datumOd, datumDo, idDobavljaca);
+        SimpleDateFormat datum = new SimpleDateFormat("dd.MM.yyyy");
         try {
-            PdfDocument pdfDoc = new PdfDocument(new PdfWriter("./izvjestaji/poDobavljacu/izvjestaj_odDatuma_" + datum.format(datumOd) + ".pdf"));
+            PdfDocument pdfDoc = new PdfDocument(new PdfWriter("./izvjestaji/poDobavljacu/izvjestaj_odDatuma_" + datum.format(datumOd) + "_doDatuma_" + datum.format(datumDo) + ".pdf"));
 
             try (Document doc = new Document(pdfDoc, PageSize.A4.rotate())) {
                 doc.setFontSize(10);
                 Paragraph prodavnica = new Paragraph("Poslovna jedinica BABY SHOP");
                 prodavnica.setTextAlignment(TextAlignment.LEFT);
+                prodavnica.setFontSize(12);
                 doc.add(prodavnica);
-                Paragraph izvjestaj=new Paragraph("Izvjestaj o prodaji artikala po dobavljacu za razdoblje od "+datum.format(datumOd)+" do "+datum.format(datumDo));
-                izvjestaj.setTextAlignment(TextAlignment.CENTER);
-                doc.add(izvjestaj);
-                Paragraph prazanRed=new Paragraph("\n");
+                Paragraph prazanRed = new Paragraph("\n");
                 doc.add(prazanRed);
-                Table table = new Table(8);
-                table.addCell("Rb. ");
-                table.addCell("JIB Dobavljaca");
-                table.addCell("Naziv Dobavljaca");
-                table.addCell("Sifra proizvoda");
-                table.addCell("Barkod proizvoda");
-                table.addCell("Naziv proizvoda");
-                table.addCell("Kolicina proizvoda");
-                table.addCell("Cijena proizvoda");
+                Paragraph izvjestaj = new Paragraph("Izvjestaj o prodaji artikala po dobavljacu za razdoblje od " + datum.format(datumOd) + " do " + datum.format(datumDo));
+                izvjestaj.setTextAlignment(TextAlignment.CENTER);
+                izvjestaj.setBold();
+                izvjestaj.setFontSize(20);
+                doc.add(izvjestaj);
+
+                doc.add(prazanRed);
+                Paragraph dobavljac = new Paragraph("JIB Dobavljaca: " + new DAODobavljac().getJIBPoId(idDobavljaca));
+                dobavljac.setFontSize(12);
+                doc.add(dobavljac);
+                Paragraph nazivDobavljaca = new Paragraph("Naziv dobavljaca: " + new DAODobavljac().getNazivPoId(idDobavljaca));
+                nazivDobavljaca.setFontSize(12);
+                doc.add(nazivDobavljaca);
+                doc.add(prazanRed);
+                Table table = new Table(9);
+
+                Cell c1 = new Cell();
+                c1.setBorderRight(borderGray);
+                c1.setBorderLeft(borderGray);
+                c1.setBackgroundColor(Color.LIGHT_GRAY);
+                c1.add("Rb. ");
+                //table.addCell("Rb. ").setBorderLeft(border).setBorderLeft(border);
+                table.addCell(c1);
+                //table.addCell("JIB Dobavljaca");
+                //table.addCell("Naziv Dobavljaca");
+                Cell c2 = new Cell();
+                c2.setBorderLeft(borderGray);
+                c2.setBorderRight(borderGray);
+                c2.setBackgroundColor(Color.LIGHT_GRAY);
+                c2.add("Sifra proizvoda");
+                table.addCell(c2);
+
+                Cell c3 = new Cell();
+                c3.setBorderLeft(borderGray);
+                c3.setBorderRight(borderGray);
+                c3.setBackgroundColor(Color.LIGHT_GRAY);
+                c3.add("Barkod proizvoda");
+                table.addCell(c3);
+
+                Cell c4 = new Cell();
+                c4.setBorderLeft(borderGray);
+                c4.setBorderRight(borderGray);
+                c4.setBackgroundColor(Color.LIGHT_GRAY);
+                c4.add("Naziv proizvoda");
+                table.addCell(c4);
+
+                Cell c5 = new Cell();
+                c5.setBorderLeft(borderGray);
+                c5.setBorderRight(borderGray);
+                c5.setBackgroundColor(Color.LIGHT_GRAY);
+                c5.add("Kolicina proizvoda");
+                table.addCell(c5);
+
+                Cell c7 = new Cell();
+                c7.setBorderLeft(borderGray);
+                c7.setBorderRight(borderGray);
+                c7.setBackgroundColor(Color.LIGHT_GRAY);
+                c7.setTextAlignment(TextAlignment.CENTER);
+                c7.add("JM");
+                table.addCell(c7);
+
+                Cell c8 = new Cell();
+                c8.setBorderLeft(borderGray);
+                c8.setBorderRight(borderGray);
+                c8.setBackgroundColor(Color.LIGHT_GRAY);
+                c8.setTextAlignment(TextAlignment.RIGHT);
+                c8.add("Fakturna cijena");
+                table.addCell(c8);
+
+                Cell c9 = new Cell();
+                c9.setBorderLeft(borderGray);
+                c9.setBorderRight(borderGray);
+                c9.setBackgroundColor(Color.LIGHT_GRAY);
+                c9.setTextAlignment(TextAlignment.CENTER);
+                c9.add("PDV");
+                table.addCell(c9);
+
+                Cell c6 = new Cell();
+                c6.setBorderLeft(borderGray);
+                c6.setBorderRight(borderGray);
+                c6.setBackgroundColor(Color.LIGHT_GRAY);
+                c6.setTextAlignment(TextAlignment.RIGHT);
+                c6.add("Cijena proizvoda");
+                table.addCell(c6);
                 //doc.add(table);
-                for(int i=0;i<proizvodi.size();i++){
-                    int j=i+1;
-                    table.addCell(" "+j+".");
-                    table.addCell(proizvodi.get(i).getJIBDobavljaca());
-                    table.addCell(proizvodi.get(i).getNazivDobavaljaca());
-                    table.addCell(proizvodi.get(i).getSifraProizvoda());
-                    table.addCell(proizvodi.get(i).getBarkodProizvoda());
-                    table.addCell(proizvodi.get(i).getNazivProizvoda());
-                    table.addCell(String.format("%d",proizvodi.get(i).getKolicinaProizvoda()));
-                    table.addCell(String.format("%.2f",proizvodi.get(i).getCijenaProizvoda()));
+                for (int i = 0; i < proizvodi.size(); i++) {
+                    int j = i + 1;
+                    Cell p1 = new Cell();
+                    p1.setBorderLeft(border);
+                    p1.setBorderRight(border);
+                    p1.add(" " + j + ".");
+                    table.addCell(p1);
+                    //table.addCell(proizvodi.get(i).getJIBDobavljaca());
+                    //table.addCell(proizvodi.get(i).getNazivDobavaljaca());
+                    Cell p2 = new Cell();
+                    p2.setBorderLeft(border);
+                    p2.setBorderRight(border);
+                    p2.add(proizvodi.get(i).getSifraProizvoda());
+                    table.addCell(p2);
+
+                    Cell p3 = new Cell();
+                    p3.setBorderLeft(border);
+                    p3.setBorderRight(border);
+                    p3.add(proizvodi.get(i).getBarkodProizvoda());
+                    table.addCell(p3);
+
+                    Cell p4 = new Cell();
+                    p4.setBorderLeft(border);
+                    p4.setBorderRight(border);
+                    p4.add(proizvodi.get(i).getNazivProizvoda());
+                    table.addCell(p4);
+
+                    Cell p5 = new Cell();
+                    p5.setBorderLeft(border);
+                    p5.setBorderRight(border);
+                    p5.setTextAlignment(TextAlignment.RIGHT);
+                    p5.add(String.format("%d", proizvodi.get(i).getKolicinaProizvoda()));
+                    table.addCell(p5);
+
+                    Cell p7 = new Cell();
+                    p7.setBorderLeft(border);
+                    p7.setBorderRight(border);
+                    p7.add(proizvodi.get(i).getJedinicaMjere());
+                    p7.setTextAlignment(TextAlignment.CENTER);
+                    table.addCell(p7);
+
+                    Cell p8 = new Cell();
+                    p8.setBorderLeft(border);
+                    p8.setBorderRight(border);
+                    p8.setTextAlignment(TextAlignment.RIGHT);
+                    p8.add(String.format("%.2f", proizvodi.get(i).getFakturnaCijena()));
+                    table.addCell(p8);
+
+                    Cell p9 = new Cell();
+                    p9.setBorderLeft(border);
+                    p9.setBorderRight(border);
+                    p9.setTextAlignment(TextAlignment.CENTER);
+                    p9.add(String.format("%d", proizvodi.get(i).getPdv()) + ".00 %");
+                    table.addCell(p9);
+
+                    Cell p6 = new Cell();
+                    p6.setBorderLeft(border);
+                    p6.setBorderRight(border);
+                    p6.setTextAlignment(TextAlignment.RIGHT);
+                    p6.add(String.format("%.2f", proizvodi.get(i).getCijenaProizvoda()));
+                    table.addCell(p6);
                 }
                 doc.add(table);
             }

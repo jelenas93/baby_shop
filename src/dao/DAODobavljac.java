@@ -244,8 +244,11 @@ public class DAODobavljac {
                 String barkodProizvoda=rs.getString(4);
                 String nazivProizvoda=rs.getString(5);
                 int kolicinaProizvoda=rs.getInt(6);
-                double cijenaProizvoda=rs.getDouble(7);
-                proizvodi.add(new DTODobavljacIzvjestaj(JIBDobavljaca, nazivDobavaljaca, sifraProizvoda, barkodProizvoda, nazivProizvoda, kolicinaProizvoda, cijenaProizvoda));
+                String jedinicaMjere=rs.getString(7);
+                double fakturnaCijena=rs.getDouble(8);
+                int pdv=rs.getInt(9);
+                double cijenaProizvoda=rs.getDouble(10);
+                proizvodi.add(new DTODobavljacIzvjestaj(JIBDobavljaca, nazivDobavaljaca, sifraProizvoda, barkodProizvoda, nazivProizvoda, kolicinaProizvoda, jedinicaMjere, fakturnaCijena, pdv, cijenaProizvoda));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAODobavljac.class.getName()).log(Level.SEVERE, null, ex);
@@ -287,8 +290,11 @@ public class DAODobavljac {
                 String barkodProizvoda=rs.getString(4);
                 String nazivProizvoda=rs.getString(5);
                 int kolicinaProizvoda=rs.getInt(6);
-                double cijenaProizvoda=rs.getDouble(7);
-                proizvodi.add(new DTODobavljacIzvjestaj(JIBDobavljaca, nazivDobavaljaca, sifraProizvoda, barkodProizvoda, nazivProizvoda, kolicinaProizvoda, cijenaProizvoda));
+                String jedinicaMjere=rs.getString(7);
+                double fakturnaCijena=rs.getDouble(8);
+                int pdv=rs.getInt(9);
+                double cijenaProizvoda=rs.getDouble(10);
+                proizvodi.add(new DTODobavljacIzvjestaj(JIBDobavljaca, nazivDobavaljaca, sifraProizvoda, barkodProizvoda, nazivProizvoda, kolicinaProizvoda, jedinicaMjere, fakturnaCijena, pdv, cijenaProizvoda));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAODobavljac.class.getName()).log(Level.SEVERE, null, ex);
@@ -311,5 +317,77 @@ public class DAODobavljac {
         return proizvodi;
     }
     
+    public String getJIBPoId(int id){
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String rezultat="";
+        try {
+            con = ConnectionPool.getInstance().checkOut();
+            ps = con.prepareStatement("select * from baby_shop.dobavljac where IdDobavljaca like'"+id+"%'");
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                rezultat=rs.getString("JIBDobavljaca");
+               }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAODobavljac.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (con != null) {
+                ConnectionPool.getInstance().checkIn(con);
+            }
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAODobavljac.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAODobavljac.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return rezultat;
+    }
     
+     public String getNazivPoId(int id){
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String rezultat="";
+        try {
+            con = ConnectionPool.getInstance().checkOut();
+            ps = con.prepareStatement("select * from baby_shop.dobavljac where IdDobavljaca like'"+id+"%'");
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                rezultat=rs.getString("Naziv");
+               }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAODobavljac.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (con != null) {
+                ConnectionPool.getInstance().checkIn(con);
+            }
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAODobavljac.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAODobavljac.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return rezultat;
+    }
 }
