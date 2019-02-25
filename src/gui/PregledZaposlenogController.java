@@ -27,11 +27,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author Tijana Lakic
- */
 public class PregledZaposlenogController implements Initializable {
 
     @FXML
@@ -129,20 +124,6 @@ public class PregledZaposlenogController implements Initializable {
         window.showAndWait();
         zaposleni = FXCollections.observableArrayList(DAOZaposleni.getZaposleni());
         zaposleniTableView.setItems(zaposleni);
-    }
-
-    @FXML
-    private void nazadButtonOnAction(ActionEvent event) throws IOException {
-        ((Node) event.getSource()).getScene().getWindow().hide();
-
-        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/administratorPocetnaForma.fxml"));
-        Stage window = new Stage();
-        Scene korisnikScena = new Scene(korisnikView);
-        window.resizableProperty().setValue(Boolean.FALSE);
-        window.setScene(korisnikScena);
-        window.centerOnScreen();
-        window.initModality(Modality.APPLICATION_MODAL);
-        window.showAndWait();
     }
 
 }
