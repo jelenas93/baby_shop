@@ -125,7 +125,7 @@ public class KalkulacijaController implements Initializable {
     }
     
     private void postaviDobavljace(){
-         DAODobavljac daod = new DAODobavljac();
+        DAODobavljac daod = new DAODobavljac();
         ObservableList<DTODobavljac> listaDobavljaca;
         listaDobavljaca = daod.getDobavljace();
         for (int i = 0; i < listaDobavljaca.size(); i++) {
@@ -200,7 +200,9 @@ public class KalkulacijaController implements Initializable {
     private boolean provjeraCijene() {
         if (!kalkulacija.getSelectionModel().getSelectedItems().toString().equals("[]")) {
             try {
-                Double.parseDouble(fakturnaCijenaTextField.getText());
+                if(Double.parseDouble(fakturnaCijenaTextField.getText()) < 0){
+                    AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Fakturna cijena mora biti >0 .");
+                }
                 rabatTextField.requestFocus();
                 return true;
             } catch (NumberFormatException e) {
@@ -220,7 +222,9 @@ public class KalkulacijaController implements Initializable {
     private boolean provjeraRabata() {
         if (!kalkulacija.getSelectionModel().getSelectedItems().toString().equals("[]")) {
             try {
-                Integer.parseInt(rabatTextField.getText());
+                if(Integer.parseInt(rabatTextField.getText())<0){
+                     AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Rabat mora biti veći od 0.");
+                }
                 marzaTextField.requestFocus();
                 return true;
             } catch (NumberFormatException e) {
@@ -240,7 +244,9 @@ public class KalkulacijaController implements Initializable {
     private boolean provjeraMarze() {
         if (!kalkulacija.getSelectionModel().getSelectedItems().toString().equals("[]")) {
             try {
-                Double.parseDouble(marzaTextField.getText());
+                if(Double.parseDouble(marzaTextField.getText())<0){
+                     AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Marža mora biti veći od 0.");
+                }
                 return true;
             } catch (NumberFormatException e) {
                 AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Marža mora biti broj.");
