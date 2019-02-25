@@ -164,7 +164,6 @@ public class KasaController implements Initializable {
                 for (TabelaKasa el : tabela) {
                     if (el != null) {
                         if (el.getBarkod().equals(barkodTextField.getText())) {
-                            System.out.println(el.getBarkod());
                             kasaTabela.getItems().remove(el);
                             kasaTabela.getItems().add(indeks, (new TabelaKasa(proizvod.getBarkod(), proizvod.getSifra(),
                                     proizvod.getNaziv(), Integer.parseInt(kolicinaTextField.getText()) + el.getKolicina(),
@@ -346,7 +345,7 @@ public class KasaController implements Initializable {
 
     @FXML
     public void stampajRacun() {
-        if (kasaTabela.getItems().size() == 0) {
+        if (kasaTabela.getItems().isEmpty()) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Nemate stavke na računu.");
         } else {
             DAORacun daoRacun = new DAORacun();
