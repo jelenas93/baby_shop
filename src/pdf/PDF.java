@@ -349,7 +349,7 @@ public class PDF {
         proizvodi=new DAODobavljac().proizvodiPoDobavljacuZaMjesec(datumOd, datumDo, idDobavljaca);
         SimpleDateFormat datum=new SimpleDateFormat("dd.MM.yyyy");
         try {
-            PdfDocument pdfDoc = new PdfDocument(new PdfWriter("./izvjestaji/poDobavljacu/izvjestaj_odDatuma_" + datum.format(datumOd) + ".pdf"));
+            PdfDocument pdfDoc = new PdfDocument(new PdfWriter("./izvjestaji/poDobavljacu/izvjestaj_odDatuma_" + datum.format(datumOd) +"_doDatuma_"+datum.format(datumDo) +".pdf"));
 
             try (Document doc = new Document(pdfDoc, PageSize.A4.rotate())) {
                 doc.setFontSize(10);
