@@ -1,17 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import babyshop.AlertHelper;
 import dao.DAOKorisnickiNalog;
 import dao.DAOKorisnikWrapper;
-import dto.DTOKorisnickiNalog;
 import dto.DTOKorisnikWrapper;
-import dto.DTOTipZaposlenog;
-import dto.DTOZaposleni;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -21,7 +13,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -31,11 +22,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-/**
- * FXML Controller class
- *
- * @author Tijana Lakic
- */
 public class PregledKorisnickogNalogaController implements Initializable {
 
     @FXML
@@ -53,12 +39,8 @@ public class PregledKorisnickogNalogaController implements Initializable {
     private TableColumn<DTOKorisnikWrapper, String> tipNalogaTableColumn;
     ObservableList<DTOKorisnikWrapper> nalozi;
 
-    /**
-     * Initializes the controller class.
-     */
     public PregledKorisnickogNalogaController() {
         this.nalozi = FXCollections.observableArrayList(DAOKorisnikWrapper.getKorisnickiNaloziWrappers());
-
     }
 
     @Override
@@ -126,17 +108,4 @@ public class PregledKorisnickogNalogaController implements Initializable {
         window.showAndWait();
     }
 
-    @FXML
-    private void nazadButtonOnAction(ActionEvent event) throws IOException {
-        ((Node) event.getSource()).getScene().getWindow().hide();
-
-        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/administratorPocetnaForma.fxml"));
-        Stage window = new Stage();
-        Scene korisnikScena = new Scene(korisnikView);
-        window.resizableProperty().setValue(Boolean.FALSE);
-        window.setScene(korisnikScena);
-        window.centerOnScreen();
-        window.initModality(Modality.APPLICATION_MODAL);
-        window.showAndWait();
-    }
 }
