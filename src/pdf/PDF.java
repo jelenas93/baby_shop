@@ -41,8 +41,7 @@ import dto.DTODobavljac;
 import dto.DTODobavljacIzvjestaj;
 import dto.DTOMjesto;
 import dto.DTOZaposleni;
-import gui.PocetnaFormaController;
-import static gui.PocetnaFormaController.idZaposlenog;
+import gui.PrijavaNaSistemController;
 import java.util.Date;
 
 public class PDF {
@@ -290,7 +289,7 @@ public class PDF {
                 c5.setBold();
                 Cell c6 = new Cell();
                 c6.setBorder(border);
-                DTOZaposleni k = DAOZaposleni.getZaposleniById(PocetnaFormaController.idZaposlenog);
+                DTOZaposleni k = DAOZaposleni.getZaposleniById(PrijavaNaSistemController.idZaposlenog);
                 c6.add(new Paragraph("Kalkulant: "+k.getIme()+" "+k.getPrezime()).setTextAlignment(TextAlignment.RIGHT));
 
                 Cell c7 = new Cell();

@@ -122,12 +122,9 @@ public class KasaController implements Initializable {
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
         datumLabel.setText(sdf.format(new Date().getTime()));
         ukupnaCijenaLabel.setText("0,00");
-        DTOZaposleni k = DAOZaposleni.getZaposleniById(PocetnaFormaController.idZaposlenog);
-      //  prodavacLabel.setText(k.getIme() + " " + k.getPrezime());
+        DTOZaposleni k = DAOZaposleni.getZaposleniById(PrijavaNaSistemController.idZaposlenog);
+        prodavacLabel.setText(k.getIme() + " " + k.getPrezime());
 
-     /*   if (k.getIdTipZaposlenog() == 13) {
-            nazadButton.setText("Odjava");
-        }*/
     }
 
     private void puniTabelu() {
@@ -411,6 +408,7 @@ public class KasaController implements Initializable {
     public void pronadjiRacunZaStorniranje() {
         int idRacuna = Integer.parseInt(brojRacunaTextField.getText());
         DTORacun racunZaStorniranje = new DAORacun().vratiRacunPoId(idRacuna);
+        if(!racunZaStorniranje.getStorniran()){
         listaStavki = new DAOStavka().stavkeNaRacunu(idRacuna);
         barkodKolona.setCellValueFactory(new PropertyValueFactory<>("barkod"));
         sifraKolona.setCellValueFactory(new PropertyValueFactory<>("sifra"));
@@ -425,6 +423,9 @@ public class KasaController implements Initializable {
         }
         ukupno = racunZaStorniranje.getUkupnaCijena();
         ukupnaCijenaLabel.setText(String.format("%.2f", racunZaStorniranje.getUkupnaCijena()));
+        }else{
+            AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Račun je već storniran.");
+        }
     }
 
     @FXML
@@ -468,27 +469,5 @@ public class KasaController implements Initializable {
         window.centerOnScreen();
         window.initModality(Modality.APPLICATION_MODAL);
         window.showAndWait();
-    }
-
-    @FXML
-    public void nazadStisak(ActionEvent event) throws IOException {
-        DTOZaposleni k = DAOZaposleni.getZaposleniById(PocetnaFormaController.idZaposlenog);
-        if (k.getIdTipZaposlenog() != 3) {
-            Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/PocetnaForma.fxml"));
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene korisnikScena = new Scene(korisnikView);
-            window.setScene(korisnikScena);
-            window.centerOnScreen();
-            window.show();
-        } else {
-            Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/prijavaNaSistem.fxml"));
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene korisnikScena = new Scene(korisnikView);
-            window.setScene(korisnikScena);
-            window.centerOnScreen();
-            window.show();
-        }
-        /* Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.close();*/
     }
 }

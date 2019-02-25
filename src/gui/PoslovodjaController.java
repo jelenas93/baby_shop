@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class PoslovodjaController implements Initializable {
+    public static int idZaposlenog;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

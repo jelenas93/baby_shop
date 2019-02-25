@@ -8,7 +8,6 @@ import dto.DTOKorisnickiNalog;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -35,13 +34,11 @@ public class PrijavaNaSistemController implements Initializable {
     private JFXPasswordField lozinkaField;
     @FXML
     private JFXTextField korisnickoImeTextField;
+    
+    public static int idZaposlenog;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        for (DTOKorisnickiNalog x : DAOKorisnickiNalog.getKorisnickiNalozi()) {
-
-        }
     }
 
     @FXML
@@ -53,9 +50,7 @@ public class PrijavaNaSistemController implements Initializable {
             IOException {
 
         if (korisnickoImeTextField.getText().equals("") || lozinkaField.getText().equals("")) {
-
             AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Unesite podatke za prijavu na sistem.");
-
         } else {
 
             boolean nepostojeciNalog = false;
@@ -64,8 +59,8 @@ public class PrijavaNaSistemController implements Initializable {
             String korisnickoIme = korisnickoImeTextField.getText();
             DTOKorisnickiNalog nalog = DAOKorisnickiNalog.getKorisnickiNalozi().stream().filter(x -> korisnickoIme.equals(x.getKorisnickoIme())).findAny().orElse(null);
             if (nalog != null) {
-                PocetnaFormaController.idZaposlenog = nalog.getIdZaposlenog();
-
+                
+                idZaposlenog=nalog.getIdZaposlenog();
                 int byteCounter = 0;
                 byte[] hesLozinkeIzdvojenIzBaze = new byte[32];
                 byte[] hesLozinkeISaltIzBaze = nalog.getLozinka();
@@ -88,49 +83,45 @@ public class PrijavaNaSistemController implements Initializable {
                 byte[] hesiranaUnesenaLozinka = digest.digest(unesenaLozinkaUFormu.getBytes());
                 //uporedimo hes iz baze sa novim hesom
                 if (!Arrays.equals(hesLozinkeIzdvojenIzBaze, hesiranaUnesenaLozinka)) {
-
                     pogresnaLozinka = true;
                     AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Unijeli ste pogrešnu lozinku. Molim Vas, pokušajte ponovo.");
-
                 } else {
                     System.out.println("Administrator".equals(nalog.getTipKorisnika()));
                     System.out.println(nalog.getTipKorisnika());
 
                     //AlertHelper.showAlert(Alert.AlertType.INFORMATION, "", "Uspješna prijava.");
                     if ("Administrator".equals(nalog.getTipKorisnika())) {
+                    //    AdminFormaSvaController.idAdmina = nalog.getIdZaposlenog();
                         ((Node) event.getSource()).getScene().getWindow().hide();
                         Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/adminFormaSva.fxml"));
                         Stage window = new Stage();
                         window.getIcons().add(new Image("file:" + String.valueOf(Paths.get(System.getProperty("user.dir"), "logo.jpg"))));
-        
+
                         Scene korisnikScena = new Scene(korisnikView);
                         window.setScene(korisnikScena);
                         window.centerOnScreen();
                         //window.initModality(Modality.APPLICATION_MODAL);
                         window.showAndWait();
                     } else if ("Poslovođa".equals(nalog.getTipKorisnika())) {
+                      //  PoslovodjaController.idZaposlenog = nalog.getIdZaposlenog();
                         ((Node) event.getSource()).getScene().getWindow().hide();
-
                         Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/poslovodja.fxml"));
-                        
                         Stage window = new Stage();
                         window.getIcons().add(new Image("file:" + String.valueOf(Paths.get(System.getProperty("user.dir"), "logo.jpg"))));
-        
                         Scene korisnikScena = new Scene(korisnikView);
-                       // window.resizableProperty().setValue(Boolean.FALSE);
+                        // window.resizableProperty().setValue(Boolean.FALSE);
                         window.setScene(korisnikScena);
                         window.centerOnScreen();
-                       // window.initModality(Modality.APPLICATION_MODAL);
+                        // window.initModality(Modality.APPLICATION_MODAL);
                         window.showAndWait();
                     } else if ("Kasir".equals(nalog.getTipKorisnika())) {
+                      //  KasirFormaController.idKasira = nalog.getIdZaposlenog();
                         ((Node) event.getSource()).getScene().getWindow().hide();
-
                         Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/kasa.fxml"));
                         Stage window = new Stage();
                         window.getIcons().add(new Image("file:" + String.valueOf(Paths.get(System.getProperty("user.dir"), "logo.jpg"))));
-        
                         Scene korisnikScena = new Scene(korisnikView);
-                       // window.resizableProperty().setValue(Boolean.FALSE);
+                        // window.resizableProperty().setValue(Boolean.FALSE);
                         window.setScene(korisnikScena);
                         window.centerOnScreen();
                         //window.initModality(Modality.APPLICATION_MODAL);
@@ -139,9 +130,7 @@ public class PrijavaNaSistemController implements Initializable {
                 }
             } else {
                 AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Unijeli ste nepostojeći nalog. Molim Vas, pokušajte ponovo.");
-
             }
         }
     }
-
 }
