@@ -5,6 +5,7 @@
  */
 package gui;
 
+import babyshop.AlertHelper;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -19,6 +20,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 /**
@@ -49,16 +51,27 @@ public class IzmjenaKorisnickogNalogaController implements Initializable {
 
     @FXML
     private void sacuvajButtonOnAction(ActionEvent event) throws IOException, NoSuchAlgorithmException {
-        
-        nalog.setKorisnickoIme(korisnickoImeTextField.getText());
+        DTOKorisnickiNalog nalogIzBaze = DAOKorisnickiNalog.getKorisnickiNalozi().stream().filter(x -> korisnickoImeTextField.getText().equals(x.getKorisnickoIme())).findAny().orElse(null);
+        if(nalogIzBaze==null){
+        nalog.setKorisnickoIme(korisnickoImeTextField.getText());}
+        else{         
+            AlertHelper.showAlert(Alert.AlertType.WARNING, "", " Korisničko ime već postoji.");
+             korisnickoImeTextField.setText(nalog.getKorisnickoIme());
+             nalog.setKorisnickoIme(nalog.getKorisnickoIme());
+
+}
         if(!(nalog.getLozinka().toString()).equals(lozinkaTextField.getText())){
             nalog.setLozinka(lozinkaTextField.getText());
         }
         nalog.setTipKorisnika(tipKorisnickogNalogaComboBox.getSelectionModel().getSelectedItem());
+           if ("".equals(korisnickoImeTextField.getText()) || "".equals(lozinkaTextField.getText())
+                || tipKorisnickogNalogaComboBox.getSelectionModel().isEmpty()) {
+            AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste ispravno unijeli podatke.");
+        }else{
         DAOKorisnickiNalog.izmijeniNalog(nalog);
          Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 window.close();
-        
+           }
     }
 
     @FXML

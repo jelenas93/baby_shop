@@ -41,9 +41,9 @@ public class DAOKorisnickiNalog {
                 boolean aktivan = rs.getBoolean(4);
                 String tipKorisnika = rs.getString(5);
                 int idZaposlenog = rs.getInt(6);
-
+                if(aktivan){
                 korisnici.add(new DTOKorisnickiNalog(korisnickoIme, lozinka, aktivan, tipKorisnika, idZaposlenog));
-            }
+            }}
         } catch (SQLException ex) {
             Logger.getLogger(DAOKorisnickiNalog.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
