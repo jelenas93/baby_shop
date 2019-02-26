@@ -407,26 +407,26 @@ public class KasaController implements Initializable {
     public void pronadjiRacunZaStorniranje() {
         int idRacuna = Integer.parseInt(brojRacunaTextField.getText());
         DTORacun racunZaStorniranje = new DAORacun().vratiRacunPoId(idRacuna);
-        if(racunZaStorniranje!=null){
-        if(!racunZaStorniranje.getStorniran()){
-        listaStavki = new DAOStavka().stavkeNaRacunu(idRacuna);
-        barkodKolona.setCellValueFactory(new PropertyValueFactory<>("barkod"));
-        sifraKolona.setCellValueFactory(new PropertyValueFactory<>("sifra"));
-        nazivKolona.setCellValueFactory(new PropertyValueFactory<>("naziv"));
-        kolicinaKolona.setCellValueFactory(new PropertyValueFactory<>("kolicina"));
-        cijenaKolona.setCellValueFactory(new PropertyValueFactory<>("cijena"));
-        vrijednostKolona.setCellValueFactory(new PropertyValueFactory<>("vrijednost"));
-        for (DTOStavka stavka : listaStavki) {
-            DTOProizvod proizvod = new DAOProizvod().getProizvodPoId(stavka.getIdProizvoda());
-            kasaTabela.getItems().add(new TabelaKasa(proizvod.getBarkod(), proizvod.getSifra(), proizvod.getNaziv(),
-                    stavka.getKolicina(), proizvod.getCijena(), stavka.getCijena()));
-        }
-        ukupno = racunZaStorniranje.getUkupnaCijena();
-        ukupnaCijenaLabel.setText(String.format("%.2f", racunZaStorniranje.getUkupnaCijena()));
-        }else{
-            AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Račun je već storniran.");
-        }
-        }else{
+        if (racunZaStorniranje != null) {
+            if (!racunZaStorniranje.getStorniran()) {
+                listaStavki = new DAOStavka().stavkeNaRacunu(idRacuna);
+                barkodKolona.setCellValueFactory(new PropertyValueFactory<>("barkod"));
+                sifraKolona.setCellValueFactory(new PropertyValueFactory<>("sifra"));
+                nazivKolona.setCellValueFactory(new PropertyValueFactory<>("naziv"));
+                kolicinaKolona.setCellValueFactory(new PropertyValueFactory<>("kolicina"));
+                cijenaKolona.setCellValueFactory(new PropertyValueFactory<>("cijena"));
+                vrijednostKolona.setCellValueFactory(new PropertyValueFactory<>("vrijednost"));
+                for (DTOStavka stavka : listaStavki) {
+                    DTOProizvod proizvod = new DAOProizvod().getProizvodPoId(stavka.getIdProizvoda());
+                    kasaTabela.getItems().add(new TabelaKasa(proizvod.getBarkod(), proizvod.getSifra(), proizvod.getNaziv(),
+                            stavka.getKolicina(), proizvod.getCijena(), stavka.getCijena()));
+                }
+                ukupno = racunZaStorniranje.getUkupnaCijena();
+                ukupnaCijenaLabel.setText(String.format("%.2f", racunZaStorniranje.getUkupnaCijena()));
+            } else {
+                AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Račun je već storniran.");
+            }
+        } else {
             AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Broj računa ne postoji.");
         }
     }
@@ -472,5 +472,28 @@ public class KasaController implements Initializable {
         window.centerOnScreen();
         window.initModality(Modality.APPLICATION_MODAL);
         window.showAndWait();
+    }
+
+    @FXML
+    public void ponisti(ActionEvent event) throws IOException {
+        ukupnaCijenaLabel.setText("0.00");
+        stanjeLabel.setText("");
+        for (DTOStavka stavka : listaStavki) {
+            DAOProizvod daoProizvod = new DAOProizvod();
+            DAOSkladisteProizvod skladiste = new DAOSkladisteProizvod();
+            DTOProizvod proizvod = daoProizvod.getProizvodPoId(stavka.getIdProizvoda());
+            boolean uspjeno = daoProizvod.azurirajProizvod(proizvod.getKolicina() + stavka.getKolicina(), proizvod.getIdProizvoda());
+            if (!uspjeno) {
+                AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom ažuriranja proizvoda.");
+            } else {
+                boolean upisanoUsklasite = skladiste.azurirajProizvodUSkladistu(proizvod.getKolicina() + stavka.getKolicina(), proizvod.getIdProizvoda());
+                if (!upisanoUsklasite) {
+                    AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom ažuriranja proizvoda u skladištu.");
+                } else {
+                    listaStavki.clear();
+                    kasaTabela.getItems().clear();
+                }
+            }
+        }
     }
 }

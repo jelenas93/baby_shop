@@ -217,6 +217,14 @@ public class NarudzbenicaController implements Initializable {
         }
 
     }
+    
+     @FXML
+    public void ponisti(ActionEvent event) {
+        ObservableList<TabelaNarudzbenica> sviProizvodi;
+        sviProizvodi = narudzbenica.getSelectionModel().getSelectedItems();
+        sviProizvodi = narudzbenica.getItems();
+        sviProizvodi.clear();
+    }
 
     public void upisiUbazuSveStavke(ObservableList<TabelaNarudzbenica> lista) {
         DAOStavkaNarudzbe daoStavka = new DAOStavkaNarudzbe();

@@ -340,4 +340,8 @@ public class KalkulacijaController implements Initializable {
         window.centerOnScreen();
         window.show();
     }
+    
+    public void ponisti(ActionEvent event) throws IOException{
+        kalkulacija.getItems().clear();
+    }
 }

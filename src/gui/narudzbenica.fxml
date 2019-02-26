@@ -61,5 +61,10 @@
             <Font size="18.0" />
          </font></Button>
       <ComboBox fx:id="imeDobavljacaComboBox" layoutX="147.0" layoutY="29.0" prefHeight="50.0" prefWidth="200.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="30.0" />
+      <Button layoutX="417.0" layoutY="598.0" mnemonicParsing="false" onAction="#ponisti" prefHeight="50.0" prefWidth="163.0" text="Poništi" AnchorPane.bottomAnchor="30.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

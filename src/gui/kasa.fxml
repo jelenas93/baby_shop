@@ -109,5 +109,10 @@
             <Font size="18.0" />
          </font>
       </Button>
+      <Button layoutX="583.0" layoutY="628.0" mnemonicParsing="false" onAction="#ponisti" prefHeight="50.0" prefWidth="170.0" text="Poništi" AnchorPane.bottomAnchor="120.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
