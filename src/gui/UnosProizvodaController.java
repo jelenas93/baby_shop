@@ -12,7 +12,6 @@ import dao.DAOProizvodjac;
 import dto.DTOMaterijal;
 import dto.DTOProizvodGrupa;
 import dto.DTOProizvodjac;
-import dto.DTOSkladisteProizvod;
 import dao.DAOSkladisteProizvod;
 import dto.DTODobavljac;
 import dto.DTOProizvod;
@@ -25,7 +24,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -33,7 +31,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import java.util.ArrayList;
 
 public class UnosProizvodaController implements Initializable {
 
@@ -114,9 +111,9 @@ public class UnosProizvodaController implements Initializable {
             JIBProizvodjacaComboBox.getItems().add(listaProizvodjaca.get(i).getNaziv() + ", " + listaProizvodjaca.get(i).getJIBProizvodjaca());
         }
     }
-    
+
     private void popuniDobavljace() {
-         DAODobavljac dAODobavljac = new DAODobavljac();
+        DAODobavljac dAODobavljac = new DAODobavljac();
         ObservableList<DTODobavljac> listaDobavljaca;
         listaDobavljaca = dAODobavljac.getDobavljace();
         dobavljacComboBox.getItems().clear();
@@ -152,7 +149,7 @@ public class UnosProizvodaController implements Initializable {
         stage.showAndWait();
         popuniProizvode();
     }
-    
+
     public void dodajDobavljaca(ActionEvent event) throws IOException {
         FXMLLoader korisnikView = new FXMLLoader(getClass().getResource("/gui/unosDobavljaca.fxml"));
         Parent root = (Parent) korisnikView.load();
@@ -237,7 +234,7 @@ public class UnosProizvodaController implements Initializable {
     }
 
     public void sacuvajStisak(ActionEvent event) throws IOException {
-        if (tipProizvodaComboBox.getSelectionModel().isEmpty()  || "".equals(nazivProizvodaTextField.getText())
+        if (tipProizvodaComboBox.getSelectionModel().isEmpty() || "".equals(nazivProizvodaTextField.getText())
                 || "".equals(barkodTextField.getText()) || "".equals(sifraTextField.getText())
                 || JIBProizvodjacaComboBox.getSelectionModel().getSelectedIndex() < 0
                 || materijaliComboBox.getSelectionModel().isEmpty()) {
@@ -275,7 +272,7 @@ public class UnosProizvodaController implements Initializable {
                         duzina = Double.parseDouble(duzinaTextField.getText());
                     } catch (NumberFormatException e) {
                         duzinaTextField.requestFocus();
-                          AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Duzina mora biti broj !");
+                        AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Duzina mora biti broj !");
                     }
                 }
                 if (dtoProizvodGrupa.isSirina()) {
@@ -318,12 +315,13 @@ public class UnosProizvodaController implements Initializable {
                 }
                 DAOProizvod daoProizvod = new DAOProizvod();
                 DAOSkladisteProizvod daoUSkladiste = new DAOSkladisteProizvod();
-                DAODobavljac dobavljac=new DAODobavljac();
-              
-                DAODobavljacProizvod daod=new DAODobavljacProizvod();
+                DAODobavljac dobavljac = new DAODobavljac();
+
+                DAODobavljacProizvod daod = new DAODobavljacProizvod();
+
                 String jib = JIBProizvodjacaComboBox.getSelectionModel().getSelectedItem().split(", ")[1];
-                String jibDobavljava=dobavljacComboBox.getSelectionModel().getSelectedItem().split(", ")[1];
-                int idDobavljaca=dobavljac.getIdPoJibu(jibDobavljava);
+                String jibDobavljava = dobavljacComboBox.getSelectionModel().getSelectedItem().split(", ")[1];
+                int idDobavljaca = dobavljac.getIdPoJibu(jibDobavljava);
                 DTOProizvod proizvodB = daoProizvod.getProizvodPoBarkodu(barkodTextField.getText());
                 if (proizvodB != null) {
                     AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Postoji proizvod sa barkodom " + barkodTextField.getText() + " .");
@@ -333,16 +331,20 @@ public class UnosProizvodaController implements Initializable {
                         AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Postoji proizvod sa šifrom " + sifraTextField.getText() + " .");
                     } else {
                         if (!daoProizvod.upisUBazuProizvod(barkodTextField.getText(), sifraTextField.getText(),
-                                nazivProizvodaTextField.getText().toUpperCase(),jib, idGrupe, duzina, sirina, visina,
+                                nazivProizvodaTextField.getText().toUpperCase(), jib, idGrupe, duzina, sirina, visina,
                                 velicina, uzrast, pol, boja, godisnjeDoba)) {
                             AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom upisa proizvoda u bazu.");
                         } else {
                             if (!daoUSkladiste.dodajProizvodUSkladiste(1, daoProizvod.idProizvoda(), kolicina)) {
                                 AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom dodavanja proizvoda u skladiste.");
                             }
-                            
-                            if (!daod.dodajProizvodUSkladiste(idDobavljaca, daoProizvod.idProizvoda())) {
+                            if (!daod.dodajUDobavljacProizvod(idDobavljaca, daoProizvod.idProizvoda())) {
                                 AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom povezivanja proizvoda i dobavljaca.");
+                            }
+                            DAOMaterijal daoMaterijal = new DAOMaterijal();
+                            int idMaterijala = daoMaterijal.idMaterijalaOdNaziva(materijaliComboBox.getSelectionModel().getSelectedItem());
+                            if (!daoMaterijal.dodajUbazuProizvodMaterijal(idMaterijala, daoProizvod.idProizvoda())) {
+                                AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom povezivanja proizvoda i materijala.");
                             }
                         }
                     }

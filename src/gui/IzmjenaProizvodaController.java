@@ -343,9 +343,14 @@ public class IzmjenaProizvodaController implements Initializable {
                 if (!daoUSkladiste.dodajProizvodUSkladiste(1, daoProizvod.idProizvoda(), kolicina)) {
                     AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom dodavanja proizvoda u skladiste.");
                 }
-                if (!daod.dodajProizvodUSkladiste(idDobavljaca, daoProizvod.idProizvoda())) {
+                if (!daod.dodajUDobavljacProizvod(idDobavljaca, daoProizvod.idProizvoda())) {
                     AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom povezivanja proizvoda i dobavljaca.");
                 }
+             /* DAOMaterijal daoMaterijal = new DAOMaterijal();
+                int idMaterijala = daoMaterijal.idMaterijalaOdNaziva(materijaliComboBox.getSelectionModel().getSelectedItem());
+                if (!daoMaterijal.dodajUbazuProizvodMaterijal(idMaterijala, daoProizvod.idProizvoda())) {
+                    AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom povezivanja proizvoda i materijala.");
+                }*/
             }
 
         }

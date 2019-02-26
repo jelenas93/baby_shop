@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 
 public class DAODobavljacProizvod {
     
-    public boolean dodajProizvodUSkladiste(int idDobavljaca,int idProizvoda){
+    public boolean dodajUDobavljacProizvod(int idDobavljaca,int idProizvoda){
         Connection con = null;
         PreparedStatement myStatement = null;
         try {
