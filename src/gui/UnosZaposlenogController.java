@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -87,10 +88,12 @@ public class UnosZaposlenogController implements Initializable {
         if ("".equals(jmbgTextField.getText()) || "".equals(imeTextField.getText()) || "".equals(prezimeTextField.getText())
                 || "".equals(plataTextField.getText()) || "".equals(mejlTextField.getText())
                 || mjestoComboBox.getSelectionModel().isEmpty()
-                || tipZaposlenogComboBox.getSelectionModel().isEmpty() || "".equals(korisnickoImeTextField.getText()) || "".equals(lozinkaTextField.getText())) {
+                || tipZaposlenogComboBox.getSelectionModel().isEmpty() || "".equals(korisnickoImeTextField.getText())
+                || "".equals(lozinkaTextField.getText())) {
             AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste ispravno unijeli podatke.");
-        } else {
-
+        } else if (!Pattern.matches("[0-9]{13}", jmbgTextField.getText())) {
+            AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Neispravan JMBG!");}
+        else {
             DAOZaposleni daoZaposleni = new DAOZaposleni();
             int idZaposlenog = daoZaposleni.dodajZaposlenog(imeTextField.getText(),
                     prezimeTextField.getText(), jmbgTextField.getText(),

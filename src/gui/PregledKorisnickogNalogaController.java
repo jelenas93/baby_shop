@@ -45,7 +45,6 @@ public class PregledKorisnickogNalogaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         korisnickoImeTableColumn.setCellValueFactory(new PropertyValueFactory("korisnickoIme"));
         imeZaposlenogTableColumn.setCellValueFactory(new PropertyValueFactory("ime"));
         prezimeZaposlenogTableColumn.setCellValueFactory(new PropertyValueFactory("prezime"));
@@ -92,6 +91,8 @@ public class PregledKorisnickogNalogaController implements Initializable {
         } else {
             DTOKorisnikWrapper nalog = korisnickiNalogTableView.getSelectionModel().getSelectedItem();
             DAOKorisnickiNalog.deaktivirajNalog(nalog.getIdNaloga(), nalog.getIdZaposlenog());
+            nalozi = FXCollections.observableArrayList(DAOKorisnikWrapper.getKorisnickiNaloziWrappers());
+            korisnickiNalogTableView.setItems(nalozi);
             korisnickiNalogTableView.refresh();
         }
     }

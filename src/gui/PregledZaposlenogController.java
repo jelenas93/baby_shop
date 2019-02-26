@@ -124,6 +124,8 @@ public class PregledZaposlenogController implements Initializable {
         window.showAndWait();
         zaposleni = FXCollections.observableArrayList(DAOZaposleni.getZaposleni());
         zaposleniTableView.setItems(zaposleni);
+        // PregledKorisnickogNalogaController.korisnickiNalogTableView.refresh();
+
     }
 
 }
