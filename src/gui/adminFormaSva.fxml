@@ -5,29 +5,35 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="897.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AdminFormaSvaController">
-    <stylesheets>
-        <URL value="@adminforma.css" />
-    </stylesheets>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="960.0" prefWidth="1542.0" style="-fx-background-color: #e7d3d3;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <JFXTabPane side="LEFT" tabMinWidth="52.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <tabs>
-            <Tab text="Pregled zaposlenih">
-              <content>
-                 <fx:include fx:id="pregledZaposlenih" source="pregledZaposlenog.fxml" />
-              </content>
-            </Tab>
-            <Tab text="Pregled naloga">
-              <content>
-                 <fx:include fx:id="pregledNaloga" source="pregledKorisnickogNaloga.fxml" />
-              </content>
-            </Tab>
-             <Tab text="Pregled proizvoda">
-               <content>
-                <fx:include fx:id="proba" source="PregledProizvodaDetaljno.fxml" />
-            </content>
-            </Tab>
-         </tabs>
-      </JFXTabPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #633636;" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="50.0" />
+      <AnchorPane id="AnchorPane" prefHeight="897.0" prefWidth="1600.0" style="-fx-background-color: #d2adad;" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="100.0">
+         <stylesheets>
+            <URL value="@adminforma.css" />
+         </stylesheets>
+         <children>
+            <JFXTabPane side="LEFT" tabMinWidth="52.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <tabs>
+                  <Tab text="Pregled zaposlenih">
+                     <content>
+                        <fx:include fx:id="pregledZaposlenih" source="pregledZaposlenog.fxml" />
+                     </content>
+                  </Tab>
+                  <Tab text="Pregled naloga">
+                     <content>
+                        <fx:include fx:id="pregledNaloga" source="pregledKorisnickogNaloga.fxml" />
+                     </content>
+                  </Tab>
+                  <Tab text="Pregled proizvoda">
+                     <content>
+                        <fx:include fx:id="proba" source="PregledProizvodaDetaljno.fxml" />
+                     </content>
+                  </Tab>
+               </tabs>
+            </JFXTabPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="200.0" prefWidth="50.0" style="-fx-background-color: #d2adad;" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="100.0" />
    </children>
 </AnchorPane>

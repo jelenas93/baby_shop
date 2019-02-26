@@ -26,6 +26,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.bouncycastle.operator.OperatorCreationException;
 
 public class PrijavaNaSistemController implements Initializable {
@@ -100,7 +101,7 @@ public class PrijavaNaSistemController implements Initializable {
                         Scene korisnikScena = new Scene(korisnikView);
                         window.setScene(korisnikScena);
                         window.centerOnScreen();
-                        //window.initModality(Modality.APPLICATION_MODAL);
+                        window.initStyle(StageStyle.UNDECORATED);
                         window.showAndWait();
                     } else if ("Poslovođa".equals(nalog.getTipKorisnika())) {
                       //  PoslovodjaController.idZaposlenog = nalog.getIdZaposlenog();
@@ -117,7 +118,7 @@ public class PrijavaNaSistemController implements Initializable {
                     } else if ("Kasir".equals(nalog.getTipKorisnika())) {
                       //  KasirFormaController.idKasira = nalog.getIdZaposlenog();
                         ((Node) event.getSource()).getScene().getWindow().hide();
-                        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/kasa.fxml"));
+                        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/kasirForma.fxml"));
                         Stage window = new Stage();
                         window.getIcons().add(new Image("file:" + String.valueOf(Paths.get(System.getProperty("user.dir"), "logo.jpg"))));
                         Scene korisnikScena = new Scene(korisnikView);
