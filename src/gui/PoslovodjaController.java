@@ -21,8 +21,13 @@ public class PoslovodjaController implements Initializable {
     }    
     
     @FXML
-    private void odjavaStisak(ActionEvent event) throws IOException {
-       System.exit(0);
+    private void odjava(ActionEvent event) throws IOException {
+        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/prijavaNaSistem.fxml"));
+        Scene korisnikScena = new Scene(korisnikView);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(korisnikScena);
+        window.centerOnScreen();
+        window.show();
     }
     
 }

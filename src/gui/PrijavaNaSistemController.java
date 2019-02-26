@@ -35,7 +35,7 @@ public class PrijavaNaSistemController implements Initializable {
     private JFXPasswordField lozinkaField;
     @FXML
     private JFXTextField korisnickoImeTextField;
-    
+
     public static int idZaposlenog;
 
     @Override
@@ -60,8 +60,8 @@ public class PrijavaNaSistemController implements Initializable {
             String korisnickoIme = korisnickoImeTextField.getText();
             DTOKorisnickiNalog nalog = DAOKorisnickiNalog.getKorisnickiNalozi().stream().filter(x -> korisnickoIme.equals(x.getKorisnickoIme())).findAny().orElse(null);
             if (nalog != null) {
-                
-                idZaposlenog=nalog.getIdZaposlenog();
+
+                idZaposlenog = nalog.getIdZaposlenog();
                 int byteCounter = 0;
                 byte[] hesLozinkeIzdvojenIzBaze = new byte[32];
                 byte[] hesLozinkeISaltIzBaze = nalog.getLozinka();
@@ -92,41 +92,26 @@ public class PrijavaNaSistemController implements Initializable {
 
                     //AlertHelper.showAlert(Alert.AlertType.INFORMATION, "", "Uspješna prijava.");
                     if ("Administrator".equals(nalog.getTipKorisnika())) {
-                    //    AdminFormaSvaController.idAdmina = nalog.getIdZaposlenog();
-                        ((Node) event.getSource()).getScene().getWindow().hide();
                         Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/adminFormaSva.fxml"));
-                        Stage window = new Stage();
-                        window.getIcons().add(new Image("file:" + String.valueOf(Paths.get(System.getProperty("user.dir"), "logo.jpg"))));
-
                         Scene korisnikScena = new Scene(korisnikView);
+                        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                         window.setScene(korisnikScena);
                         window.centerOnScreen();
-                        window.initStyle(StageStyle.UNDECORATED);
-                        window.showAndWait();
+                        window.show();
                     } else if ("Poslovođa".equals(nalog.getTipKorisnika())) {
-                      //  PoslovodjaController.idZaposlenog = nalog.getIdZaposlenog();
-                        ((Node) event.getSource()).getScene().getWindow().hide();
-                        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/poslovodja.fxml"));
-                        Stage window = new Stage();
-                        window.getIcons().add(new Image("file:" + String.valueOf(Paths.get(System.getProperty("user.dir"), "logo.jpg"))));
+                       Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/poslovodja.fxml"));
                         Scene korisnikScena = new Scene(korisnikView);
-                        // window.resizableProperty().setValue(Boolean.FALSE);
+                        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                         window.setScene(korisnikScena);
                         window.centerOnScreen();
-                        // window.initModality(Modality.APPLICATION_MODAL);
-                        window.showAndWait();
+                        window.show();
                     } else if ("Kasir".equals(nalog.getTipKorisnika())) {
-                      //  KasirFormaController.idKasira = nalog.getIdZaposlenog();
-                        ((Node) event.getSource()).getScene().getWindow().hide();
                         Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/kasirForma.fxml"));
-                        Stage window = new Stage();
-                        window.getIcons().add(new Image("file:" + String.valueOf(Paths.get(System.getProperty("user.dir"), "logo.jpg"))));
                         Scene korisnikScena = new Scene(korisnikView);
-                        // window.resizableProperty().setValue(Boolean.FALSE);
+                        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                         window.setScene(korisnikScena);
                         window.centerOnScreen();
-                        //window.initModality(Modality.APPLICATION_MODAL);
-                        window.showAndWait();
+                        window.show();
                     }
                 }
             } else {
