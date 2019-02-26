@@ -58,4 +58,75 @@ public class DAOMaterijal{
         return FXCollections.observableArrayList(materijali);
     }
     
+    public int idMaterijalaOdIdProizvoda(int idProizvoda){
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        int idMaterijala=0;
+        try {
+            con = ConnectionPool.getInstance().checkOut();
+            ps = con.prepareStatement("select IdMaterijala from baby_shop.proizvod_materijal where IdProizvoda like '" + idProizvoda + "%'");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                    idMaterijala = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOGrupaProizvod.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (con != null) {
+                ConnectionPool.getInstance().checkIn(con);
+            }
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOGrupaProizvod.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOGrupaProizvod.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return idMaterijala;
+    }
+    
+    public String nazivMaterijalaOdId(int idMaterijala){
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String nazivMaterijala="";
+        try {
+            con = ConnectionPool.getInstance().checkOut();
+            ps = con.prepareStatement("select Naziv from baby_shop.materijal where IdMaterijala like '" + idMaterijala + "%'");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                    nazivMaterijala = rs.getString(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOGrupaProizvod.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (con != null) {
+                ConnectionPool.getInstance().checkIn(con);
+            }
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOGrupaProizvod.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOGrupaProizvod.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return nazivMaterijala;
+    }
 }

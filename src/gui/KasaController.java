@@ -407,6 +407,7 @@ public class KasaController implements Initializable {
     public void pronadjiRacunZaStorniranje() {
         int idRacuna = Integer.parseInt(brojRacunaTextField.getText());
         DTORacun racunZaStorniranje = new DAORacun().vratiRacunPoId(idRacuna);
+        if(racunZaStorniranje!=null){
         if(!racunZaStorniranje.getStorniran()){
         listaStavki = new DAOStavka().stavkeNaRacunu(idRacuna);
         barkodKolona.setCellValueFactory(new PropertyValueFactory<>("barkod"));
@@ -424,6 +425,9 @@ public class KasaController implements Initializable {
         ukupnaCijenaLabel.setText(String.format("%.2f", racunZaStorniranje.getUkupnaCijena()));
         }else{
             AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Račun je već storniran.");
+        }
+        }else{
+            AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Broj računa ne postoji.");
         }
     }
 

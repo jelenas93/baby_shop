@@ -154,5 +154,41 @@ public class DAOGrupaProizvod {
         }
         return true;
     }
+    
+    public String getNazivGrupeOdIdGrupe(int idGrupe) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String nazivGrupe="";
+        try {
+            con = ConnectionPool.getInstance().checkOut();
+            ps = con.prepareStatement("select NazivTipaProizvoda from baby_shop.proizvod_grupa where IdGrupe like '" + idGrupe + "%'");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                    nazivGrupe = rs.getString(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOGrupaProizvod.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (con != null) {
+                ConnectionPool.getInstance().checkIn(con);
+            }
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOGrupaProizvod.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOGrupaProizvod.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return nazivGrupe;
+    }
 
 }

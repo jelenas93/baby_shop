@@ -2,14 +2,12 @@ package pdf;
 
 import com.itextpdf.kernel.color.Color;
 import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
 
-import com.itextpdf.kernel.font.PdfType1Font;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
-import static com.itextpdf.kernel.pdf.PdfName.FontFamily;
 import com.itextpdf.text.*;
 import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.border.Border;
 import com.itextpdf.layout.border.SolidBorder;
@@ -34,6 +32,7 @@ import tabele.TabelaKalkulacija;
 import tabele.TabelaNarudzba;
 import tabele.TabelaNarudzbenica;
 import com.itextpdf.text.*;
+import static com.itextpdf.text.pdf.PdfDictionary.FONT;
 import dao.DAODobavljac;
 import dao.DAOMjesto;
 import dao.DAOZaposleni;
@@ -45,6 +44,7 @@ import gui.PrijavaNaSistemController;
 import java.util.Date;
 
 public class PDF {
+    public static final String FONT = "./src/FreeSans.ttf";
 
     public static String kreirajFajlRacun(ArrayList<DTOStavka> stavke, DTORacun racun) {
 
@@ -56,12 +56,14 @@ public class PDF {
             PdfDocument pdfDoc = new PdfDocument(new PdfWriter("./racuni/racun" + racun.getIdRacuna() + ".pdf"));
 
             try (Document doc = new Document(pdfDoc, PageSize.A5)) {
-                BaseFont bf = BaseFont.createFont(FontFactory.HELVETICA, "CP1250", BaseFont.EMBEDDED);
-                Font moj = new Font(bf, 12, Font.BOLD);
-                doc.add(new Paragraph("Baby shop"));
+                BaseFont bf = BaseFont.createFont(BaseFont.HELVETICA, "CP1250", BaseFont.EMBEDDED);
+                //Font moj = new Font(bf);
+                PdfFont moj;
+                moj = PdfFontFactory.createFont(FONT, "Cp1250", true);
+                doc.add(new Paragraph("Baby shop").setFont(moj));
                 doc.add(new Paragraph("Datum: " + vrijeme + " " + sat + ":" + min + ":" + sek));
                 doc.add(new Paragraph("\n"));
-                doc.add(new Paragraph("Maloprodajni račun").setTextAlignment(TextAlignment.CENTER));
+                doc.add(new Paragraph("Maloprodajni račun").setTextAlignment(TextAlignment.CENTER).setFont(moj));
                 Border b1 = new SolidBorder(Color.WHITE, Float.MIN_VALUE);
                 float[] pointColumnWidthss = {1000F, 1000F, 1000F, 1000F};
                 Table tablee = new Table(pointColumnWidthss);
@@ -71,7 +73,7 @@ public class PDF {
                 c11.setTextAlignment(TextAlignment.LEFT);
                 tablee.addCell(c11);
                 Cell c22 = new Cell();
-                c22.add("Količina");
+                c22.add("Količina").setFont(moj);
                 c22.setBorder(b1);
                 c22.setTextAlignment(TextAlignment.CENTER);
                 tablee.addCell(c22);
@@ -94,19 +96,20 @@ public class PDF {
                     c1.add(new DAOProizvod().getProizvodPoId(stavke.get(i).getIdProizvoda()).getNaziv());
                     c1.setBorder(b1);
                     c1.setTextAlignment(TextAlignment.LEFT);
+                    c1.setFont(moj);
                     table.addCell(c1);
                     Cell c2 = new Cell();
-                    c2.add(String.valueOf(stavke.get(i).getKolicina()));
+                    c2.add(String.format("%d",stavke.get(i).getKolicina()));
                     c2.setBorder(b1);
                     c2.setTextAlignment(TextAlignment.CENTER);
                     table.addCell(c2);
                     Cell c3 = new Cell();
-                    c3.add(String.valueOf(stavke.get(i).getCijena()));
+                    c3.add(String.format("%.2f",stavke.get(i).getCijena()));
                     c3.setBorder(b1);
                     c3.setTextAlignment(TextAlignment.CENTER);
                     table.addCell(c3);
                     Cell c4 = new Cell();
-                    c4.add(String.valueOf(stavke.get(i).getCijena() * stavke.get(i).getKolicina()));
+                    c4.add(String.format("%.2f",stavke.get(i).getCijena() * stavke.get(i).getKolicina()));
                     c4.setBorder(b1);
                     c4.setTextAlignment(TextAlignment.RIGHT);
                     table.addCell(c4);
@@ -140,6 +143,7 @@ public class PDF {
                 Cell ce31 = new Cell();
                 ce31.add("Ukupno za plaćanje: ");
                 ce31.setBorder(b1);
+                ce31.setFont(moj);
                 tabela.addCell(ce31);
                 Cell ce32 = new Cell();
                 ce32.add(String.format("%.2f", racun.getUkupnaCijena()));
@@ -171,7 +175,10 @@ public class PDF {
             PdfDocument pdfDoc = new PdfDocument(new PdfWriter("./narudzbenice/narudzba" + vrijemeNarudzbe + " " + satNarudzbe + "h" + minNarudzbe + "min" + sekNarudzbe + "s" + nazivDobavljaca + ".pdf"));
 
             try (Document doc = new Document(pdfDoc)) {
-
+                BaseFont bf = BaseFont.createFont(BaseFont.HELVETICA, "CP1250", BaseFont.EMBEDDED);
+                //Font moj = new Font(bf);
+                PdfFont moj;
+                moj = PdfFontFactory.createFont(FONT, "Cp1250", true);
                 doc.add(new Paragraph("Datum: " + vrijemeNarudzbe + " " + satNarudzbe + ":" + minNarudzbe + ":" + sekNarudzbe));
 
                 Table table = new Table(4);
@@ -181,7 +188,8 @@ public class PDF {
                 k1.setBorderLeft(borderGray);
                 k1.setBorderRight(borderGray);
                 k1.setBackgroundColor(Color.LIGHT_GRAY);
-                k1.add("Sifra");
+                k1.add("Šifra");
+                k1.setFont(moj);
                 table.addCell(k1);
                 
                 Cell k2 = new Cell();
@@ -202,7 +210,9 @@ public class PDF {
                 k4.setBorderLeft(borderGray);
                 k4.setBorderRight(borderGray);
                 k4.setBackgroundColor(Color.LIGHT_GRAY);
-                k4.add("Naruceno");
+                k4.add("Naručeno");
+                k4.setFont(moj);
+                
                 table.addCell(k4);
                 
                 for (int i = 0; i < stavke.size(); i++) {
@@ -223,6 +233,7 @@ public class PDF {
                     p3.setBorderLeft(border);
                     p3.setBorderRight(border);
                     p3.add(stavke.get(i).getNaziv());
+                    p3.setFont(moj);
                     table.addCell(p3);
                     
                     Cell p4=new Cell();
@@ -235,6 +246,10 @@ public class PDF {
 
                 doc.add(table);
                 return "./narudzbenice/narudzba" + vrijemeNarudzbe + " " + satNarudzbe + "h" + minNarudzbe + "min" + sekNarudzbe + "s" + nazivDobavljaca + ".pdf";
+            } catch (DocumentException ex) {
+                Logger.getLogger(PDF.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(PDF.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         } catch (FileNotFoundException ex) {
@@ -256,6 +271,10 @@ public class PDF {
             PdfDocument pdfDoc = new PdfDocument(new PdfWriter("./kalkulacija/kalkulacija_" + id + ".pdf"));
 
             try (Document doc = new Document(pdfDoc, PageSize.A4.rotate())) {
+                BaseFont bf = BaseFont.createFont(BaseFont.HELVETICA, "CP1250", BaseFont.EMBEDDED);
+                //Font moj = new Font(bf);
+                PdfFont moj;
+                moj = PdfFontFactory.createFont(FONT, "Cp1250", true);
                 doc.setFontSize(10);
                 Border border = new SolidBorder(Color.WHITE, Float.MIN_VALUE);
                 Paragraph prodavnica = new Paragraph("Poslovna jedinica BABY SHOP");
@@ -264,7 +283,7 @@ public class PDF {
                 idKalkulacije.setTextAlignment(TextAlignment.CENTER);
                 Paragraph vrijeme = new Paragraph("Vrijeme knjiženja: " + vrijemeKalkulacije + " " + satKalkulacije + ":" + minKalkulacije);
                 vrijeme.setTextAlignment(TextAlignment.RIGHT);
-
+                vrijeme.setFont(moj);
                 float[] pointColumnWidths = {500F, 500F, 500F};
                 Table tabela1 = new Table(pointColumnWidths);
                 tabela1.setBorder(border);
@@ -290,7 +309,7 @@ public class PDF {
                 Cell c6 = new Cell();
                 c6.setBorder(border);
                 DTOZaposleni k = DAOZaposleni.getZaposleniById(PrijavaNaSistemController.idZaposlenog);
-                c6.add(new Paragraph("Kalkulant: "+k.getIme()+" "+k.getPrezime()).setTextAlignment(TextAlignment.RIGHT));
+                c6.add(new Paragraph("Kalkulant: "+k.getIme()+" "+k.getPrezime()).setTextAlignment(TextAlignment.RIGHT).setFont(moj));
 
                 Cell c7 = new Cell();
                 c7.setBorder(border);
@@ -304,10 +323,10 @@ public class PDF {
 
                 Cell c10 = new Cell();
                 c10.setBorder(border);
-                c10.add("Dobavljač: " + nazivDobavljaca);
+                c10.add("Dobavljač: " + nazivDobavljaca).setFont(moj);
                 Cell c11 = new Cell();
                 c11.setBorder(border);
-                c11.add("Mjesto: " + mjesto.getNaziv());
+                c11.add("Mjesto: " + mjesto.getNaziv()).setFont(moj);
                 Cell c12 = new Cell();
                 c12.setBorder(border);
                 c12.add("");
@@ -347,7 +366,8 @@ public class PDF {
                 k2.setBorderLeft(borderGray);
                 k2.setBorderRight(borderGray);
                 k2.setBackgroundColor(Color.LIGHT_GRAY);
-                k2.add("Sifra");
+                k2.add("Šifra");
+                k2.setFont(moj);
                 table.addCell(k2);
                 //table.addCell("Barkod");
 
@@ -362,7 +382,7 @@ public class PDF {
                 k4.setBorderLeft(borderGray);
                 k4.setBorderRight(borderGray);
                 k4.setBackgroundColor(Color.LIGHT_GRAY);
-                k4.add("Kolicina");
+                k4.add("Količina").setFont(moj);
                 table.addCell(k4);
 
                 Cell k5 = new Cell();
@@ -412,14 +432,14 @@ public class PDF {
                 k11.setBorderLeft(borderGray);
                 k11.setBorderRight(borderGray);
                 k11.setBackgroundColor(Color.LIGHT_GRAY);
-                k11.add("Marza %");
+                k11.add("Marža %").setFont(moj);
                 table.addCell(k11);
 
                 Cell k12 = new Cell();
                 k12.setBorderLeft(borderGray);
                 k12.setBorderRight(borderGray);
                 k12.setBackgroundColor(Color.LIGHT_GRAY);
-                k12.add("Marza iznos");
+                k12.add("Marža iznos").setFont(moj);
                 table.addCell(k12);
 
                 Cell k13 = new Cell();
@@ -477,7 +497,7 @@ public class PDF {
                     Cell p3 = new Cell();
                     p3.setBorderLeft(border);
                     p3.setBorderRight(border);
-                    p3.add(stavke.get(i).getNaziv());
+                    p3.add(stavke.get(i).getNaziv()).setFont(moj);
                     table.addCell(p3);
 
                     Cell p4 = new Cell();
@@ -570,6 +590,10 @@ public class PDF {
 
                 doc.add(table);
 
+            } catch (DocumentException ex) {
+                Logger.getLogger(PDF.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(PDF.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         } catch (FileNotFoundException ex) {
@@ -595,6 +619,10 @@ public class PDF {
             PdfDocument pdfDoc = new PdfDocument(new PdfWriter("./izvjestaji/poDobavljacu/izvjestaj_odDatuma_" + datum.format(datumOd) + "_doDatuma_" + datum.format(datumDo) + ".pdf"));
 
             try (Document doc = new Document(pdfDoc, PageSize.A4.rotate())) {
+                BaseFont bf = BaseFont.createFont(BaseFont.HELVETICA, "CP1250", BaseFont.EMBEDDED);
+                //Font moj = new Font(bf);
+                PdfFont moj;
+                moj = PdfFontFactory.createFont(FONT, "Cp1250", true);
                 doc.setFontSize(10);
                 Paragraph prodavnica = new Paragraph("Poslovna jedinica BABY SHOP");
                 prodavnica.setTextAlignment(TextAlignment.LEFT);
@@ -602,17 +630,17 @@ public class PDF {
                 doc.add(prodavnica);
                 Paragraph prazanRed = new Paragraph("\n");
                 doc.add(prazanRed);
-                Paragraph izvjestaj = new Paragraph("Izvjestaj o prodaji artikala po dobavljacu za razdoblje od " + datum.format(datumOd) + " do " + datum.format(datumDo));
+                Paragraph izvjestaj = new Paragraph("Izvještaj o prodaji artikala po dobavljaču za razdoblje od " + datum.format(datumOd) + " do " + datum.format(datumDo)).setFont(moj);
                 izvjestaj.setTextAlignment(TextAlignment.CENTER);
                 izvjestaj.setBold();
                 izvjestaj.setFontSize(20);
                 doc.add(izvjestaj);
 
                 doc.add(prazanRed);
-                Paragraph dobavljac = new Paragraph("JIB Dobavljaca: " + new DAODobavljac().getJIBPoId(idDobavljaca));
+                Paragraph dobavljac = new Paragraph("JIB Dobavljača: " + new DAODobavljac().getJIBPoId(idDobavljaca)).setFont(moj);
                 dobavljac.setFontSize(12);
                 doc.add(dobavljac);
-                Paragraph nazivDobavljaca = new Paragraph("Naziv dobavljaca: " + new DAODobavljac().getNazivPoId(idDobavljaca));
+                Paragraph nazivDobavljaca = new Paragraph("Naziv dobavljača: " + new DAODobavljac().getNazivPoId(idDobavljaca)).setFont(moj);
                 nazivDobavljaca.setFontSize(12);
                 doc.add(nazivDobavljaca);
                 doc.add(prazanRed);
@@ -631,7 +659,7 @@ public class PDF {
                 c2.setBorderLeft(borderGray);
                 c2.setBorderRight(borderGray);
                 c2.setBackgroundColor(Color.LIGHT_GRAY);
-                c2.add("Sifra proizvoda");
+                c2.add("Šfra proizvoda").setFont(moj);
                 table.addCell(c2);
 
                 Cell c3 = new Cell();
@@ -652,7 +680,7 @@ public class PDF {
                 c5.setBorderLeft(borderGray);
                 c5.setBorderRight(borderGray);
                 c5.setBackgroundColor(Color.LIGHT_GRAY);
-                c5.add("Kolicina proizvoda");
+                c5.add("Količina proizvoda").setFont(moj);
                 table.addCell(c5);
 
                 Cell c7 = new Cell();
@@ -711,7 +739,7 @@ public class PDF {
                     Cell p4 = new Cell();
                     p4.setBorderLeft(border);
                     p4.setBorderRight(border);
-                    p4.add(proizvodi.get(i).getNazivProizvoda());
+                    p4.add(proizvodi.get(i).getNazivProizvoda()).setFont(moj);
                     table.addCell(p4);
 
                     Cell p5 = new Cell();
@@ -750,6 +778,10 @@ public class PDF {
                     table.addCell(p6);
                 }
                 doc.add(table);
+            } catch (DocumentException ex) {
+                Logger.getLogger(PDF.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(PDF.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         } catch (FileNotFoundException ex) {

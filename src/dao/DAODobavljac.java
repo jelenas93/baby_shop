@@ -390,4 +390,41 @@ public class DAODobavljac {
         }
         return rezultat;
     }
+     
+     public int IdDobavljacaOdIdProizvoda(int idProizvoda){
+         Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        int rezultat=0;
+        try {
+            con = ConnectionPool.getInstance().checkOut();
+            ps = con.prepareStatement("select IdDobavljaca from baby_shop.dobavljac where IdProizvoda like'"+idProizvoda+"%'");
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                rezultat=rs.getInt("IdDobavljaca");
+               }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAODobavljac.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (con != null) {
+                ConnectionPool.getInstance().checkIn(con);
+            }
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAODobavljac.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAODobavljac.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return rezultat;
+     }
 }

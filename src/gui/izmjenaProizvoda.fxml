@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="832.0" prefWidth="809.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="gui.IzmjenaProizvodaController">
+   <children>
+      <GridPane alignment="CENTER" layoutY="30.0" prefHeight="802.0" prefWidth="830.0">
+         <columnConstraints>
+            <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="384.0" minWidth="10.0" prefWidth="384.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="499.0" minWidth="0.0" prefWidth="386.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="121.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="158.0" minHeight="0.0" prefHeight="45.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="152.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="152.0" minHeight="0.0" prefHeight="45.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="140.0" minHeight="0.0" prefHeight="44.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="319.0" minHeight="10.0" prefHeight="300.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="85.0" minHeight="10.0" prefHeight="83.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label text="Tip proizvoda:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="70.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Naziv proizvoda:" GridPane.rowIndex="1">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="70.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+            </Label>
+            <HBox prefHeight="24.0" prefWidth="346.0" GridPane.columnIndex="1">
+               <children>
+                  <JFXComboBox fx:id="tipProizvodaComboBox" focusColor="BLACK" onAction="#comboBoxTip" prefHeight="40.0" prefWidth="325.0">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </JFXComboBox>
+                  <JFXButton onAction="#dodajTipStisak" text=" " HBox.hgrow="ALWAYS">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="PLUS" size="30" />
+                     </graphic>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" top="5.0" />
+                     </HBox.margin>
+                     <tooltip>
+                        <Tooltip text="Dodajte novi tip proizvoda" />
+                     </tooltip>
+                  </JFXButton>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </HBox>
+            <JFXTextField fx:id="nazivProizvodaTextField" alignment="CENTER" focusColor="BLACK" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="35.0" right="30.0" top="10.0" />
+               </GridPane.margin>
+            </JFXTextField>
+            <Label text="JIB Proizvođača:" GridPane.rowIndex="2">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="70.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+            </Label>
+            <HBox prefHeight="51.0" prefWidth="131.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <children>
+                  <JFXComboBox fx:id="JIBProizvodjacaComboBox" prefHeight="40.0" prefWidth="325.0">
+                     <padding>
+                        <Insets bottom="5.0" right="5.0" top="5.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </JFXComboBox>
+                  <JFXButton onAction="#dodajProizvodjaca" text=" ">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="PLUS" size="30" />
+                     </graphic>
+                     <tooltip>
+                        <Tooltip text="Dodajte novog proizvodjača" />
+                     </tooltip>
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" top="5.0" />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </JFXButton>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </HBox>
+            <Label prefHeight="37.0" prefWidth="173.0" text="Izbor materijala:" GridPane.rowIndex="4">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="70.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+            </Label>
+            <JFXComboBox fx:id="materijaliComboBox" focusColor="BLACK" prefHeight="41.0" prefWidth="307.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets bottom="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets bottom="5.0" right="5.0" top="5.0" />
+               </padding>
+            </JFXComboBox>
+            <Label fx:id="osobineLabel" text="Osobine proizvoda:" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="70.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7">
+               <children>
+                  <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#sacuvajStisak" prefHeight="50.0" prefWidth="150.0" text="Sačuvaj" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </JFXButton>
+                  <Region />
+                  <JFXButton alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#otkaziStisak" prefHeight="50.0" prefWidth="150.0" text="Otkaži" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </JFXButton>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </HBox>
+            <VBox fx:id="vboxLabel" prefHeight="343.0" prefWidth="346.0" spacing="20.0" GridPane.rowIndex="6">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="70.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+            </VBox>
+            <VBox fx:id="vboxTextField" alignment="TOP_CENTER" prefHeight="363.0" prefWidth="366.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
+               </GridPane.margin>
+            </VBox>
+            <Label text=" JIB Dobavljača:" GridPane.rowIndex="3">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="70.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+            </Label>
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <children>
+                  <JFXComboBox fx:id="dobavljacComboBox" prefHeight="40.0" prefWidth="325.0">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </JFXComboBox>
+                  <JFXButton onAction="#dodajDobavljaca" style="-fx-background-color: transparent;" text=" ">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="PLUS" size="30" />
+                     </graphic>
+                     <tooltip>
+                        <Tooltip text="Dodajte dobavljača" />
+                     </tooltip>
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" top="5.0" />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </JFXButton>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </GridPane>
+   </children>
+</AnchorPane>
