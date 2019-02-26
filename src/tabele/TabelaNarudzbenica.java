@@ -1,14 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tabele;
 
-/**
- *
- * @author Jovana Trkulja
- */
 public class TabelaNarudzbenica {
     
      private String sifra, naziv;
@@ -23,8 +14,6 @@ public class TabelaNarudzbenica {
         this.naziv=naziv;
         this.naruceno= naruceno; 
         this.barKod=barKod;
-    
-    
     }  
      public String getBarKod() {
         return barKod;

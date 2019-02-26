@@ -1,44 +1,32 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tabele;
 
-/**
- *
- * @author Jovana Trkulja
- */
 public class TabelaNarudzba {
-     private String barKod, sifra, naziv;
-      private Double cijena;
-      private int stanje;
-      
-      
-      public TabelaNarudzba() {} 
-      
-      public TabelaNarudzba(String sifra, String barKod, String naziv, Double cijena ,int stanje )  
-      {  
-      this.sifra=sifra;
-      this.barKod=barKod;
-      this.naziv=naziv;
-      this.cijena=cijena;
-      this.stanje=stanje;
-      
-      
-      }
-      
-      
-      public Integer getStanje() {
+
+    private String barKod, sifra, naziv;
+    private Double cijena;
+    private int stanje;
+
+    public TabelaNarudzba() {
+    }
+
+    public TabelaNarudzba(String sifra, String barKod, String naziv, Double cijena, int stanje) {
+        this.sifra = sifra;
+        this.barKod = barKod;
+        this.naziv = naziv;
+        this.cijena = Double.parseDouble(String.format("%.2f", cijena));
+        this.stanje = stanje;
+
+    }
+
+    public Integer getStanje() {
         return stanje;
     }
 
     public void setStanje(Integer stanje) {
         this.stanje = stanje;
     }
-      
-      
-       public String getBarKod() {
+
+    public String getBarKod() {
         return barKod;
     }
 
@@ -67,8 +55,7 @@ public class TabelaNarudzba {
     }
 
     public void setCijena(Double cijena) {
-        this.cijena = cijena;
+        this.cijena = Double.parseDouble(String.format("%.2f", cijena));
     }
-      
-      
+
 }

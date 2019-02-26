@@ -12,8 +12,8 @@ public class TabelaKasa {
         this.sifra = sifra;
         this.naziv = naziv;
         this.kolicina = kolicina;
-        this.cijena = cijena;
-        this.vrijednost = vrijednost;
+        this.cijena = Double.parseDouble(String.format("%.2f", cijena));
+        this.vrijednost = Double.parseDouble(String.format("%.2f", vrijednost));
     }
 
     public String getBarkod() {
@@ -53,7 +53,7 @@ public class TabelaKasa {
     }
 
     public void setCijena(Double cijena) {
-        this.cijena = cijena;
+        this.cijena = Double.parseDouble(String.format("%.2f", cijena));
     }
 
     public Double getVrijednost() {
@@ -61,7 +61,7 @@ public class TabelaKasa {
     }
 
     public void setVrijednost(Double vrijednost) {
-        this.vrijednost = vrijednost;
+        this.vrijednost = Double.parseDouble(String.format("%.2f", vrijednost));;
     }
 
     @Override

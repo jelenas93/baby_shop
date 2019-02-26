@@ -72,7 +72,7 @@ public class TabelaKalkulacija {
     }
 
     public void setFakturnaCijena(double fakturnaCijena) {
-        this.fakturnaCijena = fakturnaCijena;
+        this.fakturnaCijena = Double.parseDouble(String.format("%.2f", fakturnaCijena));;
     }
 
     public double getRabat() {
@@ -80,7 +80,7 @@ public class TabelaKalkulacija {
     }
 
     public void setRabat(double rabat) {
-        this.rabat = rabat;
+        this.rabat = Double.parseDouble(String.format("%.2f", rabat));;
     }
 
     public double getFakturnaVrijednostNaRabat() {
@@ -88,7 +88,7 @@ public class TabelaKalkulacija {
     }
 
     public void setFakturnaVrijednostNaRabat(double fakturnaVrijednostNaRabat) {
-        this.fakturnaVrijednostNaRabat = fakturnaVrijednostNaRabat;
+        this.fakturnaVrijednostNaRabat = Double.parseDouble(String.format("%.2f", fakturnaVrijednostNaRabat));
     }
 
     public double getNabavnaCijena() {
@@ -96,7 +96,7 @@ public class TabelaKalkulacija {
     }
 
     public void setNabavnaCijena(double nabavnaCijena) {
-        this.nabavnaCijena = nabavnaCijena;
+        this.nabavnaCijena = Double.parseDouble(String.format("%.2f", nabavnaCijena));
     }
 
     public double getNabavnaVrijednost() {
@@ -104,7 +104,7 @@ public class TabelaKalkulacija {
     }
 
     public void setNabavnaVrijednost(double nabavnaVrijednost) {
-        this.nabavnaVrijednost = nabavnaVrijednost;
+        this.nabavnaVrijednost = Double.parseDouble(String.format("%.2f", nabavnaVrijednost));
     }
 
     public double getMarza() {
@@ -112,7 +112,7 @@ public class TabelaKalkulacija {
     }
 
     public void setMarza(double marza) {
-        this.marza = marza;
+        this.marza = Double.parseDouble(String.format("%.2f", marza));
     }
 
     public double getMarzaIznos() {
@@ -120,7 +120,7 @@ public class TabelaKalkulacija {
     }
 
     public void setMarzaIznos(double marzaIznos) {
-        this.marzaIznos = marzaIznos;
+        this.marzaIznos = Double.parseDouble(String.format("%.2f", marzaIznos));
     }
 
     public double getVrijednostBezPdv() {
@@ -128,7 +128,7 @@ public class TabelaKalkulacija {
     }
 
     public void setVrijednostBezPdv(double vrijednostBezPdv) {
-        this.vrijednostBezPdv = vrijednostBezPdv;
+        this.vrijednostBezPdv = Double.parseDouble(String.format("%.2f", vrijednostBezPdv));
     }
 
     public int getStopa() {
@@ -152,7 +152,7 @@ public class TabelaKalkulacija {
     }
 
     public void setProdajnaVrijednost(double prodajnaVrijednost) {
-        this.prodajnaVrijednost = prodajnaVrijednost;
+        this.prodajnaVrijednost = Double.parseDouble(String.format("%.2f", prodajnaVrijednost));
     }
 
     public double getProdajnaCijena() {
@@ -160,7 +160,7 @@ public class TabelaKalkulacija {
     }
 
     public void setProdajnaCijena(double prodajnaCijena) {
-        this.prodajnaCijena = prodajnaCijena;
+        this.prodajnaCijena = Double.parseDouble(String.format("%.2f", prodajnaCijena));
     }
 
 }

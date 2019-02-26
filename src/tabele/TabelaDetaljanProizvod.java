@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tabele;
 
 public class TabelaDetaljanProizvod {
@@ -25,10 +20,10 @@ public class TabelaDetaljanProizvod {
         this.naziv = naziv;
         this.JIBProizvodjaca = JIBProizvodjaca;
         this.kolicina = kolicina;
-        this.cijena = cijena;
-        this.duzina = duzina;
-        this.sirina = sirina;
-        this.visina = visina;
+        this.cijena = Double.parseDouble(String.format("%.2f", cijena));
+        this.duzina = Double.parseDouble(String.format("%.2f", duzina));
+        this.sirina = Double.parseDouble(String.format("%.2f", sirina));
+        this.visina = Double.parseDouble(String.format("%.2f", visina));
         this.velicina = velicina;
         this.uzrast = uzrast;
         this.pol = pol;

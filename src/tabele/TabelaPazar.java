@@ -6,7 +6,8 @@ public class TabelaPazar {
 
     public TabelaPazar(String tipRacuna, Double iznos) {
         this.tipRacuna = tipRacuna;
-        this.iznos = iznos;
+        this.iznos = Double.parseDouble(String.format("%.2f", iznos));
+        
     }
 
     public String getTipRacuna() {
@@ -22,6 +23,6 @@ public class TabelaPazar {
     }
 
     public void setIznos(Double iznos) {
-        this.iznos = iznos;
+        this.iznos = Double.parseDouble(String.format("%.2f", iznos));
     } 
 }
