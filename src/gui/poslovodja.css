@@ -21,7 +21,7 @@
   -tab-pozadina                 :#dec3c3;
 }
 
-
+/*
 .menu-bar {
   -fx-background-color: -standard, -bright;
 }
@@ -67,7 +67,7 @@
 .titled-pane >.title:hover {
   -fx-background-color: -standard, derive(-bright, -10%);
 }
-
+*/
 .button{
   -fx-text-fill        : white;
   -fx-outer-border     : linear-gradient(to bottom, derive(-dark, 30%) 0%, derive(-dark, -30%) 100%);
@@ -95,7 +95,7 @@
 .button .text {
   -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.2), 1, 0, 0, 1);
 }
-
+/*
 .toggle-button{
   -fx-text-fill        : -text-color;
   -fx-outer-border     : linear-gradient(to bottom, derive(-standard, 30%) 0%, derive(-standard, -30%) 100%);
@@ -258,7 +258,7 @@
 .progress-indicator .percentage {
   -fx-fill: rgb(255, 255, 255);
 }
-
+*/
 .borders{
   -fx-border-color : rgba(255, 255, 255, .80);
   -fx-border-style : dotted;
