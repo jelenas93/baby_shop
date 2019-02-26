@@ -1,11 +1,13 @@
 package gui;
 
+import babyshop.AlertHelper;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -39,8 +41,12 @@ public class KusurController implements Initializable {
     @FXML
     void racunajKusur(ActionEvent event) {
         double kusur=0.0;
-        kusur=Double.parseDouble(uplacenoTextField.getText())-KasaController.ukupnoZaProsljedjivanje;
-        kusurLabel.setText(String.format("%.2f", kusur));
+        if(Double.parseDouble(uplacenoTextField.getText())<KasaController.ukupnoZaProsljedjivanje){
+            AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Kupac nije dao dovoljno novca!");
+        }else{
+            kusur=Double.parseDouble(uplacenoTextField.getText())-KasaController.ukupnoZaProsljedjivanje;
+            kusurLabel.setText(String.format("%.2f", kusur));
+        }
        // KasaController.ukupnoZaProsljedjivanje=0.0;
     }
 
