@@ -1,10 +1,13 @@
 package gui;
 
 import com.jfoenix.controls.JFXDatePicker;
+import com.sun.javafx.charts.Legend;
+import com.sun.prism.paint.Gradient;
 import dao.DAOIzvjestaj;
 import dto.DTOPazarIzvjestaj;
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -14,9 +17,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -27,35 +33,23 @@ import javafx.stage.Stage;
 public class PoslovodjaController implements Initializable {
 
     public static int idZaposlenog;
+   
     @FXML
-    public LineChart<Integer, Double> graf;
+    private BarChart<Integer, Double> bar;
     @FXML
-    public ComboBox<String> mjeseci;
+    private NumberAxis y;
     @FXML
-    public JFXDatePicker datumOd;
+    private CategoryAxis x;
     @FXML
-    public JFXDatePicker datumDo;
+    private ComboBox<String> mjeseci;
+    @FXML
+    private JFXDatePicker datumOd;
+    @FXML
+    private JFXDatePicker datumDo;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-      //  puniMjesece();
     }
-
- /*   private void puniMjesece() {
-        mjeseci.getItems().add("Januar");
-        mjeseci.getItems().add("Februar");
-        mjeseci.getItems().add("Mart");
-        mjeseci.getItems().add("April");
-        mjeseci.getItems().add("Maj");
-        mjeseci.getItems().add("Jun");
-        mjeseci.getItems().add("Jul");
-        mjeseci.getItems().add("Avgust");
-        mjeseci.getItems().add("Septembar");
-        mjeseci.getItems().add("Oktobar");
-        mjeseci.getItems().add("Novembar");
-        mjeseci.getItems().add("Decembar");
-
-    }*/
 
     @FXML
     private void prviGraf() {
@@ -63,20 +57,27 @@ public class PoslovodjaController implements Initializable {
         Date dateOd = Date.from(lokalOd.atStartOfDay(ZoneId.systemDefault()).toInstant());
         LocalDate lokalDo = datumDo.getValue();
         Date dateDo = Date.from(lokalDo.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        
+
         DAOIzvjestaj izvjestaj = new DAOIzvjestaj();
-        
-        graf.getXAxis().setAutoRanging(true);
-        graf.getYAxis().setAutoRanging(true);
-       
+        bar.setTitle("Promet pazara");
+
+        bar.getXAxis().setAutoRanging(true);
+        bar.getYAxis().setAutoRanging(true);
+        bar.setAnimated(false);
+        y.setLabel("KM");
+        x.setLabel("Dani");
+
         XYChart.Series series = new XYChart.Series<>();
         ArrayList<DTOPazarIzvjestaj> dtoPazari = new DAOIzvjestaj().pazariZaMjesec(dateOd, dateDo);
-         for(int i=0;i<dtoPazari.size();i++){
+        for (int i = 0; i < dtoPazari.size(); i++) {
             System.out.println(dtoPazari.get(i).getMjesec() + "  " + dtoPazari.get(i).getIznosZaMjesec());
-            series.getData().add(new XYChart.Data(""+dtoPazari.get(i).getMjesec(),dtoPazari.get(i).getIznosZaMjesec()));
+            series.getData().add(new XYChart.Data("" + dtoPazari.get(i).getMjesec(), dtoPazari.get(i).getIznosZaMjesec()));
         }
-       
-        graf.getData().add(series);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        series.setName("Pazar od " + sdf.format(dateOd) + " do " + sdf.format(dateDo));
+        bar.setLegendSide(Side.RIGHT);
+        bar.setLegendVisible(true);
+        bar.getData().add(series);
 
     }
 
