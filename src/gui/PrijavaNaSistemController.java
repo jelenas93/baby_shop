@@ -8,7 +8,6 @@ import dto.DTOKorisnickiNalog;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
@@ -26,7 +25,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import org.bouncycastle.operator.OperatorCreationException;
 
 public class PrijavaNaSistemController implements Initializable {
@@ -41,26 +39,25 @@ public class PrijavaNaSistemController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     }
+    
+     @FXML
+    private void prebaciNaLozinku(ActionEvent event) {
+        lozinkaField.requestFocus();
+    }
 
     @FXML
     private void prijavaButtonOnAction(ActionEvent event) throws CertificateException,
-            NoSuchAlgorithmException,
-            FileNotFoundException,
-            InvalidKeySpecException,
-            OperatorCreationException,
-            IOException {
-
+            NoSuchAlgorithmException, FileNotFoundException, InvalidKeySpecException,
+            OperatorCreationException, IOException {
         if (korisnickoImeTextField.getText().equals("") || lozinkaField.getText().equals("")) {
             AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Unesite podatke za prijavu na sistem.");
         } else {
-
             boolean nepostojeciNalog = false;
             boolean pogresnaLozinka = false;
             String unesenaLozinkaUFormu = lozinkaField.getText();
             String korisnickoIme = korisnickoImeTextField.getText();
             DTOKorisnickiNalog nalog = DAOKorisnickiNalog.getKorisnickiNalozi().stream().filter(x -> korisnickoIme.equals(x.getKorisnickoIme())).findAny().orElse(null);
             if (nalog != null) {
-
                 idZaposlenog = nalog.getIdZaposlenog();
                 int byteCounter = 0;
                 byte[] hesLozinkeIzdvojenIzBaze = new byte[32];
@@ -87,9 +84,9 @@ public class PrijavaNaSistemController implements Initializable {
                     pogresnaLozinka = true;
                     AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Unijeli ste pogrešnu lozinku. Molim Vas, pokušajte ponovo.");
                 } else {
-                    System.out.println("Administrator".equals(nalog.getTipKorisnika()));
+                    /*  System.out.println("Administrator".equals(nalog.getTipKorisnika()));
                     System.out.println(nalog.getTipKorisnika());
-
+                     */
                     //AlertHelper.showAlert(Alert.AlertType.INFORMATION, "", "Uspješna prijava.");
                     if ("Administrator".equals(nalog.getTipKorisnika())) {
                         Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/adminFormaSva.fxml"));
@@ -99,7 +96,7 @@ public class PrijavaNaSistemController implements Initializable {
                         window.centerOnScreen();
                         window.show();
                     } else if ("Poslovođa".equals(nalog.getTipKorisnika())) {
-                       Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/poslovodja.fxml"));
+                        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/poslovodja.fxml"));
                         Scene korisnikScena = new Scene(korisnikView);
                         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                         window.setScene(korisnikScena);
