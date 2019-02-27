@@ -15,7 +15,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="prodavacLabel" layoutX="159.0" layoutY="30.0" prefHeight="50.0" prefWidth="150.0" style="-fx-border-color: black;" text=" " textAlignment="CENTER" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="40.0">
+      <Label fx:id="prodavacLabel" layoutX="159.0" layoutY="30.0" prefHeight="50.0" prefWidth="150.0" style="-fx-border-color: black; -fx-background-color: #d6e0f5;" text=" " textAlignment="CENTER" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="40.0">
          <font>
             <Font size="18.0" />
          </font>
@@ -25,7 +25,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="datumLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="1062.0" layoutY="30.0" prefHeight="50.0" prefWidth="145.0" style="-fx-border-color: black;" textAlignment="CENTER" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="40.0">
+      <Label fx:id="datumLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="1062.0" layoutY="30.0" prefHeight="50.0" prefWidth="145.0" style="-fx-border-color: black; -fx-background-color: #d6e0f5;" textAlignment="CENTER" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="40.0">
          <font>
             <Font size="18.0" />
          </font>
@@ -55,7 +55,7 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <Button fx:id="brisanjeButton" alignment="CENTER" layoutX="813.0" layoutY="100.0" mnemonicParsing="false" onAction="#brisanjeSaRacuna" prefHeight="50.0" prefWidth="120.0" text="Brisanje" textAlignment="CENTER" AnchorPane.rightAnchor="330.0" AnchorPane.topAnchor="100.0">
+      <Button fx:id="brisanjeButton" alignment="CENTER" layoutX="813.0" layoutY="100.0" mnemonicParsing="false" onAction="#brisanjeSaRacuna" prefHeight="50.0" prefWidth="200.0" text="Briši artikal" textAlignment="CENTER" wrapText="true" AnchorPane.rightAnchor="330.0" AnchorPane.topAnchor="100.0">
          <font>
             <Font size="18.0" />
          </font>
@@ -73,27 +73,17 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Label layoutX="618.0" layoutY="582.0" prefHeight="50.0" prefWidth="170.0" text="Stanje na zalihama:" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="500.0">
+      <Label alignment="TOP_LEFT" contentDisplay="TOP" layoutX="1064.0" layoutY="621.0" prefHeight="99.0" prefWidth="158.0" text="UKUPNO ZA PLATITI:" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="78.0" AnchorPane.rightAnchor="283.0">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="891.0" layoutY="572.0" prefHeight="50.0" prefWidth="100.0" text="UKUPNO:" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="190.0">
+      <Label fx:id="ukupnaCijenaLabel" alignment="CENTER" layoutX="1056.0" layoutY="568.0" prefHeight="137.0" prefWidth="233.0" style="-fx-background-color: #d6e0f5; -fx-border-color: black;" textAlignment="CENTER" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="40.0">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font size="60.0" />
          </font>
       </Label>
-      <Label fx:id="ukupnaCijenaLabel" alignment="CENTER" layoutX="1056.0" layoutY="568.0" prefHeight="50.0" prefWidth="145.0" style="-fx-background-color: #bcaaa4; -fx-border-color: black;" textAlignment="CENTER" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="40.0">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label fx:id="stanjeLabel" layoutX="769.0" layoutY="582.0" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: #bcaaa4; -fx-border-color: black;" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="350.0">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Button fx:id="storniranjeButton" alignment="CENTER" contentDisplay="CENTER" layoutX="322.0" layoutY="641.0" mnemonicParsing="false" onAction="#stornirajRacun" prefHeight="50.0" prefWidth="200.0" text="Storniranje računa" textAlignment="CENTER" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="320.0">
+      <Button fx:id="storniranjeButton" alignment="CENTER" contentDisplay="CENTER" layoutX="322.0" layoutY="641.0" mnemonicParsing="false" onAction="#stornirajRacun" prefHeight="50.0" prefWidth="200.0" text="Storniraj račun" textAlignment="CENTER" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="320.0">
          <font>
             <Font size="18.0" />
          </font>
@@ -104,12 +94,12 @@
          </font>
       </TextField>
       <Label layoutX="55.0" layoutY="666.0" prefHeight="50.0" prefWidth="100.0" text="Broj računa za storniranje:" textAlignment="CENTER" underline="true" wrapText="true" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="40.0" />
-      <Button fx:id="razduzenjeButton" alignment="CENTER" contentDisplay="CENTER" layoutX="40.0" layoutY="708.0" mnemonicParsing="false" onAction="#razduziRacun" prefHeight="50.0" prefWidth="120.0" text="Razduženje" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0">
+      <Button fx:id="razduzenjeButton" alignment="CENTER" contentDisplay="CENTER" layoutX="40.0" layoutY="708.0" mnemonicParsing="false" onAction="#razduziRacun" prefHeight="50.0" prefWidth="247.0" text="Zaključi kasu" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button layoutX="583.0" layoutY="628.0" mnemonicParsing="false" onAction="#ponisti" prefHeight="50.0" prefWidth="170.0" text="Poništi" AnchorPane.bottomAnchor="120.0">
+      <Button layoutX="320.0" layoutY="708.0" mnemonicParsing="false" onAction="#ponisti" prefHeight="50.0" prefWidth="200.0" text="Poništi unose" AnchorPane.bottomAnchor="40.0">
          <font>
             <Font size="18.0" />
          </font>

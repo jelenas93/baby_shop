@@ -40,11 +40,10 @@ public class PregledKorisnickogNalogaController implements Initializable {
     ObservableList<DTOKorisnikWrapper> nalozi;
 
     public PregledKorisnickogNalogaController() {
-        this.nalozi = FXCollections.observableArrayList(DAOKorisnikWrapper.getKorisnickiNaloziWrappers());
+      this.nalozi = FXCollections.observableArrayList(DAOKorisnikWrapper.getKorisnickiNaloziWrappers());
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void postavi(){
         korisnickoImeTableColumn.setCellValueFactory(new PropertyValueFactory("korisnickoIme"));
         imeZaposlenogTableColumn.setCellValueFactory(new PropertyValueFactory("ime"));
         prezimeZaposlenogTableColumn.setCellValueFactory(new PropertyValueFactory("prezime"));
@@ -52,6 +51,10 @@ public class PregledKorisnickogNalogaController implements Initializable {
         tipNalogaTableColumn.setCellValueFactory(new PropertyValueFactory("tipKorisnika"));
 
         korisnickiNalogTableView.setItems(nalozi);
+    }
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        postavi();
 
     }
 @FXML
