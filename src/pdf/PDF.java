@@ -169,8 +169,188 @@ public class PDF {
         }
         return "";
     }
-
+    
+    
+    
     public static String kreirajFajlNarudzbe(ObservableList<TabelaNarudzbenica> stavke, String nazivDobavljaca) {
+
+        try {
+            String vrijemeNarudzbe = new SimpleDateFormat("dd.MM.yyyy").format(Calendar.getInstance().getTime());
+            String satNarudzbe = new SimpleDateFormat("HH").format(Calendar.getInstance().getTime());
+            String minNarudzbe = new SimpleDateFormat("mm").format(Calendar.getInstance().getTime());
+            String sekNarudzbe = new SimpleDateFormat("ss").format(Calendar.getInstance().getTime());
+            PdfDocument pdfDoc = new PdfDocument(new PdfWriter("./narudzbenice/narudzba" + vrijemeNarudzbe + " " + satNarudzbe + "h" + minNarudzbe + "min" + sekNarudzbe + "s" + nazivDobavljaca + ".pdf"));
+
+            try (Document doc = new Document(pdfDoc)) {
+                
+                 doc.setFontSize(10);
+                Border border1 = new SolidBorder(Color.WHITE, Float.MIN_VALUE);
+                Paragraph prodavnica = new Paragraph("Poslovna jedinica BABY SHOP");
+                prodavnica.setTextAlignment(TextAlignment.LEFT);
+                Paragraph vrijeme = new Paragraph("" + vrijemeNarudzbe + " " + satNarudzbe + ":" + minNarudzbe + ":" + sekNarudzbe);
+                vrijeme.setTextAlignment(TextAlignment.LEFT);
+
+                float[] pointColumnWidths = {500F, 500F, 500F};
+                Table tabela1 = new Table(pointColumnWidths);
+                tabela1.setBorder(border1);
+                Cell c1 = new Cell();
+                c1.setBorder(border1);
+                c1.add(prodavnica);
+                 Cell c2 = new Cell();
+                c2.setBorder(border1);
+                c2.add(new Paragraph(""));
+                Cell c3 = new Cell();
+                c3.setBorder(border1);
+                c3.add(new Paragraph(""));
+
+                Cell c4 = new Cell();
+                c4.setBorder(border1);
+                c4.add(vrijeme);
+                
+                Cell c5 = new Cell();
+                c5.setBorder(border1);
+                c5.add(new Paragraph("NARUDZBA").setTextAlignment(TextAlignment.CENTER));
+                c5.setFontSize(15);
+                c5.setBold();
+                
+                 Cell c6 = new Cell();
+                c6.setBorder(border1);
+                c6.add(new Paragraph(""));
+                
+                Cell c7 = new Cell();
+                c7.setBorder(border1);
+                DTOZaposleni k = DAOZaposleni.getZaposleniById(PrijavaNaSistemController.idZaposlenog);
+                c7.add(new Paragraph("Poslovodja:"+ k.getIme()+" "+k.getPrezime()));
+                  c7.setTextAlignment(TextAlignment.LEFT);
+
+             //  Cell c11 = new Cell();
+               // c11.setBorder(border1);
+               // c11.add(new Paragraph  (""+k.getIme()+" "+k.getPrezime()).setTextAlignment(TextAlignment.LEFT));
+                
+                Cell c8 = new Cell();
+                c8.setBorder(border1);
+                c8.add(new Paragraph(""));
+                
+                 Cell c = new Cell();
+                c.setBorder(border1);
+                c.add(new Paragraph(""));
+                
+                
+           //     Cell c9 = new Cell();
+            //    c9.setBorder(border1);
+            //    c9.add(new Paragraph("Vrijeme narudzbe:"));
+            //      c9.setTextAlignment(TextAlignment.CENTER);
+                
+           //      Cell cc = new Cell();
+           //     cc.setBorder(border1);
+           //     cc.add(vrijeme);
+                
+          //       Cell ccc = new Cell();
+          //      ccc.setBorder(border1);
+          //      ccc.add(new Paragraph(""));
+                
+                
+
+                Cell c10 = new Cell();
+                c10.setBorder(border1);
+                c10.add("Dobavljač: "+nazivDobavljaca );
+                c10.setTextAlignment(TextAlignment.LEFT);
+               
+              //  Cell c12 = new Cell();
+               // c12.setBorder(border1);
+               // c12.add(new Paragraph(nazivDobavljaca).setTextAlignment(TextAlignment.LEFT));
+
+                tabela1.addCell(c1); 
+                 tabela1.addCell(c2); 
+                  tabela1.addCell(c3); 
+                tabela1.addCell(c4);
+                tabela1.addCell(c5);
+                tabela1.addCell(c6);
+               tabela1.addCell(c7);
+                tabela1.addCell(c8);
+                 tabela1.addCell(c);
+               // tabela1.addCell(c9);
+               // tabela1.addCell(cc);
+               // tabela1.addCell(ccc);
+                tabela1.addCell(c10);
+               // tabela1.addCell(c12);
+
+                doc.add(tabela1);
+
+               // doc.add(new Paragraph("Datum: " + vrijemeNarudzbe + " " + satNarudzbe + ":" + minNarudzbe + ":" + sekNarudzbe));
+
+                Table table = new Table(4);
+                Border border = new SolidBorder(Color.WHITE, Float.MIN_VALUE);
+                Border borderGray = new SolidBorder(Color.LIGHT_GRAY, Float.MIN_VALUE);
+                Cell k1 = new Cell();
+                k1.setBorderLeft(borderGray);
+                k1.setBorderRight(borderGray);
+                k1.setBackgroundColor(Color.LIGHT_GRAY);
+                k1.add("Sifra");
+                table.addCell(k1);
+                
+                Cell k2 = new Cell();
+                k2.setBorderLeft(borderGray);
+                k2.setBorderRight(borderGray);
+                k2.setBackgroundColor(Color.LIGHT_GRAY);
+                k2.add("Barkod");
+                table.addCell(k2);
+                
+                Cell k3 = new Cell();
+                k3.setBorderLeft(borderGray);
+                k3.setBorderRight(borderGray);
+                k3.setBackgroundColor(Color.LIGHT_GRAY);
+                k3.add("Naziv");
+                table.addCell(k3);
+                
+                Cell k4 = new Cell();
+                k4.setBorderLeft(borderGray);
+                k4.setBorderRight(borderGray);
+                k4.setBackgroundColor(Color.LIGHT_GRAY);
+                k4.add("Naruceno");
+                table.addCell(k4);
+                
+                for (int i = 0; i < stavke.size(); i++) {
+                    
+                    Cell p1=new Cell();
+                    p1.setBorderLeft(border);
+                    p1.setBorderRight(border);
+                    p1.add(stavke.get(i).getSifra());
+                    table.addCell(p1);
+                    
+                    Cell p2=new Cell();
+                    p2.setBorderLeft(border);
+                    p2.setBorderRight(border);
+                    p2.add(stavke.get(i).getBarKod());
+                    table.addCell(p2);
+                    
+                    Cell p3=new Cell();
+                    p3.setBorderLeft(border);
+                    p3.setBorderRight(border);
+                    p3.add(stavke.get(i).getNaziv());
+                    table.addCell(p3);
+                    
+                    Cell p4=new Cell();
+                    p4.setBorderLeft(border);
+                    p4.setBorderRight(border);
+                    p4.add(String.valueOf(stavke.get(i).getNaruceno()));
+                    table.addCell(p4);
+
+                }
+
+                doc.add(table);
+                return "./narudzbenice/narudzba" + vrijemeNarudzbe + " " + satNarudzbe + "h" + minNarudzbe + "min" + sekNarudzbe + "s" + nazivDobavljaca + ".pdf";
+            }
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(TabelaNarudzba.class
+                    .getName()).log(Level.SEVERE, null, ex);
+
+        }
+        return "";
+    }
+
+   /* public static String kreirajFajlNarudzbe(ObservableList<TabelaNarudzbenica> stavke, String nazivDobavljaca) {
 
         try {
             String vrijemeNarudzbe = new SimpleDateFormat("dd.MM.yyyy").format(Calendar.getInstance().getTime());
@@ -264,7 +444,7 @@ public class PDF {
         }
         return "";
     }
-
+*/
     public static void kreirajFajlKalkulacija(ObservableList<TabelaKalkulacija> stavke, String nazivDobavljaca, int id) {
         DAODobavljac daoDobavljac = new DAODobavljac();
         DTODobavljac dobavljac = daoDobavljac.getDobavljacPoNazivu(nazivDobavljaca);
