@@ -252,4 +252,49 @@ public class DAORacun {
         }
         return FXCollections.observableArrayList(racuni);
     }
+    
+    public static ObservableList<DTORacun> getRacunePoMjesecu(Date datumOd,Date datumDo){
+        Connection con = null;
+        CallableStatement call=null;
+        ResultSet rs = null;
+        ArrayList<DTORacun> racuni = new ArrayList<>();
+        try {
+            con = ConnectionPool.getInstance().checkOut();
+            call=con.prepareCall("{call racuni_po_mjesecu(?,?)}");
+            call.setDate(1, new java.sql.Date( datumOd.getTime()));
+            call.setDate(2, new java.sql.Date( datumDo.getTime()));
+            rs = call.executeQuery();
+
+            while (rs.next()) {
+                int idRacuna = rs.getInt("IdRacuna");
+                Date datumRacuna = rs.getDate("DatumRacuna");
+                double ukupnaCijena = rs.getDouble("UkupnaCijena");
+                int idZaposlenog = rs.getInt("IdZaposlenog");
+                boolean storniran = rs.getBoolean("Storniran"); 
+                if (!storniran) 
+                racuni.add(new DTORacun(idRacuna, idZaposlenog, datumRacuna, ukupnaCijena, storniran));
+            }
+        } catch (SQLException ex) {
+             Logger.getLogger(DAORacun.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (con != null) {
+                ConnectionPool.getInstance().checkIn(con);
+            }
+            if (call != null) {
+                try {
+                    call.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAORacun.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAORacun.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return FXCollections.observableArrayList(racuni);
+    } 
 }
