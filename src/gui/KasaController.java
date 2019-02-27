@@ -421,6 +421,7 @@ public class KasaController implements Initializable {
         DTORacun racunZaStorniranje = new DAORacun().vratiRacunPoId(idRacuna);
         if (racunZaStorniranje != null) {
             if (!racunZaStorniranje.getStorniran()) {
+                listaStavki.clear();
                 listaStavki = new DAOStavka().stavkeNaRacunu(idRacuna);
                 barkodKolona.setCellValueFactory(new PropertyValueFactory<>("barkod"));
                 sifraKolona.setCellValueFactory(new PropertyValueFactory<>("sifra"));
@@ -445,6 +446,7 @@ public class KasaController implements Initializable {
 
     @FXML
     public void stornirajRacun() {
+        pronadjiRacunZaStorniranje();
         for (TabelaKasa kasa : kasaTabela.getItems()) {
             DTOProizvod proizvodZaStorniranje = new DAOProizvod().getProizvodPoBarkodu(kasa.getBarkod());
             new DAOProizvod().azurirajProizvod(proizvodZaStorniranje.getKolicina() + kasa.getKolicina(), proizvodZaStorniranje.getIdProizvoda());
