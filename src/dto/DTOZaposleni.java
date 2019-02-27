@@ -6,6 +6,11 @@ public class DTOZaposleni {
     private double iznosPlate;
     private int idZaposlenog, postanskiBroj, idTipZaposlenog;
 
+    public DTOZaposleni() {
+    }
+    
+    
+
     public DTOZaposleni(String ime, String prezime, String JMBG, double iznosPlate,
             String mejl,int postanskiBroj,int idTipZaposlenog) {
         this.ime = ime;
@@ -92,7 +97,7 @@ public class DTOZaposleni {
         this.idTipZaposlenog = idTipZaposlenog;
     }
 
-  /* @Override
+   @Override
     public String toString() {
         return "DTOZaposleni{" + "idZaposlenog=" + idZaposlenog
                 + ",Ime=" + ime
@@ -101,6 +106,6 @@ public class DTOZaposleni {
                 + ", Iznos Plate=" + iznosPlate
                 + ", Postanski broj=" + postanskiBroj
                 + ", idTipZaposlenog=" + idTipZaposlenog + '}';
-    }*/
+    }
 
 }

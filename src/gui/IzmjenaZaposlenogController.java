@@ -3,6 +3,7 @@ package gui;
 import babyshop.AlertHelper;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import dao.DAOKorisnickiNalog;
 import dao.DAOMjesto;
 import dao.DAOTipZaposlenog;
 import dao.DAOZaposleni;
@@ -42,7 +43,7 @@ public class IzmjenaZaposlenogController implements Initializable {
     @FXML
     private JFXComboBox<DTOMjesto> mjestoComboBox;
 
-    private DTOZaposleni worker;
+    private DTOZaposleni worker=new DTOZaposleni();
     ObservableList<DTOMjesto> listaMjesta;
     ObservableList<DTOTipZaposlenog> listaTipovaZaposlenog;
 
@@ -90,8 +91,8 @@ public class IzmjenaZaposlenogController implements Initializable {
     private void sacuvajButtonOnAction(ActionEvent event) {
         if ("".equals(jmbgTextField.getText()) || "".equals(imeTextField.getText()) || "".equals(prezimeTextField.getText())
                 || "".equals(plataTextField.getText()) || "".equals(mejlTextField.getText())
-                || "".equals(mjestoComboBox.getSelectionModel().getSelectedItem())
-                || "".equals(tipZaposlenogComboBox.getSelectionModel().getSelectedItem())) {
+                || mjestoComboBox.getSelectionModel().isEmpty()
+                || tipZaposlenogComboBox.getSelectionModel().isEmpty()) {
             AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste ispravno unijeli podatke.");
         } else {
             worker.setIme(imeTextField.getText());
@@ -101,10 +102,13 @@ public class IzmjenaZaposlenogController implements Initializable {
             worker.setMejl(mejlTextField.getText());
             worker.setPostanskiBroj(mjestoComboBox.getSelectionModel().getSelectedItem().getPostanskiBroj());
             worker.setIdTipZaposlenog(tipZaposlenogComboBox.getSelectionModel().getSelectedItem().getIdTipaZaposlenog());
+            worker.toString();
 
             if (!DAOZaposleni.izmjeniZaposlenog(worker)) {
                 AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom upisa u bazu.");
             } else {
+                int idZap=DAOZaposleni.getIdZaposleniByJMBG(worker.getJMBG());
+                DAOKorisnickiNalog.izmijeniTipKorisnika(tipZaposlenogComboBox.getSelectionModel().getSelectedItem().getNazivTipa(),idZap );
                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 window.close();
             }

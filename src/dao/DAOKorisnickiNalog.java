@@ -251,4 +251,36 @@ public class DAOKorisnickiNalog {
         return hesISalt;
 
     }
+    
+    public static void izmijeniTipKorisnika(String tipKorisnika,int idZaposlenog){
+         Connection con = null;
+        PreparedStatement ps = null;
+
+        try {
+            con = ConnectionPool.getInstance().checkOut();
+            ps = con.prepareStatement("UPDATE baby_shop.korisnicki_nalog SET "
+                    + "TipKorisnika = ? WHERE IdZaposlenog = ?");
+
+            ps.setString(1, tipKorisnika);
+            ps.setInt(2, idZaposlenog);
+            ps.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOKorisnickiNalog.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOKorisnickiNalog.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOKorisnickiNalog.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
 }

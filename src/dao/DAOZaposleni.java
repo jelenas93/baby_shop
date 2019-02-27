@@ -3,6 +3,7 @@ package dao;
 import connectionpool.ConnectionPool;
 import dto.DTOMjesto;
 import dto.DTOZaposleni;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -180,25 +181,23 @@ public class DAOZaposleni {
     }
 
     public static boolean izmjeniZaposlenog(DTOZaposleni zaposleni) {
-
+        zaposleni.toString();
         Connection con = null;
-        PreparedStatement ps = null;
+        CallableStatement ps = null;
 
         try {
             con = connectionpool.ConnectionPool.getInstance().checkOut();
-            /* ps = con.prepareStatement("UPDATE baby_shop.zaposleni SET"
-                    + "JMBG='?',Ime='?',Prezime='?',IznosPlate='?',Email='?',PostanskiBroj='?',IdTipa=?"
-                    + " WHERE  IdZaposlenog = '?' ");*/
+             ps = con.prepareCall("call azuriraj_zaposlenog(?,?,?,?,?,?,?,?)");
 
-            ps = con.prepareStatement("UPDATE baby_shop.zaposleni SET JMBG=?,Ime=?,Prezime=?,IznosPlate=?,Email=?,PostanskiBroj=? WHERE  IdZaposlenog = ?");
+            //ps = con.prepareStatement("UPDATE baby_shop.zaposleni SET JMBG=?,Ime=?,Prezime=?,IznosPlate=?,Email=?,PostanskiBroj=? WHERE  IdZaposlenog = ?");
             ps.setString(1, zaposleni.getJMBG());
             ps.setString(2, zaposleni.getIme());
             ps.setString(3, zaposleni.getPrezime());
             ps.setDouble(4, zaposleni.getIznosPlate());
             ps.setString(5, zaposleni.getMejl());
             ps.setInt(6, zaposleni.getPostanskiBroj());
-            //  ps.setInt(7, zaposleni.getIdTipZaposlenog());
-            ps.setInt(7, zaposleni.getIdZaposlenog());
+            ps.setInt(7, zaposleni.getIdTipZaposlenog());
+            ps.setInt(8, zaposleni.getIdZaposlenog());
             ps.execute();
 
         } catch (SQLException ex) {
@@ -222,4 +221,84 @@ public class DAOZaposleni {
         return true;
     }
 
+    public static boolean izmjeniTipZaposlenog(int tip,int idZaposlenog){
+         Connection con = null;
+        PreparedStatement ps = null;
+
+        try {
+            con = connectionpool.ConnectionPool.getInstance().checkOut();
+            /* ps = con.prepareStatement("UPDATE baby_shop.zaposleni SET"
+                    + "JMBG='?',Ime='?',Prezime='?',IznosPlate='?',Email='?',PostanskiBroj='?',IdTipa=?"
+                    + " WHERE  IdZaposlenog = '?' ");*/
+
+            ps = con.prepareStatement("UPDATE baby_shop.zaposleni SET IdTipa=? WHERE  IdZaposlenog = ?");
+            ps.setInt(1, tip);
+            ps.setInt(2,idZaposlenog );
+            ps.execute();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOZaposleni.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOZaposleni.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOZaposleni.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return true;
+    }
+
+     public static int getIdZaposleniByJMBG(String JMBG) {
+
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        int idZaposlenog=0;
+        try {
+
+            con = connectionpool.ConnectionPool.getInstance().checkOut();
+            ps = con.prepareStatement("SELECT IdZaposlenog FROM baby_shop.zaposleni"
+                    + " WHERE JMBG =? ");
+            ps.setString(1, JMBG);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                idZaposlenog = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOZaposleni.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+
+            if (con != null) {
+
+                connectionpool.ConnectionPool.getInstance().checkIn(con);
+
+            }
+            if (ps != null) {
+                try {
+
+                    ps.close();
+                } catch (SQLException ex) {
+
+                    Logger.getLogger(DAOZaposleni.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOZaposleni.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return idZaposlenog;
+     }
 }

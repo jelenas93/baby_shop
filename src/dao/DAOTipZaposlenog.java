@@ -131,4 +131,42 @@ public class DAOTipZaposlenog {
         return tipzaposlenog;
 
     }
+    
+    public static int getIdTipaZaposlenog(String tipZaposlenog){
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        int idTipaZaposlenog=0;
+
+        try {
+            con = ConnectionPool.getInstance().checkOut();
+            ps = con.prepareStatement("select * from baby_shop.tip_zaposlenog where NazivTipa=?");
+            ps.setString(1, tipZaposlenog);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                idTipaZaposlenog = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOTipZaposlenog.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (con != null) {
+                ConnectionPool.getInstance().checkIn(con);
+            }
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOTipZaposlenog.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOTipZaposlenog.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return idTipaZaposlenog;
+    }
 }
