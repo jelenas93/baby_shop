@@ -14,6 +14,7 @@ import com.itextpdf.layout.border.SolidBorder;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.text.pdf.BaseFont;
 import dao.DAOProizvod;
@@ -36,12 +37,15 @@ import static com.itextpdf.text.pdf.PdfDictionary.FONT;
 import dao.DAODobavljac;
 import dao.DAOMjesto;
 import dao.DAORacun;
+import dao.DAOSkladiste;
 import dao.DAOStavka;
 import dao.DAOZaposleni;
 import dto.DTODobavljac;
 import dto.DTODobavljacIzvjestaj;
+import dto.DTOIzvjestajNaruceneRobeDobavljac;
 import dto.DTOMjesto;
 import dto.DTOProizvod;
+import dto.DTOProizvodiUSkladistu;
 import dto.DTOZaposleni;
 import gui.PrijavaNaSistemController;
 import java.text.Format;
@@ -356,8 +360,8 @@ public class PDF {
         }
         return "";
     }
-
-   /* public static String kreirajFajlNarudzbe(ObservableList<TabelaNarudzbenica> stavke, String nazivDobavljaca) {
+/*
+    public static String kreirajFajlNarudzbe(ObservableList<TabelaNarudzbenica> stavke, String nazivDobavljaca) {
 
         try {
             String vrijemeNarudzbe = new SimpleDateFormat("dd.MM.yyyy").format(Calendar.getInstance().getTime());
@@ -798,10 +802,6 @@ public class PDF {
 
     public static void kreirajIzvjestajPoDobavljacuZaMjesec(Date datumOd, Date datumDo, int idDobavljaca) {
 
-        String vrijeme = new SimpleDateFormat("dd.MM.yyyy").format(Calendar.getInstance().getTime());
-        String sat = new SimpleDateFormat("HH").format(Calendar.getInstance().getTime());
-        String min = new SimpleDateFormat("mm").format(Calendar.getInstance().getTime());
-        String sek = new SimpleDateFormat("ss").format(Calendar.getInstance().getTime());
         Border border = new SolidBorder(Color.WHITE, Float.MIN_VALUE);
         Border borderGray = new SolidBorder(Color.LIGHT_GRAY, Float.MIN_VALUE);
         ArrayList<DTODobavljacIzvjestaj> proizvodi = new ArrayList<>();
@@ -822,7 +822,7 @@ public class PDF {
                 doc.add(prodavnica);
                 Paragraph prazanRed = new Paragraph("\n");
                 doc.add(prazanRed);
-                Paragraph izvjestaj = new Paragraph("Izvještaj o prodaji artikala po dobavljaču za razdoblje od " + datum.format(datumOd) + " do " + datum.format(datumDo)).setFont(moj);
+                Paragraph izvjestaj = new Paragraph("Izvještaj o naručenim proizvodima po dobavljaču za razdoblje od " + datum.format(datumOd) + " do " + datum.format(datumDo)).setFont(moj);
                 izvjestaj.setTextAlignment(TextAlignment.CENTER);
                 izvjestaj.setBold();
                 izvjestaj.setFontSize(20);
@@ -851,7 +851,7 @@ public class PDF {
                 c2.setBorderLeft(borderGray);
                 c2.setBorderRight(borderGray);
                 c2.setBackgroundColor(Color.LIGHT_GRAY);
-                c2.add("Šfra proizvoda").setFont(moj);
+                c2.add("Šifra proizvoda").setFont(moj);
                 table.addCell(c2);
 
                 Cell c3 = new Cell();
@@ -1181,6 +1181,278 @@ public class PDF {
 
         }
         return "";
+    }
+     
+     public static void kreirajIzvjestajPoDobavljacuZaProdaneProizvode(Date datumOd, Date datumDo, int idDobavljaca) {
+
+        Border border = new SolidBorder(Color.WHITE, Float.MIN_VALUE);
+        Border borderGray = new SolidBorder(Color.LIGHT_GRAY, Float.MIN_VALUE);
+        ArrayList<DTOIzvjestajNaruceneRobeDobavljac> proizvodi = new ArrayList<>();
+        proizvodi = new DAODobavljac().proizvodiPoDobavljacuProdano(datumOd, datumDo, idDobavljaca);
+        SimpleDateFormat datum = new SimpleDateFormat("dd.MM.yyyy");
+        try {
+            PdfDocument pdfDoc = new PdfDocument(new PdfWriter("./izvjestaji/poDobavljacuNaruceno/izvjestaj_odDatuma_" + datum.format(datumOd) + "_doDatuma_" + datum.format(datumDo) + ".pdf"));
+
+            try (Document doc = new Document(pdfDoc, PageSize.A4.rotate())) {
+                BaseFont bf = BaseFont.createFont(BaseFont.HELVETICA, "CP1250", BaseFont.EMBEDDED);
+                //Font moj = new Font(bf);
+                PdfFont moj;
+                moj = PdfFontFactory.createFont(FONT, "Cp1250", true);
+                doc.setFontSize(10);
+                Paragraph prodavnica = new Paragraph("Poslovna jedinica BABY SHOP");
+                prodavnica.setTextAlignment(TextAlignment.LEFT);
+                prodavnica.setFontSize(12);
+                doc.add(prodavnica);
+                Paragraph prazanRed = new Paragraph("\n");
+                doc.add(prazanRed);
+                Paragraph izvjestaj = new Paragraph("Izvještaj o prodaji naručenih proizvoda po dobavljaču za razdoblje od " + datum.format(datumOd) + " do " + datum.format(datumDo)).setFont(moj);
+                izvjestaj.setTextAlignment(TextAlignment.CENTER);
+                izvjestaj.setBold();
+                izvjestaj.setFontSize(20);
+                doc.add(izvjestaj);
+
+                doc.add(prazanRed);
+                Paragraph dobavljac = new Paragraph("JIB Dobavljača: " + new DAODobavljac().getJIBPoId(idDobavljaca)).setFont(moj);
+                dobavljac.setFontSize(12);
+                doc.add(dobavljac);
+                Paragraph nazivDobavljaca = new Paragraph("Naziv dobavljača: " + new DAODobavljac().getNazivPoId(idDobavljaca)).setFont(moj);
+                nazivDobavljaca.setFontSize(12);
+                doc.add(nazivDobavljaca);
+                doc.add(prazanRed);
+                Table table = new Table(6);
+
+                Cell c1 = new Cell();
+                c1.setBorderRight(borderGray);
+                c1.setBorderLeft(borderGray);
+                c1.setBackgroundColor(Color.LIGHT_GRAY);
+                c1.add("Rb. ");
+                //table.addCell("Rb. ").setBorderLeft(border).setBorderLeft(border);
+                table.addCell(c1);
+                //table.addCell("JIB Dobavljaca");
+                //table.addCell("Naziv Dobavljaca");
+                Cell c2 = new Cell();
+                c2.setBorderLeft(borderGray);
+                c2.setBorderRight(borderGray);
+                c2.setBackgroundColor(Color.LIGHT_GRAY);
+                c2.add("Šifra proizvoda").setFont(moj);
+                table.addCell(c2);
+
+                Cell c3 = new Cell();
+                c3.setBorderLeft(borderGray);
+                c3.setBorderRight(borderGray);
+                c3.setBackgroundColor(Color.LIGHT_GRAY);
+                c3.add("Barkod proizvoda");
+                table.addCell(c3);
+
+                Cell c4 = new Cell();
+                c4.setBorderLeft(borderGray);
+                c4.setBorderRight(borderGray);
+                c4.setBackgroundColor(Color.LIGHT_GRAY);
+                c4.add("Naziv proizvoda");
+                table.addCell(c4);
+
+                Cell c5 = new Cell();
+                c5.setBorderLeft(borderGray);
+                c5.setBorderRight(borderGray);
+                c5.setBackgroundColor(Color.LIGHT_GRAY);
+                c5.setTextAlignment(TextAlignment.CENTER);
+                c5.add("Količina proizvoda").setFont(moj);
+                table.addCell(c5);
+
+                Cell c6 = new Cell();
+                c6.setBorderLeft(borderGray);
+                c6.setBorderRight(borderGray);
+                c6.setBackgroundColor(Color.LIGHT_GRAY);
+                c6.setTextAlignment(TextAlignment.RIGHT);
+                c6.add("Cijena proizvoda");
+                table.addCell(c6);
+                //doc.add(table);
+                for (int i = 0; i < proizvodi.size(); i++) {
+                    int j = i + 1;
+                    Cell p1 = new Cell();
+                    p1.setBorderLeft(border);
+                    p1.setBorderRight(border);
+                    p1.add(" " + j + ".");
+                    table.addCell(p1);
+                    //table.addCell(proizvodi.get(i).getJIBDobavljaca());
+                    //table.addCell(proizvodi.get(i).getNazivDobavaljaca());
+                    Cell p2 = new Cell();
+                    p2.setBorderLeft(border);
+                    p2.setBorderRight(border);
+                    p2.add(proizvodi.get(i).getProizvodSifra());
+                    table.addCell(p2);
+
+                    Cell p3 = new Cell();
+                    p3.setBorderLeft(border);
+                    p3.setBorderRight(border);
+                    p3.add(proizvodi.get(i).getProizvodBarkod());
+                    table.addCell(p3);
+
+                    Cell p4 = new Cell();
+                    p4.setBorderLeft(border);
+                    p4.setBorderRight(border);
+                    p4.add(proizvodi.get(i).getProizvodNaziv()).setFont(moj);
+                    table.addCell(p4);
+
+                    Cell p5 = new Cell();
+                    p5.setBorderLeft(border);
+                    p5.setBorderRight(border);
+                    p5.setTextAlignment(TextAlignment.RIGHT);
+                    p5.add(String.format("%d", proizvodi.get(i).getKolicina())).setTextAlignment(TextAlignment.CENTER);
+                    table.addCell(p5);
+                    
+                    Cell p6 = new Cell();
+                    p6.setBorderLeft(border);
+                    p6.setBorderRight(border);
+                    p6.setTextAlignment(TextAlignment.RIGHT);
+                    p6.add(String.format("%.2f", proizvodi.get(i).getCijenaProizvoda()));
+                    table.addCell(p6);
+                }
+                doc.add(table);
+            } catch (DocumentException ex) {
+                Logger.getLogger(PDF.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(PDF.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(TabelaNarudzba.class
+                    .getName()).log(Level.SEVERE, null, ex);
+
+        }
+    }
+     
+     public static void kreirajIzvjestajZaSkladiste() {
+
+        Border border = new SolidBorder(Color.WHITE, Float.MIN_VALUE);
+        Border borderGray = new SolidBorder(Color.LIGHT_GRAY, Float.MIN_VALUE);
+        ArrayList<DTOProizvodiUSkladistu> proizvodi = new ArrayList<>();
+        proizvodi = new DAOSkladiste().pregledProizvodaUSkladistu();
+        SimpleDateFormat datum = new SimpleDateFormat("dd.MM.yyyy");
+        try {
+            PdfDocument pdfDoc = new PdfDocument(new PdfWriter("./izvjestaji/skladiste/izvjestaj_zaDatum_" + datum.format(new Date().getTime()) +".pdf"));
+
+            try (Document doc = new Document(pdfDoc, PageSize.A4.rotate())) {
+                BaseFont bf = BaseFont.createFont(BaseFont.HELVETICA, "CP1250", BaseFont.EMBEDDED);
+                //Font moj = new Font(bf);
+                PdfFont moj;
+                moj = PdfFontFactory.createFont(FONT, "Cp1250", true);
+                doc.setFontSize(10);
+                Paragraph prodavnica = new Paragraph("Poslovna jedinica BABY SHOP");
+                prodavnica.setTextAlignment(TextAlignment.LEFT);
+                prodavnica.setFontSize(12);
+                doc.add(prodavnica);
+                Paragraph prazanRed = new Paragraph("\n");
+                doc.add(prazanRed);
+                Paragraph izvjestaj = new Paragraph("Stanje zaliha u skladištu za datum " + datum.format(new Date().getTime())).setFont(moj);
+                izvjestaj.setTextAlignment(TextAlignment.CENTER);
+                izvjestaj.setBold();
+                izvjestaj.setFontSize(20);
+                doc.add(izvjestaj);
+
+                doc.add(prazanRed);
+                
+                Table table = new Table(6);
+
+                Cell c1 = new Cell();
+                c1.setBorderRight(borderGray);
+                c1.setBorderLeft(borderGray);
+                c1.setBackgroundColor(Color.LIGHT_GRAY);
+                c1.add("Rb. ");
+                //table.addCell("Rb. ").setBorderLeft(border).setBorderLeft(border);
+                table.addCell(c1);
+                //table.addCell("JIB Dobavljaca");
+                //table.addCell("Naziv Dobavljaca");
+                Cell c2 = new Cell();
+                c2.setBorderLeft(borderGray);
+                c2.setBorderRight(borderGray);
+                c2.setBackgroundColor(Color.LIGHT_GRAY);
+                c2.add("Šifra proizvoda").setFont(moj);
+                table.addCell(c2);
+
+                Cell c3 = new Cell();
+                c3.setBorderLeft(borderGray);
+                c3.setBorderRight(borderGray);
+                c3.setBackgroundColor(Color.LIGHT_GRAY);
+                c3.add("Barkod proizvoda");
+                table.addCell(c3);
+
+                Cell c4 = new Cell();
+                c4.setBorderLeft(borderGray);
+                c4.setBorderRight(borderGray);
+                c4.setBackgroundColor(Color.LIGHT_GRAY);
+                c4.add("Naziv proizvoda");
+                table.addCell(c4);
+
+                Cell c5 = new Cell();
+                c5.setBorderLeft(borderGray);
+                c5.setBorderRight(borderGray);
+                c5.setBackgroundColor(Color.LIGHT_GRAY);
+                c5.setTextAlignment(TextAlignment.CENTER);
+                c5.add("Količina proizvoda").setFont(moj);
+                table.addCell(c5);
+
+                Cell c6 = new Cell();
+                c6.setBorderLeft(borderGray);
+                c6.setBorderRight(borderGray);
+                c6.setBackgroundColor(Color.LIGHT_GRAY);
+                c6.setTextAlignment(TextAlignment.RIGHT);
+                c6.add("Cijena proizvoda");
+                table.addCell(c6);
+                //doc.add(table);
+                for (int i = 0; i < proizvodi.size(); i++) {
+                    int j = i + 1;
+                    Cell p1 = new Cell();
+                    p1.setBorderLeft(border);
+                    p1.setBorderRight(border);
+                    p1.add(" " + j + ".");
+                    table.addCell(p1);
+                    //table.addCell(proizvodi.get(i).getJIBDobavljaca());
+                    //table.addCell(proizvodi.get(i).getNazivDobavaljaca());
+                    Cell p2 = new Cell();
+                    p2.setBorderLeft(border);
+                    p2.setBorderRight(border);
+                    p2.add(proizvodi.get(i).getSifra());
+                    table.addCell(p2);
+
+                    Cell p3 = new Cell();
+                    p3.setBorderLeft(border);
+                    p3.setBorderRight(border);
+                    p3.add(proizvodi.get(i).getBarkod());
+                    table.addCell(p3);
+
+                    Cell p4 = new Cell();
+                    p4.setBorderLeft(border);
+                    p4.setBorderRight(border);
+                    p4.add(proizvodi.get(i).getNaziv()).setFont(moj);
+                    table.addCell(p4);
+
+                    Cell p5 = new Cell();
+                    p5.setBorderLeft(border);
+                    p5.setBorderRight(border);
+                    p5.setTextAlignment(TextAlignment.RIGHT);
+                    p5.add(String.format("%d", proizvodi.get(i).getKolicina())).setTextAlignment(TextAlignment.CENTER);
+                    table.addCell(p5);
+                    
+                    Cell p6 = new Cell();
+                    p6.setBorderLeft(border);
+                    p6.setBorderRight(border);
+                    p6.setTextAlignment(TextAlignment.RIGHT);
+                    p6.add(String.format("%.2f", proizvodi.get(i).getCijena()));
+                    table.addCell(p6);
+                }
+                doc.add(table);
+            } catch (DocumentException ex) {
+                Logger.getLogger(PDF.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(PDF.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(TabelaNarudzba.class
+                    .getName()).log(Level.SEVERE, null, ex);
+
+        }
     }
 }
 
