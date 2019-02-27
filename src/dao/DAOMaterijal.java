@@ -168,7 +168,7 @@ public class DAOMaterijal{
         int id=0;
         try {
             con = ConnectionPool.getInstance().checkOut();
-            ps = con.prepareStatement("select id from baby_shop.materijal where Naziv like '" + naziv + "%'");
+            ps = con.prepareStatement("select IdMaterijala from baby_shop.materijal where Naziv like '" + naziv + "%'");
             rs = ps.executeQuery();
             while (rs.next()) {
                     id = rs.getInt(1);

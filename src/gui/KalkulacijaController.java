@@ -319,7 +319,9 @@ public class KalkulacijaController implements Initializable {
                            kalkulacija.getItems().get(i).getProdajnaCijena())){
                        AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greska pru upisu stavke kalkulacije u bazu");
                    }
+                   new DAOProizvod().azurirajProizvod( kalkulacija.getItems().get(i).getKolicina(),  kalkulacija.getItems().get(i).getIdProizvoda());
                 }
+                
                 DAONarudzbenica daoNarudzbenica=new DAONarudzbenica();
                 if(!daoNarudzbenica.setujNaruzbuKalkulisana(Integer.parseInt(narudzbaComboBox.getSelectionModel().getSelectedItem().split(" ")[0]))){
                     AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greska!");

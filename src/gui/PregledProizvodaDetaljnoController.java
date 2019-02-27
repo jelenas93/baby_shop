@@ -22,6 +22,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import tabele.TabelaDetaljanProizvod;
 
@@ -140,14 +141,15 @@ public class PregledProizvodaDetaljnoController implements Initializable {
         postaviTabelu();
       }
 
-    public void nazad(ActionEvent event) throws IOException {
-        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/PocetnaForma.fxml"));
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    public void dodajProizvod(ActionEvent event) throws IOException {
+         Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosProizvoda.fxml"));
+        Stage window = new Stage();
         Scene korisnikScena = new Scene(korisnikView);
-      //  window.resizableProperty().setValue(Boolean.FALSE);
+        window.resizableProperty().setValue(Boolean.FALSE);
         window.setScene(korisnikScena);
         window.centerOnScreen();
-        window.show();
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.showAndWait();
     }
 
 }

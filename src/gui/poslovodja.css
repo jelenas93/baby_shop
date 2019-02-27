@@ -13,12 +13,12 @@
     -slova                        :#512DA8;
     -tab-pozadina                 :#003366; 
 }
-
+/*
 .label{
     -fx-font-family              : "Roboto Light";
-    -fx-font-size                : 18px;
+   -fx-font-size                : 18px;*
 }
-
+*/
 .button{
     -fx-text-fill        : white;
     -fx-inner-border     : derive(-bright, 10%);

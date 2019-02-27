@@ -15,7 +15,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="prodavacLabel" layoutX="159.0" layoutY="30.0" prefHeight="50.0" prefWidth="150.0" style="-fx-border-color: black; -fx-background-color: #d6e0f5;" text=" " textAlignment="CENTER" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="40.0">
+      <Label fx:id="prodavacLabel" layoutX="159.0" layoutY="30.0" prefHeight="50.0" prefWidth="150.0" style="-fx-border-color: black;" text=" " textAlignment="CENTER" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="40.0">
          <font>
             <Font size="18.0" />
          </font>
@@ -25,7 +25,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="datumLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="1062.0" layoutY="30.0" prefHeight="50.0" prefWidth="145.0" style="-fx-border-color: black; -fx-background-color: #d6e0f5;" textAlignment="CENTER" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="40.0">
+      <Label fx:id="datumLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="1062.0" layoutY="30.0" prefHeight="50.0" prefWidth="145.0" style="-fx-border-color: black;" textAlignment="CENTER" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="40.0">
          <font>
             <Font size="18.0" />
          </font>
@@ -60,7 +60,7 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <TableView fx:id="kasaTabela" layoutX="41.0" layoutY="223.0" prefHeight="436.0" prefWidth="1183.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="180.0">
+      <TableView fx:id="kasaTabela" layoutX="41.0" layoutY="223.0" prefHeight="383.0" prefWidth="1425.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="235.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="180.0">
         <columns>
           <TableColumn fx:id="barkodKolona" prefWidth="212.0" text="Barkod" />
           <TableColumn fx:id="sifraKolona" prefWidth="148.0" text="Šifra" />
@@ -78,22 +78,22 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="ukupnaCijenaLabel" alignment="CENTER" layoutX="1056.0" layoutY="568.0" prefHeight="137.0" prefWidth="233.0" style="-fx-background-color: #d6e0f5; -fx-border-color: black;" textAlignment="CENTER" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="40.0">
+      <Label fx:id="ukupnaCijenaLabel" alignment="CENTER" layoutX="1056.0" layoutY="568.0" prefHeight="137.0" prefWidth="233.0" style="-fx-background-color: #99b3e6; -fx-border-color: black;" textAlignment="CENTER" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="40.0">
          <font>
             <Font size="60.0" />
          </font>
       </Label>
-      <Button fx:id="storniranjeButton" alignment="CENTER" contentDisplay="CENTER" layoutX="322.0" layoutY="641.0" mnemonicParsing="false" onAction="#stornirajRacun" prefHeight="50.0" prefWidth="200.0" text="Storniraj račun" textAlignment="CENTER" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="320.0">
+      <Button fx:id="storniranjeButton" alignment="CENTER" contentDisplay="CENTER" layoutX="553.0" layoutY="628.0" mnemonicParsing="false" onAction="#stornirajRacun" prefHeight="50.0" prefWidth="200.0" text="Storniraj račun" textAlignment="CENTER" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="553.0">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <TextField fx:id="brojRacunaTextField" alignment="CENTER" layoutX="177.0" layoutY="641.0" onAction="#pronadjiRacunZaStorniranje" prefHeight="50.0" prefWidth="120.0" promptText="broj računa" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="170.0">
+      <TextField fx:id="brojRacunaTextField" alignment="CENTER" layoutX="320.0" layoutY="628.0" onAction="#pronadjiRacunZaStorniranje" prefHeight="50.0" prefWidth="200.0" promptText="broj računa" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="320.0">
          <font>
             <Font size="18.0" />
          </font>
       </TextField>
-      <Label layoutX="55.0" layoutY="666.0" prefHeight="50.0" prefWidth="100.0" text="Broj računa za storniranje:" textAlignment="CENTER" underline="true" wrapText="true" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="40.0" />
+      <Label layoutX="55.0" layoutY="666.0" prefHeight="50.0" prefWidth="247.0" text="Broj računa za storniranje:" textAlignment="CENTER" underline="true" wrapText="true" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="40.0" />
       <Button fx:id="razduzenjeButton" alignment="CENTER" contentDisplay="CENTER" layoutX="40.0" layoutY="708.0" mnemonicParsing="false" onAction="#razduziRacun" prefHeight="50.0" prefWidth="247.0" text="Zaključi kasu" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0">
          <font>
             <Font size="18.0" />

@@ -43,9 +43,9 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <JFXDatePicker fx:id="datumOd" layoutX="145.0" layoutY="64.0" prefHeight="50.0" prefWidth="200.0" AnchorPane.leftAnchor="140.0" AnchorPane.topAnchor="70.0" />
-                        <JFXDatePicker fx:id="datumDo" layoutX="145.0" layoutY="125.0" prefHeight="50.0" prefWidth="200.0" AnchorPane.leftAnchor="140.0" AnchorPane.topAnchor="130.0" />
-                        <BarChart fx:id="bar" layoutX="69.0" layoutY="420.0" prefHeight="505.0" prefWidth="724.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="40.0">
+                        <JFXDatePicker fx:id="datumOd" defaultColor="#003366" layoutX="145.0" layoutY="64.0" prefHeight="50.0" prefWidth="200.0" AnchorPane.leftAnchor="140.0" AnchorPane.topAnchor="70.0" />
+                        <JFXDatePicker fx:id="datumDo" defaultColor="#003366" layoutX="145.0" layoutY="125.0" prefHeight="50.0" prefWidth="200.0" AnchorPane.leftAnchor="140.0" AnchorPane.topAnchor="130.0" />
+                        <BarChart fx:id="bar" layoutX="69.0" layoutY="420.0" prefHeight="505.0" prefWidth="724.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="40.0">
                           <xAxis>
                             <CategoryAxis side="BOTTOM" fx:id="x" />
                           </xAxis>
@@ -54,10 +54,10 @@
                           </yAxis>
                         </BarChart>
                         <Label layoutX="40.0" layoutY="193.0" prefHeight="50.0" prefWidth="100.0" text="Dobavljač:" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="190.0" />
-                        <JFXComboBox layoutX="145.0" layoutY="193.0" prefHeight="50.0" prefWidth="200.0" AnchorPane.leftAnchor="140.0" AnchorPane.topAnchor="190.0" />
+                        <JFXComboBox fx:id="dobavljac" layoutX="145.0" layoutY="193.0" prefHeight="50.0" prefWidth="200.0" AnchorPane.leftAnchor="140.0" AnchorPane.topAnchor="190.0" />
                         <Label layoutX="78.0" layoutY="59.0" prefHeight="50.0" prefWidth="100.0" text="Datum od:" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="70.0" />
                         <Label layoutX="40.0" layoutY="122.0" prefHeight="50.0" prefWidth="100.0" text="Datum do:" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="130.0" />
-                        <GridPane layoutX="672.0" layoutY="51.0" prefHeight="249.0" prefWidth="597.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="70.0">
+                        <GridPane layoutX="672.0" layoutY="51.0" prefHeight="355.0" prefWidth="597.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="70.0">
                           <columnConstraints>
                             <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="391.0" minWidth="10.0" prefWidth="391.0" />
                             <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="292.0" minWidth="10.0" prefWidth="206.0" />
@@ -66,63 +66,82 @@
                             <RowConstraints />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="ALWAYS" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="ALWAYS" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="ALWAYS" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="ALWAYS" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="ALWAYS" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="ALWAYS" />
                           </rowConstraints>
                            <children>
-                              <Label text="Izvještaj prometa:" GridPane.rowIndex="1">
+                              <Label text="Izvještaj prometa po danima:" GridPane.rowIndex="1">
                                  <GridPane.margin>
                                     <Insets bottom="5.0" left="50.0" top="5.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label text="Izvjestaj ukupno prodanih proivoda:" GridPane.rowIndex="2">
+                              <Label text="Izvjestaj ukupno prodanih proivoda:" GridPane.rowIndex="3">
                                  <GridPane.margin>
                                     <Insets bottom="5.0" left="50.0" top="5.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label text="Izvještaj naručenih proizvoda od dobavljača:" GridPane.rowIndex="3">
+                              <Label text="Izvještaj naručenih proizvoda od dobavljača:" GridPane.rowIndex="4">
                                  <GridPane.margin>
                                     <Insets bottom="5.0" left="50.0" top="5.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label text="Izvještaj prodanih proiavoda od dobavljača:" GridPane.rowIndex="4">
+                              <Label text="Izvještaj prodanih proizvoda od dobavljača:" GridPane.rowIndex="5">
                                  <GridPane.margin>
                                     <Insets bottom="5.0" left="50.0" top="5.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Button mnemonicParsing="false" onAction="#prviGraf" prefHeight="40.0" prefWidth="150.0" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                              <Button mnemonicParsing="false" onAction="#prviGraf" prefHeight="40.0" prefWidth="150.0" text="Kreiraj" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <GridPane.margin>
                                     <Insets bottom="5.0" top="5.0" />
                                  </GridPane.margin>
                               </Button>
-                              <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                              <Button mnemonicParsing="false" onAction="#ukupnoProdano" prefHeight="40.0" prefWidth="150.0" text="Kreiraj" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                  <GridPane.margin>
                                     <Insets bottom="5.0" top="5.0" />
                                  </GridPane.margin>
                               </Button>
-                              <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                              <Button mnemonicParsing="false" onAction="#narucenoOdDobavljaca" prefHeight="40.0" prefWidth="150.0" text="Kreiraj" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                  <GridPane.margin>
                                     <Insets bottom="5.0" top="5.0" />
                                  </GridPane.margin>
                               </Button>
-                              <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                              <Button mnemonicParsing="false" onAction="#prodanoOdDobavljaca" prefHeight="40.0" prefWidth="150.0" text="Kreiraj" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                  <GridPane.margin>
                                     <Insets bottom="5.0" top="5.0" />
                                  </GridPane.margin>
                               </Button>
-                              <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                              <Button mnemonicParsing="false" onAction="#zaliheSkladista" prefHeight="40.0" prefWidth="150.0" text="Kreiraj" GridPane.columnIndex="1" GridPane.rowIndex="6">
                                  <GridPane.margin>
                                     <Insets bottom="5.0" top="5.0" />
                                  </GridPane.margin>
                               </Button>
-                              <Label text="Zalihe po skladištu:" GridPane.rowIndex="5">
+                              <Label text="Zalihe po skladištu:" GridPane.rowIndex="6">
                                  <GridPane.margin>
                                     <Insets bottom="5.0" left="50.0" top="5.0" />
                                  </GridPane.margin>
                               </Label>
+                              <Label text="Izvještaj prometa po mjesecima:" GridPane.rowIndex="2">
+                                 <GridPane.margin>
+                                    <Insets bottom="5.0" left="50.0" right="5.0" top="5.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Button mnemonicParsing="false" onAction="#prviGrafMjesec" prefHeight="40.0" prefWidth="150.0" text="Kreiraj" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <GridPane.margin>
+                                    <Insets bottom="5.0" top="5.0" />
+                                 </GridPane.margin>
+                              </Button>
                            </children>
                         </GridPane>
+                        <BarChart fx:id="bar1" prefHeight="505.0" prefWidth="724.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="40.0">
+                           <xAxis>
+                              <CategoryAxis side="BOTTOM" fx:id="x1" />
+                           </xAxis>
+                           <yAxis>
+                              <NumberAxis fx:id="y1" side="LEFT" />
+                           </yAxis>
+                        </BarChart>
                      </children></AnchorPane>
               </content>
             </Tab>
