@@ -91,8 +91,8 @@ public class KasaController implements Initializable {
     @FXML
     private Label ukupnaCijenaLabel;
 
-    @FXML
-    private Label stanjeLabel;
+    //@FXML
+    //private Label stanjeLabel;
 
     @FXML
     private Button storniranjeButton;
@@ -292,22 +292,16 @@ public class KasaController implements Initializable {
             boolean daLiMoguAzurirati = dao.daLiImaDovoljnoNaStanju(proizvod.getKolicina() - Integer.parseInt(kolicinaTextField.getText()),
                     proizvod.getIdProizvoda());
             if (daLiMoguAzurirati) {
-                //  stanjeLabel.setText((proizvod.getKolicina() - Integer.parseInt(kolicinaTextField.getText())) + "");
                 return proizvod.getKolicina() - Integer.parseInt(kolicinaTextField.getText());
             }
         } else {
             proizvod = dao.getProizvodPoSifri(sifraTextField.getText());
             boolean daLiMoguAzurirati = dao.daLiImaDovoljnoNaStanju(proizvod.getKolicina() - Integer.parseInt(kolicinaTextField.getText()),
                     proizvod.getIdProizvoda());
-
-            /* boolean azuriranjeSkladista = daoSkladiste.azurirajProizvodUSkladistu(proizvod.getKolicina() - Integer.parseInt(kolicinaTextField.getText()),
-                    proizvod.getIdProizvoda());*/
             if (daLiMoguAzurirati) {
-                //  stanjeLabel.setText((proizvod.getKolicina() - Integer.parseInt(kolicinaTextField.getText())) + "");
                 return proizvod.getKolicina() - Integer.parseInt(kolicinaTextField.getText());
             }
         }
-        stanjeLabel.setText(proizvod.getKolicina() + "");
         return -1;
     }
 
@@ -319,7 +313,6 @@ public class KasaController implements Initializable {
             try {
                 int fleg = provjeraStanja();
                 if (fleg >= 0) {
-                    stanjeLabel.setText(fleg + "");
                     puniTabelu();
                     if (pozvanaMetodaBarkod) {
                         barkodTextField.clear();
@@ -375,7 +368,6 @@ public class KasaController implements Initializable {
             attachFiles[0] = PDF.kreirajFajlRacun(listaStavki, new DAORacun().vratiRacunPoId(idRacuna));
             ukupno = 0;
             ukupnaCijenaLabel.setText("0,00");
-            stanjeLabel.setText("");
             listaStavki.clear();
             kasaTabela.getItems().clear();
         }
@@ -387,7 +379,6 @@ public class KasaController implements Initializable {
             TabelaKasa selektovanRed = kasaTabela.getSelectionModel().getSelectedItem();
             ukupno -= selektovanRed.getVrijednost();
             ukupnaCijenaLabel.setText(String.format("%.2f", ukupno));
-            stanjeLabel.setText("");
             kasaTabela.getItems().remove(selektovanRed);
             DAOProizvod daoProizvod = new DAOProizvod();
             DAOSkladisteProizvod skladiste = new DAOSkladisteProizvod();
@@ -491,7 +482,6 @@ public class KasaController implements Initializable {
     @FXML
     public void ponisti(ActionEvent event) throws IOException {
         ukupnaCijenaLabel.setText("0.00");
-        stanjeLabel.setText("");
         for (DTOStavka stavka : listaStavki) {
             DAOProizvod daoProizvod = new DAOProizvod();
             DAOSkladisteProizvod skladiste = new DAOSkladisteProizvod();

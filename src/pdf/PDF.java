@@ -48,6 +48,8 @@ import dto.DTOProizvod;
 import dto.DTOProizvodiUSkladistu;
 import dto.DTOZaposleni;
 import gui.PrijavaNaSistemController;
+import java.awt.Desktop;
+import java.io.File;
 import java.text.Format;
 import java.util.Date;
 import java.util.HashMap;
@@ -57,12 +59,13 @@ public class PDF {
 
     public static String kreirajFajlRacun(ArrayList<DTOStavka> stavke, DTORacun racun) {
 
+        String ime="./racuni/racun" + racun.getIdRacuna() + ".pdf";
         try {
             String vrijeme = new SimpleDateFormat("dd.MM.yyyy").format(Calendar.getInstance().getTime());
             String sat = new SimpleDateFormat("HH").format(Calendar.getInstance().getTime());
             String min = new SimpleDateFormat("mm").format(Calendar.getInstance().getTime());
             String sek = new SimpleDateFormat("ss").format(Calendar.getInstance().getTime());
-            PdfDocument pdfDoc = new PdfDocument(new PdfWriter("./racuni/racun" + racun.getIdRacuna() + ".pdf"));
+            PdfDocument pdfDoc = new PdfDocument(new PdfWriter(ime));
 
             try (Document doc = new Document(pdfDoc, PageSize.A5)) {
                 BaseFont bf = BaseFont.createFont(BaseFont.HELVETICA, "CP1250", BaseFont.EMBEDDED);
@@ -160,17 +163,37 @@ public class PDF {
                 ce32.setBorder(b1);
                 tabela.addCell(ce32);
                 doc.add(tabela);
-                return "./racuni/racun" + racun.getIdRacuna() + " " + sat + ":" + min + ":" + sek + ".pdf";
+                
             } catch (DocumentException ex) {
                 Logger.getLogger(PDF.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
                 Logger.getLogger(PDF.class.getName()).log(Level.SEVERE, null, ex);
             }
+            if (Desktop.isDesktopSupported()) {
+            try {
+                File theUMFile = new File(ime);
+                Desktop.getDesktop().open(theUMFile);
+            } catch (FileNotFoundException fnf) {
+               // okDialog(msg_fnf);
+                //theConcours.GetLogger().log(Level.SEVERE, null, fnf);
+                //theConcours.GetLogger().info(msg_fnf);
+            } catch (IllegalArgumentException fnf) {
+               // okDialog(msg_fnf);
+               // theConcours.GetLogger().log(Level.SEVERE, null, fnf);
+               // theConcours.GetLogger().info(msg_fnf);
+            } catch (IOException ex) {
+                //okDialog(msg_cno);
+               // theConcours.GetLogger().log(Level.SEVERE, null, ex);
+              //  theConcours.GetLogger().info(msg_cno);
+            }
+            return "./racuni/racun" + racun.getIdRacuna() + " " + sat + ":" + min + ":" + sek + ".pdf";
+        }
 
         } catch (FileNotFoundException ex) {
             Logger.getLogger(PDF.class.getName()).log(Level.SEVERE, null, ex);
 
         }
+        
         return "";
     }
     
@@ -183,7 +206,8 @@ public class PDF {
             String satNarudzbe = new SimpleDateFormat("HH").format(Calendar.getInstance().getTime());
             String minNarudzbe = new SimpleDateFormat("mm").format(Calendar.getInstance().getTime());
             String sekNarudzbe = new SimpleDateFormat("ss").format(Calendar.getInstance().getTime());
-            PdfDocument pdfDoc = new PdfDocument(new PdfWriter("./narudzbenice/narudzba" + vrijemeNarudzbe + " " + satNarudzbe + "h" + minNarudzbe + "min" + sekNarudzbe + "s" + nazivDobavljaca + ".pdf"));
+            String ime="./narudzbenice/narudzba" + vrijemeNarudzbe + " " + satNarudzbe + "h" + minNarudzbe + "min" + sekNarudzbe + "s" + nazivDobavljaca + ".pdf";
+            PdfDocument pdfDoc = new PdfDocument(new PdfWriter(ime));
 
             try (Document doc = new Document(pdfDoc)) {
                  BaseFont bf = BaseFont.createFont(BaseFont.HELVETICA, "CP1250", BaseFont.EMBEDDED);
@@ -346,13 +370,32 @@ public class PDF {
                 }
 
                 doc.add(table);
-                return "./narudzbenice/narudzba" + vrijemeNarudzbe + " " + satNarudzbe + "h" + minNarudzbe + "min" + sekNarudzbe + "s" + nazivDobavljaca + ".pdf";
+                
             } catch (DocumentException ex) {
                 Logger.getLogger(PDF.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
                 Logger.getLogger(PDF.class.getName()).log(Level.SEVERE, null, ex);
             }
-
+            if (Desktop.isDesktopSupported()) {
+            try {
+                File theUMFile = new File(ime);
+                Desktop.getDesktop().open(theUMFile);
+            } catch (FileNotFoundException fnf) {
+               // okDialog(msg_fnf);
+                //theConcours.GetLogger().log(Level.SEVERE, null, fnf);
+                //theConcours.GetLogger().info(msg_fnf);
+            } catch (IllegalArgumentException fnf) {
+               // okDialog(msg_fnf);
+               // theConcours.GetLogger().log(Level.SEVERE, null, fnf);
+               // theConcours.GetLogger().info(msg_fnf);
+            } catch (IOException ex) {
+                //okDialog(msg_cno);
+               // theConcours.GetLogger().log(Level.SEVERE, null, ex);
+              //  theConcours.GetLogger().info(msg_cno);
+            }
+            return "./narudzbenice/narudzba" + vrijemeNarudzbe + " " + satNarudzbe + "h" + minNarudzbe + "min" + sekNarudzbe + "s" + nazivDobavljaca + ".pdf";
+        }
+            
         } catch (FileNotFoundException ex) {
             Logger.getLogger(TabelaNarudzba.class
                     .getName()).log(Level.SEVERE, null, ex);
@@ -460,11 +503,12 @@ public class PDF {
         DAODobavljac daoDobavljac = new DAODobavljac();
         DTODobavljac dobavljac = daoDobavljac.getDobavljacPoNazivu(nazivDobavljaca);
         DTOMjesto mjesto = DAOMjesto.getMjestoByPostanskiBroj(dobavljac.getPostanskiBroj());
+        String ime="./kalkulacija/kalkulacija_" + id + ".pdf";
         try {
             String vrijemeKalkulacije = new SimpleDateFormat("dd.MM.yyyy").format(Calendar.getInstance().getTime());
             String satKalkulacije = new SimpleDateFormat("HH").format(Calendar.getInstance().getTime());
             String minKalkulacije = new SimpleDateFormat("mm").format(Calendar.getInstance().getTime());
-            PdfDocument pdfDoc = new PdfDocument(new PdfWriter("./kalkulacija/kalkulacija_" + id + ".pdf"));
+            PdfDocument pdfDoc = new PdfDocument(new PdfWriter(ime));
 
             try (Document doc = new Document(pdfDoc, PageSize.A4.rotate())) {
                 BaseFont bf = BaseFont.createFont(BaseFont.HELVETICA, "CP1250", BaseFont.EMBEDDED);
@@ -798,6 +842,24 @@ public class PDF {
 
         }
         //  return "";
+        if (Desktop.isDesktopSupported()) {
+            try {
+                File theUMFile = new File(ime);
+                Desktop.getDesktop().open(theUMFile);
+            } catch (FileNotFoundException fnf) {
+               // okDialog(msg_fnf);
+                //theConcours.GetLogger().log(Level.SEVERE, null, fnf);
+                //theConcours.GetLogger().info(msg_fnf);
+            } catch (IllegalArgumentException fnf) {
+               // okDialog(msg_fnf);
+               // theConcours.GetLogger().log(Level.SEVERE, null, fnf);
+               // theConcours.GetLogger().info(msg_fnf);
+            } catch (IOException ex) {
+                //okDialog(msg_cno);
+               // theConcours.GetLogger().log(Level.SEVERE, null, ex);
+              //  theConcours.GetLogger().info(msg_cno);
+            }
+        }
     }
 
     public static void kreirajIzvjestajPoDobavljacuZaMjesec(Date datumOd, Date datumDo, int idDobavljaca) {
@@ -807,8 +869,9 @@ public class PDF {
         ArrayList<DTODobavljacIzvjestaj> proizvodi = new ArrayList<>();
         proizvodi = new DAODobavljac().proizvodiPoDobavljacuZaMjesec(datumOd, datumDo, idDobavljaca);
         SimpleDateFormat datum = new SimpleDateFormat("dd.MM.yyyy");
+        String ime="./izvjestaji/poDobavljacu/izvjestaj_odDatuma_" + datum.format(datumOd) + "_doDatuma_" + datum.format(datumDo) + ".pdf";
         try {
-            PdfDocument pdfDoc = new PdfDocument(new PdfWriter("./izvjestaji/poDobavljacu/izvjestaj_odDatuma_" + datum.format(datumOd) + "_doDatuma_" + datum.format(datumDo) + ".pdf"));
+            PdfDocument pdfDoc = new PdfDocument(new PdfWriter(ime));
 
             try (Document doc = new Document(pdfDoc, PageSize.A4.rotate())) {
                 BaseFont bf = BaseFont.createFont(BaseFont.HELVETICA, "CP1250", BaseFont.EMBEDDED);
@@ -981,6 +1044,24 @@ public class PDF {
                     .getName()).log(Level.SEVERE, null, ex);
 
         }
+        if (Desktop.isDesktopSupported()) {
+            try {
+                File theUMFile = new File(ime);
+                Desktop.getDesktop().open(theUMFile);
+            } catch (FileNotFoundException fnf) {
+               // okDialog(msg_fnf);
+                //theConcours.GetLogger().log(Level.SEVERE, null, fnf);
+                //theConcours.GetLogger().info(msg_fnf);
+            } catch (IllegalArgumentException fnf) {
+               // okDialog(msg_fnf);
+               // theConcours.GetLogger().log(Level.SEVERE, null, fnf);
+               // theConcours.GetLogger().info(msg_fnf);
+            } catch (IOException ex) {
+                //okDialog(msg_cno);
+               // theConcours.GetLogger().log(Level.SEVERE, null, ex);
+              //  theConcours.GetLogger().info(msg_cno);
+            }
+        }
     }
     
      public static String kreirajIzvjestajSvihProdanihProizvoda( Date datumOd,  Date datumDo ) {
@@ -1012,7 +1093,7 @@ public class PDF {
    
              }
              
-            String pattern = "MM/dd/yyyy HH:mm:ss";
+            String pattern = "MM.dd.yyyy";
 
 
              Format df = new SimpleDateFormat(pattern);
@@ -1027,7 +1108,8 @@ public class PDF {
             String sat = new SimpleDateFormat("HH").format(Calendar.getInstance().getTime());
             String min = new SimpleDateFormat("mm").format(Calendar.getInstance().getTime());
             String sek = new SimpleDateFormat("ss").format(Calendar.getInstance().getTime());
-            PdfDocument pdfDoc = new PdfDocument(new PdfWriter("./izvjestaji/izvjestajProdaja" + vrijeme + " " + sat + "h" + min + "min" + sek + "s"  + ".pdf"));
+            String ime="./izvjestaji/izvjestajProdaja" + vrijeme + " " + sat + "h" + min + "min" + sek + "s"  + ".pdf";
+            PdfDocument pdfDoc = new PdfDocument(new PdfWriter(ime));
 
             try (Document doc = new Document(pdfDoc)) {
                  BaseFont bf = BaseFont.createFont(BaseFont.HELVETICA, "CP1250", BaseFont.EMBEDDED);
@@ -1168,18 +1250,39 @@ public class PDF {
                 }
 
                 doc.add(table);
-                return "./izvjestaji/izvjestajProdaja" + vrijeme + " " + sat + "h" + min + "min" + sek + "s"  + ".pdf";
+                
             }    catch (DocumentException ex) {
                      Logger.getLogger(PDF.class.getName()).log(Level.SEVERE, null, ex);
                  } catch (IOException ex) {
                      Logger.getLogger(PDF.class.getName()).log(Level.SEVERE, null, ex);
                  }
+            
+        if (Desktop.isDesktopSupported()) {
+            try {
+                File theUMFile = new File(ime);
+                Desktop.getDesktop().open(theUMFile);
+            } catch (FileNotFoundException fnf) {
+               // okDialog(msg_fnf);
+                //theConcours.GetLogger().log(Level.SEVERE, null, fnf);
+                //theConcours.GetLogger().info(msg_fnf);
+            } catch (IllegalArgumentException fnf) {
+               // okDialog(msg_fnf);
+               // theConcours.GetLogger().log(Level.SEVERE, null, fnf);
+               // theConcours.GetLogger().info(msg_fnf);
+            } catch (IOException ex) {
+                //okDialog(msg_cno);
+               // theConcours.GetLogger().log(Level.SEVERE, null, ex);
+              //  theConcours.GetLogger().info(msg_cno);
+            }
+            return "./izvjestaji/izvjestajProdaja" + vrijeme + " " + sat + "h" + min + "min" + sek + "s"  + ".pdf";
+        }
 
         } catch (FileNotFoundException ex) {
             Logger.getLogger(TabelaNarudzba.class
                     .getName()).log(Level.SEVERE, null, ex);
 
         }
+        
         return "";
     }
      
@@ -1190,12 +1293,12 @@ public class PDF {
         ArrayList<DTOIzvjestajNaruceneRobeDobavljac> proizvodi = new ArrayList<>();
         proizvodi = new DAODobavljac().proizvodiPoDobavljacuProdano(datumOd, datumDo, idDobavljaca);
         SimpleDateFormat datum = new SimpleDateFormat("dd.MM.yyyy");
+        String ime="./izvjestaji/poDobavljacuNaruceno/izvjestaj_odDatuma_" + datum.format(datumOd) + "_doDatuma_" + datum.format(datumDo) + ".pdf";
         try {
-            PdfDocument pdfDoc = new PdfDocument(new PdfWriter("./izvjestaji/poDobavljacuNaruceno/izvjestaj_odDatuma_" + datum.format(datumOd) + "_doDatuma_" + datum.format(datumDo) + ".pdf"));
+            PdfDocument pdfDoc = new PdfDocument(new PdfWriter(ime));
 
             try (Document doc = new Document(pdfDoc, PageSize.A4.rotate())) {
                 BaseFont bf = BaseFont.createFont(BaseFont.HELVETICA, "CP1250", BaseFont.EMBEDDED);
-                //Font moj = new Font(bf);
                 PdfFont moj;
                 moj = PdfFontFactory.createFont(FONT, "Cp1250", true);
                 doc.setFontSize(10);
@@ -1226,10 +1329,7 @@ public class PDF {
                 c1.setBorderLeft(borderGray);
                 c1.setBackgroundColor(Color.LIGHT_GRAY);
                 c1.add("Rb. ");
-                //table.addCell("Rb. ").setBorderLeft(border).setBorderLeft(border);
                 table.addCell(c1);
-                //table.addCell("JIB Dobavljaca");
-                //table.addCell("Naziv Dobavljaca");
                 Cell c2 = new Cell();
                 c2.setBorderLeft(borderGray);
                 c2.setBorderRight(borderGray);
@@ -1266,7 +1366,6 @@ public class PDF {
                 c6.setTextAlignment(TextAlignment.RIGHT);
                 c6.add("Cijena proizvoda");
                 table.addCell(c6);
-                //doc.add(table);
                 for (int i = 0; i < proizvodi.size(); i++) {
                     int j = i + 1;
                     Cell p1 = new Cell();
@@ -1274,8 +1373,6 @@ public class PDF {
                     p1.setBorderRight(border);
                     p1.add(" " + j + ".");
                     table.addCell(p1);
-                    //table.addCell(proizvodi.get(i).getJIBDobavljaca());
-                    //table.addCell(proizvodi.get(i).getNazivDobavaljaca());
                     Cell p2 = new Cell();
                     p2.setBorderLeft(border);
                     p2.setBorderRight(border);
@@ -1320,6 +1417,24 @@ public class PDF {
                     .getName()).log(Level.SEVERE, null, ex);
 
         }
+        if (Desktop.isDesktopSupported()) {
+            try {
+                File theUMFile = new File(ime);
+                Desktop.getDesktop().open(theUMFile);
+            } catch (FileNotFoundException fnf) {
+               // okDialog(msg_fnf);
+                //theConcours.GetLogger().log(Level.SEVERE, null, fnf);
+                //theConcours.GetLogger().info(msg_fnf);
+            } catch (IllegalArgumentException fnf) {
+               // okDialog(msg_fnf);
+               // theConcours.GetLogger().log(Level.SEVERE, null, fnf);
+               // theConcours.GetLogger().info(msg_fnf);
+            } catch (IOException ex) {
+                //okDialog(msg_cno);
+               // theConcours.GetLogger().log(Level.SEVERE, null, ex);
+              //  theConcours.GetLogger().info(msg_cno);
+            }
+        }
     }
      
      public static void kreirajIzvjestajZaSkladiste() {
@@ -1329,8 +1444,9 @@ public class PDF {
         ArrayList<DTOProizvodiUSkladistu> proizvodi = new ArrayList<>();
         proizvodi = new DAOSkladiste().pregledProizvodaUSkladistu();
         SimpleDateFormat datum = new SimpleDateFormat("dd.MM.yyyy");
+        String ime="./izvjestaji/skladiste/izvjestaj_zaDatum_" + datum.format(new Date().getTime()) +".pdf";
         try {
-            PdfDocument pdfDoc = new PdfDocument(new PdfWriter("./izvjestaji/skladiste/izvjestaj_zaDatum_" + datum.format(new Date().getTime()) +".pdf"));
+            PdfDocument pdfDoc = new PdfDocument(new PdfWriter(ime));
 
             try (Document doc = new Document(pdfDoc, PageSize.A4.rotate())) {
                 BaseFont bf = BaseFont.createFont(BaseFont.HELVETICA, "CP1250", BaseFont.EMBEDDED);
@@ -1452,6 +1568,24 @@ public class PDF {
             Logger.getLogger(TabelaNarudzba.class
                     .getName()).log(Level.SEVERE, null, ex);
 
+        }
+        if (Desktop.isDesktopSupported()) {
+            try {
+                File theUMFile = new File(ime);
+                Desktop.getDesktop().open(theUMFile);
+            } catch (FileNotFoundException fnf) {
+               // okDialog(msg_fnf);
+                //theConcours.GetLogger().log(Level.SEVERE, null, fnf);
+                //theConcours.GetLogger().info(msg_fnf);
+            } catch (IllegalArgumentException fnf) {
+               // okDialog(msg_fnf);
+               // theConcours.GetLogger().log(Level.SEVERE, null, fnf);
+               // theConcours.GetLogger().info(msg_fnf);
+            } catch (IOException ex) {
+                //okDialog(msg_cno);
+               // theConcours.GetLogger().log(Level.SEVERE, null, ex);
+              //  theConcours.GetLogger().info(msg_cno);
+            }
         }
     }
 }
