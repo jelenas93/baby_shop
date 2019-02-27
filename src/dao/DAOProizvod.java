@@ -543,4 +543,36 @@ public class DAOProizvod {
         }
         return true;
     }
+    
+    public boolean daLiImaDovoljnoNaStanju(int kolicina, int id) {
+
+        Connection con = null;
+        CallableStatement myStatement=null;
+        try {
+            con = ConnectionPool.getInstance().checkOut();
+            myStatement=con.prepareCall("{call provjeri_kolicinu_proizvoda(?, ?)}");
+            myStatement.setInt(1, kolicina);
+            myStatement.setInt(2, id);
+            myStatement.execute();
+        } catch (SQLException ex) {
+           // Logger.getLogger(DAOProizvod.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOProizvod.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if (myStatement != null) {
+                try {
+                    myStatement.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(DAOProizvod.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        return true;
+    }
 }

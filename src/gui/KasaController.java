@@ -289,7 +289,7 @@ public class KasaController implements Initializable {
         DTOProizvod proizvod = null;
         if (barkod) {
             proizvod = dao.getProizvodPoBarkodu(barkodTextField.getText());
-            boolean daLiMoguAzurirati = dao.azurirajProizvod(proizvod.getKolicina() - Integer.parseInt(kolicinaTextField.getText()),
+            boolean daLiMoguAzurirati = dao.daLiImaDovoljnoNaStanju(proizvod.getKolicina() - Integer.parseInt(kolicinaTextField.getText()),
                     proizvod.getIdProizvoda());
             if (daLiMoguAzurirati) {
                 //  stanjeLabel.setText((proizvod.getKolicina() - Integer.parseInt(kolicinaTextField.getText())) + "");
@@ -297,7 +297,7 @@ public class KasaController implements Initializable {
             }
         } else {
             proizvod = dao.getProizvodPoSifri(sifraTextField.getText());
-            boolean daLiMoguAzurirati = dao.azurirajProizvod(proizvod.getKolicina() - Integer.parseInt(kolicinaTextField.getText()),
+            boolean daLiMoguAzurirati = dao.daLiImaDovoljnoNaStanju(proizvod.getKolicina() - Integer.parseInt(kolicinaTextField.getText()),
                     proizvod.getIdProizvoda());
 
             /* boolean azuriranjeSkladista = daoSkladiste.azurirajProizvodUSkladistu(proizvod.getKolicina() - Integer.parseInt(kolicinaTextField.getText()),
@@ -345,6 +345,8 @@ public class KasaController implements Initializable {
 
     @FXML
     public void stampajRacun() {
+        DTOProizvod proizvod = null;
+        DAOProizvod dao = new DAOProizvod();
         if (kasaTabela.getItems().isEmpty()) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Nemate stavke na računu.");
         } else {
@@ -357,6 +359,16 @@ public class KasaController implements Initializable {
             for (DTOStavka stavka : listaStavki) {
                 if (!daoStavka.upisUBazuStavku(idRacuna, stavka.getKolicina(), stavka.getCijena(), stavka.getIdProizvoda())) {
                     AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška pri upisu stavke u bazu.");
+                } else {
+                    if (barkod) {
+                        proizvod = dao.getProizvodPoBarkodu(barkodTextField.getText());
+                        dao.azurirajProizvod(proizvod.getKolicina() - Integer.parseInt(kolicinaTextField.getText()),
+                                proizvod.getIdProizvoda());
+                    } else {
+                        proizvod = dao.getProizvodPoSifri(sifraTextField.getText());
+                        dao.azurirajProizvod(proizvod.getKolicina() - Integer.parseInt(kolicinaTextField.getText()),
+                                proizvod.getIdProizvoda());
+                    }
                 }
             }
             String[] attachFiles = new String[1];
