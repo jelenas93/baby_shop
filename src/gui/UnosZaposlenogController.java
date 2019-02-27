@@ -93,6 +93,14 @@ public class UnosZaposlenogController implements Initializable {
             AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste ispravno unijeli podatke.");
         } else if (!Pattern.matches("[0-9]{13}", jmbgTextField.getText())) {
             AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Neispravan JMBG!");}
+         else if (!Pattern.matches("[a-zA-Z]*", imeTextField.getText())) {
+            AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Neispravan unos imena!");}
+         else if (!Pattern.matches("[a-zA-Z]*", prezimeTextField.getText())) {
+            AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Neispravan unos prezimena!");}
+         else if(Double.parseDouble(plataTextField.getText())<=0){
+             AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Neispravan unos iznosa plate!");}
+          else if (!Pattern.matches("[a-zA-Z0-9]*@[a-zA-Z.]*.[a-zA-Z]*", mejlTextField.getText())) {
+            AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Neispravan unos mejla!");}
         else {
             DAOZaposleni daoZaposleni = new DAOZaposleni();
             int idZaposlenog = daoZaposleni.dodajZaposlenog(imeTextField.getText(),

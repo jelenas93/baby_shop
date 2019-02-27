@@ -111,6 +111,8 @@ public class IzmjenaZaposlenogController implements Initializable {
                 DAOKorisnickiNalog.izmijeniTipKorisnika(tipZaposlenogComboBox.getSelectionModel().getSelectedItem().getNazivTipa(),idZap );
                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 window.close();
+                
+                PregledKorisnickogNalogaController.myController.refresh();
             }
         }
     }

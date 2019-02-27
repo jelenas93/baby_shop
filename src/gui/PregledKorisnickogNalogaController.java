@@ -39,6 +39,8 @@ public class PregledKorisnickogNalogaController implements Initializable {
     private TableColumn<DTOKorisnikWrapper, String> tipNalogaTableColumn;
     ObservableList<DTOKorisnikWrapper> nalozi;
 
+     static PregledKorisnickogNalogaController myController;
+
     public PregledKorisnickogNalogaController() {
       this.nalozi = FXCollections.observableArrayList(DAOKorisnikWrapper.getKorisnickiNaloziWrappers());
     }
@@ -54,6 +56,7 @@ public class PregledKorisnickogNalogaController implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        myController = this;
         postavi();
 
     }
@@ -112,4 +115,8 @@ public class PregledKorisnickogNalogaController implements Initializable {
         window.showAndWait();
     }
 
+    public void refresh(){
+        nalozi = FXCollections.observableArrayList(DAOKorisnikWrapper.getKorisnickiNaloziWrappers());
+        korisnickiNalogTableView.setItems(nalozi);
+    }
 }

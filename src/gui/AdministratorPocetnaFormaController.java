@@ -43,7 +43,10 @@ public class AdministratorPocetnaFormaController implements Initializable {
 
     @FXML
     public void pregledKorisnickihNaloga(ActionEvent event) throws IOException {
-        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/pregledKorisnickogNaloga.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/pregledKorisnickogNaloga.fxml"));
+        Parent korisnikView = loader.load();
+        PregledKorisnickogNalogaController.myController = (PregledKorisnickogNalogaController)loader.getController();
+
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene korisnikScena = new Scene(korisnikView);
         window.setScene(korisnikScena);
