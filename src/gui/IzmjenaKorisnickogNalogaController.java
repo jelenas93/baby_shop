@@ -51,7 +51,7 @@ public class IzmjenaKorisnickogNalogaController implements Initializable {
     @FXML
     private void sacuvajButtonOnAction(ActionEvent event) throws IOException, NoSuchAlgorithmException {
         DTOKorisnickiNalog nalogIzBaze = DAOKorisnickiNalog.getKorisnickiNalozi().stream().filter(x -> korisnickoImeTextField.getText().equals(x.getKorisnickoIme())).findAny().orElse(null);
-        if (nalogIzBaze == null) {
+      if (nalogIzBaze == null || nalog.getKorisnickoIme().equals(korisnickoImeTextField.getText())) {
             nalog.setKorisnickoIme(korisnickoImeTextField.getText());
         } else {
             AlertHelper.showAlert(Alert.AlertType.WARNING, "", " Korisničko ime već postoji.");
