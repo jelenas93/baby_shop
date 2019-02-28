@@ -418,6 +418,7 @@ public class KasaController implements Initializable {
         kusurButton.setDisable(true);
         razduzenjeButton.setDisable(true);
         brisanjeButton.setDisable(true);
+        kasaTabela.getItems().clear();
         int idRacuna = Integer.parseInt(brojRacunaTextField.getText());
         DTORacun racunZaStorniranje = new DAORacun().vratiRacunPoId(idRacuna);
         if (racunZaStorniranje != null) {
@@ -476,7 +477,7 @@ public class KasaController implements Initializable {
         new DAOStorniranRacun().dodajStorniraniRacun(new java.sql.Date(new Date().getTime()), negativnoUkupno, racunZaStorniranje.getIdZaposlenog(), idRacuna);
         ukupno = 0;
         ukupnaCijenaLabel.setText("0,00");
-        brojRacunaTextField.setText(" ");
+        brojRacunaTextField.setText("");
         listaStavki.clear();
         kasaTabela.getItems().clear();
         barkodTextField.setDisable(false);
@@ -519,6 +520,7 @@ public class KasaController implements Initializable {
     @FXML
     public void ponisti(ActionEvent event) throws IOException {
         ukupnaCijenaLabel.setText("0.00");
+        brojRacunaTextField.setText("");
         for (DTOStavka stavka : listaStavki) {
             DAOProizvod daoProizvod = new DAOProizvod();
             DAOSkladisteProizvod skladiste = new DAOSkladisteProizvod();
