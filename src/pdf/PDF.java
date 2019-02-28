@@ -68,12 +68,10 @@ public class PDF {
                 //Font moj = new Font(bf);
                 PdfFont moj;
                 moj = PdfFontFactory.createFont(FONT, "Cp1250", true);
-                doc.add(new Paragraph("Baby shop").setFont(moj));
+                doc.add(new Paragraph("Baby shop \t\t\t Broj računa: "+racun.getIdRacuna()).setFont(moj));
                 doc.add(new Paragraph("Datum: " + vrijeme + " " + sat + ":" + min + ":" + sek));
                 doc.add(new Paragraph("\n"));
                 doc.add(new Paragraph("Maloprodajni račun").setTextAlignment(TextAlignment.CENTER).setFont(moj));
-                doc.add(new Paragraph("\n"));
-                doc.add(new Paragraph("Broj računa: "+racun.getIdRacuna()));
                 doc.add(new Paragraph("\n"));
                 Border b1 = new SolidBorder(Color.WHITE, Float.MIN_VALUE);
                 float[] pointColumnWidthss = {1000F, 1000F, 1000F, 1000F};
