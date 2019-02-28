@@ -123,7 +123,7 @@ public class NarudzbenicaController implements Initializable {
     private ComboBox<String> imeDobavljacaComboBox;
 
     private double ukupnaCijena = 0; 
-    private static HashMap<String,Integer >listaProizvoda  =  new HashMap<String,Integer> ();
+    private HashMap<String,Integer >listaProizvoda  =  new HashMap<String,Integer> ();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
