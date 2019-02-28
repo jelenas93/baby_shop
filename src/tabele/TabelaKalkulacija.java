@@ -163,4 +163,10 @@ public class TabelaKalkulacija {
         this.prodajnaCijena = Double.parseDouble(String.format("%.2f", prodajnaCijena));
     }
 
+    @Override
+    public String toString() {
+        return "TabelaKalkulacija{" + "kolicina=" + kolicina + ", stopa=" + stopa + ", idProizvoda=" + idProizvoda + ", sifra=" + sifra + ", naziv=" + naziv + ", jedMjere=" + jedMjere + ", barKod=" + barKod + ", fakturnaCijena=" + fakturnaCijena + ", rabat=" + rabat + ", fakturnaVrijednostNaRabat=" + fakturnaVrijednostNaRabat + ", nabavnaCijena=" + nabavnaCijena + ", nabavnaVrijednost=" + nabavnaVrijednost + ", marza=" + marza + ", marzaIznos=" + marzaIznos + ", vrijednostBezPdv=" + vrijednostBezPdv + ", pdv=" + pdv + ", prodajnaVrijednost=" + prodajnaVrijednost + ", prodajnaCijena=" + prodajnaCijena + '}';
+    }
+
+    
 }

@@ -378,7 +378,7 @@ public class DAOProizvod {
 
         try {
             con = ConnectionPool.getInstance().checkOut();
-            ps = con.prepareStatement("select * from baby_shop.proizvod where IdProizvoda like '" + id + "%'");
+            ps = con.prepareStatement("select * from baby_shop.proizvod where IdProizvoda like '" + id + "'");
             rs = ps.executeQuery();
             while (rs.next()) {
                 int idPorizvoda = rs.getInt(1);
@@ -436,7 +436,6 @@ public class DAOProizvod {
             myStatement.setInt(2, id);
             myStatement.execute();
         } catch (SQLException ex) {
-           // Logger.getLogger(DAOProizvod.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         } finally {
             if (con != null) {
@@ -555,7 +554,6 @@ public class DAOProizvod {
             myStatement.setInt(2, id);
             myStatement.execute();
         } catch (SQLException ex) {
-           // Logger.getLogger(DAOProizvod.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         } finally {
             if (con != null) {

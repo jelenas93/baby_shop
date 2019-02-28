@@ -51,5 +51,12 @@ public class DTOStavkaNarudzbe {
     public double getCijena() {
         return cijena;
     }
+
+    @Override
+    public String toString() {
+        return "DTOStavkaNarudzbe{" + "idStavkeNarudzbe=" + idStavkeNarudzbe + ", idNarudzbenice=" + idNarudzbenice + ", kolicina=" + kolicina + ", idProizvoda=" + idProizvoda + ", cijena=" + cijena + '}';
+    }
+    
+    
     
 }

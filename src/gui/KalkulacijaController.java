@@ -11,13 +11,11 @@ import dao.DAOStavkaNarudzbe;
 import dto.DTODobavljac;
 import dto.DTONarudzbenica;
 import dto.DTOProizvod;
-import dto.DTOStavkaKalkulacije;
 import dto.DTOStavkaNarudzbe;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -29,7 +27,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -188,9 +185,8 @@ public class KalkulacijaController implements Initializable {
         DAOProizvod daoProizvod = new DAOProizvod();
         for (DTOStavkaNarudzbe stavka : listaStavkinarudzbe) {
             DTOProizvod dtoProizvod = daoProizvod.getProizvodPoId(stavka.getIdProizvoda());
-            listaMoja.add(new TabelaKalkulacija(dtoProizvod.getSifra(), dtoProizvod.getBarkod(), dtoProizvod.getNaziv(), stavka.getKolicina(), "KOM", dtoProizvod.getIdProizvoda()));
+            listaMoja.add(new TabelaKalkulacija(dtoProizvod.getSifra(), dtoProizvod.getBarkod(), dtoProizvod.getNaziv(), stavka.getKolicina(), "KOM",stavka.getIdProizvoda()));
         }
-
         for (TabelaKalkulacija kalkulacija : listaMoja) {
             listaZaPrikaz.add(kalkulacija);
         }
