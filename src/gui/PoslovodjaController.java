@@ -1,7 +1,6 @@
 package gui;
 
 import babyshop.AlertHelper;
-import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import dao.DAODobavljac;
 import dao.DAOIzvjestaj;
@@ -30,7 +29,6 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
 import pdf.PDF;
 
@@ -45,7 +43,7 @@ public class PoslovodjaController implements Initializable {
     @FXML
     private CategoryAxis x, x1;
     @FXML
-    private JFXComboBox<String> dobavljac;
+    private ComboBox<String> dobavljac;
     @FXML
     private JFXDatePicker datumOd;
     @FXML

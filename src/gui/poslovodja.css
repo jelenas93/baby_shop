@@ -39,7 +39,7 @@
 
 .check-box > .box {
     -fx-background-radius: 0;
-    -fx-background-color : -bright, -fx-background;
+    -fx-background-color : white;
     -fx-background-insets: 0, 2;
     -fx-pref-width       : 21;
     -fx-pref-height      : 21;
