@@ -5,6 +5,7 @@ import dao.DAODobavljac;
 import dao.DAOKalkulacija;
 import dao.DAONarudzbenica;
 import dao.DAOProizvod;
+import dao.DAOSkladisteProizvod;
 import dao.DAOStavkaKalkulacije;
 import dao.DAOStavkaNarudzbe;
 import dto.DTODobavljac;
@@ -121,10 +122,10 @@ public class KalkulacijaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       postaviDobavljace();
+        postaviDobavljace();
     }
-    
-    private void postaviDobavljace(){
+
+    private void postaviDobavljace() {
         DAODobavljac daod = new DAODobavljac();
         ObservableList<DTODobavljac> listaDobavljaca;
         listaDobavljaca = daod.getDobavljace();
@@ -187,7 +188,7 @@ public class KalkulacijaController implements Initializable {
         DAOProizvod daoProizvod = new DAOProizvod();
         for (DTOStavkaNarudzbe stavka : listaStavkinarudzbe) {
             DTOProizvod dtoProizvod = daoProizvod.getProizvodPoId(stavka.getIdProizvoda());
-            listaMoja.add(new TabelaKalkulacija(dtoProizvod.getSifra(), dtoProizvod.getBarkod(), dtoProizvod.getNaziv(), stavka.getKolicina(), "KOM",dtoProizvod.getIdProizvoda()));
+            listaMoja.add(new TabelaKalkulacija(dtoProizvod.getSifra(), dtoProizvod.getBarkod(), dtoProizvod.getNaziv(), stavka.getKolicina(), "KOM", dtoProizvod.getIdProizvoda()));
         }
 
         for (TabelaKalkulacija kalkulacija : listaMoja) {
@@ -200,11 +201,12 @@ public class KalkulacijaController implements Initializable {
     private boolean provjeraCijene() {
         if (!kalkulacija.getSelectionModel().getSelectedItems().toString().equals("[]")) {
             try {
-                if(Double.parseDouble(fakturnaCijenaTextField.getText()) < 0){
+                if (Double.parseDouble(fakturnaCijenaTextField.getText()) < 0) {
                     AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Fakturna cijena mora biti veći od 0 .");
-                }else{
-                rabatTextField.requestFocus();
-                return true;}
+                } else {
+                    rabatTextField.requestFocus();
+                    return true;
+                }
             } catch (NumberFormatException e) {
                 AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Cijena mora biti broj.");
                 fakturnaCijenaTextField.setText("");
@@ -222,11 +224,12 @@ public class KalkulacijaController implements Initializable {
     private boolean provjeraRabata() {
         if (!kalkulacija.getSelectionModel().getSelectedItems().toString().equals("[]")) {
             try {
-                if(Integer.parseInt(rabatTextField.getText())<0){
-                     AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Rabat mora biti veći od 0.");
-                }else{
-                marzaTextField.requestFocus();
-                return true;}
+                if (Integer.parseInt(rabatTextField.getText()) < 0) {
+                    AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Rabat mora biti veći od 0.");
+                } else {
+                    marzaTextField.requestFocus();
+                    return true;
+                }
             } catch (NumberFormatException e) {
                 AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Rabat mora biti cijeli broj.");
                 rabatTextField.setText("");
@@ -244,10 +247,11 @@ public class KalkulacijaController implements Initializable {
     private boolean provjeraMarze() {
         if (!kalkulacija.getSelectionModel().getSelectedItems().toString().equals("[]")) {
             try {
-                if(Double.parseDouble(marzaTextField.getText())<0){
-                     AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Marža mora biti veći od 0.");
-                }else{
-                return true;}
+                if (Double.parseDouble(marzaTextField.getText()) < 0) {
+                    AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Marža mora biti veći od 0.");
+                } else {
+                    return true;
+                }
             } catch (NumberFormatException e) {
                 AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Marža mora biti broj.");
                 marzaTextField.setText("");
@@ -267,7 +271,7 @@ public class KalkulacijaController implements Initializable {
             red.setNabavnaCijena(red.getFakturnaCijena() - red.getFakturnaCijena() * Integer.parseInt(rabatTextField.getText()) / 100);
             red.setNabavnaVrijednost(red.getNabavnaCijena() * red.getKolicina());
             red.setMarza(Double.parseDouble(marzaTextField.getText()));
-            red.setMarzaIznos(red.getNabavnaVrijednost()* Double.parseDouble(marzaTextField.getText()) / 100);
+            red.setMarzaIznos(red.getNabavnaVrijednost() * Double.parseDouble(marzaTextField.getText()) / 100);
             red.setVrijednostBezPdv(red.getNabavnaVrijednost() + red.getMarzaIznos());
             red.setPdv(red.getVrijednostBezPdv() * red.getStopa() / 100);
             double marzaPostotak = red.getNabavnaCijena() + red.getNabavnaCijena() * red.getMarza() / 100;
@@ -296,45 +300,59 @@ public class KalkulacijaController implements Initializable {
         if (kalkulacija.getItems().isEmpty()) {
             AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Kalkulacija je prazna.");
         } else {
-            double ukupno = 0;
+            boolean neMoze = false;
             for (int i = 0; i < kalkulacija.getItems().size(); i++) {
-                ukupno += kalkulacija.getItems().get(i).getProdajnaVrijednost();
+                if (kalkulacija.getItems().get(i).getFakturnaCijena() == 0) {
+                    neMoze = true;
+                }
             }
-            DAOKalkulacija daoKalkulacija = new DAOKalkulacija();
-            if (!daoKalkulacija.upisiKalkulacijuUBazu(new java.sql.Date(new Date().getTime()),
-                    idDobavljaca, 1, ukupno)) {
-                AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greska pru upisu kalkulacije u bazu");
+            if (neMoze) {
+                AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Niste unijeli sve podatke za date proizvode.");
             } else {
-                DAOStavkaKalkulacije daoStavka=new DAOStavkaKalkulacije();
-                int idKalkulacije=daoKalkulacija.idZadnjeKalkulacije();
+                double ukupno = 0;
                 for (int i = 0; i < kalkulacija.getItems().size(); i++) {
-                   if(!daoStavka.upisUBazuStavkuKalkulacije(idKalkulacije, 
-                           kalkulacija.getItems().get(i).getIdProizvoda(),
-                           kalkulacija.getItems().get(i).getFakturnaCijena(),
-                           kalkulacija.getItems().get(i).getKolicina(),
-                           kalkulacija.getItems().get(i).getJedMjere(), 
-                           kalkulacija.getItems().get(i).getRabat(), 
-                           kalkulacija.getItems().get(i).getMarza(),
-                           kalkulacija.getItems().get(i).getStopa(),
-                           kalkulacija.getItems().get(i).getProdajnaCijena())){
-                       AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greska pru upisu stavke kalkulacije u bazu");
-                   }
-                   new DAOProizvod().azurirajProizvod( kalkulacija.getItems().get(i).getKolicina(),  kalkulacija.getItems().get(i).getIdProizvoda());
+                    ukupno += kalkulacija.getItems().get(i).getProdajnaVrijednost();
                 }
-                
-                DAONarudzbenica daoNarudzbenica=new DAONarudzbenica();
-                if(!daoNarudzbenica.setujNaruzbuKalkulisana(Integer.parseInt(narudzbaComboBox.getSelectionModel().getSelectedItem().split(" ")[0]))){
-                    AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greska!");
+                DAOKalkulacija daoKalkulacija = new DAOKalkulacija();
+                if (!daoKalkulacija.upisiKalkulacijuUBazu(new java.sql.Date(new Date().getTime()),
+                        idDobavljaca, 1, ukupno)) {
+                    AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greska pru upisu kalkulacije u bazu");
+                } else {
+                    DAOStavkaKalkulacije daoStavka = new DAOStavkaKalkulacije();
+                    int idKalkulacije = daoKalkulacija.idZadnjeKalkulacije();
+                    for (int i = 0; i < kalkulacija.getItems().size(); i++) {
+                        if (!daoStavka.upisUBazuStavkuKalkulacije(idKalkulacije,
+                                kalkulacija.getItems().get(i).getIdProizvoda(),
+                                kalkulacija.getItems().get(i).getFakturnaCijena(),
+                                kalkulacija.getItems().get(i).getKolicina(),
+                                kalkulacija.getItems().get(i).getJedMjere(),
+                                kalkulacija.getItems().get(i).getRabat(),
+                                kalkulacija.getItems().get(i).getMarza(),
+                                kalkulacija.getItems().get(i).getStopa(),
+                                kalkulacija.getItems().get(i).getProdajnaCijena())) {
+                            AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greska pru upisu stavke kalkulacije u bazu");
+                        }
+                        new DAOProizvod().azurirajProizvod(kalkulacija.getItems().get(i).getKolicina(), kalkulacija.getItems().get(i).getIdProizvoda());
+                        DTOProizvod p=new DAOProizvod().getProizvodPoId( kalkulacija.getItems().get(i).getIdProizvoda());
+                        new DAOSkladisteProizvod().azurirajProizvodUSkladistu(p.getKolicina()+kalkulacija.getItems().get(i).getKolicina(), kalkulacija.getItems().get(i).getIdProizvoda());
+                    }
+
+                    DAONarudzbenica daoNarudzbenica = new DAONarudzbenica();
+                    if (!daoNarudzbenica.setujNaruzbuKalkulisana(Integer.parseInt(narudzbaComboBox.getSelectionModel().getSelectedItem().split(" ")[0]))) {
+                        AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greska!");
+                    }
+                    
+                    
+                    ObservableList<TabelaKalkulacija> lista = kalkulacija.getItems();
+                    PDF.kreirajFajlKalkulacija(lista, dobavljacComboBox.getSelectionModel().getSelectedItem(), idKalkulacije);
+                    kalkulacija.getItems().clear();
+                    cistiPolja();
                 }
-                
-                ObservableList<TabelaKalkulacija> lista=kalkulacija.getItems();
-                PDF.kreirajFajlKalkulacija(lista, dobavljacComboBox.getSelectionModel().getSelectedItem(), idKalkulacije);
-                kalkulacija.getItems().clear();
-                cistiPolja();
             }
         }
     }
-    public void nazadStisak(ActionEvent event) throws IOException{
+
+    public void nazadStisak(ActionEvent event) throws IOException {
         Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/PocetnaForma.fxml"));
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene korisnikScena = new Scene(korisnikView);
@@ -342,8 +360,8 @@ public class KalkulacijaController implements Initializable {
         window.centerOnScreen();
         window.show();
     }
-    
-    public void ponisti(ActionEvent event) throws IOException{
+
+    public void ponisti(ActionEvent event) throws IOException {
         kalkulacija.getItems().clear();
     }
 }
