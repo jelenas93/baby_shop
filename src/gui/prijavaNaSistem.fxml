@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.effect.Blend?>
@@ -13,9 +14,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="700.0" prefHeight="595.0" prefWidth="550.0" stylesheets="@proizvod.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.PrijavaNaSistemController">
+<AnchorPane id="AnchorPane" maxHeight="700.0" prefHeight="595.0" prefWidth="550.0" stylesheets="@login.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.PrijavaNaSistemController">
    <children>
-      <ImageView blendMode="DARKEN" fitHeight="266.0" fitWidth="435.0" layoutX="110.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="30.0">
+      <ImageView blendMode="DARKEN" fitHeight="266.0" fitWidth="381.0" layoutX="103.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="32.0">
          <image>
             <Image url="@../logo.jpg" />
          </image>
@@ -23,17 +24,17 @@
             <Blend />
          </effect>
       </ImageView>
-      <GridPane layoutX="135.0" layoutY="291.0" prefHeight="298.0" prefWidth="358.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
+      <GridPane layoutX="135.0" layoutY="291.0" prefHeight="191.0" prefWidth="458.0" AnchorPane.bottomAnchor="127.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
         <columnConstraints>
-          <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="219.0" minWidth="10.0" prefWidth="103.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="347.0" minWidth="10.0" prefWidth="347.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <JFXTextField fx:id="korisnickoImeTextField" alignment="CENTER" focusColor="BLACK" labelFloat="true" onAction="#prebaciNaLozinku" promptText="Korisničko ime" style="-fx-background-color: transparent;" unFocusColor="#b83c57">
+            <JFXTextField fx:id="korisnickoImeTextField" alignment="CENTER" focusColor="#003366" labelFloat="true" onAction="#prebaciNaLozinku" promptText="Korisničko ime" style="-fx-background-color: transparent;" unFocusColor="#003366" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </GridPane.margin>
@@ -41,7 +42,7 @@
                   <Font size="22.0" />
                </font>
             </JFXTextField>
-            <JFXPasswordField fx:id="lozinkaField" alignment="CENTER" focusColor="BLACK" labelFloat="true" onAction="#prijavaButtonOnAction" promptText="Lozinka" style="-fx-background-color: transparent;" unFocusColor="#b83c57" GridPane.rowIndex="1">
+            <JFXPasswordField fx:id="lozinkaField" alignment="CENTER" focusColor="#003366" labelFloat="true" onAction="#prijavaButtonOnAction" promptText="Lozinka" style="-fx-background-color: transparent;" unFocusColor="#003366" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </GridPane.margin>
@@ -49,15 +50,14 @@
                   <Font size="22.0" />
                </font>
             </JFXPasswordField>
-            <Button blendMode="MULTIPLY" mnemonicParsing="false" onAction="#prijavaButtonOnAction" prefHeight="56.0" prefWidth="165.0" style="-fx-background-radius: 50;" text="Prijava" textAlignment="CENTER" GridPane.rowIndex="2">
-               <font>
-                  <Font size="22.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-            </Button>
+            <FontAwesomeIconView fill="#003366" glyphName="USER" size="40" />
+            <FontAwesomeIconView fill="#003366" glyphName="KEY" size="40" GridPane.rowIndex="1" />
          </children>
       </GridPane>
+      <Button blendMode="MULTIPLY" layoutX="175.0" layoutY="486.0" mnemonicParsing="false" onAction="#prijavaButtonOnAction" prefHeight="60.0" prefWidth="200.0" style="-fx-background-radius: 50; -fx-background-color: #003366;" text="Prijava" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
