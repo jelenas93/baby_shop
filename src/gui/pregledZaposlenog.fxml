@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" fx:id="pregledZaposlenih" prefHeight="694.0" prefWidth="1079.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.PregledZaposlenogController">
    <children>
-      <TableView fx:id="zaposleniTableView" prefHeight="495.0" prefWidth="1019.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="50.0">
+      <Button mnemonicParsing="false" onAction="#izmjenaButtonOnAction" prefHeight="40.0" prefWidth="300.0" text="Izmijeni zaposlenog" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="50.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <TableView fx:id="zaposleniTableView" prefHeight="495.0" prefWidth="1019.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="120.0">
         <columns>
             <TableColumn fx:id="imeZaposlenogTableColumn" minWidth="5.0" prefWidth="279.0" text="Ime" />
             <TableColumn fx:id="prezimeZaposlenogTableColumn" minWidth="2.0" prefWidth="294.0" text="Prezime" />
@@ -22,44 +23,15 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <GridPane AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
-        <columnConstraints>
-            <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" prefWidth="130.0" />
-          <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" prefWidth="130.0" />
-          <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" prefWidth="60.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="ALWAYS" />
-        </rowConstraints>
-         <children>
-            <Button mnemonicParsing="false" onAction="#izmjenaButtonOnAction" prefHeight="39.0" prefWidth="183.0" text="Izmijeni zaposlenog" GridPane.columnIndex="2">
-               <GridPane.margin>
-                  <Insets left="10.0" />
-               </GridPane.margin>
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-            <Button layoutX="370.0" layoutY="10.0" mnemonicParsing="false" onAction="#detaljanPrikazButtonOnAction" text="Detaljan prikaz zaposlenog " GridPane.columnIndex="1">
-               <GridPane.margin>
-                  <Insets left="10.0" />
-               </GridPane.margin>
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#dodajNovogZaposlenogButtonOnAction" prefHeight="39.0" prefWidth="229.0" text="Dodaj novog zaposlenog">
-               <font>
-                  <Font size="18.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets left="20.0" />
-               </GridPane.margin>
-            </Button>
-         </children>
-         <padding>
-            <Insets bottom="30.0" top="30.0" />
-         </padding>
-      </GridPane>
+      <Button mnemonicParsing="false" onAction="#detaljanPrikazButtonOnAction" prefHeight="40.0" prefWidth="300.0" text="Detaljan prikaz zaposlenog " AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="50.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button mnemonicParsing="false" onAction="#dodajNovogZaposlenogButtonOnAction" prefHeight="40.0" prefWidth="300.0" text="Dodaj novog zaposlenog" AnchorPane.rightAnchor="670.0" AnchorPane.topAnchor="50.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

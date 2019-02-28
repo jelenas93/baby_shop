@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="pregledNaloga" prefHeight="632.0" prefWidth="1132.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.PregledKorisnickogNalogaController">
+<AnchorPane id="AnchorPane" fx:id="pregledNaloga" prefHeight="745.0" prefWidth="1132.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.PregledKorisnickogNalogaController">
    <children>
-      <TableView fx:id="korisnickiNalogTableView" prefHeight="454.0" prefWidth="1072.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="50.0">
+      <Button mnemonicParsing="false" onAction="#deaktivirajNalogButtonOnAction" prefHeight="40.0" prefWidth="300.0" text="Deaktiviraj nalog" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="50.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <TableView fx:id="korisnickiNalogTableView" prefHeight="454.0" prefWidth="1072.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="120.0">
         <columns>
           <TableColumn fx:id="korisnickoImeTableColumn" prefWidth="158.0" text="Korisnicko Ime" />
             <TableColumn fx:id="imeZaposlenogTableColumn" minWidth="5.0" prefWidth="152.0" text="Ime" />
@@ -24,35 +25,10 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <GridPane vgap="30.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
-        <columnConstraints>
-          <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="ALWAYS" />
-        </rowConstraints>
-         <children>
-            <Button mnemonicParsing="false" onAction="#izmjenaButtonOnAction" text="Izmjeni korisnički nalog">
-               <GridPane.margin>
-                  <Insets left="50.0" />
-               </GridPane.margin>
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#deaktivirajNalogButtonOnAction" text="Deaktiviraj nalog" GridPane.columnIndex="1">
-               <GridPane.margin>
-                  <Insets left="100.0" />
-               </GridPane.margin>
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-         </children>
-         <padding>
-            <Insets bottom="30.0" top="30.0" />
-         </padding>
-      </GridPane>
+      <Button mnemonicParsing="false" onAction="#izmjenaButtonOnAction" prefHeight="40.0" prefWidth="300.0" text="Izmjeni korisnički nalog" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="50.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
