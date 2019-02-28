@@ -50,6 +50,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Properties;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -121,7 +122,8 @@ public class NarudzbenicaController implements Initializable {
     @FXML
     private ComboBox<String> imeDobavljacaComboBox;
 
-    private double ukupnaCijena = 0;
+    private double ukupnaCijena = 0; 
+    private static HashMap<String,Integer >listaProizvoda  =  new HashMap<String,Integer> ();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -153,6 +155,7 @@ public class NarudzbenicaController implements Initializable {
     private ObservableList<TabelaNarudzba> getTabela() {
 
         narudzbenica.getItems().clear();
+        listaProizvoda.clear();
         ObservableList<TabelaNarudzba> listaZaPrikaz = FXCollections.observableArrayList();
         List<TabelaNarudzba> listaMoja = new ArrayList<>();
         DAODobavljac daod = new DAODobavljac();
@@ -161,7 +164,6 @@ public class NarudzbenicaController implements Initializable {
         DAOProizvod daop = new DAOProizvod();
         ObservableList<DTOProizvod> lista = daop.getSveProizvodeOdDobavljaca(IdDobavljaca);
         for (DTOProizvod proizvod : lista) {
-            //  System.out.println(proizvod.getBarkod());
             listaMoja.add(new TabelaNarudzba(proizvod.getSifra(), proizvod.getBarkod(), proizvod.getNaziv(), proizvod.getCijena(),
                     proizvod.getKolicina()
             ));
@@ -190,17 +192,46 @@ public class NarudzbenicaController implements Initializable {
         } else if (selektovano.size() == 0) {
             AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Nista nije izabrano.");
         } else {
-            //  ObservableList<TabelaNarudzba> selektovano;
-            //   selektovano = narudzba.getSelectionModel().getSelectedItems();
-            int kolicina = Integer.valueOf(KolicinaTextField.getText());
+            if ( !listaProizvoda.containsKey(selektovano.get(0).getBarKod())) {  
+                   
+                   listaProizvoda.put(selektovano.get(0).getBarKod(),Integer.valueOf(KolicinaTextField.getText()));
+                    int kolicina = Integer.valueOf(KolicinaTextField.getText());
             String barkod = selektovano.get(0).getBarKod();
-            //System.out.println(barkod);
+           
             String sifraa = selektovano.get(0).getSifra();
             String naziiv = selektovano.get(0).getNaziv();
 
             TabelaNarudzbenica novo = new TabelaNarudzbenica(sifraa, naziiv, kolicina, barkod);
             narudzbenica.getItems().add(novo);
             KolicinaTextField.clear();
+                   }
+                   else  {  
+                   
+                   listaProizvoda.computeIfPresent(selektovano.get(0).getBarKod(), (k, v) -> (v + (Integer.valueOf(KolicinaTextField.getText()))) );
+                 List<TabelaNarudzbenica> tabela = narudzbenica.getItems();
+                   for (TabelaNarudzbenica el : tabela) {
+              
+                        if (el.getBarKod().equals( selektovano.get(0).getBarKod() ) ) { 
+                            int staraKolicina = el.getNaruceno();
+                             String barkod = selektovano.get(0).getBarKod();
+           
+            String sifraa = selektovano.get(0).getSifra();
+            String naziiv = selektovano.get(0).getNaziv();
+
+                            narudzbenica.getItems().remove(el);
+                            narudzbenica.getItems().add(new TabelaNarudzbenica(sifraa, naziiv, (staraKolicina+ Integer.valueOf(KolicinaTextField.getText())), barkod));
+                   
+                                    
+                    }
+                
+                }
+            
+            KolicinaTextField.clear();
+        
+                   
+                   }
+          
+            
         }
     }
 
@@ -257,13 +288,13 @@ public class NarudzbenicaController implements Initializable {
             DTODobavljac dtod = daod.getDobavljacPoNazivu(imeDobavljacaComboBox.getSelectionModel().getSelectedItem());
             String nazivDobavljaca = dtod.getNaziv();
 
-            //    String primalac = dtod.getEmail();
+                String primalac = dtod.getEmail();
             String host = "smtp.gmail.com";
             String port = "587";
             String posiljalac = "shopbaby273@gmail.com";
             String lozinka = "babyshop273";
 
-            String primalac = "jelenas9393@gmail.com";
+         //   String primalac = "jelenas9393@gmail.com";
             String predmet = " Nova narudzba od Baby Shop-a";
             String poruka = "Narudzba je prilozenom fajlu";
 
