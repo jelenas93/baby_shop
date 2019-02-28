@@ -278,6 +278,12 @@ public class UnosProizvodaController implements Initializable {
                 if (dtoProizvodGrupa.isBoja()) {
                     boja = bojaComboBox.getSelectionModel().getSelectedItem();
                 }
+                if (dtoProizvodGrupa.isGodisnjeDoba()) {
+                    godisnjeDoba = godisnjeDobaComboBox.getSelectionModel().getSelectedItem();
+                }
+                if (dtoProizvodGrupa.isPol()) {
+                    pol = polComboBox.getSelectionModel().getSelectedItem();
+                }
                 if (dtoProizvodGrupa.isDuzina()) {
                     try {
                         duzina = Double.parseDouble(duzinaTextField.getText());
@@ -302,12 +308,7 @@ public class UnosProizvodaController implements Initializable {
                         AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Visina mora biti broj !");
                     }
                 }
-                if (dtoProizvodGrupa.isGodisnjeDoba()) {
-                    godisnjeDoba = godisnjeDobaComboBox.getSelectionModel().getSelectedItem();
-                }
-                if (dtoProizvodGrupa.isPol()) {
-                    pol = polComboBox.getSelectionModel().getSelectedItem();
-                }
+
                 if (dtoProizvodGrupa.isUzrast()) {
                     try {
                         uzrast = Integer.parseInt(uzrastTextField.getText());
@@ -348,14 +349,19 @@ public class UnosProizvodaController implements Initializable {
                         } else {
                             if (!daoUSkladiste.dodajProizvodUSkladiste(1, daoProizvod.idProizvoda(), kolicina)) {
                                 AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom dodavanja proizvoda u skladiste.");
-                            }
-                            if (!daod.dodajUDobavljacProizvod(idDobavljaca, daoProizvod.idProizvoda())) {
-                                AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom povezivanja proizvoda i dobavljaca.");
-                            }
-                            DAOMaterijal daoMaterijal = new DAOMaterijal();
-                            int idMaterijala = daoMaterijal.idMaterijalaOdNaziva(materijaliComboBox.getSelectionModel().getSelectedItem());
-                            if (!daoMaterijal.dodajUbazuProizvodMaterijal(idMaterijala, daoProizvod.idProizvoda())) {
-                                AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom povezivanja proizvoda i materijala.");
+                            } else {
+                                if (!daod.dodajUDobavljacProizvod(idDobavljaca, daoProizvod.idProizvoda())) {
+                                    AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom povezivanja proizvoda i dobavljaca.");
+                                } else {
+                                    DAOMaterijal daoMaterijal = new DAOMaterijal();
+                                    int idMaterijala = daoMaterijal.idMaterijalaOdNaziva(materijaliComboBox.getSelectionModel().getSelectedItem());
+                                    if (!daoMaterijal.dodajUbazuProizvodMaterijal(idMaterijala, daoProizvod.idProizvoda())) {
+                                        AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greška prilikom povezivanja proizvoda i materijala.");
+                                    } else {
+                                        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                                        window.close();
+                                    }
+                                }
                             }
                         }
                     }
