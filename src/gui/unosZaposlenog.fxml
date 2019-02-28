@@ -16,12 +16,12 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="669.0" prefWidth="919.0" stylesheets="@proizvod.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.UnosZaposlenogController">
+<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="680.0" stylesheets="@proizvod.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.UnosZaposlenogController">
    <children>
-      <GridPane layoutY="10.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="10.0">
+      <GridPane layoutY="10.0" prefHeight="720.0" prefWidth="680.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="415.0" minWidth="10.0" prefWidth="201.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="638.0" minWidth="10.0" prefWidth="638.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="240.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="360.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -34,139 +34,192 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
          <children>
-            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
-               <children>
-                  <JFXComboBox fx:id="tipZaposlenogComboBox" prefHeight="41.0" prefWidth="576.0">
-                     <HBox.margin>
-                        <Insets bottom="5.0" right="5.0" top="5.0" />
-                     </HBox.margin>
-                     <padding>
-                        <Insets bottom="5.0" right="5.0" top="5.0" />
-                     </padding>
-                  </JFXComboBox>
-                  <JFXButton buttonType="RAISED" onAction="#dodajZaposlenog" text=" ">
-                     <graphic>
-                        <FontAwesomeIconView glyphName="PLUS" size="30" />
-                     </graphic>
-                     <tooltip>
-                        <Tooltip text="Dodaj novi tip zaposlenog" />
-                     </tooltip>
-                  </JFXButton>
-               </children>
-            </HBox>
             <Label prefHeight="21.0" prefWidth="129.0" text="Tip zaposlenog:" GridPane.rowIndex="6">
                <font>
                   <Font size="18.0" />
                </font>
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
             </Label>
             <Label layoutX="20.0" layoutY="32.0" text="Ime zaposlenog:" GridPane.rowIndex="1">
                <font>
                   <Font size="18.0" />
                </font>
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
             </Label>
             <Label layoutX="20.0" layoutY="32.0" text="Prezime zaposlenog:" GridPane.rowIndex="2">
                <font>
                   <Font size="18.0" />
                </font>
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
             </Label>
             <Label layoutX="20.0" layoutY="32.0" text="Iznos plate (KM):" GridPane.rowIndex="3">
                <font>
                   <Font size="18.0" />
                </font>
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
             </Label>
             <Label layoutX="20.0" layoutY="32.0" text="Mail zaposlenog:" GridPane.rowIndex="4">
                <font>
                   <Font size="18.0" />
                </font>
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
             </Label>
             <Label layoutX="20.0" layoutY="32.0" text="Mjesto:" GridPane.rowIndex="5">
                <font>
                   <Font size="18.0" />
                </font>
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
             </Label>
             <Label layoutX="20.0" layoutY="32.0" text="JMBG zaposlenog:">
                <font>
                   <Font size="18.0" />
                </font>
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
             </Label>
-            <JFXTextField fx:id="jmbgTextField" GridPane.columnIndex="1">
+            <Label text="Korisničko ime:" GridPane.rowIndex="7">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Lozinka:" GridPane.rowIndex="8">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
+            </Label>
+            <JFXTextField fx:id="jmbgTextField" style="-fx-background-color: white;" GridPane.columnIndex="1">
                <font>
                   <Font name="System Italic" size="18.0" />
-               </font></JFXTextField>
-            <JFXTextField fx:id="imeTextField" layoutX="20.0" layoutY="44.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               </font>
+               <GridPane.margin>
+                  <Insets left="20.0" right="20.0" />
+               </GridPane.margin></JFXTextField>
+            <JFXTextField fx:id="imeTextField" layoutX="20.0" layoutY="44.0" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font name="System Italic" size="18.0" />
-               </font></JFXTextField>
-            <JFXTextField fx:id="prezimeTextField" layoutX="20.0" layoutY="44.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               </font>
+               <GridPane.margin>
+                  <Insets left="20.0" right="20.0" />
+               </GridPane.margin></JFXTextField>
+            <JFXTextField fx:id="prezimeTextField" layoutX="20.0" layoutY="44.0" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font name="System Italic" size="18.0" />
-               </font></JFXTextField>
-            <JFXTextField fx:id="plataTextField" layoutX="20.0" layoutY="44.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               </font>
+               <GridPane.margin>
+                  <Insets left="20.0" right="20.0" />
+               </GridPane.margin></JFXTextField>
+            <JFXTextField fx:id="plataTextField" layoutX="20.0" layoutY="44.0" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
                   <Font name="System Italic" size="18.0" />
-               </font></JFXTextField>
-            <JFXTextField fx:id="mejlTextField" layoutX="20.0" layoutY="44.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               </font>
+               <GridPane.margin>
+                  <Insets left="20.0" right="20.0" />
+               </GridPane.margin></JFXTextField>
+            <JFXTextField fx:id="mejlTextField" layoutX="20.0" layoutY="44.0" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <font>
                   <Font name="System Italic" size="18.0" />
-               </font></JFXTextField>
-            <HBox layoutX="440.0" layoutY="485.0" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               </font>
+               <GridPane.margin>
+                  <Insets left="20.0" right="20.0" />
+               </GridPane.margin></JFXTextField>
+            <HBox layoutX="440.0" layoutY="485.0" prefHeight="50.0" prefWidth="590.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <children>
-                  <JFXComboBox fx:id="mjestoComboBox" prefHeight="41.0" prefWidth="576.0">
+                  <JFXComboBox fx:id="mjestoComboBox" prefHeight="40.0" prefWidth="530.0">
                      <HBox.margin>
-                        <Insets bottom="5.0" right="5.0" top="5.0" />
+                        <Insets bottom="20.0" top="20.0" />
                      </HBox.margin>
-                     <padding>
-                        <Insets bottom="5.0" right="5.0" top="5.0" />
-                     </padding>
                   </JFXComboBox>
-                  <JFXButton buttonType="RAISED" onAction="#dodajMjesto" text=" ">
+                  <JFXButton buttonType="RAISED" onAction="#dodajMjesto" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;" text=" ">
                      <graphic>
                         <FontAwesomeIconView glyphName="PLUS" size="30" />
                      </graphic>
                      <tooltip>
                         <Tooltip text="Dodaj novo mjesto" />
                      </tooltip>
+                     <HBox.margin>
+                        <Insets bottom="20.0" top="20.0" />
+                     </HBox.margin>
                   </JFXButton>
                </children>
+               <GridPane.margin>
+                  <Insets left="20.0" right="20.0" />
+               </GridPane.margin>
             </HBox>
-            <Button mnemonicParsing="false" onAction="#sacuvajButtonOnAction" text="Sačuvaj" GridPane.rowIndex="10">
-               <font>
-                  <Font size="18.0" />
-               </font>
+            <HBox prefHeight="50.0" prefWidth="590.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+               <children>
+                  <JFXComboBox fx:id="tipZaposlenogComboBox" prefHeight="40.0" prefWidth="530.0">
+                     <HBox.margin>
+                        <Insets bottom="20.0" top="20.0" />
+                     </HBox.margin>
+                  </JFXComboBox>
+                  <JFXButton buttonType="RAISED" onAction="#dodajZaposlenog" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent;" text=" ">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="PLUS" size="30" />
+                     </graphic>
+                     <tooltip>
+                        <Tooltip text="Dodaj novi tip zaposlenog" />
+                     </tooltip>
+                     <HBox.margin>
+                        <Insets bottom="20.0" top="20.0" />
+                     </HBox.margin>
+                  </JFXButton>
+               </children>
                <GridPane.margin>
-                  <Insets left="100.0" />
+                  <Insets left="20.0" right="20.0" />
                </GridPane.margin>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#otkaziButtonOnAction" text="Otkaži" GridPane.columnIndex="1" GridPane.rowIndex="10">
-               <font>
-                  <Font size="18.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets left="350.0" />
-               </GridPane.margin>
-            </Button>
-            <Label text="Korisničko ime:" GridPane.rowIndex="7">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label text="Lozinka:" GridPane.rowIndex="8">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <JFXTextField fx:id="korisnickoImeTextField" GridPane.columnIndex="1" GridPane.rowIndex="7">
+            </HBox>
+            <JFXTextField fx:id="korisnickoImeTextField" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="7">
                <font>
                   <Font name="System Italic" size="18.0" />
                </font>
+               <GridPane.margin>
+                  <Insets left="20.0" right="20.0" />
+               </GridPane.margin>
             </JFXTextField>
-            <JFXPasswordField fx:id="lozinkaTextField" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <JFXPasswordField fx:id="lozinkaTextField" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="8">
+               <GridPane.margin>
+                  <Insets left="20.0" right="20.0" />
+               </GridPane.margin></JFXPasswordField>
+            <Button mnemonicParsing="false" onAction="#sacuvajButtonOnAction" prefHeight="40.0" prefWidth="200.0" text="Sačuvaj" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#otkaziButtonOnAction" prefHeight="40.0" prefWidth="200.0" text="Otkaži" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </Button>
          </children>
       </GridPane>
    </children>
