@@ -418,7 +418,6 @@ public class KasaController implements Initializable {
         kusurButton.setDisable(true);
         razduzenjeButton.setDisable(true);
         brisanjeButton.setDisable(true);
-        ponistiButton.setDisable(true);
         int idRacuna = Integer.parseInt(brojRacunaTextField.getText());
         DTORacun racunZaStorniranje = new DAORacun().vratiRacunPoId(idRacuna);
         if (racunZaStorniranje != null) {
@@ -434,7 +433,7 @@ public class KasaController implements Initializable {
                 for (DTOStavka stavka : listaStavki) {
                     DTOProizvod proizvod = new DAOProizvod().getProizvodPoId(stavka.getIdProizvoda());
                     kasaTabela.getItems().add(new TabelaKasa(proizvod.getBarkod(), proizvod.getSifra(), proizvod.getNaziv(),
-                            stavka.getKolicina(), proizvod.getCijena(), stavka.getCijena()));
+                            stavka.getKolicina(), proizvod.getCijena(), stavka.getCijena()*stavka.getKolicina()));
                 }
                 ukupno = racunZaStorniranje.getUkupnaCijena();
                 ukupnaCijenaLabel.setText(String.format("%.2f", racunZaStorniranje.getUkupnaCijena()));

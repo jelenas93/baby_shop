@@ -3,6 +3,7 @@ package gui;
 import dao.DAOProizvod;
 import dao.DAOProizvodjac;
 import dto.DTOProizvod;
+import dto.DTOZaposleni;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -27,68 +28,69 @@ import javafx.stage.Stage;
 import tabele.TabelaDetaljanProizvod;
 
 public class PregledProizvodaDetaljnoController implements Initializable {
+    
     static PregledProizvodaDetaljnoController pregledProizvodaController;
-
+    
     @FXML
     private TableView<TabelaDetaljanProizvod> tabela;
-
+    
     @FXML
     private TableColumn<TabelaDetaljanProizvod, String> barKod;
-
+    
     @FXML
     private TableColumn<TabelaDetaljanProizvod, String> sifra;
-
+    
     @FXML
     private TableColumn<TabelaDetaljanProizvod, String> naziv;
-
+    
     @FXML
     private TableColumn<TabelaDetaljanProizvod, String> proizvodjac;
-
+    
     @FXML
     private TableColumn<TabelaDetaljanProizvod, Integer> kolicina;
-
+    
     @FXML
     private TableColumn<TabelaDetaljanProizvod, Double> cijena;
-
+    
     @FXML
     private TableColumn<TabelaDetaljanProizvod, Double> duzina;
-
+    
     @FXML
     private TableColumn<TabelaDetaljanProizvod, Double> sirina;
-
+    
     @FXML
     private TableColumn<TabelaDetaljanProizvod, Double> visina;
-
+    
     @FXML
     private TableColumn<TabelaDetaljanProizvod, Integer> velicina;
-
+    
     @FXML
     private TableColumn<TabelaDetaljanProizvod, Integer> uzrast;
-
+    
     @FXML
     private TableColumn<TabelaDetaljanProizvod, String> pol;
-
+    
     @FXML
     private TableColumn<TabelaDetaljanProizvod, String> boja;
-
+    
     @FXML
     private TableColumn<TabelaDetaljanProizvod, String> godisnjeDoba;
-
+    
     @FXML
-    private Button nazad;
-
+    private Button dodaj;
+    
     @FXML
     private TextField nazivTextField;
-
+    
     private boolean pretraga = false;
-
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        pregledProizvodaController=this;
-
+        pregledProizvodaController = this;
+        
         postaviTabelu();
     }
-
+    
     public void postaviTabelu() {
         barKod.setCellValueFactory(new PropertyValueFactory<>("barkod"));
         sifra.setCellValueFactory(new PropertyValueFactory<>("sifra"));
@@ -106,9 +108,9 @@ public class PregledProizvodaDetaljnoController implements Initializable {
         godisnjeDoba.setCellValueFactory(new PropertyValueFactory<>("godisnjeDoba"));
         tabela.setItems(getTabela());
     }
-
+    
     private ObservableList<TabelaDetaljanProizvod> getTabela() {
-
+        
         ObservableList<DTOProizvod> lista = new DAOProizvod().getProizvode();
         ObservableList<TabelaDetaljanProizvod> listaZaPrikaz = FXCollections.observableArrayList();
         List<TabelaDetaljanProizvod> listaMoja = new ArrayList<>();
@@ -116,8 +118,8 @@ public class PregledProizvodaDetaljnoController implements Initializable {
             pretraga = true;
             for (DTOProizvod proizvod : lista) {
                 listaMoja.add(new TabelaDetaljanProizvod(proizvod.getBarkod(), proizvod.getSifra(), proizvod.getNaziv(),
-                    new DAOProizvodjac().proizvodjacNaOsnovuJIB(proizvod.getJIBProizvodjaca()).getNaziv(), proizvod.getKolicina(), proizvod.getCijena(), proizvod.getDuzina(), proizvod.getSirina(),
-                    proizvod.getVisina(), proizvod.getVelicina(), proizvod.getUzrast(), proizvod.getPol(), proizvod.getBoja(), proizvod.getGodisnjeDoba()));
+                        new DAOProizvodjac().proizvodjacNaOsnovuJIB(proizvod.getJIBProizvodjaca()).getNaziv(), proizvod.getKolicina(), proizvod.getCijena(), proizvod.getDuzina(), proizvod.getSirina(),
+                        proizvod.getVisina(), proizvod.getVelicina(), proizvod.getUzrast(), proizvod.getPol(), proizvod.getBoja(), proizvod.getGodisnjeDoba()));
             }
             for (TabelaDetaljanProizvod proizvod : listaMoja) {
                 listaZaPrikaz.add(proizvod);
@@ -125,11 +127,11 @@ public class PregledProizvodaDetaljnoController implements Initializable {
             return listaZaPrikaz;
         } else {
             lista.clear();
-            lista=new DAOProizvod().getProizvodPoNazivu(nazivTextField.getText());
+            lista = new DAOProizvod().getProizvodPoNazivu(nazivTextField.getText());
             for (DTOProizvod proizvod : lista) {
                 listaMoja.add(new TabelaDetaljanProizvod(proizvod.getBarkod(), proizvod.getSifra(), proizvod.getNaziv(),
-                    new DAOProizvodjac().proizvodjacNaOsnovuJIB(proizvod.getJIBProizvodjaca()).getNaziv(), proizvod.getKolicina(), proizvod.getCijena(), proizvod.getDuzina(), proizvod.getSirina(),
-                    proizvod.getVisina(), proizvod.getVelicina(), proizvod.getUzrast(), proizvod.getPol(), proizvod.getBoja(), proizvod.getGodisnjeDoba()));
+                        new DAOProizvodjac().proizvodjacNaOsnovuJIB(proizvod.getJIBProizvodjaca()).getNaziv(), proizvod.getKolicina(), proizvod.getCijena(), proizvod.getDuzina(), proizvod.getSirina(),
+                        proizvod.getVisina(), proizvod.getVelicina(), proizvod.getUzrast(), proizvod.getPol(), proizvod.getBoja(), proizvod.getGodisnjeDoba()));
             }
             for (TabelaDetaljanProizvod proizvod : listaMoja) {
                 listaZaPrikaz.add(proizvod);
@@ -138,12 +140,12 @@ public class PregledProizvodaDetaljnoController implements Initializable {
         }
     }
     
-    public void nazivUnos(){
+    public void nazivUnos() {
         nazivTextField.getOnInputMethodTextChanged();
         //nazivTextField.requestFocus();
         postaviTabelu();
-      }
-
+    }
+    
     public void dodajProizvod(ActionEvent event) throws IOException {
         Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosProizvoda.fxml"));
         Stage window = new Stage();
@@ -155,5 +157,5 @@ public class PregledProizvodaDetaljnoController implements Initializable {
         window.initModality(Modality.APPLICATION_MODAL);
         window.showAndWait();
     }
-
+    
 }

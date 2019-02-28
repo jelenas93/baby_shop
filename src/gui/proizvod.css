@@ -94,6 +94,8 @@
 .jfx-comboBox{
     -fx-background-color: #f9f4f4;
     -fx-text-fill: black;
+    -fx-pref-height: 40;
+    -fx-pref-width: 250;
     -fx-border-color: #141452;
     -fx-border-width: 0 0 1 0;
 }
