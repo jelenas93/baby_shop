@@ -1,6 +1,6 @@
 .root {
     -dark                        : #141452;
-    -standard                    : #00796B;
+    -standard                    : #f9f4f4;
     -bright                      : #f9f4f4;
     -text-color                  : #FFFEFE;
     -fx-background               : #f3f3f3;
@@ -39,7 +39,7 @@
 
 .check-box > .box {
     -fx-background-radius: 0;
-    -fx-background-color : white;
+    -fx-background-color : -bright, -fx-background;
     -fx-background-insets: 0, 2;
     -fx-pref-width       : 21;
     -fx-pref-height      : 21;
@@ -121,9 +121,10 @@
 }
 
 .combo-box{
-    -fx-background-color: white;
+    -fx-background-color: #f9f4f4;
     -fx-text-fill: black;
-    -fx-border-color: white;
+    -fx-border-color: #141452;
+    -fx-border-width: 0 0 1 0;
 }
 
 .combo-box:select{
@@ -136,6 +137,28 @@
 }
 
 .combo-box .cell{
+    -fx-background-color: #f9f4f4;
+    -fx-text-fill: black;
+}
+
+
+.jfx-comboBox{
+    -fx-background-color: #f9f4f4;
+    -fx-text-fill: black;
+    -fx-border-color: #141452;
+    -fx-border-width: 0 0 1 0;
+}
+
+.jfx-comboBox:select{
+    -fx-background-color: #f9f4f4;
+    -fx-text-fill: black;
+}
+.jfx-comboBox:pressed{
+    -fx-background-color: #f9f4f4;
+    -fx-text-fill: black;
+}
+
+.jfx-comboBox .cell{
     -fx-background-color: #f9f4f4;
     -fx-text-fill: black;
 }

@@ -1,6 +1,6 @@
 .root {
     -dark                        : #141452;
-    -standard                    : #00796B;
+    -standard                    : #f9f4f4;
     -bright                      : #f9f4f4;
     -text-color                  : #FFFEFE;
     -fx-background               : #f3f3f3;
@@ -10,15 +10,9 @@
     -fx-font-weight              : lighter;
     -fx-selection-bar            : -standard;
     -fx-selection-bar-non-focused: derive(-standard, 20%);
-    -slova                        :#512DA8;
     -tab-pozadina                 :#003366; 
 }
-/*
-.label{
-    -fx-font-family              : "Roboto Light";
-   -fx-font-size                : 18px;*
-}
-*/
+
 .button{
     -fx-text-fill        : white;
     -fx-inner-border     : derive(-bright, 10%);
@@ -71,64 +65,15 @@
     -fx-border-insets: -2;
 }
 
-.tab{
-
-    -fx-pref-width : 150;
-    -fx-pref-height : 200;   
-    -fx-fill: -tab-pozadina;
-    -fx-background-insets: 0.0;
-    -fx-background-radius: 0.0;
-    -fx-padding: 0 10 0 10;
-    -fx-border-width: 0 0 1 0;
-    -fx-border-color: #ffffff #ffffff #ffffff #ffffff;
-}
-.tab-label{
-    -fx-text-alignment: left;
-    -fx-font-size: 20;
-    -fx-rotate: 90;
-    -fx-background-color:  -tab-pozadina;
-    -fx-fill:  -tab-pozadina;
-    -fx-text-wrap: break-word;
-    -fx-word-wrap: break-word;
-}
-.tab-pane{
-    -fx-background-color: -slova;
-    -fx-text-fill: -slova;
-}
-
-.tab-header-background{
-    -fx-background-color:  -tab-pozadina;
-    -fx-border-width: 0 0 2 0;
-    -fx-border-color: #ffffff #ffffff #ffffff #ffffff;
-}
-.tab:selected
-{
-    -fx-background-color:  -tab-pozadina;
-    -fx-background-radius: 0;
-    -fx-background-insets: 0;
-    -fx-border-width: 0 0 10 0;
-    -fx-border-color: #ffffff #ffffff #ffffff #ffffff;
-
-}
-
-.tab:hover {
-    -fx-background-color: -tab-pozadina;
-}
-
-.tab:cell-selection{
-    -fx-border-width: 0 0 10 0;
-    -fx-border-color: #ffffff #ffffff #ffffff #ffffff;
-}
-
 .text-field{
     -fx-background-color: #ffffff;
     -fx-text-fill: #000000;
 }
-
 .combo-box{
-    -fx-background-color: #009688;
+    -fx-background-color: #f9f4f4;
     -fx-text-fill: black;
-    -fx-border-color: white;
+    -fx-border-color: #141452;
+    -fx-border-width: 0 0 1 0;
 }
 
 .combo-box:select{
@@ -141,6 +86,28 @@
 }
 
 .combo-box .cell{
+    -fx-background-color: #f9f4f4;
+    -fx-text-fill: black;
+}
+
+
+.jfx-comboBox{
+    -fx-background-color: #f9f4f4;
+    -fx-text-fill: black;
+    -fx-border-color: #141452;
+    -fx-border-width: 0 0 1 0;
+}
+
+.jfx-comboBox:select{
+    -fx-background-color: #f9f4f4;
+    -fx-text-fill: black;
+}
+.jfx-comboBox:pressed{
+    -fx-background-color: #f9f4f4;
+    -fx-text-fill: black;
+}
+
+.jfx-comboBox .cell{
     -fx-background-color: #f9f4f4;
     -fx-text-fill: black;
 }
