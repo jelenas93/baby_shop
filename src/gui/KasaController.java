@@ -91,6 +91,9 @@ public class KasaController implements Initializable {
     @FXML
     private Label ukupnaCijenaLabel;
 
+    @FXML
+    private Button ponistiButton;
+
     //@FXML
     //private Label stanjeLabel;
     @FXML
@@ -412,6 +415,14 @@ public class KasaController implements Initializable {
 
     @FXML
     public void pronadjiRacunZaStorniranje() {
+        barkodTextField.setDisable(true);
+        sifraTextField.setDisable(true);
+        knjizenjeButton.setDisable(true);
+        kolicinaTextField.setDisable(true);
+        kusurButton.setDisable(true);
+        razduzenjeButton.setDisable(true);
+        brisanjeButton.setDisable(true);
+        ponistiButton.setDisable(true);
         int idRacuna = Integer.parseInt(brojRacunaTextField.getText());
         DTORacun racunZaStorniranje = new DAORacun().vratiRacunPoId(idRacuna);
         if (racunZaStorniranje != null) {
@@ -433,15 +444,32 @@ public class KasaController implements Initializable {
                 ukupnaCijenaLabel.setText(String.format("%.2f", racunZaStorniranje.getUkupnaCijena()));
             } else {
                 AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Račun je već storniran.");
+                barkodTextField.setDisable(false);
+                sifraTextField.setDisable(false);
+                knjizenjeButton.setDisable(false);
+                kolicinaTextField.setDisable(false);
+                kusurButton.setDisable(false);
+                razduzenjeButton.setDisable(false);
+                brisanjeButton.setDisable(false);
+                ponistiButton.setDisable(false);
             }
         } else {
             AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Broj računa ne postoji.");
+            barkodTextField.setDisable(false);
+            sifraTextField.setDisable(false);
+            knjizenjeButton.setDisable(false);
+            kolicinaTextField.setDisable(false);
+            kusurButton.setDisable(false);
+            razduzenjeButton.setDisable(false);
+            brisanjeButton.setDisable(false);
+            ponistiButton.setDisable(false);
         }
     }
 
     @FXML
     public void stornirajRacun() {
         pronadjiRacunZaStorniranje();
+
         for (TabelaKasa kasa : kasaTabela.getItems()) {
             DTOProizvod proizvodZaStorniranje = new DAOProizvod().getProizvodPoBarkodu(kasa.getBarkod());
             new DAOProizvod().azurirajProizvod(proizvodZaStorniranje.getKolicina() + kasa.getKolicina(), proizvodZaStorniranje.getIdProizvoda());
@@ -453,9 +481,17 @@ public class KasaController implements Initializable {
         new DAOStorniranRacun().dodajStorniraniRacun(new java.sql.Date(new Date().getTime()), negativnoUkupno, racunZaStorniranje.getIdZaposlenog(), idRacuna);
         ukupno = 0;
         ukupnaCijenaLabel.setText("0,00");
-        brojRacunaTextField.setText("");
+        brojRacunaTextField.setText(" ");
         listaStavki.clear();
         kasaTabela.getItems().clear();
+        barkodTextField.setDisable(false);
+        sifraTextField.setDisable(false);
+        knjizenjeButton.setDisable(false);
+        kolicinaTextField.setDisable(false);
+        kusurButton.setDisable(false);
+        razduzenjeButton.setDisable(false);
+        brisanjeButton.setDisable(false);
+        ponistiButton.setDisable(false);
     }
 
     @FXML

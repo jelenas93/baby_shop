@@ -194,7 +194,7 @@ public class NarudzbenicaController implements Initializable {
             //   selektovano = narudzba.getSelectionModel().getSelectedItems();
             int kolicina = Integer.valueOf(KolicinaTextField.getText());
             String barkod = selektovano.get(0).getBarKod();
-            System.out.println(barkod);
+            //System.out.println(barkod);
             String sifraa = selektovano.get(0).getSifra();
             String naziiv = selektovano.get(0).getNaziv();
 

@@ -102,7 +102,7 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <Button layoutX="320.0" layoutY="708.0" mnemonicParsing="false" onAction="#ponisti" prefHeight="50.0" prefWidth="200.0" text="Poništi unose" AnchorPane.bottomAnchor="40.0">
+      <Button fx:id="ponistiButton" layoutX="320.0" layoutY="708.0" mnemonicParsing="false" onAction="#ponisti" prefHeight="50.0" prefWidth="200.0" text="Poništi unose" AnchorPane.bottomAnchor="40.0">
          <font>
             <Font size="18.0" />
          </font>
