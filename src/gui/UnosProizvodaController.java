@@ -152,7 +152,7 @@ public class UnosProizvodaController implements Initializable {
         window.centerOnScreen();
         window.initModality(Modality.APPLICATION_MODAL);
         window.showAndWait();
-        popuniProizvode();
+        popuniProizvodjace();
     }
 
     public void dodajDobavljaca(ActionEvent event) throws IOException {
