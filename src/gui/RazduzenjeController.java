@@ -12,14 +12,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -47,9 +45,9 @@ public class RazduzenjeController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         pazarLabel.setText("" + nadjiBrojPazara());
         DTOZaposleni k = DAOZaposleni.getZaposleniById(PrijavaNaSistemController.idZaposlenog);
-        blagajnikLabel.setText(k.getIme() + " " + k.getPrezime());
+        blagajnikLabel.setText(""+k.getIme() + " " + k.getPrezime());
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-        datumLabel.setText(sdf.format(new Date().getTime()));
+        datumLabel.setText(" "+sdf.format(new Date().getTime()));
         tipRacunaKolona.setCellValueFactory(new PropertyValueFactory<>("tipRacuna"));
         iznosKolona.setCellValueFactory(new PropertyValueFactory<>("iznos"));
         pazarTabela.getItems().add(getTabela());

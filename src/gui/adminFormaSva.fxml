@@ -21,6 +21,6 @@
             </Tab>
          </tabs>
       </JFXTabPane>
-      <Button mnemonicParsing="false" onAction="#odjava" prefHeight="150.0" prefWidth="190.0" text="odjava" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" />
+      <Button mnemonicParsing="false" onAction="#odjava" prefHeight="150.0" prefWidth="190.0" text="Odjava" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" />
    </children>
 </AnchorPane>

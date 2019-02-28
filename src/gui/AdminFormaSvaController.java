@@ -34,6 +34,7 @@ public class AdminFormaSvaController implements Initializable {
         Scene korisnikScena = new Scene(korisnikView);
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(korisnikScena);
+        window.setTitle("Prijava na sistem");
         window.centerOnScreen();
         window.show();
     }

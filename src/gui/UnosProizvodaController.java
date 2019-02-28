@@ -31,6 +31,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class UnosProizvodaController implements Initializable {
@@ -142,32 +143,41 @@ public class UnosProizvodaController implements Initializable {
     }
 
     public void dodajProizvodjaca(ActionEvent event) throws IOException {
-        FXMLLoader korisnikView = new FXMLLoader(getClass().getResource("/gui/unosProizvodjaca.fxml"));
-        Parent root = (Parent) korisnikView.load();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.centerOnScreen();
-        stage.showAndWait();
+        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosProizvodjaca.fxml"));
+        Stage window = new Stage();
+        Scene korisnikScena = new Scene(korisnikView);
+        window.resizableProperty().setValue(Boolean.FALSE);
+        window.setScene(korisnikScena);
+        window.setTitle("Unos proizvođača");
+        window.centerOnScreen();
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.showAndWait();
         popuniProizvode();
     }
 
     public void dodajDobavljaca(ActionEvent event) throws IOException {
-        FXMLLoader korisnikView = new FXMLLoader(getClass().getResource("/gui/unosDobavljaca.fxml"));
-        Parent root = (Parent) korisnikView.load();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.centerOnScreen();
-        stage.showAndWait();
+        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosDobavljaca.fxml"));
+        Stage window = new Stage();
+        Scene korisnikScena = new Scene(korisnikView);
+        window.resizableProperty().setValue(Boolean.FALSE);
+        window.setScene(korisnikScena);
+        window.setTitle("Unos dobavljača");
+        window.centerOnScreen();
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.showAndWait();
         popuniDobavljace();
     }
 
     public void dodajTipStisak(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/unosGrupaProizvod.fxml"));
-        Parent root = (Parent) loader.load();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.centerOnScreen();
-        stage.showAndWait();
+        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosGrupaProizvod.fxml"));
+        Stage window = new Stage();
+        Scene korisnikScena = new Scene(korisnikView);
+        window.resizableProperty().setValue(Boolean.FALSE);
+        window.setScene(korisnikScena);
+        window.setTitle("Unos tip proizvoda");
+        window.centerOnScreen();
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.showAndWait();
         popuniProizvode();
     }
 

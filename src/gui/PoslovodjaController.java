@@ -271,6 +271,7 @@ public class PoslovodjaController implements Initializable {
         Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/prijavaNaSistem.fxml"));
         Scene korisnikScena = new Scene(korisnikView);
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setTitle("Prijava na sistem");
         window.setScene(korisnikScena);
         window.centerOnScreen();
         window.show();

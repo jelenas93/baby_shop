@@ -145,11 +145,12 @@ public class PregledProizvodaDetaljnoController implements Initializable {
       }
 
     public void dodajProizvod(ActionEvent event) throws IOException {
-         Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosProizvoda.fxml"));
+        Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/unosProizvoda.fxml"));
         Stage window = new Stage();
         Scene korisnikScena = new Scene(korisnikView);
         window.resizableProperty().setValue(Boolean.FALSE);
         window.setScene(korisnikScena);
+        window.setTitle("Unos proizvoda");
         window.centerOnScreen();
         window.initModality(Modality.APPLICATION_MODAL);
         window.showAndWait();

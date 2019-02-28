@@ -93,6 +93,7 @@ public class PrijavaNaSistemController implements Initializable {
                         Scene korisnikScena = new Scene(korisnikView);
                         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                         window.setScene(korisnikScena);
+                        window.setTitle("Administrator");
                         window.centerOnScreen();
                         window.show();
                     } else if ("Poslovođa".equals(nalog.getTipKorisnika())) {
@@ -100,6 +101,7 @@ public class PrijavaNaSistemController implements Initializable {
                         Scene korisnikScena = new Scene(korisnikView);
                         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                         window.setScene(korisnikScena);
+                        window.setTitle("Poslovođa");
                         window.centerOnScreen();
                         window.show();
                     } else if ("Kasir".equals(nalog.getTipKorisnika())) {
@@ -107,6 +109,7 @@ public class PrijavaNaSistemController implements Initializable {
                         Scene korisnikScena = new Scene(korisnikView);
                         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                         window.setScene(korisnikScena);
+                        window.setTitle("Trgovac");
                         window.centerOnScreen();
                         window.show();
                     }

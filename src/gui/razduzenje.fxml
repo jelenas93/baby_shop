@@ -73,7 +73,7 @@
                   <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                </GridPane.margin>
             </Label>
-            <Label fx:id="datumLabel" prefHeight="50.0" prefWidth="150.0" style="-fx-border-color: black;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Label fx:id="datumLabel" prefHeight="50.0" prefWidth="150.0" style="-fx-border-color: black;" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font size="18.0" />
                </font>
@@ -83,7 +83,7 @@
             </Label>
          </children>
       </GridPane>
-      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="507.0" layoutY="203.0" mnemonicParsing="false" onAction="#razduzi" prefHeight="50.0" prefWidth="200.0" text="RAZDUŽI KASU" textAlignment="CENTER" AnchorPane.rightAnchor="30.0">
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="507.0" layoutY="203.0" mnemonicParsing="false" onAction="#razduzi" prefHeight="50.0" prefWidth="200.0" text="ZAKLJUČI KASU" textAlignment="CENTER" AnchorPane.rightAnchor="30.0">
          <font>
             <Font size="18.0" />
          </font>

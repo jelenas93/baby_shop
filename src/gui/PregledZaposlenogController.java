@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import babyshop.AlertHelper;
@@ -77,6 +72,7 @@ public class PregledZaposlenogController implements Initializable {
 
             Stage window = new Stage();
             window.resizableProperty().setValue(Boolean.FALSE);
+            window.setTitle("Izmjena zaposlenog");
             window.setScene(detaljanScene);
             window.centerOnScreen();
             window.initModality(Modality.APPLICATION_MODAL);
@@ -104,6 +100,7 @@ public class PregledZaposlenogController implements Initializable {
 
             Stage window = new Stage();
             window.resizableProperty().setValue(Boolean.FALSE);
+            window.setTitle("Detaljan prikaz zaposlenog");
             window.setScene(detaljanScene);
             window.centerOnScreen();
             window.initModality(Modality.APPLICATION_MODAL);
@@ -119,6 +116,7 @@ public class PregledZaposlenogController implements Initializable {
         Scene korisnikScena = new Scene(korisnikView);
         window.resizableProperty().setValue(Boolean.FALSE);
         window.setScene(korisnikScena);
+        window.setTitle("Unos zaposlenog");
         window.centerOnScreen();
         window.initModality(Modality.APPLICATION_MODAL);
         window.showAndWait();

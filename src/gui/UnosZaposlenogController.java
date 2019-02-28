@@ -141,6 +141,7 @@ public class UnosZaposlenogController implements Initializable {
         Scene korisnikScena = new Scene(korisnikView);
         window.resizableProperty().setValue(Boolean.FALSE);
         window.setScene(korisnikScena);
+        window.setTitle("Unos mjesta");
         window.centerOnScreen();
         window.initModality(Modality.APPLICATION_MODAL);
         window.showAndWait();
@@ -156,6 +157,7 @@ public class UnosZaposlenogController implements Initializable {
         Scene korisnikScena = new Scene(korisnikView);
         window.resizableProperty().setValue(Boolean.FALSE);
         window.setScene(korisnikScena);
+        window.setTitle("Unos tipa zaposlenog");
         window.centerOnScreen();
         window.initModality(Modality.APPLICATION_MODAL);
         window.showAndWait();

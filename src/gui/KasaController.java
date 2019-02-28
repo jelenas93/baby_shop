@@ -13,10 +13,7 @@ import dto.DTOStavka;
 import dto.DTOZaposleni;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,7 +23,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -122,10 +118,10 @@ public class KasaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-        datumLabel.setText(sdf.format(new Date().getTime()));
+        datumLabel.setText(""+sdf.format(new Date().getTime()));
         ukupnaCijenaLabel.setText("0,00");
         DTOZaposleni k = DAOZaposleni.getZaposleniById(PrijavaNaSistemController.idZaposlenog);
-        prodavacLabel.setText(k.getIme() + " " + k.getPrezime());
+        prodavacLabel.setText(" "+k.getIme() + " " + k.getPrezime());
 
     }
 
@@ -502,6 +498,7 @@ public class KasaController implements Initializable {
         Scene korisnikScena = new Scene(korisnikView);
         window.resizableProperty().setValue(Boolean.FALSE);
         window.setScene(korisnikScena);
+         window.setTitle("Kusur");
         window.centerOnScreen();
         window.initModality(Modality.APPLICATION_MODAL);
         window.showAndWait();
@@ -514,6 +511,7 @@ public class KasaController implements Initializable {
         Scene korisnikScena = new Scene(korisnikView);
         window.resizableProperty().setValue(Boolean.FALSE);
         window.setScene(korisnikScena);
+        window.setTitle("Zakljucenje kase");
         window.centerOnScreen();
         window.initModality(Modality.APPLICATION_MODAL);
         window.showAndWait();

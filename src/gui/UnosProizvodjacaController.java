@@ -22,7 +22,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javax.swing.border.LineBorder;
 
 public class UnosProizvodjacaController implements Initializable {
 
@@ -65,6 +64,7 @@ public class UnosProizvodjacaController implements Initializable {
         Scene korisnikScena = new Scene(korisnikView);
         window.resizableProperty().setValue(Boolean.FALSE);
         window.setScene(korisnikScena);
+        window.setTitle("Unos mjesta");
         window.centerOnScreen();
         window.initModality(Modality.APPLICATION_MODAL);
         window.showAndWait();

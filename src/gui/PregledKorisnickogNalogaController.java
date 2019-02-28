@@ -81,6 +81,7 @@ public class PregledKorisnickogNalogaController implements Initializable {
             Stage window = new Stage();
             window.resizableProperty().setValue(Boolean.FALSE);
             window.setScene(detaljanScene);
+            window.setTitle("Izmjena korisničkog naloga");
             window.centerOnScreen();
             window.initModality(Modality.APPLICATION_MODAL);
             window.showAndWait();
@@ -110,6 +111,7 @@ public class PregledKorisnickogNalogaController implements Initializable {
         Scene korisnikScena = new Scene(korisnikView);
         window.resizableProperty().setValue(Boolean.FALSE);
         window.setScene(korisnikScena);
+        window.setTitle("Unos korisničkog naloga");
         window.centerOnScreen();
         window.initModality(Modality.APPLICATION_MODAL);
         window.showAndWait();
