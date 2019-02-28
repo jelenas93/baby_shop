@@ -176,7 +176,7 @@ public class KasaController implements Initializable {
                                 }
                             }
                             listaStavki.add(new DTOStavka(Integer.parseInt(kolicinaTextField.getText()) + el.getKolicina(),
-                                    Integer.parseInt(kolicinaTextField.getText()) * proizvod.getCijena() + el.getVrijednost(), proizvod.getIdProizvoda()));
+                                      proizvod.getCijena(), proizvod.getIdProizvoda()));
                             ukupno += Integer.parseInt(kolicinaTextField.getText()) * proizvod.getCijena();
                             ukupnaCijenaLabel.setText(String.format("%.2f", ukupno));
 
@@ -192,7 +192,7 @@ public class KasaController implements Initializable {
 
                 listaStavki.add(
                         new DTOStavka(Integer.parseInt(kolicinaTextField.getText()),
-                                Integer.parseInt(kolicinaTextField.getText()) * proizvod.getCijena(), proizvod.getIdProizvoda()));
+                                 proizvod.getCijena(), proizvod.getIdProizvoda()));
                 ukupno += Integer.parseInt(kolicinaTextField.getText()) * proizvod.getCijena();
 
                 ukupnaCijenaLabel.setText(String.format("%.2f", ukupno));
@@ -228,7 +228,7 @@ public class KasaController implements Initializable {
                                 }
                             }
                             listaStavki.add(new DTOStavka(Integer.parseInt(kolicinaTextField.getText()) + el.getKolicina(),
-                                    Integer.parseInt(kolicinaTextField.getText()) * proizvod.getCijena() + el.getVrijednost(), proizvod.getIdProizvoda()));
+                                     proizvod.getCijena(), proizvod.getIdProizvoda()));
                             ukupno += Integer.parseInt(kolicinaTextField.getText()) * proizvod.getCijena();
                             ukupnaCijenaLabel.setText(String.format("%.2f", ukupno));
 
@@ -244,7 +244,7 @@ public class KasaController implements Initializable {
 
                 listaStavki.add(
                         new DTOStavka(Integer.parseInt(kolicinaTextField.getText()),
-                                Integer.parseInt(kolicinaTextField.getText()) * proizvod.getCijena(), proizvod.getIdProizvoda()));
+                                 proizvod.getCijena(), proizvod.getIdProizvoda()));
                 ukupno += Integer.parseInt(kolicinaTextField.getText()) * proizvod.getCijena();
 
                 ukupnaCijenaLabel.setText(String.format("%.2f", ukupno));
@@ -344,7 +344,7 @@ public class KasaController implements Initializable {
             AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Nemate stavke na računu.");
         } else {
             DAORacun daoRacun = new DAORacun();
-            if (!daoRacun.dodajRacun(2, new java.sql.Date(new Date().getTime()), ukupno, false)) {
+            if (!daoRacun.dodajRacun(2, new java.sql.Date(new Date().getTime()), Double.parseDouble(ukupnaCijenaLabel.getText()), false)) {
                 AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greska racuna");
             }
             int idRacuna = daoRacun.idZadnjegRacuna();
