@@ -93,7 +93,6 @@ public class KasaController implements Initializable {
 
     //@FXML
     //private Label stanjeLabel;
-
     @FXML
     private Button storniranjeButton;
 
@@ -176,7 +175,7 @@ public class KasaController implements Initializable {
                                 }
                             }
                             listaStavki.add(new DTOStavka(Integer.parseInt(kolicinaTextField.getText()) + el.getKolicina(),
-                                      proizvod.getCijena(), proizvod.getIdProizvoda()));
+                                    proizvod.getCijena(), proizvod.getIdProizvoda()));
                             ukupno += Integer.parseInt(kolicinaTextField.getText()) * proizvod.getCijena();
                             ukupnaCijenaLabel.setText(String.format("%.2f", ukupno));
 
@@ -192,7 +191,7 @@ public class KasaController implements Initializable {
 
                 listaStavki.add(
                         new DTOStavka(Integer.parseInt(kolicinaTextField.getText()),
-                                 proizvod.getCijena(), proizvod.getIdProizvoda()));
+                                proizvod.getCijena(), proizvod.getIdProizvoda()));
                 ukupno += Integer.parseInt(kolicinaTextField.getText()) * proizvod.getCijena();
 
                 ukupnaCijenaLabel.setText(String.format("%.2f", ukupno));
@@ -228,7 +227,7 @@ public class KasaController implements Initializable {
                                 }
                             }
                             listaStavki.add(new DTOStavka(Integer.parseInt(kolicinaTextField.getText()) + el.getKolicina(),
-                                     proizvod.getCijena(), proizvod.getIdProizvoda()));
+                                    proizvod.getCijena(), proizvod.getIdProizvoda()));
                             ukupno += Integer.parseInt(kolicinaTextField.getText()) * proizvod.getCijena();
                             ukupnaCijenaLabel.setText(String.format("%.2f", ukupno));
 
@@ -244,7 +243,7 @@ public class KasaController implements Initializable {
 
                 listaStavki.add(
                         new DTOStavka(Integer.parseInt(kolicinaTextField.getText()),
-                                 proizvod.getCijena(), proizvod.getIdProizvoda()));
+                                proizvod.getCijena(), proizvod.getIdProizvoda()));
                 ukupno += Integer.parseInt(kolicinaTextField.getText()) * proizvod.getCijena();
 
                 ukupnaCijenaLabel.setText(String.format("%.2f", ukupno));
@@ -308,30 +307,33 @@ public class KasaController implements Initializable {
     @FXML
     public void klikNaKolicinu() {
         if (!("".equals(kolicinaTextField.getText()))) {
-
-            Integer.parseInt(kolicinaTextField.getText());
-            try {
-                int fleg = provjeraStanja();
-                if (fleg >= 0) {
-                    puniTabelu();
-                    if (pozvanaMetodaBarkod) {
+            if (Integer.parseInt(kolicinaTextField.getText()) < 0) {
+                AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Količina ne može biti negativna.");
+            } else {
+                Integer.parseInt(kolicinaTextField.getText());
+                try {
+                    int fleg = provjeraStanja();
+                    if (fleg >= 0) {
+                        puniTabelu();
+                        if (pozvanaMetodaBarkod) {
+                            barkodTextField.clear();
+                            pozvanaMetodaBarkod = false;
+                            barkodTextField.requestFocus();
+                        } else if (pozvanaMetodaSifra) {
+                            sifraTextField.clear();
+                            pozvanaMetodaSifra = false;
+                            sifraTextField.requestFocus();
+                        }
+                        kolicinaTextField.setText("1");
+                    } else {
+                        kolicinaTextField.setText("1");
                         barkodTextField.clear();
-                        pozvanaMetodaBarkod = false;
-                        barkodTextField.requestFocus();
-                    } else if (pozvanaMetodaSifra) {
                         sifraTextField.clear();
-                        pozvanaMetodaSifra = false;
-                        sifraTextField.requestFocus();
+                        AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Nemate dovoljno proizvoda na stanju.");
                     }
-                    kolicinaTextField.setText("1");
-                } else {
-                    kolicinaTextField.setText("1");
-                    barkodTextField.clear();
-                    sifraTextField.clear();
-                    AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Nemate dovoljno proizvoda na stanju.");
+                } catch (NumberFormatException e) {
+                    AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Unesite broj.");
                 }
-            } catch (NumberFormatException e) {
-                AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Unesite broj.");
             }
         }
     }
@@ -345,7 +347,7 @@ public class KasaController implements Initializable {
         } else {
             DAORacun daoRacun = new DAORacun();
             if (!daoRacun.dodajRacun(2, new java.sql.Date(new Date().getTime()), Double.parseDouble(ukupnaCijenaLabel.getText()), false)) {
-                AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greska racuna");
+                AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Nije moguće kreirati račun.");
             }
             int idRacuna = daoRacun.idZadnjegRacuna();
             DAOStavka daoStavka = new DAOStavka();
@@ -355,13 +357,12 @@ public class KasaController implements Initializable {
                 } else {
                     if (barkod) {
                         proizvod = dao.getProizvodPoBarkodu(barkodTextField.getText());
-                        dao.azurirajProizvod(proizvod.getKolicina() - Integer.parseInt(kolicinaTextField.getText()),
+                        dao.azurirajProizvod(proizvod.getKolicina() - stavka.getKolicina(),
                                 proizvod.getIdProizvoda());
                     } else {
                         proizvod = dao.getProizvodPoSifri(sifraTextField.getText());
-                        dao.azurirajProizvod(proizvod.getKolicina() - Integer.parseInt(kolicinaTextField.getText()),
+                        dao.azurirajProizvod(proizvod.getKolicina() - stavka.getKolicina(),
                                 proizvod.getIdProizvoda());
-                       
                     }
                 }
             }
