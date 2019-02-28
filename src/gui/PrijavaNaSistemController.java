@@ -35,6 +35,8 @@ public class PrijavaNaSistemController implements Initializable {
     private JFXTextField korisnickoImeTextField;
 
     public static int idZaposlenog;
+    
+    public static String korisnickiNalog;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -89,6 +91,7 @@ public class PrijavaNaSistemController implements Initializable {
                      */
                     //AlertHelper.showAlert(Alert.AlertType.INFORMATION, "", "Uspješna prijava.");
                     if ("Administrator".equals(nalog.getTipKorisnika())) {
+                        korisnickiNalog="Administrator";
                         Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/adminFormaSva.fxml"));
                         Scene korisnikScena = new Scene(korisnikView);
                         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -97,6 +100,7 @@ public class PrijavaNaSistemController implements Initializable {
                         window.centerOnScreen();
                         window.show();
                     } else if ("Poslovođa".equals(nalog.getTipKorisnika())) {
+                        korisnickiNalog="Poslovođa";
                         Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/poslovodja.fxml"));
                         Scene korisnikScena = new Scene(korisnikView);
                         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -105,6 +109,7 @@ public class PrijavaNaSistemController implements Initializable {
                         window.centerOnScreen();
                         window.show();
                     } else if ("Kasir".equals(nalog.getTipKorisnika())) {
+                        korisnickiNalog="Kasir";
                         Parent korisnikView = FXMLLoader.load(getClass().getResource("/gui/kasirForma.fxml"));
                         Scene korisnikScena = new Scene(korisnikView);
                         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();

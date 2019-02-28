@@ -88,6 +88,9 @@ public class PregledProizvodaDetaljnoController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         pregledProizvodaController = this;
         
+        if("Kasir".equals(PrijavaNaSistemController.korisnickiNalog)){
+            dodaj.setVisible(false);
+        }
         postaviTabelu();
     }
     

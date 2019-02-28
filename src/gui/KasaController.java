@@ -6,6 +6,7 @@ import dao.DAORacun;
 import dao.DAOSkladisteProizvod;
 import dao.DAOStavka;
 import dao.DAOStorniranRacun;
+import dao.DAOTipZaposlenog;
 import dao.DAOZaposleni;
 import dto.DTOProizvod;
 import dto.DTORacun;
@@ -122,7 +123,6 @@ public class KasaController implements Initializable {
         ukupnaCijenaLabel.setText("0,00");
         DTOZaposleni k = DAOZaposleni.getZaposleniById(PrijavaNaSistemController.idZaposlenog);
         prodavacLabel.setText(" "+k.getIme() + " " + k.getPrezime());
-
     }
 
     private void puniTabelu() {
