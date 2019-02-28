@@ -51,11 +51,12 @@ import java.util.Date;
 import java.util.HashMap;
 
 public class PDF {
+
     public static final String FONT = "./src/FreeSans.ttf";
 
     public static String kreirajFajlRacun(ArrayList<DTOStavka> stavke, DTORacun racun) {
 
-        String ime="./racuni/racun" + racun.getIdRacuna() + ".pdf";
+        String ime = "./racuni/racun" + racun.getIdRacuna() + ".pdf";
         try {
             String vrijeme = new SimpleDateFormat("dd.MM.yyyy").format(Calendar.getInstance().getTime());
             String sat = new SimpleDateFormat("HH").format(Calendar.getInstance().getTime());
@@ -68,8 +69,8 @@ public class PDF {
                 //Font moj = new Font(bf);
                 PdfFont moj;
                 moj = PdfFontFactory.createFont(FONT, "Cp1250", true);
-                doc.add(new Paragraph("Baby shop" ).setFont(moj));
-                doc.add(new Paragraph("Broj računa: "+racun.getIdRacuna()).setFont(moj));
+                doc.add(new Paragraph("Baby shop").setFont(moj));
+                doc.add(new Paragraph("Broj računa: " + racun.getIdRacuna()).setFont(moj));
                 doc.add(new Paragraph("Datum: " + vrijeme + " " + sat + ":" + min + ":" + sek));
                 doc.add(new Paragraph("\n"));
                 doc.add(new Paragraph("Maloprodajni račun").setTextAlignment(TextAlignment.CENTER).setFont(moj));
@@ -109,17 +110,17 @@ public class PDF {
                     c1.setFont(moj);
                     table.addCell(c1);
                     Cell c2 = new Cell();
-                    c2.add(String.format("%d",stavke.get(i).getKolicina()));
+                    c2.add(String.format("%d", stavke.get(i).getKolicina()));
                     c2.setBorder(b1);
                     c2.setTextAlignment(TextAlignment.CENTER);
                     table.addCell(c2);
                     Cell c3 = new Cell();
-                    c3.add(String.format("%.2f",stavke.get(i).getCijena()));
+                    c3.add(String.format("%.2f", stavke.get(i).getCijena()));
                     c3.setBorder(b1);
                     c3.setTextAlignment(TextAlignment.CENTER);
                     table.addCell(c3);
                     Cell c4 = new Cell();
-                    c4.add(String.format("%.2f",stavke.get(i).getCijena() * stavke.get(i).getKolicina()));
+                    c4.add(String.format("%.2f", stavke.get(i).getCijena() * stavke.get(i).getKolicina()));
                     c4.setBorder(b1);
                     c4.setTextAlignment(TextAlignment.RIGHT);
                     table.addCell(c4);
@@ -161,42 +162,40 @@ public class PDF {
                 ce32.setBorder(b1);
                 tabela.addCell(ce32);
                 doc.add(tabela);
-                
+
             } catch (DocumentException ex) {
                 Logger.getLogger(PDF.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
                 Logger.getLogger(PDF.class.getName()).log(Level.SEVERE, null, ex);
             }
             if (Desktop.isDesktopSupported()) {
-            try {
-                File theUMFile = new File(ime);
-                Desktop.getDesktop().open(theUMFile);
-            } catch (FileNotFoundException fnf) {
-               // okDialog(msg_fnf);
-                //theConcours.GetLogger().log(Level.SEVERE, null, fnf);
-                //theConcours.GetLogger().info(msg_fnf);
-            } catch (IllegalArgumentException fnf) {
-               // okDialog(msg_fnf);
-               // theConcours.GetLogger().log(Level.SEVERE, null, fnf);
-               // theConcours.GetLogger().info(msg_fnf);
-            } catch (IOException ex) {
-                //okDialog(msg_cno);
-               // theConcours.GetLogger().log(Level.SEVERE, null, ex);
-              //  theConcours.GetLogger().info(msg_cno);
+                try {
+                    File theUMFile = new File(ime);
+                    Desktop.getDesktop().open(theUMFile);
+                } catch (FileNotFoundException fnf) {
+                    // okDialog(msg_fnf);
+                    //theConcours.GetLogger().log(Level.SEVERE, null, fnf);
+                    //theConcours.GetLogger().info(msg_fnf);
+                } catch (IllegalArgumentException fnf) {
+                    // okDialog(msg_fnf);
+                    // theConcours.GetLogger().log(Level.SEVERE, null, fnf);
+                    // theConcours.GetLogger().info(msg_fnf);
+                } catch (IOException ex) {
+                    //okDialog(msg_cno);
+                    // theConcours.GetLogger().log(Level.SEVERE, null, ex);
+                    //  theConcours.GetLogger().info(msg_cno);
+                }
+                return "./racuni/racun" + racun.getIdRacuna() + " " + sat + ":" + min + ":" + sek + ".pdf";
             }
-            return "./racuni/racun" + racun.getIdRacuna() + " " + sat + ":" + min + ":" + sek + ".pdf";
-        }
 
         } catch (FileNotFoundException ex) {
             Logger.getLogger(PDF.class.getName()).log(Level.SEVERE, null, ex);
 
         }
-        
+
         return "";
     }
-    
-    
-    
+
     public static String kreirajFajlNarudzbe(ObservableList<TabelaNarudzbenica> stavke, String nazivDobavljaca) {
 
         try {
@@ -204,15 +203,15 @@ public class PDF {
             String satNarudzbe = new SimpleDateFormat("HH").format(Calendar.getInstance().getTime());
             String minNarudzbe = new SimpleDateFormat("mm").format(Calendar.getInstance().getTime());
             String sekNarudzbe = new SimpleDateFormat("ss").format(Calendar.getInstance().getTime());
-            String ime="./narudzbenice/narudzba" + vrijemeNarudzbe + " " + satNarudzbe + "h" + minNarudzbe + "min" + sekNarudzbe + "s" + nazivDobavljaca + ".pdf";
+            String ime = "./narudzbenice/narudzba" + vrijemeNarudzbe + " " + satNarudzbe + "h" + minNarudzbe + "min" + sekNarudzbe + "s" + nazivDobavljaca + ".pdf";
             PdfDocument pdfDoc = new PdfDocument(new PdfWriter(ime));
 
             try (Document doc = new Document(pdfDoc)) {
-                 BaseFont bf = BaseFont.createFont(BaseFont.HELVETICA, "CP1250", BaseFont.EMBEDDED);
+                BaseFont bf = BaseFont.createFont(BaseFont.HELVETICA, "CP1250", BaseFont.EMBEDDED);
                 //Font moj = new Font(bf);
                 PdfFont moj;
                 moj = PdfFontFactory.createFont(FONT, "Cp1250", true);
-                 doc.setFontSize(10);
+                doc.setFontSize(10);
                 Border border1 = new SolidBorder(Color.WHITE, Float.MIN_VALUE);
                 Paragraph prodavnica = new Paragraph("Poslovna jedinica BABY SHOP");
                 prodavnica.setTextAlignment(TextAlignment.LEFT);
@@ -225,7 +224,7 @@ public class PDF {
                 Cell c1 = new Cell();
                 c1.setBorder(border1);
                 c1.add(prodavnica);
-                 Cell c2 = new Cell();
+                Cell c2 = new Cell();
                 c2.setBorder(border1);
                 c2.add(new Paragraph(""));
                 Cell c3 = new Cell();
@@ -235,79 +234,70 @@ public class PDF {
                 Cell c4 = new Cell();
                 c4.setBorder(border1);
                 c4.add(vrijeme);
-                
+
                 Cell c5 = new Cell();
                 c5.setBorder(border1);
                 c5.add(new Paragraph("NARUDŽBA").setTextAlignment(TextAlignment.CENTER)).setFont(moj);
                 c5.setFontSize(15);
                 c5.setBold();
-                
-                 Cell c6 = new Cell();
+
+                Cell c6 = new Cell();
                 c6.setBorder(border1);
                 c6.add(new Paragraph(""));
-                
+
                 Cell c7 = new Cell();
                 c7.setBorder(border1);
                 DTOZaposleni k = DAOZaposleni.getZaposleniById(PrijavaNaSistemController.idZaposlenog);
-                c7.add(new Paragraph("Poslovođa:"+ k.getIme()+" "+k.getPrezime())).setFont(moj);
-                  c7.setTextAlignment(TextAlignment.LEFT);
+                c7.add(new Paragraph("Poslovođa:" + k.getIme() + " " + k.getPrezime())).setFont(moj);
+                c7.setTextAlignment(TextAlignment.LEFT);
 
-             //  Cell c11 = new Cell();
-               // c11.setBorder(border1);
-               // c11.add(new Paragraph  (""+k.getIme()+" "+k.getPrezime()).setTextAlignment(TextAlignment.LEFT));
-                
+                //  Cell c11 = new Cell();
+                // c11.setBorder(border1);
+                // c11.add(new Paragraph  (""+k.getIme()+" "+k.getPrezime()).setTextAlignment(TextAlignment.LEFT));
                 Cell c8 = new Cell();
                 c8.setBorder(border1);
                 c8.add(new Paragraph(""));
-                
-                 Cell c = new Cell();
+
+                Cell c = new Cell();
                 c.setBorder(border1);
                 c.add(new Paragraph(""));
-                
-                
-           //     Cell c9 = new Cell();
-            //    c9.setBorder(border1);
-            //    c9.add(new Paragraph("Vrijeme narudzbe:"));
-            //      c9.setTextAlignment(TextAlignment.CENTER);
-                
-           //      Cell cc = new Cell();
-           //     cc.setBorder(border1);
-           //     cc.add(vrijeme);
-                
-          //       Cell ccc = new Cell();
-          //      ccc.setBorder(border1);
-          //      ccc.add(new Paragraph(""));
-                
-                
 
+                //     Cell c9 = new Cell();
+                //    c9.setBorder(border1);
+                //    c9.add(new Paragraph("Vrijeme narudzbe:"));
+                //      c9.setTextAlignment(TextAlignment.CENTER);
+                //      Cell cc = new Cell();
+                //     cc.setBorder(border1);
+                //     cc.add(vrijeme);
+                //       Cell ccc = new Cell();
+                //      ccc.setBorder(border1);
+                //      ccc.add(new Paragraph(""));
                 Cell c10 = new Cell();
                 c10.setBorder(border1);
-                c10.add("Dobavljač: "+nazivDobavljaca ).setFont(moj);
+                c10.add("Dobavljač: " + nazivDobavljaca).setFont(moj);
                 c10.setTextAlignment(TextAlignment.LEFT);
-               
-              //  Cell c12 = new Cell();
-               // c12.setBorder(border1);
-               // c12.add(new Paragraph(nazivDobavljaca).setTextAlignment(TextAlignment.LEFT));
 
-                tabela1.addCell(c1); 
-                 tabela1.addCell(c2); 
-                  tabela1.addCell(c3); 
+                //  Cell c12 = new Cell();
+                // c12.setBorder(border1);
+                // c12.add(new Paragraph(nazivDobavljaca).setTextAlignment(TextAlignment.LEFT));
+                tabela1.addCell(c1);
+                tabela1.addCell(c2);
+                tabela1.addCell(c3);
                 tabela1.addCell(c4);
                 tabela1.addCell(c5);
                 tabela1.addCell(c6);
-               tabela1.addCell(c7);
+                tabela1.addCell(c7);
                 tabela1.addCell(c8);
-                 tabela1.addCell(c);
-               // tabela1.addCell(c9);
-               // tabela1.addCell(cc);
-               // tabela1.addCell(ccc);
+                tabela1.addCell(c);
+                // tabela1.addCell(c9);
+                // tabela1.addCell(cc);
+                // tabela1.addCell(ccc);
                 tabela1.addCell(c10);
-               // tabela1.addCell(c12);
+                // tabela1.addCell(c12);
 
                 doc.add(tabela1);
 
-               // doc.add(new Paragraph("Datum: " + vrijemeNarudzbe + " " + satNarudzbe + ":" + minNarudzbe + ":" + sekNarudzbe));
-
+                // doc.add(new Paragraph("Datum: " + vrijemeNarudzbe + " " + satNarudzbe + ":" + minNarudzbe + ":" + sekNarudzbe));
                 Table table = new Table(4);
                 Border border = new SolidBorder(Color.WHITE, Float.MIN_VALUE);
                 Border borderGray = new SolidBorder(Color.LIGHT_GRAY, Float.MIN_VALUE);
@@ -317,49 +307,49 @@ public class PDF {
                 k1.setBackgroundColor(Color.LIGHT_GRAY);
                 k1.add("Šifra").setFont(moj);
                 table.addCell(k1);
-                
+
                 Cell k2 = new Cell();
                 k2.setBorderLeft(borderGray);
                 k2.setBorderRight(borderGray);
                 k2.setBackgroundColor(Color.LIGHT_GRAY);
                 k2.add("Barkod");
                 table.addCell(k2);
-                
+
                 Cell k3 = new Cell();
                 k3.setBorderLeft(borderGray);
                 k3.setBorderRight(borderGray);
                 k3.setBackgroundColor(Color.LIGHT_GRAY);
                 k3.add("Naziv");
                 table.addCell(k3);
-                
+
                 Cell k4 = new Cell();
                 k4.setBorderLeft(borderGray);
                 k4.setBorderRight(borderGray);
                 k4.setBackgroundColor(Color.LIGHT_GRAY);
                 k4.add("Naručeno").setFont(moj);
                 table.addCell(k4);
-                
+
                 for (int i = 0; i < stavke.size(); i++) {
-                    
-                    Cell p1=new Cell();
+
+                    Cell p1 = new Cell();
                     p1.setBorderLeft(border);
                     p1.setBorderRight(border);
                     p1.add(stavke.get(i).getSifra());
                     table.addCell(p1);
-                    
-                    Cell p2=new Cell();
+
+                    Cell p2 = new Cell();
                     p2.setBorderLeft(border);
                     p2.setBorderRight(border);
                     p2.add(stavke.get(i).getBarKod());
                     table.addCell(p2);
-                    
-                    Cell p3=new Cell();
+
+                    Cell p3 = new Cell();
                     p3.setBorderLeft(border);
                     p3.setBorderRight(border);
                     p3.add(stavke.get(i).getNaziv()).setFont(moj);
                     table.addCell(p3);
-                    
-                    Cell p4=new Cell();
+
+                    Cell p4 = new Cell();
                     p4.setBorderLeft(border);
                     p4.setBorderRight(border);
                     p4.add(String.valueOf(stavke.get(i).getNaruceno()));
@@ -368,125 +358,30 @@ public class PDF {
                 }
 
                 doc.add(table);
-                
+
             } catch (DocumentException ex) {
                 Logger.getLogger(PDF.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
                 Logger.getLogger(PDF.class.getName()).log(Level.SEVERE, null, ex);
             }
             if (Desktop.isDesktopSupported()) {
-            try {
-                File theUMFile = new File(ime);
-                Desktop.getDesktop().open(theUMFile);
-            } catch (FileNotFoundException fnf) {
-               // okDialog(msg_fnf);
-                //theConcours.GetLogger().log(Level.SEVERE, null, fnf);
-                //theConcours.GetLogger().info(msg_fnf);
-            } catch (IllegalArgumentException fnf) {
-               // okDialog(msg_fnf);
-               // theConcours.GetLogger().log(Level.SEVERE, null, fnf);
-               // theConcours.GetLogger().info(msg_fnf);
-            } catch (IOException ex) {
-                //okDialog(msg_cno);
-               // theConcours.GetLogger().log(Level.SEVERE, null, ex);
-              //  theConcours.GetLogger().info(msg_cno);
-            }
-            return "./narudzbenice/narudzba" + vrijemeNarudzbe + " " + satNarudzbe + "h" + minNarudzbe + "min" + sekNarudzbe + "s" + nazivDobavljaca + ".pdf";
-        }
-            
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(TabelaNarudzba.class
-                    .getName()).log(Level.SEVERE, null, ex);
-
-        }
-        return "";
-    }
-/*
-    public static String kreirajFajlNarudzbe(ObservableList<TabelaNarudzbenica> stavke, String nazivDobavljaca) {
-
-        try {
-            String vrijemeNarudzbe = new SimpleDateFormat("dd.MM.yyyy").format(Calendar.getInstance().getTime());
-            String satNarudzbe = new SimpleDateFormat("HH").format(Calendar.getInstance().getTime());
-            String minNarudzbe = new SimpleDateFormat("mm").format(Calendar.getInstance().getTime());
-            String sekNarudzbe = new SimpleDateFormat("ss").format(Calendar.getInstance().getTime());
-            PdfDocument pdfDoc = new PdfDocument(new PdfWriter("./narudzbenice/narudzba" + vrijemeNarudzbe + " " + satNarudzbe + "h" + minNarudzbe + "min" + sekNarudzbe + "s" + nazivDobavljaca + ".pdf"));
-
-            try (Document doc = new Document(pdfDoc)) {
-                BaseFont bf = BaseFont.createFont(BaseFont.HELVETICA, "CP1250", BaseFont.EMBEDDED);
-                //Font moj = new Font(bf);
-                PdfFont moj;
-                moj = PdfFontFactory.createFont(FONT, "Cp1250", true);
-                doc.add(new Paragraph("Datum: " + vrijemeNarudzbe + " " + satNarudzbe + ":" + minNarudzbe + ":" + sekNarudzbe));
-
-                Table table = new Table(4);
-                Border border = new SolidBorder(Color.WHITE, Float.MIN_VALUE);
-                Border borderGray = new SolidBorder(Color.LIGHT_GRAY, Float.MIN_VALUE);
-                Cell k1 = new Cell();
-                k1.setBorderLeft(borderGray);
-                k1.setBorderRight(borderGray);
-                k1.setBackgroundColor(Color.LIGHT_GRAY);
-                k1.add("Šifra");
-                k1.setFont(moj);
-                table.addCell(k1);
-                
-                Cell k2 = new Cell();
-                k2.setBorderLeft(borderGray);
-                k2.setBorderRight(borderGray);
-                k2.setBackgroundColor(Color.LIGHT_GRAY);
-                k2.add("Barkod");
-                table.addCell(k2);
-                
-                Cell k3 = new Cell();
-                k3.setBorderLeft(borderGray);
-                k3.setBorderRight(borderGray);
-                k3.setBackgroundColor(Color.LIGHT_GRAY);
-                k3.add("Naziv");
-                table.addCell(k3);
-                
-                Cell k4 = new Cell();
-                k4.setBorderLeft(borderGray);
-                k4.setBorderRight(borderGray);
-                k4.setBackgroundColor(Color.LIGHT_GRAY);
-                k4.add("Naručeno");
-                k4.setFont(moj);
-                
-                table.addCell(k4);
-                
-                for (int i = 0; i < stavke.size(); i++) {
-                    
-                    Cell p1=new Cell();
-                    p1.setBorderLeft(border);
-                    p1.setBorderRight(border);
-                    p1.add(stavke.get(i).getSifra());
-                    table.addCell(p1);
-                    
-                    Cell p2=new Cell();
-                    p2.setBorderLeft(border);
-                    p2.setBorderRight(border);
-                    p2.add(stavke.get(i).getBarKod());
-                    table.addCell(p2);
-                    
-                    Cell p3=new Cell();
-                    p3.setBorderLeft(border);
-                    p3.setBorderRight(border);
-                    p3.add(stavke.get(i).getNaziv());
-                    p3.setFont(moj);
-                    table.addCell(p3);
-                    
-                    Cell p4=new Cell();
-                    p4.setBorderLeft(border);
-                    p4.setBorderRight(border);
-                    p4.add(String.valueOf(stavke.get(i).getNaruceno()));
-                    table.addCell(p4);
-
+                try {
+                    File theUMFile = new File(ime);
+                    Desktop.getDesktop().open(theUMFile);
+                } catch (FileNotFoundException fnf) {
+                    // okDialog(msg_fnf);
+                    //theConcours.GetLogger().log(Level.SEVERE, null, fnf);
+                    //theConcours.GetLogger().info(msg_fnf);
+                } catch (IllegalArgumentException fnf) {
+                    // okDialog(msg_fnf);
+                    // theConcours.GetLogger().log(Level.SEVERE, null, fnf);
+                    // theConcours.GetLogger().info(msg_fnf);
+                } catch (IOException ex) {
+                    //okDialog(msg_cno);
+                    // theConcours.GetLogger().log(Level.SEVERE, null, ex);
+                    //  theConcours.GetLogger().info(msg_cno);
                 }
-
-                doc.add(table);
                 return "./narudzbenice/narudzba" + vrijemeNarudzbe + " " + satNarudzbe + "h" + minNarudzbe + "min" + sekNarudzbe + "s" + nazivDobavljaca + ".pdf";
-            } catch (DocumentException ex) {
-                Logger.getLogger(PDF.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(PDF.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         } catch (FileNotFoundException ex) {
@@ -496,12 +391,12 @@ public class PDF {
         }
         return "";
     }
-*/
+
     public static void kreirajFajlKalkulacija(ObservableList<TabelaKalkulacija> stavke, String nazivDobavljaca, int id) {
         DAODobavljac daoDobavljac = new DAODobavljac();
         DTODobavljac dobavljac = daoDobavljac.getDobavljacPoNazivu(nazivDobavljaca);
         DTOMjesto mjesto = DAOMjesto.getMjestoByPostanskiBroj(dobavljac.getPostanskiBroj());
-        String ime="./kalkulacija/kalkulacija_" + id + ".pdf";
+        String ime = "./kalkulacija/kalkulacija_" + id + ".pdf";
         try {
             String vrijemeKalkulacije = new SimpleDateFormat("dd.MM.yyyy").format(Calendar.getInstance().getTime());
             String satKalkulacije = new SimpleDateFormat("HH").format(Calendar.getInstance().getTime());
@@ -547,7 +442,7 @@ public class PDF {
                 Cell c6 = new Cell();
                 c6.setBorder(border);
                 DTOZaposleni k = DAOZaposleni.getZaposleniById(PrijavaNaSistemController.idZaposlenog);
-                c6.add(new Paragraph("Kalkulant: "+k.getIme()+" "+k.getPrezime()).setTextAlignment(TextAlignment.RIGHT).setFont(moj));
+                c6.add(new Paragraph("Kalkulant: " + k.getIme() + " " + k.getPrezime()).setTextAlignment(TextAlignment.RIGHT).setFont(moj));
 
                 Cell c7 = new Cell();
                 c7.setBorder(border);
@@ -845,17 +740,17 @@ public class PDF {
                 File theUMFile = new File(ime);
                 Desktop.getDesktop().open(theUMFile);
             } catch (FileNotFoundException fnf) {
-               // okDialog(msg_fnf);
+                // okDialog(msg_fnf);
                 //theConcours.GetLogger().log(Level.SEVERE, null, fnf);
                 //theConcours.GetLogger().info(msg_fnf);
             } catch (IllegalArgumentException fnf) {
-               // okDialog(msg_fnf);
-               // theConcours.GetLogger().log(Level.SEVERE, null, fnf);
-               // theConcours.GetLogger().info(msg_fnf);
+                // okDialog(msg_fnf);
+                // theConcours.GetLogger().log(Level.SEVERE, null, fnf);
+                // theConcours.GetLogger().info(msg_fnf);
             } catch (IOException ex) {
                 //okDialog(msg_cno);
-               // theConcours.GetLogger().log(Level.SEVERE, null, ex);
-              //  theConcours.GetLogger().info(msg_cno);
+                // theConcours.GetLogger().log(Level.SEVERE, null, ex);
+                //  theConcours.GetLogger().info(msg_cno);
             }
         }
     }
@@ -867,7 +762,7 @@ public class PDF {
         ArrayList<DTODobavljacIzvjestaj> proizvodi = new ArrayList<>();
         proizvodi = new DAODobavljac().proizvodiPoDobavljacuZaMjesec(datumOd, datumDo, idDobavljaca);
         SimpleDateFormat datum = new SimpleDateFormat("dd.MM.yyyy");
-        String ime="./izvjestaji/poDobavljacu/izvjestaj_odDatuma_" + datum.format(datumOd) + "_doDatuma_" + datum.format(datumDo) + ".pdf";
+        String ime = "./izvjestaji/poDobavljacu/izvjestaj_odDatuma_" + datum.format(datumOd) + "_doDatuma_" + datum.format(datumDo) + ".pdf";
         try {
             PdfDocument pdfDoc = new PdfDocument(new PdfWriter(ime));
 
@@ -1047,74 +942,68 @@ public class PDF {
                 File theUMFile = new File(ime);
                 Desktop.getDesktop().open(theUMFile);
             } catch (FileNotFoundException fnf) {
-               // okDialog(msg_fnf);
+                // okDialog(msg_fnf);
                 //theConcours.GetLogger().log(Level.SEVERE, null, fnf);
                 //theConcours.GetLogger().info(msg_fnf);
             } catch (IllegalArgumentException fnf) {
-               // okDialog(msg_fnf);
-               // theConcours.GetLogger().log(Level.SEVERE, null, fnf);
-               // theConcours.GetLogger().info(msg_fnf);
+                // okDialog(msg_fnf);
+                // theConcours.GetLogger().log(Level.SEVERE, null, fnf);
+                // theConcours.GetLogger().info(msg_fnf);
             } catch (IOException ex) {
                 //okDialog(msg_cno);
-               // theConcours.GetLogger().log(Level.SEVERE, null, ex);
-              //  theConcours.GetLogger().info(msg_cno);
+                // theConcours.GetLogger().log(Level.SEVERE, null, ex);
+                //  theConcours.GetLogger().info(msg_cno);
             }
         }
     }
-    
-     public static String kreirajIzvjestajSvihProdanihProizvoda( Date datumOd,  Date datumDo ) {
 
-             ObservableList<DTORacun> racuniGodina =  DAORacun.getRacunePoMjesecu(datumOd,datumDo);
-                HashMap<DTOProizvod,Integer> listaMoja = new HashMap<DTOProizvod,Integer>();
-             
-             for ( DTORacun racun : racuniGodina)  {  
-                  
-                 DAOStavka s = new DAOStavka();
-                 ArrayList<DTOStavka> stavke =s.stavkeNaRacunu(racun.getIdRacuna());
-                 DAOProizvod p = new DAOProizvod();
-                 for ( DTOStavka st : stavke)  {  
-             
-                   if ( !listaMoja.containsKey(p.getProizvodPoId(st.getIdProizvoda()))) {  
-                   
-                   listaMoja.put(p.getProizvodPoId(st.getIdProizvoda()),st.getKolicina());
-                   
-                   }
-                   else  {  
-                   
-                   listaMoja.computeIfPresent(p.getProizvodPoId(st.getIdProizvoda()), (k, v) -> (v + (st.getKolicina())) );
+    public static String kreirajIzvjestajSvihProdanihProizvoda(Date datumOd, Date datumDo) {
 
-                   
-                   }
-             
-                 }
-                 
-   
-             }
-             
-            String pattern = "MM.dd.yyyy";
+        ObservableList<DTORacun> racuniGodina = DAORacun.getRacunePoMjesecu(datumOd, datumDo);
+        HashMap<DTOProizvod, Integer> listaMoja = new HashMap<DTOProizvod, Integer>();
 
+        for (DTORacun racun : racuniGodina) {
 
-             Format df = new SimpleDateFormat(pattern);
+            DAOStavka s = new DAOStavka();
+            ArrayList<DTOStavka> stavke = s.stavkeNaRacunu(racun.getIdRacuna());
+            DAOProizvod p = new DAOProizvod();
+            for (DTOStavka st : stavke) {
 
-              String Dod = df.format(datumOd);
-              String Ddo = df.format(datumDo);
+                if (!listaMoja.containsKey(p.getProizvodPoId(st.getIdProizvoda()))) {
 
+                    listaMoja.put(p.getProizvodPoId(st.getIdProizvoda()), st.getKolicina());
 
-        
+                } else {
+
+                    listaMoja.computeIfPresent(p.getProizvodPoId(st.getIdProizvoda()), (k, v) -> (v + (st.getKolicina())));
+
+                }
+
+            }
+
+        }
+
+        String pattern = "dd.MM.yyyy";
+
+        Format df = new SimpleDateFormat(pattern);
+
+        String Dod = df.format(datumOd);
+        String Ddo = df.format(datumDo);
+
         try {
             String vrijeme = new SimpleDateFormat("dd.MM.yyyy").format(Calendar.getInstance().getTime());
             String sat = new SimpleDateFormat("HH").format(Calendar.getInstance().getTime());
             String min = new SimpleDateFormat("mm").format(Calendar.getInstance().getTime());
             String sek = new SimpleDateFormat("ss").format(Calendar.getInstance().getTime());
-            String ime="./izvjestaji/izvjestajProdaja" + vrijeme + " " + sat + "h" + min + "min" + sek + "s"  + ".pdf";
+            String ime = "./izvjestaji/izvjestajProdaja" + vrijeme + " " + sat + "h" + min + "min" + sek + "s" + ".pdf";
             PdfDocument pdfDoc = new PdfDocument(new PdfWriter(ime));
 
             try (Document doc = new Document(pdfDoc)) {
-                 BaseFont bf = BaseFont.createFont(BaseFont.HELVETICA, "CP1250", BaseFont.EMBEDDED);
+                BaseFont bf = BaseFont.createFont(BaseFont.HELVETICA, "CP1250", BaseFont.EMBEDDED);
                 //Font moj = new Font(bf);
                 PdfFont moj;
                 moj = PdfFontFactory.createFont(FONT, "Cp1250", true);
-                 doc.setFontSize(10);
+                doc.setFontSize(10);
                 Border border1 = new SolidBorder(Color.WHITE, Float.MIN_VALUE);
                 Paragraph prodavnica = new Paragraph("Poslovna jedinica BABY SHOP");
                 prodavnica.setTextAlignment(TextAlignment.LEFT);
@@ -1127,11 +1016,11 @@ public class PDF {
                 Cell c1 = new Cell();
                 c1.setBorder(border1);
                 c1.add(prodavnica);
-                 Cell c2 = new Cell();
+                Cell c2 = new Cell();
                 c2.setBorder(border1);
                 c2.add(new Paragraph(""));
-               
-                  Cell c3 = new Cell();
+
+                Cell c3 = new Cell();
                 c3.setBorder(border1);
                 c3.add(new Paragraph(""));
 
@@ -1143,23 +1032,23 @@ public class PDF {
                 c5.add(new Paragraph("Izvještaj o prodaji proizvoda ").setTextAlignment(TextAlignment.CENTER)).setFont(moj);
                 c5.setFontSize(15);
                 c5.setBold();
-             //   Cell c6 = new Cell();
-              //  c6.setBorder(border1);
-               // DTOZaposleni k = DAOZaposleni.getZaposleniById(PrijavaNaSistemController.idZaposlenog);
+                //   Cell c6 = new Cell();
+                //  c6.setBorder(border1);
+                // DTOZaposleni k = DAOZaposleni.getZaposleniById(PrijavaNaSistemController.idZaposlenog);
                 //c6.add(new Paragraph("Poslovodja: "+k.getIme()+" "+k.getPrezime()).setTextAlignment(TextAlignment.LEFT));
 
-                  Cell c6 = new Cell();
+                Cell c6 = new Cell();
                 c6.setBorder(border1);
                 c6.add(new Paragraph(""));
-                
-                  Cell c7 = new Cell();
+
+                Cell c7 = new Cell();
                 c7.setBorder(border1);
                 c7.add(new Paragraph("Period za koji važi: ")).setFont(moj);
-             
+
                 Cell c8 = new Cell();
                 c8.setBorder(border1);
-                c8.add(new Paragraph(Dod)); 
-                
+                c8.add(new Paragraph(Dod));
+
                 Cell c9 = new Cell();
                 c9.setBorder(border1);
                 c9.add(Ddo);
@@ -1167,14 +1056,14 @@ public class PDF {
                 Cell c10 = new Cell();
                 c10.setBorder(border1);
                 c10.add("Vrijeme kreiranja izvještaja: " + vrijeme).setFont(moj);
-               
+
                 Cell c12 = new Cell();
                 c12.setBorder(border1);
                 c12.add("");
 
-                tabela1.addCell(c1); 
-                tabela1.addCell(c2); 
-                tabela1.addCell(c3); 
+                tabela1.addCell(c1);
+                tabela1.addCell(c2);
+                tabela1.addCell(c3);
                 tabela1.addCell(c4);
                 tabela1.addCell(c5);
                 tabela1.addCell(c6);
@@ -1186,8 +1075,7 @@ public class PDF {
 
                 doc.add(tabela1);
 
-               // doc.add(new Paragraph("Datum: " + vrijemeNarudzbe + " " + satNarudzbe + ":" + minNarudzbe + ":" + sekNarudzbe));
-
+                // doc.add(new Paragraph("Datum: " + vrijemeNarudzbe + " " + satNarudzbe + ":" + minNarudzbe + ":" + sekNarudzbe));
                 Table table = new Table(4);
                 Border border = new SolidBorder(Color.WHITE, Float.MIN_VALUE);
                 Border borderGray = new SolidBorder(Color.LIGHT_GRAY, Float.MIN_VALUE);
@@ -1197,101 +1085,101 @@ public class PDF {
                 k1.setBackgroundColor(Color.LIGHT_GRAY);
                 k1.add("Barkod");
                 table.addCell(k1);
-                
+
                 Cell k2 = new Cell();
                 k2.setBorderLeft(borderGray);
                 k2.setBorderRight(borderGray);
                 k2.setBackgroundColor(Color.LIGHT_GRAY);
                 k2.add("Naziv");
                 table.addCell(k2);
-                
+
                 Cell k3 = new Cell();
                 k3.setBorderLeft(borderGray);
                 k3.setBorderRight(borderGray);
                 k3.setBackgroundColor(Color.LIGHT_GRAY);
                 k3.add("Cijena");
                 table.addCell(k3);
-                
+
                 Cell k4 = new Cell();
                 k4.setBorderLeft(borderGray);
                 k4.setBorderRight(borderGray);
                 k4.setBackgroundColor(Color.LIGHT_GRAY);
                 k4.add("Prodano");
                 table.addCell(k4);
-                
-                for ( DTOProizvod pr : listaMoja.keySet() ) {
-                    
-                    Cell p1=new Cell();
+
+                for (DTOProizvod pr : listaMoja.keySet()) {
+
+                    Cell p1 = new Cell();
                     p1.setBorderLeft(border);
                     p1.setBorderRight(border);
-                    p1.add(pr.getBarkod() );
+                    p1.add(pr.getBarkod());
                     table.addCell(p1);
-                    
-                    Cell p2=new Cell();
+
+                    Cell p2 = new Cell();
                     p2.setBorderLeft(border);
                     p2.setBorderRight(border);
                     p2.add(pr.getNaziv()).setFont(moj);
                     table.addCell(p2);
-                    
-                    Cell p3=new Cell();
+
+                    Cell p3 = new Cell();
                     p3.setBorderLeft(border);
                     p3.setBorderRight(border);
-                    p3.add(pr.getCijena()+"");
+                    p3.add(pr.getCijena() + "");
                     table.addCell(p3);
-                    
-                    Cell p4=new Cell();
+
+                    Cell p4 = new Cell();
                     p4.setBorderLeft(border);
                     p4.setBorderRight(border);
-                    p4.add(String.valueOf( listaMoja.get(pr) ));
+                    p4.add(String.valueOf(listaMoja.get(pr)));
                     table.addCell(p4);
 
                 }
 
                 doc.add(table);
-                
-            }    catch (DocumentException ex) {
-                     Logger.getLogger(PDF.class.getName()).log(Level.SEVERE, null, ex);
-                 } catch (IOException ex) {
-                     Logger.getLogger(PDF.class.getName()).log(Level.SEVERE, null, ex);
-                 }
-            
-        if (Desktop.isDesktopSupported()) {
-            try {
-                File theUMFile = new File(ime);
-                Desktop.getDesktop().open(theUMFile);
-            } catch (FileNotFoundException fnf) {
-               // okDialog(msg_fnf);
-                //theConcours.GetLogger().log(Level.SEVERE, null, fnf);
-                //theConcours.GetLogger().info(msg_fnf);
-            } catch (IllegalArgumentException fnf) {
-               // okDialog(msg_fnf);
-               // theConcours.GetLogger().log(Level.SEVERE, null, fnf);
-               // theConcours.GetLogger().info(msg_fnf);
+
+            } catch (DocumentException ex) {
+                Logger.getLogger(PDF.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
-                //okDialog(msg_cno);
-               // theConcours.GetLogger().log(Level.SEVERE, null, ex);
-              //  theConcours.GetLogger().info(msg_cno);
+                Logger.getLogger(PDF.class.getName()).log(Level.SEVERE, null, ex);
             }
-            return "./izvjestaji/izvjestajProdaja" + vrijeme + " " + sat + "h" + min + "min" + sek + "s"  + ".pdf";
-        }
+
+            if (Desktop.isDesktopSupported()) {
+                try {
+                    File theUMFile = new File(ime);
+                    Desktop.getDesktop().open(theUMFile);
+                } catch (FileNotFoundException fnf) {
+                    // okDialog(msg_fnf);
+                    //theConcours.GetLogger().log(Level.SEVERE, null, fnf);
+                    //theConcours.GetLogger().info(msg_fnf);
+                } catch (IllegalArgumentException fnf) {
+                    // okDialog(msg_fnf);
+                    // theConcours.GetLogger().log(Level.SEVERE, null, fnf);
+                    // theConcours.GetLogger().info(msg_fnf);
+                } catch (IOException ex) {
+                    //okDialog(msg_cno);
+                    // theConcours.GetLogger().log(Level.SEVERE, null, ex);
+                    //  theConcours.GetLogger().info(msg_cno);
+                }
+                return "./izvjestaji/izvjestajProdaja" + vrijeme + " " + sat + "h" + min + "min" + sek + "s" + ".pdf";
+            }
 
         } catch (FileNotFoundException ex) {
             Logger.getLogger(TabelaNarudzba.class
                     .getName()).log(Level.SEVERE, null, ex);
 
         }
-        
+
         return "";
     }
-     
-     public static void kreirajIzvjestajPoDobavljacuZaProdaneProizvode(Date datumOd, Date datumDo, int idDobavljaca) {
+
+    public static void kreirajIzvjestajPoDobavljacuZaProdaneProizvode(Date datumOd, Date datumDo, int idDobavljaca) {
 
         Border border = new SolidBorder(Color.WHITE, Float.MIN_VALUE);
         Border borderGray = new SolidBorder(Color.LIGHT_GRAY, Float.MIN_VALUE);
         ArrayList<DTOIzvjestajNaruceneRobeDobavljac> proizvodi = new ArrayList<>();
         proizvodi = new DAODobavljac().proizvodiPoDobavljacuProdano(datumOd, datumDo, idDobavljaca);
         SimpleDateFormat datum = new SimpleDateFormat("dd.MM.yyyy");
-        String ime="./izvjestaji/poDobavljacuNaruceno/izvjestaj_odDatuma_" + datum.format(datumOd) + "_doDatuma_" + datum.format(datumDo) + ".pdf";
+        String ime = "./izvjestaji/poDobavljacuNaruceno/izvjestaj_odDatuma_" + datum.format(datumOd) + "_doDatuma_" + datum.format(datumDo) + ".pdf";
         try {
             PdfDocument pdfDoc = new PdfDocument(new PdfWriter(ime));
 
@@ -1395,7 +1283,7 @@ public class PDF {
                     p5.setTextAlignment(TextAlignment.RIGHT);
                     p5.add(String.format("%d", proizvodi.get(i).getKolicina())).setTextAlignment(TextAlignment.CENTER);
                     table.addCell(p5);
-                    
+
                     Cell p6 = new Cell();
                     p6.setBorderLeft(border);
                     p6.setBorderRight(border);
@@ -1420,29 +1308,29 @@ public class PDF {
                 File theUMFile = new File(ime);
                 Desktop.getDesktop().open(theUMFile);
             } catch (FileNotFoundException fnf) {
-               // okDialog(msg_fnf);
+                // okDialog(msg_fnf);
                 //theConcours.GetLogger().log(Level.SEVERE, null, fnf);
                 //theConcours.GetLogger().info(msg_fnf);
             } catch (IllegalArgumentException fnf) {
-               // okDialog(msg_fnf);
-               // theConcours.GetLogger().log(Level.SEVERE, null, fnf);
-               // theConcours.GetLogger().info(msg_fnf);
+                // okDialog(msg_fnf);
+                // theConcours.GetLogger().log(Level.SEVERE, null, fnf);
+                // theConcours.GetLogger().info(msg_fnf);
             } catch (IOException ex) {
                 //okDialog(msg_cno);
-               // theConcours.GetLogger().log(Level.SEVERE, null, ex);
-              //  theConcours.GetLogger().info(msg_cno);
+                // theConcours.GetLogger().log(Level.SEVERE, null, ex);
+                //  theConcours.GetLogger().info(msg_cno);
             }
         }
     }
-     
-     public static void kreirajIzvjestajZaSkladiste() {
+
+    public static void kreirajIzvjestajZaSkladiste() {
 
         Border border = new SolidBorder(Color.WHITE, Float.MIN_VALUE);
         Border borderGray = new SolidBorder(Color.LIGHT_GRAY, Float.MIN_VALUE);
         ArrayList<DTOProizvodiUSkladistu> proizvodi = new ArrayList<>();
         proizvodi = new DAOSkladiste().pregledProizvodaUSkladistu();
         SimpleDateFormat datum = new SimpleDateFormat("dd.MM.yyyy");
-        String ime="./izvjestaji/skladiste/izvjestaj_zaDatum_" + datum.format(new Date().getTime()) +".pdf";
+        String ime = "./izvjestaji/skladiste/izvjestaj_zaDatum_" + datum.format(new Date().getTime()) + ".pdf";
         try {
             PdfDocument pdfDoc = new PdfDocument(new PdfWriter(ime));
 
@@ -1465,7 +1353,7 @@ public class PDF {
                 doc.add(izvjestaj);
 
                 doc.add(prazanRed);
-                
+
                 Table table = new Table(6);
 
                 Cell c1 = new Cell();
@@ -1547,7 +1435,7 @@ public class PDF {
                     p5.setTextAlignment(TextAlignment.RIGHT);
                     p5.add(String.format("%d", proizvodi.get(i).getKolicina())).setTextAlignment(TextAlignment.CENTER);
                     table.addCell(p5);
-                    
+
                     Cell p6 = new Cell();
                     p6.setBorderLeft(border);
                     p6.setBorderRight(border);
@@ -1572,21 +1460,18 @@ public class PDF {
                 File theUMFile = new File(ime);
                 Desktop.getDesktop().open(theUMFile);
             } catch (FileNotFoundException fnf) {
-               // okDialog(msg_fnf);
+                // okDialog(msg_fnf);
                 //theConcours.GetLogger().log(Level.SEVERE, null, fnf);
                 //theConcours.GetLogger().info(msg_fnf);
             } catch (IllegalArgumentException fnf) {
-               // okDialog(msg_fnf);
-               // theConcours.GetLogger().log(Level.SEVERE, null, fnf);
-               // theConcours.GetLogger().info(msg_fnf);
+                // okDialog(msg_fnf);
+                // theConcours.GetLogger().log(Level.SEVERE, null, fnf);
+                // theConcours.GetLogger().info(msg_fnf);
             } catch (IOException ex) {
                 //okDialog(msg_cno);
-               // theConcours.GetLogger().log(Level.SEVERE, null, ex);
-              //  theConcours.GetLogger().info(msg_cno);
+                // theConcours.GetLogger().log(Level.SEVERE, null, ex);
+                //  theConcours.GetLogger().info(msg_cno);
             }
         }
     }
 }
-
-
-

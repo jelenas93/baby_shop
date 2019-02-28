@@ -6,7 +6,7 @@
     -fx-background               : #f3f3f3;
     -fx-base                     : #f9f4f4;
     -fx-font-family              : "Roboto Light";
-    -fx-font-size                : 16px;
+    -fx-font-size                : 18px;
     -fx-font-weight              : lighter;
     -fx-selection-bar            : -standard;
     -fx-selection-bar-non-focused: derive(-standard, 20%);
