@@ -71,17 +71,17 @@
                            <children>
                               <Label text="Izvjestaj ukupno prodanih proizvoda:" GridPane.rowIndex="1">
                                  <GridPane.margin>
-                                    <Insets bottom="5.0" left="50.0" top="5.0" />
+                                    <Insets bottom="5.0" left="20.0" top="5.0" />
                                  </GridPane.margin>
                               </Label>
                               <Label text="Izvještaj naručenih proizvoda od dobavljača:" GridPane.rowIndex="2">
                                  <GridPane.margin>
-                                    <Insets bottom="5.0" left="50.0" top="5.0" />
+                                    <Insets bottom="5.0" left="20.0" top="5.0" />
                                  </GridPane.margin>
                               </Label>
                               <Label text="Izvještaj prodanih proizvoda od dobavljača:" GridPane.rowIndex="3">
                                  <GridPane.margin>
-                                    <Insets bottom="5.0" left="50.0" top="5.0" />
+                                    <Insets bottom="5.0" left="20.0" top="5.0" />
                                  </GridPane.margin>
                               </Label>
                               <Button mnemonicParsing="false" onAction="#ukupnoProdano" prefHeight="40.0" prefWidth="150.0" text="Kreiraj" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -106,7 +106,7 @@
                               </Button>
                               <Label text="Zalihe po skladištu:" GridPane.rowIndex="4">
                                  <GridPane.margin>
-                                    <Insets bottom="5.0" left="50.0" top="5.0" />
+                                    <Insets bottom="5.0" left="20.0" top="5.0" />
                                  </GridPane.margin>
                               </Label>
                            </children>
@@ -122,8 +122,8 @@
                         <ComboBox fx:id="dobavljac" layoutX="140.0" layoutY="190.0" prefHeight="50.0" prefWidth="200.0" />
                         <GridPane layoutX="40.0" layoutY="277.0" prefHeight="150.0" prefWidth="510.0" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="250.0">
                           <columnConstraints>
-                            <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="515.0" minWidth="10.0" prefWidth="314.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="342.0" minWidth="10.0" prefWidth="196.0" />
+                            <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="515.0" minWidth="10.0" prefWidth="310.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="342.0" minWidth="10.0" prefWidth="200.0" />
                           </columnConstraints>
                           <rowConstraints>
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -140,7 +140,7 @@
                                     <Insets bottom="5.0" top="5.0" />
                                  </GridPane.margin>
                               </Button>
-                              <Label prefHeight="40.0" prefWidth="241.0" text="Izvještaj prometa po mjesecima:" GridPane.rowIndex="1">
+                              <Label prefHeight="40.0" prefWidth="295.0" text="Izvještaj prometa po mjesecima:" GridPane.rowIndex="1">
                                  <GridPane.margin>
                                     <Insets bottom="5.0" right="5.0" top="5.0" />
                                  </GridPane.margin>
