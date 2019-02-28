@@ -71,9 +71,10 @@ public class PoslovodjaController implements Initializable {
     }
 
     private void cistiPolja() {
-        datumOd.getEditor().setText("");
-        
-        datumDo.getEditor().setText("");
+        datumOd.getEditor().clear();
+        datumOd.setValue(null);
+        datumDo.getEditor().clear();
+        datumDo.setValue(null);
     }
 
     private void cistiGraf(){
