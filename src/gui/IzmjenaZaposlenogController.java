@@ -14,6 +14,7 @@ import dto.DTOZaposleni;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -94,7 +95,17 @@ public class IzmjenaZaposlenogController implements Initializable {
                 || mjestoComboBox.getSelectionModel().isEmpty()
                 || tipZaposlenogComboBox.getSelectionModel().isEmpty()) {
             AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Niste ispravno unijeli podatke.");
-        } else {
+        } else if (!Pattern.matches("[0-9]{13}", jmbgTextField.getText())) {
+            AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Neispravan JMBG!");}
+         else if (!Pattern.matches("[a-zA-ZćčžđšČĆĐŠŽ]*", imeTextField.getText())) {
+            AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Neispravan unos imena!");}
+         else if (!Pattern.matches("[a-zA-ZćčžđšČĆĐŠŽ]*", prezimeTextField.getText())) {
+            AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Neispravan unos prezimena!");}
+         else if(Double.parseDouble(plataTextField.getText())<=0){
+             AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Neispravan unos iznosa plate!");}
+          else if (!Pattern.matches("[a-zA-Z0-9]*@[a-zA-Z.]*.[a-zA-Z]*", mejlTextField.getText())) {
+            AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Neispravan unos mejla!");}
+          else {
             worker.setIme(imeTextField.getText());
             worker.setPrezime(prezimeTextField.getText());
             worker.setIznosPlate(Double.parseDouble(plataTextField.getText()));

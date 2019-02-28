@@ -50,7 +50,6 @@ public class PregledProizvodaController implements Initializable {
 
     @FXML
     private TextField nazivTextField;
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         tabela.getItems().add(new TabelaProizvod());

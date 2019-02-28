@@ -361,9 +361,12 @@ public class KasaController implements Initializable {
                         proizvod = dao.getProizvodPoSifri(sifraTextField.getText());
                         dao.azurirajProizvod(proizvod.getKolicina() - Integer.parseInt(kolicinaTextField.getText()),
                                 proizvod.getIdProizvoda());
+                       
                     }
                 }
             }
+            PregledProizvodaDetaljnoController.pregledProizvodaController.postaviTabelu();
+
             String[] attachFiles = new String[1];
             attachFiles[0] = PDF.kreirajFajlRacun(listaStavki, new DAORacun().vratiRacunPoId(idRacuna));
             ukupno = 0;

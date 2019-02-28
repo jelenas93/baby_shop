@@ -27,6 +27,7 @@ import javafx.stage.Stage;
 import tabele.TabelaDetaljanProizvod;
 
 public class PregledProizvodaDetaljnoController implements Initializable {
+    static PregledProizvodaDetaljnoController pregledProizvodaController;
 
     @FXML
     private TableView<TabelaDetaljanProizvod> tabela;
@@ -83,10 +84,12 @@ public class PregledProizvodaDetaljnoController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        pregledProizvodaController=this;
+
         postaviTabelu();
     }
 
-    private void postaviTabelu() {
+    public void postaviTabelu() {
         barKod.setCellValueFactory(new PropertyValueFactory<>("barkod"));
         sifra.setCellValueFactory(new PropertyValueFactory<>("sifra"));
         naziv.setCellValueFactory(new PropertyValueFactory<>("naziv"));
