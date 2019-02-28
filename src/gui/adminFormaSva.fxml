@@ -9,12 +9,12 @@
    <children>
       <JFXTabPane fx:id="tabPane1" side="LEFT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <tabs>
-            <Tab text="Pregled zaposlenih">
+            <Tab text="Zaposleni">
                <content>
                   <fx:include fx:id="pregledZaposlenih" source="pregledZaposlenog.fxml" />
                </content>
             </Tab>
-            <Tab text="Pregled naloga">
+            <Tab text="Nalozi">
                <content>
                   <fx:include fx:id="pregledNaloga" source="pregledKorisnickogNaloga.fxml" />
                </content>

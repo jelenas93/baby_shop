@@ -269,6 +269,8 @@ public class NarudzbenicaController implements Initializable {
 
             String[] attachFiles = new String[1];
             attachFiles[0] = PDF.kreirajFajlNarudzbe(sviProizvodi, nazivDobavljaca);
+            
+            
 
             if ("".equals(attachFiles[0])) {
                 AlertHelper.showAlert(Alert.AlertType.WARNING, "", "Narudzbenica nije kreirana");
