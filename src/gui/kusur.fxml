@@ -6,40 +6,39 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="393.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="gui.KusurController">
+<AnchorPane id="AnchorPane" prefHeight="560.0" prefWidth="698.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.KusurController">
    <children>
-      <Label layoutX="42.0" layoutY="155.0" prefHeight="47.0" prefWidth="98.0" text="Uplaćeno:">
+      <Label layoutX="42.0" layoutY="162.0" prefHeight="90.0" prefWidth="250.0" text="Uplaćeno:" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="160.0">
          <font>
-            <Font size="20.0" />
+            <Font size="35.0" />
          </font>
       </Label>
-      <TextField fx:id="uplacenoTextField" layoutX="174.0" layoutY="156.0" onAction="#racunajKusur" prefHeight="34.0" prefWidth="164.0">
+      <TextField fx:id="uplacenoTextField" layoutX="174.0" layoutY="156.0" onAction="#racunajKusur" prefHeight="90.0" prefWidth="300.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="160.0">
          <font>
-            <Font size="20.0" />
+            <Font size="35.0" />
          </font>
       </TextField>
-      <Label layoutX="42.0" layoutY="64.0" text="Iznos računa:">
+      <Label layoutX="42.0" layoutY="64.0" prefHeight="90.0" prefWidth="250.0" text="Iznos računa:" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="40.0">
          <font>
-            <Font size="20.0" />
+            <Font size="35.0" />
          </font>
       </Label>
-      <Label fx:id="iznosRacunaLabel" layoutX="178.0" layoutY="57.0" prefHeight="44.0" prefWidth="156.0" style="-fx-border-color: black;">
+      <Label fx:id="iznosRacunaLabel" layoutX="434.0" layoutY="63.0" prefHeight="90.0" prefWidth="300.0" style="-fx-border-color: black;" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="40.0">
          <font>
-            <Font size="20.0" />
+            <Font size="35.0" />
          </font>
       </Label>
-      <Label layoutX="42.0" layoutY="261.0" text="Kusur:">
+      <Label layoutX="42.0" layoutY="261.0" prefHeight="90.0" prefWidth="250.0" text="Kusur:" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="280.0">
          <font>
-            <Font size="20.0" />
+            <Font size="35.0" />
          </font>
       </Label>
-      <Label fx:id="kusurLabel" layoutX="174.0" layoutY="254.0" prefHeight="44.0" prefWidth="164.0" style="-fx-border-color: black;">
+      <Label fx:id="kusurLabel" layoutX="174.0" layoutY="254.0" prefHeight="90.0" prefWidth="300.0" style="-fx-border-color: black;" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="280.0">
          <font>
-            <Font size="20.0" />
+            <Font size="35.0" />
          </font>
       </Label>
-      <Button fx:id="nazadButton" layoutX="197.0" layoutY="331.0" mnemonicParsing="false" onAction="#nazadStisak" prefHeight="44.0" prefWidth="107.0" text="Nazad">
+      <Button fx:id="nazadButton" layoutX="398.0" layoutY="434.0" mnemonicParsing="false" onAction="#nazadStisak" prefHeight="50.0" prefWidth="200.0" text="Nazad" AnchorPane.bottomAnchor="70.0" AnchorPane.rightAnchor="100.0">
          <font>
             <Font size="20.0" />
          </font>

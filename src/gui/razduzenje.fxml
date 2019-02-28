@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="513.0" prefWidth="496.0" stylesheets="@proizvod.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.RazduzenjeController">
+<AnchorPane id="AnchorPane" prefHeight="532.0" prefWidth="737.0" stylesheets="@proizvod.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.RazduzenjeController">
    <children>
       <TableView fx:id="pazarTabela" layoutX="23.0" layoutY="233.0" prefHeight="219.0" prefWidth="439.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
         <columns>
@@ -22,7 +22,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <GridPane prefHeight="186.0" prefWidth="277.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="50.0">
+      <GridPane prefHeight="211.0" prefWidth="347.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="50.0">
         <columnConstraints>
           <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="150.0" minWidth="10.0" prefWidth="127.0" />
           <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" maxWidth="173.0" minWidth="10.0" prefWidth="150.0" />
@@ -83,7 +83,7 @@
             </Label>
          </children>
       </GridPane>
-      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="316.0" layoutY="179.0" mnemonicParsing="false" onAction="#razduzi" prefHeight="50.0" prefWidth="150.0" text="RAZDUŽI KASU" textAlignment="CENTER" AnchorPane.rightAnchor="30.0">
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="507.0" layoutY="203.0" mnemonicParsing="false" onAction="#razduzi" prefHeight="50.0" prefWidth="200.0" text="RAZDUŽI KASU" textAlignment="CENTER" AnchorPane.rightAnchor="30.0">
          <font>
             <Font size="18.0" />
          </font>

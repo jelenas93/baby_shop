@@ -93,7 +93,10 @@
             <Font size="18.0" />
          </font>
       </TextField>
-      <Label layoutX="55.0" layoutY="666.0" prefHeight="50.0" prefWidth="247.0" text="Broj računa za storniranje:" textAlignment="CENTER" underline="true" wrapText="true" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="40.0" />
+      <Label layoutX="55.0" layoutY="666.0" prefHeight="50.0" prefWidth="247.0" text="Broj računa za storniranje:" textAlignment="CENTER" underline="true" wrapText="true" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="40.0">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
       <Button fx:id="razduzenjeButton" alignment="CENTER" contentDisplay="CENTER" layoutX="40.0" layoutY="708.0" mnemonicParsing="false" onAction="#razduziRacun" prefHeight="50.0" prefWidth="247.0" text="Zaključi kasu" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0">
          <font>
             <Font size="18.0" />
