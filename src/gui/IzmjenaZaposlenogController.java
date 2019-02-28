@@ -50,9 +50,6 @@ public class IzmjenaZaposlenogController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-        //  popuniComboBoxTipZaposlenog();
-        // popuniComboBoxMjesta();
     }
 
     public void popuniComboBoxTipZaposlenog() {

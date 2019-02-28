@@ -87,6 +87,8 @@ public class PregledKorisnickogNalogaController implements Initializable {
             window.showAndWait();
             nalozi = FXCollections.observableArrayList(DAOKorisnikWrapper.getKorisnickiNaloziWrappers());
             korisnickiNalogTableView.setItems(nalozi);
+            
+            PregledZaposlenogController.myController.refresh();
         }
     }
 

@@ -34,6 +34,7 @@ public class PregledZaposlenogController implements Initializable {
     private TableColumn<DTOZaposleni, String> jmbgZaposlenogTableColumn;
 
     ObservableList<DTOZaposleni> zaposleni;
+    static PregledZaposlenogController myController;
 
     /**
      * Initializes the controller class.
@@ -45,6 +46,8 @@ public class PregledZaposlenogController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+       myController = this;
 
         imeZaposlenogTableColumn.setCellValueFactory(new PropertyValueFactory("ime"));
         prezimeZaposlenogTableColumn.setCellValueFactory(new PropertyValueFactory("prezime"));
@@ -126,4 +129,8 @@ public class PregledZaposlenogController implements Initializable {
 
     }
 
+      public void refresh(){
+        this.zaposleni = FXCollections.observableArrayList(DAOZaposleni.getZaposleni());
+        zaposleniTableView.setItems(zaposleni);
+    }
 }
