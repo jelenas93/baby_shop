@@ -196,48 +196,56 @@ public class UnosProizvodaController implements Initializable {
             if (dtoProizvodGrupa.isBoja()) {
                 bojaLabel.setFont(new Font(18));
                 bojaComboBox.getItems().addAll("Bijela", "Crna", "Plava", "Zelena", "Smeđa", "Žuta", "Narandžasta", "Crvena", "Roza", "Ljubičasta");
+                bojaComboBox.setPrefSize(300, 40);
                 vboxLabel.getChildren().add(bojaLabel);
                 vboxTextField.getChildren().add(bojaComboBox);
             }
             if (dtoProizvodGrupa.isDuzina()) {
                 duzinaLabel.setFont(new Font(18));
                 duzinaTextField.setFont(new Font(18));
+                duzinaTextField.setPrefSize(300, 40);
                 vboxLabel.getChildren().add(duzinaLabel);
                 vboxTextField.getChildren().add(duzinaTextField);
             }
             if (dtoProizvodGrupa.isSirina()) {
                 sirinaLabel.setFont(new Font(18));
                 sirinaTextField.setFont(new Font(18));
+                sifraTextField.setPrefSize(300, 40);
                 vboxLabel.getChildren().add(sirinaLabel);
                 vboxTextField.getChildren().add(sirinaTextField);
             }
             if (dtoProizvodGrupa.isVisina()) {
                 visinaLabel.setFont(new Font(18));
                 visinaTextField.setFont(new Font(18));
+                visinaTextField.setPrefSize(300, 40);
                 vboxLabel.getChildren().add(visinaLabel);
                 vboxTextField.getChildren().add(visinaTextField);
             }
             if (dtoProizvodGrupa.isGodisnjeDoba()) {
                 godisnjeDobaLabel.setFont(new Font(18));
                 godisnjeDobaComboBox.getItems().addAll("Proljeće", "Ljeto", "Jesen", "Zima");
+                godisnjeDobaComboBox.setPrefSize(300, 40);
                 vboxLabel.getChildren().add(godisnjeDobaLabel);
                 vboxTextField.getChildren().add(godisnjeDobaComboBox);
             }
             if (dtoProizvodGrupa.isPol()) {
                 polLabel.setFont(new Font(18));
                 polComboBox.getItems().addAll("M", "Ž", "U");
+                polComboBox.setPrefSize(300, 40);
                 vboxLabel.getChildren().add(polLabel);
                 vboxTextField.getChildren().add(polComboBox);
             }
             if (dtoProizvodGrupa.isUzrast()) {
                 uzrastLabel.setFont(new Font(18));
                 uzrastTextField.setFont(new Font(18));
+                uzrastTextField.setPrefSize(300, 40);
                 vboxLabel.getChildren().add(uzrastLabel);
                 vboxTextField.getChildren().add(uzrastTextField);
             }
             if (dtoProizvodGrupa.isVelicina()) {
                 velicinaLabel.setFont(new Font(18));
                 velicinaTextField.setFont(new Font(18));
+                velicinaTextField.setPrefSize(300, 40);
                 vboxLabel.getChildren().add(velicinaLabel);
                 vboxTextField.getChildren().add(velicinaTextField);
             }
