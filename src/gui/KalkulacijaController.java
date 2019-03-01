@@ -185,7 +185,7 @@ public class KalkulacijaController implements Initializable {
         DAOProizvod daoProizvod = new DAOProizvod();
         for (DTOStavkaNarudzbe stavka : listaStavkinarudzbe) {
             DTOProizvod dtoProizvod = daoProizvod.getProizvodPoId(stavka.getIdProizvoda());
-            listaMoja.add(new TabelaKalkulacija(dtoProizvod.getSifra(), dtoProizvod.getBarkod(), dtoProizvod.getNaziv(), stavka.getKolicina(), "KOM",stavka.getIdProizvoda()));
+            listaMoja.add(new TabelaKalkulacija(dtoProizvod.getSifra(), dtoProizvod.getBarkod(), dtoProizvod.getNaziv(), stavka.getKolicina(), "KOM", stavka.getIdProizvoda()));
         }
         for (TabelaKalkulacija kalkulacija : listaMoja) {
             listaZaPrikaz.add(kalkulacija);
@@ -328,17 +328,16 @@ public class KalkulacijaController implements Initializable {
                                 kalkulacija.getItems().get(i).getProdajnaCijena())) {
                             AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greska pru upisu stavke kalkulacije u bazu");
                         }
-                        new DAOProizvod().azurirajProizvod(kalkulacija.getItems().get(i).getKolicina(), kalkulacija.getItems().get(i).getIdProizvoda());
-                        DTOProizvod p=new DAOProizvod().getProizvodPoId( kalkulacija.getItems().get(i).getIdProizvoda());
-                        new DAOSkladisteProizvod().azurirajProizvodUSkladistu(p.getKolicina()+kalkulacija.getItems().get(i).getKolicina(), kalkulacija.getItems().get(i).getIdProizvoda());
+                        DTOProizvod p = new DAOProizvod().getProizvodPoId(kalkulacija.getItems().get(i).getIdProizvoda());
+                        new DAOProizvod().azurirajProizvod(p.getKolicina() + kalkulacija.getItems().get(i).getKolicina(), kalkulacija.getItems().get(i).getIdProizvoda());
+                        new DAOSkladisteProizvod().azurirajProizvodUSkladistu(p.getKolicina() + kalkulacija.getItems().get(i).getKolicina(), kalkulacija.getItems().get(i).getIdProizvoda());
                     }
 
                     DAONarudzbenica daoNarudzbenica = new DAONarudzbenica();
                     if (!daoNarudzbenica.setujNaruzbuKalkulisana(Integer.parseInt(narudzbaComboBox.getSelectionModel().getSelectedItem().split(" ")[0]))) {
                         AlertHelper.showAlert(Alert.AlertType.ERROR, "", "Greska!");
                     }
-                    
-                    
+
                     ObservableList<TabelaKalkulacija> lista = kalkulacija.getItems();
                     PDF.kreirajFajlKalkulacija(lista, dobavljacComboBox.getSelectionModel().getSelectedItem(), idKalkulacije);
                     kalkulacija.getItems().clear();

@@ -428,12 +428,18 @@ public class DAOProizvod {
     public boolean azurirajProizvod(int kolicina, int id) {
 
         Connection con = null;
-        CallableStatement myStatement=null;
+        PreparedStatement myStatement=null;
+        //CallableStatement myStatement=null;
         try {
             con = ConnectionPool.getInstance().checkOut();
-            myStatement=con.prepareCall("{call azuriraj_proizvod(?, ?)}");
+          /*  myStatement=con.prepareCall("{call azuriraj_proizvod(?, ?)}");
             myStatement.setInt(1, kolicina);
             myStatement.setInt(2, id);
+            myStatement.execute();*/
+            con = ConnectionPool.getInstance().checkOut();
+            myStatement = con.prepareStatement("UPDATE `baby_shop`.`proizvod` "
+                    + "SET Kolicina=? WHERE IdProizvoda="+id);
+            myStatement.setInt(1, kolicina);
             myStatement.execute();
         } catch (SQLException ex) {
             return false;
@@ -511,7 +517,7 @@ public class DAOProizvod {
         return FXCollections.observableArrayList(proizvodi);
     }
     
-    public boolean dodajCijenuProizvodu(int id, double cijena, int kolicina) {
+ /*   public boolean dodajCijenuProizvodu(int id, double cijena, int kolicina) {
 
         Connection con = null;
         CallableStatement myStatement=null;
@@ -542,7 +548,7 @@ public class DAOProizvod {
         }
         return true;
     }
-    
+    */
     public boolean daLiImaDovoljnoNaStanju(int kolicina, int id) {
 
         Connection con = null;

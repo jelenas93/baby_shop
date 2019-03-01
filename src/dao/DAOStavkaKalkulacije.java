@@ -32,7 +32,7 @@ public class DAOStavkaKalkulacije {
             myStatement.setInt(8, pdv);
             myStatement.setDouble(9, cijenaProizvoda);
             myStatement.execute();
-            new DAOProizvod().dodajCijenuProizvodu(idProizvoda, cijenaProizvoda, kolicina);
+           // new DAOProizvod().dodajCijenuProizvodu(idProizvoda, cijenaProizvoda, kolicina);
         } catch (SQLException ex) {
             Logger.getLogger(DAOStavkaKalkulacije.class.getName()).log(Level.SEVERE, null, ex);
             return false;
