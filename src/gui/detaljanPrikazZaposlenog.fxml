@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="680.0" stylesheets="@proizvod.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.DetaljanPrikazZaposlenogController">
+<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.DetaljanPrikazZaposlenogController">
    <children>
       <GridPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
         <columnConstraints>
@@ -89,56 +89,56 @@
                   <Insets left="50.0" />
                </GridPane.margin>
             </Label>
-            <JFXTextField fx:id="jmbgTextField" editable="false" style="-fx-background-color: transparetn;" GridPane.columnIndex="1">
+            <JFXTextField fx:id="jmbgTextField" editable="false" style="-fx-background-color: transparent;" GridPane.columnIndex="1">
                <font>
                   <Font name="System Italic" size="18.0" />
                </font>
                <GridPane.margin>
                   <Insets left="20.0" right="20.0" />
                </GridPane.margin></JFXTextField>
-            <JFXTextField fx:id="imeTextField" editable="false" layoutX="20.0" layoutY="44.0" style="-fx-background-color: transparetn;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <JFXTextField fx:id="imeTextField" editable="false" layoutX="20.0" layoutY="44.0" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font name="System Italic" size="18.0" />
                </font>
                <GridPane.margin>
                   <Insets left="20.0" right="20.0" />
                </GridPane.margin></JFXTextField>
-            <JFXTextField fx:id="prezimeTextField" editable="false" layoutX="20.0" layoutY="44.0" style="-fx-background-color: transparetn;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <JFXTextField fx:id="prezimeTextField" editable="false" layoutX="20.0" layoutY="44.0" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font name="System Italic" size="18.0" />
                </font>
                <GridPane.margin>
                   <Insets left="20.0" right="20.0" />
                </GridPane.margin></JFXTextField>
-            <JFXTextField fx:id="plataTextField" editable="false" layoutX="20.0" layoutY="44.0" style="-fx-background-color: transparetn;" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <JFXTextField fx:id="plataTextField" editable="false" layoutX="20.0" layoutY="44.0" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
                   <Font name="System Italic" size="18.0" />
                </font>
                <GridPane.margin>
                   <Insets left="20.0" right="20.0" />
                </GridPane.margin></JFXTextField>
-            <JFXTextField fx:id="mejlTextField" editable="false" layoutX="20.0" layoutY="44.0" style="-fx-background-color: transparetn;" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <JFXTextField fx:id="mejlTextField" editable="false" layoutX="20.0" layoutY="44.0" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <font>
                   <Font name="System Italic" size="18.0" />
                </font>
                <GridPane.margin>
                   <Insets left="20.0" right="20.0" />
                </GridPane.margin></JFXTextField>
-            <JFXTextField fx:id="tipZaposlenogTextField" editable="false" layoutX="440.0" layoutY="354.0" style="-fx-background-color: transparetn;" GridPane.columnIndex="1" GridPane.rowIndex="6">
+            <JFXTextField fx:id="tipZaposlenogTextField" editable="false" layoutX="440.0" layoutY="354.0" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="6">
                <font>
                   <Font name="System Italic" size="18.0" />
                </font>
                <GridPane.margin>
                   <Insets left="20.0" right="20.0" />
                </GridPane.margin></JFXTextField>
-            <JFXTextField fx:id="mjestoTextField" editable="false" layoutX="440.0" layoutY="508.0" style="-fx-background-color: transparetn;" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <JFXTextField fx:id="mjestoTextField" editable="false" layoutX="440.0" layoutY="508.0" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <font>
                   <Font name="System Italic" size="18.0" />
                </font>
                <GridPane.margin>
                   <Insets left="20.0" right="20.0" />
                </GridPane.margin></JFXTextField>
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#nazadButtonOnAction" prefHeight="40.0" prefWidth="200.0" text="Nazad" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#nazadButtonOnAction" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #003366;" text="Nazad" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
