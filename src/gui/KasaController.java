@@ -119,10 +119,10 @@ public class KasaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-        datumLabel.setText(""+sdf.format(new Date().getTime()));
+        datumLabel.setText("" + sdf.format(new Date().getTime()));
         ukupnaCijenaLabel.setText("0,00");
         DTOZaposleni k = DAOZaposleni.getZaposleniById(PrijavaNaSistemController.idZaposlenog);
-        prodavacLabel.setText(" "+k.getIme() + " " + k.getPrezime());
+        prodavacLabel.setText(" " + k.getIme() + " " + k.getPrezime());
     }
 
     private void puniTabelu() {
@@ -256,8 +256,11 @@ public class KasaController implements Initializable {
     private boolean provjeraBarkoda() {
         barkod = true;
         if (!("".equals(barkodTextField.getText())) && Pattern.matches("[0-9]{13}", barkodTextField.getText())) {
-            kolicinaTextField.requestFocus();
-            return true;
+            DTOProizvod p = new DAOProizvod().getProizvodPoBarkodu(barkodTextField.getText());
+            if (p != null) {
+                kolicinaTextField.requestFocus();
+                return true;
+            }
         }
         return false;
     }
@@ -270,8 +273,11 @@ public class KasaController implements Initializable {
     private boolean provjeraSifre() {
         barkod = false;
         if (!"".equals(sifraTextField.getText()) && Pattern.matches("[0-9]{5}", sifraTextField.getText())) {
-            kolicinaTextField.requestFocus();
-            return true;
+            DTOProizvod p = new DAOProizvod().getProizvodPoSifri(sifraTextField.getText());
+            if (p != null) {
+                kolicinaTextField.requestFocus();
+                return true;
+            }
         }
         return false;
     }
@@ -434,7 +440,7 @@ public class KasaController implements Initializable {
                 for (DTOStavka stavka : listaStavki) {
                     DTOProizvod proizvod = new DAOProizvod().getProizvodPoId(stavka.getIdProizvoda());
                     kasaTabela.getItems().add(new TabelaKasa(proizvod.getBarkod(), proizvod.getSifra(), proizvod.getNaziv(),
-                            stavka.getKolicina(), proizvod.getCijena(), stavka.getCijena()*stavka.getKolicina()));
+                            stavka.getKolicina(), proizvod.getCijena(), stavka.getCijena() * stavka.getKolicina()));
                 }
                 ukupno = racunZaStorniranje.getUkupnaCijena();
                 ukupnaCijenaLabel.setText(String.format("%.2f", racunZaStorniranje.getUkupnaCijena()));
@@ -498,7 +504,7 @@ public class KasaController implements Initializable {
         Scene korisnikScena = new Scene(korisnikView);
         window.resizableProperty().setValue(Boolean.FALSE);
         window.setScene(korisnikScena);
-         window.setTitle("Kusur");
+        window.setTitle("Kusur");
         window.centerOnScreen();
         window.initModality(Modality.APPLICATION_MODAL);
         window.showAndWait();

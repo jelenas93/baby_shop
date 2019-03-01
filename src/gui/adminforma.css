@@ -14,6 +14,10 @@
     -tab-pozadina                 :#003366; 
 }
 
+.table-row-cell:selected .table-cell {
+    -fx-background-color:  #99b3ff;
+}
+
 .button{
     -fx-text-fill        : white;
     -fx-inner-border     : derive(-bright, 10%);
